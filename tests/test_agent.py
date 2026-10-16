@@ -128,6 +128,8 @@ def test_weekly_plan_requests_structured_output():
     assert fake.kwargs["model"] == "claude-opus-5-5"
     assert fake.kwargs["output_config"]["format"]["type"] == "json_schema"
     assert "exactly 5 feed posts" in fake.kwargs["messages"][0]["content"]
+    Brain("cars", client=fake).weekly_plan(5, [], ideas=[{"id": "i9", "idea": "clutch tip"}])
+    assert "- id i9: clutch tip" in fake.kwargs["messages"][0]["content"]
 
 
 def test_refusal_raises():
@@ -204,11 +206,12 @@ def test_reel_gets_music_trimmed_to_length(tmp_path):
 # ---- plan end to end -------------------------------------------------------
 
 class FakeBrain:
-    def weekly_plan(self, n, recent):
+    def weekly_plan(self, n, recent, ideas=()):
+        self.ideas = ideas
         return {"theme": "Basics", "story_polls": [
             {"day": "Mon", "question": "EV next?", "option_a": "Yes", "option_b": "No"}],
             "posts": [{"format": "meme", "title": "Reboot", "hook": "h", "caption": "c",
-                       "hashtags": ["#cars"], "day": "Fri", "time": "21:00",
+                       "hashtags": ["#cars"], "day": "Fri", "time": "21:00", "idea_id": "i1",
                        "slides": [{"heading": "Screen froze", "body": "Turn it off and on"}]}]}
 
 
@@ -219,6 +222,11 @@ def test_plan_designs_media_and_approve_all(tmp_path, monkeypatch):
     monkeypatch.setattr(store.load_posts, "__defaults__", (tmp_path / "queue",))
     monkeypatch.setattr(store.get_post, "__defaults__", (tmp_path / "queue",))
     monkeypatch.setattr(store.set_status, "__defaults__", (tmp_path / "queue",))
+    ideas_file = tmp_path / "ideas.json"
+    monkeypatch.setattr(store.load_ideas, "__defaults__", (ideas_file,))
+    monkeypatch.setattr(store.save_ideas, "__defaults__", (ideas_file,))
+    store.save_ideas([{"id": "i1", "idea": "clutch tip", "status": "new"},
+                      {"id": "i2", "idea": "wheel balancing", "status": "new"}])
     monkeypatch.setattr(cli, "_brain", lambda cfg: FakeBrain())
     cfg = cli.Config.load()
     cfg.auto_approve = False
@@ -231,5 +239,13 @@ def test_plan_designs_media_and_approve_all(tmp_path, monkeypatch):
     preview = next((tmp_path / "reports").glob("preview-*.md")).read_text()
     assert f"../media/{post['id']}/post.jpg" in preview and "EV next?" in preview
 
+    assert [i["status"] for i in store.load_ideas()] == ["used", "new"]
+
     cli.cmd_approve_all(cfg, None)
     assert store.load_posts()[0]["status"] == "approved"
+
+    # The next plan starts after the posts already scheduled.
+    cli.cmd_plan(cfg, None)
+    first, second = store.load_posts()
+    assert date.fromisoformat(second["scheduled_for"][:10]) - \
+        date.fromisoformat(first["scheduled_for"][:10]) == timedelta(days=7)

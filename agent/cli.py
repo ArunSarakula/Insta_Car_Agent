@@ -58,16 +58,30 @@ def cmd_plan(cfg: Config, args) -> None:
 
     tz = ZoneInfo(cfg.timezone)
     today = datetime.now(tz).date()
-    plan = _brain(cfg).weekly_plan(cfg.posts_per_week, store.load_posts())
+    posts = store.load_posts()
+    # Start after the last post already scheduled, so weeks don't overlap.
+    start = max([today] + [date.fromisoformat(p["scheduled_for"][:10]) for p in posts
+                           if p.get("scheduled_for") and p["status"] in ("draft", "approved")])
+    ideas = store.load_ideas()
+    plan = _brain(cfg).weekly_plan(cfg.posts_per_week, posts,
+                                   ideas=[i for i in ideas if i["status"] == "new"])
+    used = set()
     status = "approved" if cfg.auto_approve else "draft"
     saved_posts = []
     for post in plan["posts"]:
-        post["scheduled_for"] = next_occurrence(post.pop("day"), post.pop("time"), today, tz).isoformat()
+        post["scheduled_for"] = next_occurrence(post.pop("day"), post.pop("time"), start, tz).isoformat()
+        used.add(post.get("idea_id", ""))
         post = store.save_post({**post, "status": status})
         post["media_files"] = render_post(post, ROOT / "media", cfg.handle)
         store.save_post(post)
         saved_posts.append(post)
         print(f"  {status} {post['id']}  {post['scheduled_for'][:16]}  [{post['format']}] {post['title']}")
+
+    for idea in ideas:
+        if idea["id"] in used:
+            idea["status"] = "used"
+    if used & {i["id"] for i in ideas}:
+        store.save_ideas(ideas)
 
     out = ROOT / "reports" / f"preview-{today}.md"
     out.parent.mkdir(exist_ok=True)

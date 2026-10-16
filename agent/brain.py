@@ -29,10 +29,13 @@ POST_SCHEMA = {
         },
         "music": {"type": "string", "enum": ["upbeat", "tech", "chill", "epic", "phonk"],
                   "description": "Background music mood (used for reels)"},
+        "idea_id": {"type": "string",
+                    "description": "id of the owner's idea this post is based on, or empty"},
         "day": {"type": "string", "enum": ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]},
         "time": {"type": "string", "description": "Posting time HH:MM, 24h, local time"},
     },
-    "required": ["format", "title", "hook", "caption", "hashtags", "slides", "music", "day", "time"],
+    "required": ["format", "title", "hook", "caption", "hashtags", "slides", "music", "idea_id",
+                 "day", "time"],
     "additionalProperties": False,
 }
 
@@ -88,7 +91,11 @@ friendly, confident, a little nerdy, never clickbait-dishonest. Facts about
 cars (specs, prices, features) must be ones you are confident are true; when
 unsure, phrase it as a question or leave it out. Never suggest reposting other
 creators' photos or videos. Hashtags: 8-15 per post, mix of broad and niche,
-no banned or spammy tags, written without spaces and starting with #."""
+no banned or spammy tags, written without spaces and starting with #.
+Brands the owner knows well and wants featured: Honda, Hyundai, Volkswagen,
+Skoda and Mahindra (other brands are fine when the topic needs them).
+Be creative: fresh angles, myth-busting, "you're doing it wrong" tips, and
+comparisons people argue about."""
 
 
 class Brain:
@@ -118,7 +125,8 @@ class Brain:
         return json.loads(text)
 
     def weekly_plan(self, posts_per_week: int, recent_posts: list[dict],
-                    performance_notes: str = "") -> dict:
+                    performance_notes: str = "", ideas: list[dict] = ()) -> dict:
+        owner_ideas = "\n".join(f"- id {i['id']}: {i['idea']}" for i in ideas)
         recent = "\n".join(f"- [{p.get('format')}] {p.get('title')}" for p in recent_posts[-20:])
         prompt = f"""Plan next week's content: exactly {posts_per_week} feed posts plus one
 story poll for each day (7 polls).
@@ -140,8 +148,17 @@ For every post pick a music mood (it is added to reels): upbeat (future bass,
 general explainers), tech (clean corporate, EV and gadget topics), chill (lofi,
 tips and comparisons), epic (cinematic, reveals and top-5 lists), phonk (drift
 phonk, performance, speed and car-culture topics). Vary moods across the week.
+Once a week make a "vote" post (image or carousel) that asks followers to pick
+between two or three options in the comments, e.g. "Sedan or SUV? Comment S or U".
 No emoji inside slides (fine in captions). No placeholders like [Name]: the
 owner's name is not used.
+
+The owner's own ideas and experience. Use up to 3 of these this week, before
+your own topics, and set idea_id on those posts (empty string on the others).
+When an idea is the owner's personal experience, write it in first person as
+their tip ("From driving my VW and Skoda..."), keeping their advice intact and
+adding any safety note it needs. Skip an idea only if it is unsafe or wrong.
+{owner_ideas or "- none right now"}
 
 Recently planned posts (don't repeat these topics):
 {recent or "- none yet, this is the first week"}

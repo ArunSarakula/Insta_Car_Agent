@@ -14,6 +14,7 @@ from .config import ROOT
 
 QUEUE_DIR = ROOT / "queue"
 REPLIES_FILE = ROOT / "replies" / "pending.json"
+IDEAS_FILE = ROOT / "ideas" / "ideas.json"
 
 STATUSES = ("draft", "approved", "published", "failed", "rejected")
 
@@ -76,3 +77,17 @@ def load_replies(path: Path = REPLIES_FILE) -> list[dict]:
 
 def save_replies(replies: list[dict], path: Path = REPLIES_FILE) -> None:
     _write(path, replies)
+
+
+# ---- owner's ideas ---------------------------------------------------------
+# Ideas and tips from the owner. The weekly plan uses "new" ones first and
+# marks them "used".
+
+def load_ideas(path: Path = IDEAS_FILE) -> list[dict]:
+    if not path.exists():
+        return []
+    return json.loads(path.read_text())
+
+
+def save_ideas(ideas: list[dict], path: Path = IDEAS_FILE) -> None:
+    _write(path, ideas)
