@@ -96,6 +96,11 @@ personal attention. Comments flagged `spam` get no reply.
 **Daily:** post that day's story poll from the preview page (Instagram
 does not let apps post story polls, so this one is manual).
 
+**Reel music:** every reel gets a royalty-free track from `assets/music/`,
+picked by mood (upbeat, tech, chill, epic, phonk), trimmed to the reel and
+faded in and out. To add tracks, download MP3s from pixabay.com/music
+(instrumental, 30 seconds or longer) and drop them into the matching folder.
+
 ---
 
 ## Running it on your own computer (optional)
@@ -130,3 +135,4 @@ Run the tests with `pip install -r requirements-dev.txt && python -m pytest`.
 | `media/` | The designed images and videos |
 | `reports/` | Weekly previews and reports |
 | `assets/fonts/` | Inter font (SIL Open Font License) |
+| `assets/music/` | Royalty-free reel music (Pixabay Content License), one folder per mood |

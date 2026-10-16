@@ -27,10 +27,12 @@ POST_SCHEMA = {
                 "additionalProperties": False,
             },
         },
+        "music": {"type": "string", "enum": ["upbeat", "tech", "chill", "epic", "phonk"],
+                  "description": "Background music mood (used for reels)"},
         "day": {"type": "string", "enum": ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]},
         "time": {"type": "string", "description": "Posting time HH:MM, 24h, local time"},
     },
-    "required": ["format", "title", "hook", "caption", "hashtags", "slides", "day", "time"],
+    "required": ["format", "title", "hook", "caption", "hashtags", "slides", "music", "day", "time"],
     "additionalProperties": False,
 }
 
@@ -134,6 +136,10 @@ photo or filming, so write slides that work as pure text:
   one point each. Last slide: heading "Follow @decodethedrive", body a reason to.
 - reel: 4-7 slides shown for a few seconds each. Slide 1 hooks in under 8
   words. Keep each slide short enough to read in 3 seconds.
+For every post pick a music mood (it is added to reels): upbeat (future bass,
+general explainers), tech (clean corporate, EV and gadget topics), chill (lofi,
+tips and comparisons), epic (cinematic, reveals and top-5 lists), phonk (drift
+phonk, performance, speed and car-culture topics). Vary moods across the week.
 No emoji inside slides (fine in captions). No placeholders like [Name]: the
 owner's name is not used.
 

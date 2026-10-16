@@ -90,6 +90,8 @@ def preview(plan: dict, posts: list[dict], today: date) -> str:
                 lines.append(f'<a href="../{f}"><img src="../{cover}" width="220"></a> (tap for the video)')
             else:
                 lines.append(f'<img src="../{f}" width="220">')
+        if p.get("music_track"):
+            lines += ["", f"Music: {p['music_track']} ({p.get('music')})"]
         lines += ["", "**Caption:**", "", p["caption"], "", " ".join(p.get("hashtags", [])), ""]
     lines += ["## Story polls (post these yourself)", ""]
     for poll in plan["story_polls"]:

@@ -6,6 +6,7 @@ issues) and needs no design work from the owner."""
 
 import re
 import subprocess
+import zlib
 from pathlib import Path
 
 from PIL import Image, ImageDraw, ImageFont
@@ -15,6 +16,10 @@ from .config import ROOT
 FONTS = ROOT / "assets" / "fonts"
 BOLD = str(FONTS / "Inter-ExtraBold.otf")
 MEDIUM = str(FONTS / "Inter-Medium.otf")
+
+# Royalty-free tracks (Pixabay licence), one folder per mood.
+MUSIC = ROOT / "assets" / "music"
+MOODS = ["upbeat", "tech", "chill", "epic", "phonk"]
 
 NAVY = (14, 26, 43)
 TEAL = (0, 209, 178)
@@ -125,9 +130,18 @@ def _seconds(slide: dict) -> float:
     return max(2.5, min(6.0, 1.2 + words * 0.32))
 
 
-def render_reel(slides: list[dict], path: Path, handle="@decodethedrive") -> Path:
-    """One frame per slide, cross-faded, with a silent audio track
-    (Instagram expects an audio stream)."""
+def pick_track(mood: str, seed: str, music_dir: Path = MUSIC) -> Path | None:
+    """A track for the mood, chosen from the post id so different reels get
+    different tracks. Falls back to any track if the mood folder is empty."""
+    tracks = sorted((music_dir / mood).glob("*.mp3")) or sorted(music_dir.glob("*/*.mp3"))
+    return tracks[zlib.crc32(seed.encode()) % len(tracks)] if tracks else None
+
+
+def render_reel(slides: list[dict], path: Path, handle="@decodethedrive",
+                music: Path | None = None) -> Path:
+    """One frame per slide, cross-faded. The music track is trimmed to the
+    reel's length (leading silence skipped, faded in and out, levelled);
+    without one the reel gets a silent track, as Instagram expects audio."""
     frames = [render_slide(s, path.parent / f"frame-{i + 1}.jpg", REEL, i + 1, len(slides), handle)
               for i, s in enumerate(slides)]
     durations = [_seconds(s) for s in slides]
@@ -136,7 +150,15 @@ def render_reel(slides: list[dict], path: Path, handle="@decodethedrive") -> Pat
     for frame, dur in zip(frames, durations):
         cmd += ["-loop", "1", "-t", f"{dur + fade:.2f}", "-i", str(frame)]
     total = sum(durations) + fade
-    cmd += ["-f", "lavfi", "-t", f"{total:.2f}", "-i", "anullsrc=r=44100:cl=stereo"]
+    if music:
+        cmd += ["-stream_loop", "-1", "-i", str(music)]
+        audio = (f"[{len(frames)}:a]silenceremove=start_periods=1:start_threshold=-40dB,"
+                 f"atrim=0:{total:.2f},asetpts=PTS-STARTPTS,afade=t=in:d=0.5,"
+                 f"afade=t=out:st={max(0, total - 1.5):.2f}:d=1.5,"
+                 f"loudnorm=I=-16:TP=-1.5,aresample=44100[a]")
+    else:
+        cmd += ["-f", "lavfi", "-t", f"{total:.2f}", "-i", "anullsrc=r=44100:cl=stereo"]
+        audio = f"[{len(frames)}:a]anull[a]"
 
     chains, last, offset = [], "0:v", 0.0
     for i in range(len(frames)):
@@ -146,7 +168,7 @@ def render_reel(slides: list[dict], path: Path, handle="@decodethedrive") -> Pat
         offset += durations[i - 1]
         chains.append(f"[{last}][v{i}]xfade=transition=fade:duration={fade}:offset={offset:.2f}[x{i}]")
         last = f"x{i}"
-    cmd += ["-filter_complex", ";".join(chains), "-map", f"[{last}]", "-map", f"{len(frames)}:a",
+    cmd += ["-filter_complex", ";".join(chains + [audio]), "-map", f"[{last}]", "-map", "[a]",
             "-c:v", "libx264", "-preset", "medium", "-crf", "20", "-pix_fmt", "yuv420p",
             "-c:a", "aac", "-b:a", "128k", "-shortest", "-movflags", "+faststart", str(path)]
     subprocess.run(cmd, check=True)
@@ -164,7 +186,10 @@ def render_post(post: dict, media_root: Path, handle="@decodethedrive") -> list[
         slides = [{"heading": post.get("hook", post.get("title", "")), "body": ""}]
     fmt = post["format"]
     if fmt == "reel":
-        files = [render_reel(slides, out / "reel.mp4", handle)]
+        track = pick_track(post.get("music") or "upbeat", post["id"])
+        files = [render_reel(slides, out / "reel.mp4", handle, track)]
+        if track:
+            post["music_track"] = track.name
     elif fmt == "carousel" and len(slides) >= 2:
         slides = slides[:10]
         files = [render_slide(s, out / f"slide-{i + 1}.jpg", FEED, i + 1, len(slides), handle)

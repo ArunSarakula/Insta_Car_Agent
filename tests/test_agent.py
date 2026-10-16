@@ -1,4 +1,5 @@
 import json
+import subprocess
 from datetime import date, datetime, timedelta
 from types import SimpleNamespace
 from zoneinfo import ZoneInfo
@@ -179,6 +180,25 @@ def test_reel_renders_vertical_video_with_cover(tmp_path):
     assert files == ["media/p3/reel.mp4"]
     assert (tmp_path / "media/p3/reel.mp4").stat().st_size > 10_000
     assert Image.open(tmp_path / "media/p3/cover.jpg").size == (1080, 1920)
+
+
+def test_pick_track_uses_mood_folder_and_falls_back(tmp_path):
+    for name in ("phonk/a.mp3", "phonk/b.mp3", "chill/c.mp3"):
+        (tmp_path / name).parent.mkdir(exist_ok=True)
+        (tmp_path / name).write_bytes(b"x")
+    assert design.pick_track("phonk", "post1", tmp_path).parent.name == "phonk"
+    assert design.pick_track("epic", "post1", tmp_path) is not None  # empty mood: any track
+    assert design.pick_track("phonk", "x", tmp_path / "none") is None
+
+
+def test_reel_gets_music_trimmed_to_length(tmp_path):
+    post = {"id": "p4", "format": "reel", "music": "phonk", "slides": SLIDES}
+    design.render_post(post, tmp_path / "media")
+    assert post["music_track"].endswith(".mp3")
+    out = subprocess.run([design.ffmpeg_exe(), "-i", str(tmp_path / "media/p4/reel.mp4"),
+                          "-af", "volumedetect", "-f", "null", "-"], capture_output=True, text=True).stderr
+    assert "Audio: aac" in out
+    assert float(out.split("mean_volume: ")[1].split(" ")[0]) > -40  # not silent
 
 
 # ---- plan end to end -------------------------------------------------------
