@@ -29,6 +29,8 @@ class Config:
     posts_per_week: int
     model: str
     github_repository: str
+    handle: str
+    auto_approve: bool
 
     @classmethod
     def load(cls) -> "Config":
@@ -46,4 +48,6 @@ class Config:
             posts_per_week=int(os.environ.get("POSTS_PER_WEEK", "5")),
             model=os.environ.get("CLAUDE_MODEL", "claude-opus-5-5"),
             github_repository=os.environ.get("GITHUB_REPOSITORY", ""),
+            handle=os.environ.get("HANDLE") or "@decodethedrive",
+            auto_approve=os.environ.get("AUTO_APPROVE", "").lower() in ("1", "true", "yes"),
         )

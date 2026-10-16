@@ -10,10 +10,10 @@ on:
       command:
         description: "What should the agent do?"
         type: choice
-        options: [plan, publish-due, comments, send-replies, report, approve, reject]
+        options: [plan, approve-all, publish-due, comments, send-replies, report, approve, reject]
         default: plan
       post_id:
-        description: "Post id (only for approve / reject)"
+        description: "Post id (only for approve / reject of a single post)"
         required: false
 
 permissions:
@@ -32,6 +32,8 @@ jobs:
       IG_USER_ID: ${{ vars.IG_USER_ID }}
       TIMEZONE: ${{ vars.TIMEZONE || 'Asia/Kolkata' }}
       POSTS_PER_WEEK: ${{ vars.POSTS_PER_WEEK || '5' }}
+      AUTO_APPROVE: ${{ vars.AUTO_APPROVE || 'false' }}
+      HANDLE: ${{ vars.HANDLE }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -74,6 +76,6 @@ jobs:
         run: |
           git config user.name "insta-agent"
           git config user.email "insta-agent@users.noreply.github.com"
-          git add queue replies reports
+          git add queue replies reports media
           git diff --cached --quiet || git commit -m "agent: ${{ steps.pick.outputs.cmds }}"
           git push

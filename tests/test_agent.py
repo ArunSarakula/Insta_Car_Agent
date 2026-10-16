@@ -74,7 +74,10 @@ class FakeHTTP:
     def get(self, url, params, timeout):
         return self._respond("GET", url, params)
 
-    def post(self, url, data, timeout):
+    def post(self, url, data, timeout, headers=None):
+        if url.startswith("https://rupload"):
+            self.calls.append(("UPLOAD", url, headers))
+            return SimpleNamespace(status_code=200, text="ok")
         return self._respond("POST", url, data)
 
 
@@ -129,3 +132,84 @@ def test_weekly_plan_requests_structured_output():
 def test_refusal_raises():
     with pytest.raises(RuntimeError):
         Brain("cars", client=FakeClaude({}, stop_reason="refusal")).weekly_plan(5, [])
+
+
+def test_reel_is_uploaded_from_local_file(tmp_path):
+    video = tmp_path / "reel.mp4"
+    video.write_bytes(b"0123456789")
+    http = FakeHTTP({
+        ("POST", "42/media"): {"id": "c9", "uri": "https://rupload.facebook.com/ig-api-upload/v23.0/c9"},
+        ("GET", "c9"): {"status_code": "FINISHED"},
+        ("POST", "42/media_publish"): {"id": "m9"},
+    })
+    assert Instagram("tok", "42", session=http).publish_reel_file(str(video), "hi") == "m9"
+    assert http.calls[0][2]["upload_type"] == "resumable"
+    upload = http.calls[1]
+    assert upload[0] == "UPLOAD" and upload[2]["file_size"] == "10"
+
+
+# ---- design ----------------------------------------------------------------
+
+from PIL import Image
+
+from agent import design
+
+SLIDES = [{"heading": "Your Level 2 ADAS car is NOT self-driving 🚗", "body": ""},
+          {"heading": "What it does", "body": "Keeps you in lane and keeps distance from the car ahead."},
+          {"heading": "Follow @decodethedrive", "body": "Car tech, explained like a friend in IT would."}]
+
+
+def test_clean_strips_emoji():
+    assert design.clean("EVs 🔋 explained ⚡️") == "EVs explained"
+
+
+def test_carousel_renders_one_portrait_jpg_per_slide(tmp_path):
+    files = design.render_post({"id": "p1", "format": "carousel", "slides": SLIDES}, tmp_path / "media")
+    assert files == [f"media/p1/slide-{i}.jpg" for i in (1, 2, 3)]
+    assert Image.open(tmp_path / files[0]).size == (1080, 1350)
+
+
+def test_single_slide_carousel_falls_back_to_image(tmp_path):
+    files = design.render_post({"id": "p2", "format": "carousel", "slides": SLIDES[:1]}, tmp_path / "media")
+    assert files == ["media/p2/post.jpg"]
+
+
+def test_reel_renders_vertical_video_with_cover(tmp_path):
+    files = design.render_post({"id": "p3", "format": "reel", "slides": SLIDES}, tmp_path / "media")
+    assert files == ["media/p3/reel.mp4"]
+    assert (tmp_path / "media/p3/reel.mp4").stat().st_size > 10_000
+    assert Image.open(tmp_path / "media/p3/cover.jpg").size == (1080, 1920)
+
+
+# ---- plan end to end -------------------------------------------------------
+
+class FakeBrain:
+    def weekly_plan(self, n, recent):
+        return {"theme": "Basics", "story_polls": [
+            {"day": "Mon", "question": "EV next?", "option_a": "Yes", "option_b": "No"}],
+            "posts": [{"format": "meme", "title": "Reboot", "hook": "h", "caption": "c",
+                       "hashtags": ["#cars"], "day": "Fri", "time": "21:00",
+                       "slides": [{"heading": "Screen froze", "body": "Turn it off and on"}]}]}
+
+
+def test_plan_designs_media_and_approve_all(tmp_path, monkeypatch):
+    monkeypatch.setattr(cli, "ROOT", tmp_path)
+    monkeypatch.setattr(store, "QUEUE_DIR", tmp_path / "queue")
+    monkeypatch.setattr(store.save_post, "__defaults__", (tmp_path / "queue",))
+    monkeypatch.setattr(store.load_posts, "__defaults__", (tmp_path / "queue",))
+    monkeypatch.setattr(store.get_post, "__defaults__", (tmp_path / "queue",))
+    monkeypatch.setattr(store.set_status, "__defaults__", (tmp_path / "queue",))
+    monkeypatch.setattr(cli, "_brain", lambda cfg: FakeBrain())
+    cfg = cli.Config.load()
+    cfg.auto_approve = False
+
+    cli.cmd_plan(cfg, None)
+    [post] = store.load_posts()
+    assert post["status"] == "draft"
+    assert post["media_files"] == [f"media/{post['id']}/post.jpg"]
+    assert (tmp_path / post["media_files"][0]).exists()
+    preview = next((tmp_path / "reports").glob("preview-*.md")).read_text()
+    assert f"../media/{post['id']}/post.jpg" in preview and "EV next?" in preview
+
+    cli.cmd_approve_all(cfg, None)
+    assert store.load_posts()[0]["status"] == "approved"
