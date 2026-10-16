@@ -1,0 +1,26 @@
+{
+  "format": "image",
+  "title": "Intro: who I am and what this page is",
+  "hook": "I debug code all day. Now I'm debugging car brochures for you.",
+  "caption": "Hi! I'm [Name]. I work in IT, and I'm a car tech nerd on the side.\n\nHere's the problem I keep seeing: car brochures in India are full of buzzwords like 'Level 2 ADAS', 'connected car', 'OTA updates' and '7.2 kW charging'. Most of us nod along in the showroom without knowing what we're actually paying for.\n\nThis page fixes that. Every week I'll cover:\n🔋 EVs and charging, explained simply\n🛡️ ADAS: what it really does (and what it doesn't)\n📱 Infotainment: what's useful vs what's just a big screen\n💰 Which features are worth your money as an Indian buyer\n\nNo hype, no fake 'BEST CAR EVER' claims. If I'm not sure about something, I'll say so.\n\nDrop one car tech term in the comments that confuses you. I'll explain the most common ones in upcoming posts 👇",
+  "hashtags": [
+    "#cartech",
+    "#carsofindia",
+    "#indiancars",
+    "#carbuyingtips",
+    "#techexplained",
+    "#evindia",
+    "#adas",
+    "#infotainment",
+    "#carsinindia",
+    "#autoindia",
+    "#carnerd"
+  ],
+  "script": "",
+  "slides": [],
+  "visual_brief": "Original photo of you (or just your hands) at a desk. On one side is a laptop with code on screen, on the other side is a car key fob and a printed car brochure. Shoot in warm evening light. Text overlay: 'Car tech, explained like a friend in IT would.' Put your handle in small text at the bottom. Keep it clean and bright, with a consistent brand colour that you can reuse every week.",
+  "scheduled_for": "2026-10-19T19:30:00+05:30",
+  "media_files": [],
+  "id": "88cff81f",
+  "status": "draft"
+}

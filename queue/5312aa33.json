@@ -1,0 +1,35 @@
+{
+  "format": "carousel",
+  "title": "AC vs DC charging explained",
+  "hook": "Why does your EV charge in 1 hour at a highway charger but take all night at home?",
+  "caption": "AC vs DC charging is the #1 confusion for new EV buyers in India 🔋\n\nThe short version: your battery can only store DC power. The real question is WHERE the conversion from AC to DC happens.\n\n🏠 AC charging: the car's own onboard charger does the conversion. That's slower, but it's cheap and convenient overnight.\n⚡ DC fast charging: the big charging station does the conversion and feeds DC straight to the battery. Much faster, usually costs more per unit, and is best for road trips.\n\nSwipe through for the full breakdown, including why charging slows down near 100%.\n\nWhat's stopping YOU from buying an EV: charging, price or range? Comment below 👇",
+  "hashtags": [
+    "#evindia",
+    "#evcharging",
+    "#electricvehicles",
+    "#electriccars",
+    "#dcfastcharging",
+    "#cartech",
+    "#indiancars",
+    "#carsofindia",
+    "#evbuyingguide",
+    "#techexplained",
+    "#sustainablemobility",
+    "#goelectric"
+  ],
+  "script": "",
+  "slides": [
+    "Slide 1: AC vs DC charging. Why your EV takes 1 hour at a highway charger but all night at home 🔋 (Swipe →)",
+    "Slide 2: First, one fact. Your EV battery stores DC power, but the grid supplies AC power. So somewhere, AC has to be converted to DC.",
+    "Slide 3: 🏠 AC charging. The conversion happens INSIDE your car, in the onboard charger. The onboard charger has a limited power rating, and that rating caps your speed. Home chargers in India are commonly around 3.3 kW or 7.2 kW, depending on the car and the charger.",
+    "Slide 4: ⚡ DC fast charging. The conversion happens INSIDE the charging station. It sends DC straight to the battery, skipping the car's onboard charger. That's why it's much faster.",
+    "Slide 5: 🐢 Why does it slow down near full? To protect the battery, charging speed usually drops as the battery fills up, often noticeably after about 80%. That's why many EV owners on road trips charge to around 80% and keep moving.",
+    "Slide 6: So which one should you use? 🏠 AC: daily use and overnight at home, cheaper and easier on the battery. ⚡ DC: road trips and quick top-ups when you're short on time.",
+    "Slide 7: Bottom line. Home AC charging handles most daily driving. DC charging is your road-trip tool. Save this, and send it to that friend who keeps asking 'but where will you charge?' 😄 Follow for more EV tech, explained simply."
+  ],
+  "visual_brief": "7 square or 4:5 slides in a clean, consistent brand style. Use your own simple icons: a house plug for AC, a lightning bolt for DC, a battery with an arrow. Slide 2 should be a simple diagram (grid AC → converter → battery DC) showing where the converter sits in each case. If you have access to an EV or a public charger, you can use your own photo of a charging cable or port on slide 1. Keep the text large and readable on a phone.",
+  "scheduled_for": "2026-10-22T20:00:00+05:30",
+  "media_files": [],
+  "id": "5312aa33",
+  "status": "draft"
+}
