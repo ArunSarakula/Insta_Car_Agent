@@ -1,0 +1,79 @@
+name: Instagram agent
+
+on:
+  schedule:
+    - cron: "30 4 * * 0"    # Sunday 10:00 IST: plan next week + weekly report
+    - cron: "0 * * * *"     # every hour: publish approved posts that are due
+    - cron: "15 */3 * * *"  # every 3 hours: draft replies to new comments
+  workflow_dispatch:
+    inputs:
+      command:
+        description: "What should the agent do?"
+        type: choice
+        options: [plan, publish-due, comments, send-replies, report, approve, reject]
+        default: plan
+      post_id:
+        description: "Post id (only for approve / reject)"
+        required: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: instagram-agent
+  cancel-in-progress: false
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    env:
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+      IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
+      IG_USER_ID: ${{ vars.IG_USER_ID }}
+      TIMEZONE: ${{ vars.TIMEZONE || 'Asia/Kolkata' }}
+      POSTS_PER_WEEK: ${{ vars.POSTS_PER_WEEK || '5' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements.txt
+
+      - name: Pick commands
+        id: pick
+        env:
+          SCHEDULE: ${{ github.event.schedule }}
+          COMMAND: ${{ inputs.command }}
+          POST_ID: ${{ inputs.post_id }}
+        run: |
+          case "$SCHEDULE" in
+            "30 4 * * 0")   echo "cmds=report plan" >> "$GITHUB_OUTPUT" ;;
+            "0 * * * *")    echo "cmds=publish-due" >> "$GITHUB_OUTPUT" ;;
+            "15 */3 * * *") echo "cmds=comments" >> "$GITHUB_OUTPUT" ;;
+            *)              echo "cmds=$COMMAND" >> "$GITHUB_OUTPUT" ;;
+          esac
+          echo "post_id=$POST_ID" >> "$GITHUB_OUTPUT"
+
+      - name: Run agent
+        env:
+          CMDS: ${{ steps.pick.outputs.cmds }}
+          POST_ID: ${{ steps.pick.outputs.post_id }}
+        run: |
+          for cmd in $CMDS; do
+            echo "::group::$cmd"
+            if [ "$cmd" = approve ] || [ "$cmd" = reject ]; then
+              python -m agent "$cmd" "$POST_ID"
+            else
+              python -m agent "$cmd"
+            fi
+            echo "::endgroup::"
+          done
+
+      - name: Save changes to the repo
+        run: |
+          git config user.name "insta-agent"
+          git config user.email "insta-agent@users.noreply.github.com"
+          git add queue replies reports
+          git diff --cached --quiet || git commit -m "agent: ${{ steps.pick.outputs.cmds }}"
+          git push
