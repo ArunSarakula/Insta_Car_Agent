@@ -13,15 +13,24 @@ POST_SCHEMA = {
         "hook": {"type": "string", "description": "First line / first 2 seconds that stops the scroll"},
         "caption": {"type": "string", "description": "Full Instagram caption, without hashtags"},
         "hashtags": {"type": "array", "items": {"type": "string"}},
-        "script": {"type": "string", "description": "Reel: shot-by-shot script with voiceover. Others: empty"},
-        "slides": {"type": "array", "items": {"type": "string"},
-                   "description": "Carousel: text for each slide. Others: empty"},
-        "visual_brief": {"type": "string", "description": "What image or video to create or shoot"},
+        "slides": {
+            "type": "array",
+            "description": "On-screen text. The agent turns these into designed images "
+                           "or a reel automatically, so this is the whole visual.",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "heading": {"type": "string", "description": "Big text, max ~12 words"},
+                    "body": {"type": "string", "description": "Smaller text, max ~35 words, or empty"},
+                },
+                "required": ["heading", "body"],
+                "additionalProperties": False,
+            },
+        },
         "day": {"type": "string", "enum": ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]},
         "time": {"type": "string", "description": "Posting time HH:MM, 24h, local time"},
     },
-    "required": ["format", "title", "hook", "caption", "hashtags", "script", "slides",
-                 "visual_brief", "day", "time"],
+    "required": ["format", "title", "hook", "caption", "hashtags", "slides", "day", "time"],
     "additionalProperties": False,
 }
 
@@ -115,6 +124,18 @@ story poll for each day (7 polls).
 Mix for a growing account: about 2 reels, 1-2 carousels, 1 meme (car + IT humour
 works well), the rest whatever fits. Spread posts across the week at times
 when Indian audiences are active (evenings 19:00-21:30, weekend mornings).
+
+Every post is made only from text slides that the agent designs automatically
+(dark branded background, big bold heading, smaller body text). There is no
+photo or filming, so write slides that work as pure text:
+- image: exactly 1 slide, a strong single fact or tip.
+- meme: exactly 1 slide, heading = the setup, body = the punchline.
+- carousel: 5-8 slides. Slide 1 is the hook (heading only). Middle slides teach
+  one point each. Last slide: heading "Follow @decodethedrive", body a reason to.
+- reel: 4-7 slides shown for a few seconds each. Slide 1 hooks in under 8
+  words. Keep each slide short enough to read in 3 seconds.
+No emoji inside slides (fine in captions). No placeholders like [Name]: the
+owner's name is not used.
 
 Recently planned posts (don't repeat these topics):
 {recent or "- none yet, this is the first week"}

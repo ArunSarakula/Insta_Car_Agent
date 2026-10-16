@@ -71,6 +71,22 @@ class Instagram:
                        video_url=video_url, caption=caption)
         return self._publish(c["id"])
 
+    def publish_reel_file(self, video_path: str, caption: str, cover_url: str = "") -> str:
+        """Upload a local video straight to Instagram (resumable upload), so
+        the video doesn't need a public URL."""
+        params = {"media_type": "REELS", "upload_type": "resumable", "caption": caption}
+        if cover_url:
+            params["cover_url"] = cover_url
+        c = self._call("POST", f"{self.user_id}/media", **params)
+        with open(video_path, "rb") as f:
+            data = f.read()
+        upload_url = c.get("uri") or f"https://rupload.facebook.com/ig-api-upload/{self.base.rsplit('/', 1)[1]}/{c['id']}"
+        resp = self.http.post(upload_url, data=data, timeout=300, headers={
+            "Authorization": f"OAuth {self.token}", "offset": "0", "file_size": str(len(data))})
+        if resp.status_code >= 400:
+            raise InstagramError(f"Video upload failed: {resp.text}")
+        return self._publish(c["id"])
+
     def publish_carousel(self, image_urls: list[str], caption: str) -> str:
         if not 2 <= len(image_urls) <= 10:
             raise InstagramError("A carousel needs 2 to 10 images")

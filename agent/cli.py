@@ -1,8 +1,9 @@
 """Command line for the agent.
 
-    python -m agent plan            draft next week's posts (status: draft)
+    python -m agent plan            draft next week's posts and design their media
     python -m agent list            show the queue
     python -m agent approve ID      approve a post so it can be published
+    python -m agent approve-all     approve every draft that has media
     python -m agent reject ID       drop a post
     python -m agent publish-due     publish approved posts whose time has come
     python -m agent comments        draft replies to new comments
@@ -53,23 +54,47 @@ def _instagram(cfg: Config):
 
 
 def cmd_plan(cfg: Config, args) -> None:
+    from .design import render_post
+
     tz = ZoneInfo(cfg.timezone)
     today = datetime.now(tz).date()
     plan = _brain(cfg).weekly_plan(cfg.posts_per_week, store.load_posts())
+    status = "approved" if cfg.auto_approve else "draft"
+    saved_posts = []
     for post in plan["posts"]:
         post["scheduled_for"] = next_occurrence(post.pop("day"), post.pop("time"), today, tz).isoformat()
-        post["media_files"] = []
-        saved = store.save_post(post)
-        print(f"  draft {saved['id']}  {saved['scheduled_for'][:16]}  [{saved['format']}] {saved['title']}")
+        post = store.save_post({**post, "status": status})
+        post["media_files"] = render_post(post, ROOT / "media", cfg.handle)
+        store.save_post(post)
+        saved_posts.append(post)
+        print(f"  {status} {post['id']}  {post['scheduled_for'][:16]}  [{post['format']}] {post['title']}")
 
-    polls = [f"# Story polls, week of {today}\n", f"Theme: {plan['theme']}\n"]
-    for p in plan["story_polls"]:
-        polls.append(f"- **{p['day']}**: {p['question']}  ({p['option_a']} / {p['option_b']})")
-    out = ROOT / "reports" / f"polls-{today}.md"
+    out = ROOT / "reports" / f"preview-{today}.md"
     out.parent.mkdir(exist_ok=True)
-    out.write_text("\n".join(polls) + "\n")
-    print(f"Planned {len(plan['posts'])} posts. Story polls in {out.relative_to(ROOT)}.")
-    print("Review the files in queue/, add media, then set status to approved.")
+    out.write_text(preview(plan, saved_posts, today))
+    print(f"Planned {len(saved_posts)} posts. Preview: {out.relative_to(ROOT)}")
+    if status == "draft":
+        print("Check the preview, then run approve-all (or approve ID).")
+
+
+def preview(plan: dict, posts: list[dict], today: date) -> str:
+    """A page that shows the whole week, images included, when opened on GitHub."""
+    lines = [f"# Week of {today}: {plan['theme']}", "",
+             "Check the posts below. If they look good, run **approve-all** from the Actions tab.", ""]
+    for p in posts:
+        lines += [f"## {p['scheduled_for'][:16].replace('T', ' ')} · {p['format']} · {p['title']}",
+                  f"Post id: `{p['id']}`", ""]
+        for f in p["media_files"]:
+            if f.endswith(".mp4"):
+                cover = f.rsplit("/", 1)[0] + "/cover.jpg"
+                lines.append(f'<a href="../{f}"><img src="../{cover}" width="220"></a> (tap for the video)')
+            else:
+                lines.append(f'<img src="../{f}" width="220">')
+        lines += ["", "**Caption:**", "", p["caption"], "", " ".join(p.get("hashtags", [])), ""]
+    lines += ["## Story polls (post these yourself)", ""]
+    for poll in plan["story_polls"]:
+        lines.append(f"- **{poll['day']}**: {poll['question']}  ({poll['option_a']} / {poll['option_b']})")
+    return "\n".join(lines) + "\n"
 
 
 def cmd_list(cfg: Config, args) -> None:
@@ -85,6 +110,16 @@ def cmd_list(cfg: Config, args) -> None:
 def cmd_approve(cfg: Config, args) -> None:
     post = store.set_status(args.id, "approved")
     print(f"Approved {post['id']}: {post['title']}")
+
+
+def cmd_approve_all(cfg: Config, args) -> None:
+    count = 0
+    for post in store.load_posts():
+        if post["status"] == "draft" and (post.get("media_files") or post.get("media_urls")):
+            store.set_status(post["id"], "approved")
+            print(f"Approved {post['id']}: {post['title']}")
+            count += 1
+    print(f"Approved {count} posts." if count else "No drafts with media to approve.")
 
 
 def cmd_reject(cfg: Config, args) -> None:
@@ -110,7 +145,11 @@ def cmd_publish_due(cfg: Config, args) -> None:
             print(f"Skipping {post['id']} ({post['title']}): no media attached yet.")
             continue
         try:
-            if post["format"] == "reel":
+            local = [ROOT / f for f in post.get("media_files", [])]
+            if post["format"] == "reel" and local and local[0].exists():
+                cover = urls[0].rsplit("/", 1)[0] + "/cover.jpg" if not post.get("media_urls") else ""
+                media_id = ig.publish_reel_file(str(local[0]), caption_for(post), cover)
+            elif post["format"] == "reel":
                 media_id = ig.publish_reel(urls[0], caption_for(post))
             elif post["format"] == "carousel":
                 media_id = ig.publish_carousel(urls, caption_for(post))
@@ -189,7 +228,7 @@ def cmd_report(cfg: Config, args) -> None:
 
 
 COMMANDS = {
-    "plan": cmd_plan, "list": cmd_list, "approve": cmd_approve, "reject": cmd_reject,
+    "plan": cmd_plan, "list": cmd_list, "approve": cmd_approve, "approve-all": cmd_approve_all, "reject": cmd_reject,
     "publish-due": cmd_publish_due, "comments": cmd_comments,
     "send-replies": cmd_send_replies, "report": cmd_report,
 }
