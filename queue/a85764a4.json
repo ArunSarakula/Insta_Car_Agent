@@ -1,0 +1,62 @@
+{
+  "format": "carousel",
+  "title": "Why EVs miss claimed range",
+  "hook": "Why your EV never hits its claimed range",
+  "caption": "The brochure says one number. Your dashboard says another. Nobody is necessarily lying, the test and the real world are just very different. 🔋\n\nSwipe to see what eats your range on Indian roads, and how to plan around it.\n\nEV owners: what real-world range do you actually get vs the claim? Drop your car and number below, let's build a real-world list together 👇\n\nSave this before your next EV test drive.",
+  "hashtags": [
+    "#ElectricVehicle",
+    "#EVIndia",
+    "#EVRange",
+    "#ElectricCars",
+    "#EVOwners",
+    "#CarTech",
+    "#IndianCars",
+    "#EVTips",
+    "#GoElectric",
+    "#CarTechExplained",
+    "#SustainableDriving",
+    "#EVCharging"
+  ],
+  "slides": [
+    {
+      "heading": "Why your EV never hits its claimed range",
+      "body": ""
+    },
+    {
+      "heading": "Claimed range is a lab test",
+      "body": "In India, certified figures come from the MIDC test cycle under controlled conditions. Real roads are messier."
+    },
+    {
+      "heading": "Highway speed eats range",
+      "body": "Air resistance rises sharply with speed. Cruising at 100 km/h uses noticeably more energy than 70 km/h."
+    },
+    {
+      "heading": "Indian summers cost kilometres",
+      "body": "Cabin AC runs off the same battery. In high heat, the car may also spend energy cooling the battery itself."
+    },
+    {
+      "heading": "Heavy right foot, lower range",
+      "body": "Hard acceleration burns energy fast. Smooth driving and regenerative braking win some of it back."
+    },
+    {
+      "heading": "Plan with a buffer",
+      "body": "Many owners plan trips assuming noticeably less than the claim, especially on fast highway runs. Better a spare 50 km than a tense last 5."
+    },
+    {
+      "heading": "Follow @decodethedrive",
+      "body": "Every week: one car tech topic, explained simply, so you buy smarter and drive smarter."
+    }
+  ],
+  "scheduled_for": "2026-10-21T20:30:00+05:30",
+  "status": "draft",
+  "id": "a85764a4",
+  "media_files": [
+    "media/a85764a4/slide-1.jpg",
+    "media/a85764a4/slide-2.jpg",
+    "media/a85764a4/slide-3.jpg",
+    "media/a85764a4/slide-4.jpg",
+    "media/a85764a4/slide-5.jpg",
+    "media/a85764a4/slide-6.jpg",
+    "media/a85764a4/slide-7.jpg"
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "format": "reel",
+  "title": "AC vs DC charging",
+  "hook": "AC vs DC charging, finally explained",
+  "caption": "AC charger, DC charger, onboard charger, kW... EV charging jargon can feel like a networking exam. ⚡\n\nHere's the simple version:\nYour battery stores DC. Grid power is AC. The only question is WHO converts it. If the car does it, that's AC charging (slower). If the station does it, that's DC fast charging (much quicker).\n\nWhat do you use more, home charging or public fast chargers? Comment below 👇\n\nSave this and send it to a friend who's thinking about an EV.",
+  "hashtags": [
+    "#EVCharging",
+    "#ACvsDC",
+    "#FastCharging",
+    "#EVIndia",
+    "#ElectricVehicle",
+    "#ElectricCars",
+    "#EVTips",
+    "#CarTech",
+    "#CarTechExplained",
+    "#HomeCharging",
+    "#GoElectric",
+    "#IndianCars"
+  ],
+  "slides": [
+    {
+      "heading": "AC vs DC charging, finally explained",
+      "body": ""
+    },
+    {
+      "heading": "Your battery only stores DC",
+      "body": "Grid power is AC. Something has to convert it."
+    },
+    {
+      "heading": "AC charging: the car converts",
+      "body": "Its onboard charger does the work. Slower, ideal overnight."
+    },
+    {
+      "heading": "DC fast charging: the station converts",
+      "body": "Power goes almost straight to the battery. Much faster."
+    },
+    {
+      "heading": "Why it slows after 80%",
+      "body": "Charging tapers to protect the battery."
+    },
+    {
+      "heading": "Best habit for most owners",
+      "body": "AC at home daily. DC on road trips."
+    }
+  ],
+  "scheduled_for": "2026-10-17T10:00:00+05:30",
+  "status": "draft",
+  "id": "b80146a3",
+  "media_files": [
+    "media/b80146a3/reel.mp4"
+  ]
+}

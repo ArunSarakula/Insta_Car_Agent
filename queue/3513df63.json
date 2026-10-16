@@ -1,0 +1,31 @@
+{
+  "format": "meme",
+  "title": "Friday software update meme",
+  "hook": "Car: Software update available",
+  "caption": "Some rules apply in production AND in the parking lot. 😅\n\nIT folks, you know exactly why. Everyone else: deploying anything on a Friday evening is how weekends get ruined.\n\nTag the colleague who would 100% hit \"Update now\" anyway 👇",
+  "hashtags": [
+    "#ITHumor",
+    "#CarMemes",
+    "#TechMemes",
+    "#DeveloperLife",
+    "#SoftwareEngineer",
+    "#CarTech",
+    "#OTAUpdate",
+    "#ConnectedCar",
+    "#FridayDeploy",
+    "#ITLife",
+    "#CarLovers"
+  ],
+  "slides": [
+    {
+      "heading": "Car at 6 PM: Software update available. Install now?",
+      "body": "Me, who works in IT: Not on a Friday. Never on a Friday."
+    }
+  ],
+  "scheduled_for": "2026-10-23T21:00:00+05:30",
+  "status": "draft",
+  "id": "3513df63",
+  "media_files": [
+    "media/3513df63/post.jpg"
+  ]
+}
