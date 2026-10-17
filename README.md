@@ -120,6 +120,29 @@ python -m agent report
 
 Run the tests with `pip install -r requirements-dev.txt && python -m pytest`.
 
+## YouTube Shorts (optional)
+
+Every reel can also go to YouTube as a Short, uploaded right after Instagram.
+Until this is set up, upload reels by hand from the YouTube app: the weekly
+preview gives each reel's video link and a ready YouTube title.
+
+One-time setup (about 15 minutes):
+1. Go to console.cloud.google.com, create a project "Decode The Drive" and
+   enable **YouTube Data API v3**.
+2. **OAuth consent screen**: External, app name Decode The Drive, your email.
+   Add the scope `.../auth/youtube.upload`, then press **Publish app**.
+3. **Credentials > Create credentials > OAuth client ID**: type Web
+   application, redirect URI `https://developers.google.com/oauthplayground`.
+4. Open developers.google.com/oauthplayground, click the gear, tick "Use your
+   own OAuth credentials" and paste the client ID and secret. In "Input your
+   own scopes" enter `https://www.googleapis.com/auth/youtube.upload`, press
+   Authorize, sign in with the channel's Google account, then press "Exchange
+   authorization code for tokens" and copy the **refresh token**.
+5. Add three repo secrets: `YT_CLIENT_ID`, `YT_CLIENT_SECRET`, `YT_REFRESH_TOKEN`.
+6. YouTube keeps API uploads **private** until the project passes its free
+   audit: apply with the YouTube API Services audit form. Until then, make each
+   Short public in YouTube Studio with one tap.
+
 ## Project layout
 
 | Path | What it is |
