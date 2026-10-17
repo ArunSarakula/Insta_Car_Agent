@@ -14,6 +14,7 @@
 import argparse
 import os
 import sys
+import time
 from datetime import date, datetime, timedelta
 from pathlib import Path
 from zoneinfo import ZoneInfo
@@ -178,13 +179,22 @@ def publish_reel(ig, post: dict, urls: list[str], github_repository: str) -> str
 
 
 def cmd_publish_due(cfg: Config, args) -> None:
-    now = datetime.now(ZoneInfo(cfg.timezone))
-    due = store.due_posts(now)
+    tz = ZoneInfo(cfg.timezone)
+    # GitHub's scheduled runs can be hours late, so a run also picks up posts
+    # due soon and waits for their exact time instead of hoping the next run
+    # comes on time.
+    lookahead = int(os.environ.get("PUBLISH_LOOKAHEAD_MIN") or 0)
+    due = store.due_posts(datetime.now(tz) + timedelta(minutes=lookahead))
     if not due:
         print("Nothing due.")
         return
     ig = _instagram(cfg)
     for post in due:
+        wait = (datetime.fromisoformat(post["scheduled_for"]) - datetime.now(tz)).total_seconds()
+        if wait > 0:
+            print(f"Waiting {wait / 60:.0f} min to post {post['id']} at {post['scheduled_for'][11:16]}")
+            time.sleep(wait)
+        now = datetime.now(tz)
         urls = media_urls(post, cfg.github_repository)
         if not urls:
             print(f"Skipping {post['id']} ({post['title']}): no media attached yet.")

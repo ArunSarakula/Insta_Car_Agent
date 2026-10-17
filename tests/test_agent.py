@@ -73,6 +73,26 @@ def test_reel_tries_jsdelivr_then_raw(monkeypatch):
     assert len(tried) == 2
 
 
+def test_publish_due_waits_for_posts_due_soon(tmp_path, monkeypatch):
+    tz = ZoneInfo("Asia/Kolkata")
+    soon = (datetime.now(tz) + timedelta(minutes=90)).isoformat()
+    later = (datetime.now(tz) + timedelta(hours=6)).isoformat()
+    store.save_post({"id": "s", "status": "approved", "scheduled_for": soon, "format": "image", "title": "t",
+                     "caption": "c", "media_urls": ["https://x/s.jpg"]}, tmp_path)
+    store.save_post({"id": "l", "status": "approved", "scheduled_for": later, "format": "image", "title": "t",
+                     "caption": "c", "media_urls": ["https://x/l.jpg"]}, tmp_path)
+    for fn in (store.load_posts, store.set_status, store.get_post, store.save_post, store.due_posts):
+        monkeypatch.setattr(fn, "__defaults__", (tmp_path,))
+    slept, posted = [], []
+    monkeypatch.setattr(cli.time, "sleep", slept.append)
+    monkeypatch.setattr(cli, "_instagram", lambda cfg: SimpleNamespace(
+        publish_image=lambda url, caption: posted.append(url) or "m"))
+    monkeypatch.setenv("PUBLISH_LOOKAHEAD_MIN", "240")
+    cli.cmd_publish_due(cli.Config.load(), None)
+    assert posted == ["https://x/s.jpg"]
+    assert 85 * 60 < slept[0] <= 90 * 60
+
+
 def test_caption_appends_hashtags():
     post = {"caption": "EVs explained", "hashtags": ["#ev", "#cars"]}
     assert cli.caption_for(post) == "EVs explained\n.\n.\n#ev #cars"
