@@ -121,6 +121,19 @@ def test_api_errors_are_raised():
         ig.publish_image("https://x/y.jpg", "hi")
 
 
+def test_online_followers_converted_to_ist():
+    http = FakeHTTP({("GET", "42/insights"): {"data": [{"values": [
+        {"value": {"6": 10, "7": 30}}]}]}})
+    hours = Instagram("tok", "42", session=http).online_followers_ist()
+    assert sum(hours.values()) == 40 and len(hours) == 2
+    assert set(hours) <= {18, 19, 20, 21}  # Pacific morning is Indian evening
+
+
+def test_online_followers_empty_when_not_available():
+    http = FakeHTTP({("GET", "42/insights"): {"error": {"message": "Not enough followers"}}})
+    assert Instagram("tok", "42", session=http).online_followers_ist() == {}
+
+
 def test_missing_token_is_a_clear_error():
     with pytest.raises(InstagramError, match="IG_ACCESS_TOKEN"):
         Instagram("")
@@ -226,7 +239,7 @@ def test_reel_gets_music_trimmed_to_length(tmp_path):
 # ---- plan end to end -------------------------------------------------------
 
 class FakeBrain:
-    def weekly_plan(self, n, recent, ideas=()):
+    def weekly_plan(self, n, recent, notes="", ideas=()):
         self.ideas = ideas
         return {"theme": "Basics", "story_polls": [
             {"day": "Mon", "question": "EV next?", "option_a": "Yes", "option_b": "No"}],

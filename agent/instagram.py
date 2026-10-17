@@ -45,6 +45,25 @@ class Instagram:
     def profile(self) -> dict:
         return self._call("GET", "me", fields="user_id,username,followers_count,media_count")
 
+    def online_followers_ist(self) -> dict[int, int]:
+        """Followers online per hour, converted to IST hours. Instagram only
+        returns this once the account has 100+ followers; empty until then.
+        Instagram reports the hours in US Pacific time."""
+        from datetime import datetime
+        from zoneinfo import ZoneInfo
+        try:
+            data = self._call("GET", f"{self.user_id}/insights", metric="online_followers",
+                              period="lifetime")["data"]
+            hours = data[0]["values"][-1]["value"] or {}
+        except (InstagramError, KeyError, IndexError):
+            return {}
+        now = datetime.now(ZoneInfo("America/Los_Angeles"))
+        result = {}
+        for hour, count in hours.items():
+            ist = now.replace(hour=int(hour), minute=0).astimezone(ZoneInfo("Asia/Kolkata"))
+            result[ist.hour] = result.get(ist.hour, 0) + count
+        return dict(sorted(result.items()))
+
     # ---- publishing --------------------------------------------------------
 
     def _wait_until_ready(self, container_id: str, timeout_s: int = 300) -> None:

@@ -54,6 +54,12 @@ def _instagram(cfg: Config):
     return Instagram(cfg.ig_access_token, cfg.ig_user_id, cfg.ig_api_version)
 
 
+def latest_report() -> str:
+    """The newest weekly report, so the plan learns from what worked."""
+    reports = sorted((ROOT / "reports").glob("report-*.md"))
+    return reports[-1].read_text()[:4000] if reports else ""
+
+
 def cmd_plan(cfg: Config, args) -> None:
     from .design import render_post
 
@@ -64,7 +70,7 @@ def cmd_plan(cfg: Config, args) -> None:
     start = max([today] + [date.fromisoformat(p["scheduled_for"][:10]) for p in posts
                            if p.get("scheduled_for") and p["status"] in ("draft", "approved")])
     ideas = store.load_ideas()
-    plan = _brain(cfg).weekly_plan(cfg.posts_per_week, posts,
+    plan = _brain(cfg).weekly_plan(cfg.posts_per_week, posts, latest_report(),
                                    ideas=[i for i in ideas if i["status"] == "new"])
     used = set()
     status = "approved" if cfg.auto_approve else "draft"
@@ -247,6 +253,9 @@ def cmd_send_replies(cfg: Config, args) -> None:
 def cmd_report(cfg: Config, args) -> None:
     ig = _instagram(cfg)
     profile = ig.profile()
+    online = ig.online_followers_ist()
+    if online:
+        profile["followers_online_by_ist_hour"] = online
     posts = []
     for media in ig.recent_media(limit=10):
         try:

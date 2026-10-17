@@ -134,5 +134,6 @@ Run the tests with `pip install -r requirements-dev.txt && python -m pytest`.
 | `replies/pending.json` | Comment reply drafts |
 | `media/` | The designed images and videos |
 | `reports/` | Weekly previews and reports |
+| `docs/posting-times.md` | Best posting times for Indian followers |
 | `assets/fonts/` | Inter font (SIL Open Font License) |
 | `assets/music/` | Royalty-free reel music (Pixabay Content License), one folder per mood |
