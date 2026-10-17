@@ -143,7 +143,7 @@ class Brain:
         prompt = f"""Plan next week's content: exactly {posts_per_week} feed posts plus one
 story poll for each day (7 polls).
 
-Mix for a growing account: about 2 reels, 1-2 carousels, 1 meme (car + IT humour
+Mix for a growing account: about 3 reels (they also go to YouTube Shorts), 1 carousel, 1 meme (car + IT humour
 works well), the rest whatever fits. Spread posts across the week at the
 times Indian users are most active (IST):
 - Mon-Fri: 19:00-21:00 (reels do best 19:00-20:30; Tue and Wed are the strongest days)
