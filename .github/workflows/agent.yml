@@ -10,7 +10,7 @@ on:
       command:
         description: "What should the agent do?"
         type: choice
-        options: [plan, approve-all, publish-due, comments, send-replies, report, approve, reject]
+        options: [plan, approve-all, publish-due, comments, send-replies, report, approve, reject, youtube-check]
         default: plan
       post_id:
         description: "Post id (only for approve / reject of a single post)"

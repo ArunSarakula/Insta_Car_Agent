@@ -9,6 +9,7 @@
     python -m agent comments        draft replies to new comments
     python -m agent send-replies    post the replies you approved
     python -m agent report          write this week's growth report
+    python -m agent youtube-check   test the YouTube connection (no upload)
 """
 
 import argparse
@@ -238,6 +239,13 @@ def upload_to_youtube(cfg: Config, post: dict) -> None:
         print(f"  YouTube upload failed: {e}")
 
 
+def cmd_youtube_check(cfg: Config, args) -> None:
+    """Checks the YouTube sign-in works, without uploading anything."""
+    from .youtube import YouTube
+    YouTube(cfg.yt_client_id, cfg.yt_client_secret, cfg.yt_refresh_token)._token()
+    print("YouTube connection OK: reels will be uploaded as Shorts.")
+
+
 def cmd_comments(cfg: Config, args) -> None:
     ig = _instagram(cfg)
     me = ig.profile()["username"]
@@ -307,7 +315,7 @@ def cmd_report(cfg: Config, args) -> None:
 COMMANDS = {
     "plan": cmd_plan, "list": cmd_list, "approve": cmd_approve, "approve-all": cmd_approve_all, "reject": cmd_reject,
     "publish-due": cmd_publish_due, "comments": cmd_comments,
-    "send-replies": cmd_send_replies, "report": cmd_report,
+    "send-replies": cmd_send_replies, "report": cmd_report, "youtube-check": cmd_youtube_check,
 }
 
 
