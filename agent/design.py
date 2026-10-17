@@ -30,6 +30,9 @@ INK = (20, 24, 31)
 
 FEED = (1080, 1350)   # 4:5 portrait, the largest feed size
 REEL = (1080, 1920)   # 9:16
+REEL_SAFE_TOP = 290      # below Instagram's back button and "Reels" title
+REEL_SAFE_BOTTOM = 440   # above the username, caption and audio line
+REEL_SAFE_RIGHT = 120    # clear of the like / comment / share buttons
 
 # Inter has no emoji; drop anything outside the ranges it covers.
 _UNSUPPORTED = re.compile("[\U0001F000-\U0001FFFF☀-➿️‍]")
@@ -86,21 +89,27 @@ def render_slide(slide: dict, path: Path, size=FEED, index=1, total=1,
     d = ImageDraw.Draw(img)
     small = ImageFont.truetype(BOLD, 30)
 
-    d.rectangle([0, 0, w, 14], fill=TEAL)
-    d.text((pad, 70), "DECODE THE DRIVE", font=small, fill=TEAL if not meme else INK)
-    if total > 1:
-        counter = f"{index}/{total}"
-        d.text((w - pad - d.textlength(counter, font=small), 70), counter, font=small, fill=GREY)
-
-    usable = w - 2 * pad
     reel = size == REEL
-    head = _fit(d, heading, BOLD, usable, int(h * (0.32 if body else 0.5)),
-                128 if reel else 104, 48) if heading else None
-    text = _fit(d, body, MEDIUM, usable, int(h * 0.36), 64 if reel else 58, 30) if body else None
+    # Reels: Instagram draws its own buttons over the top ~15%, the bottom
+    # ~22% and a column on the right, so text stays inside the clear area.
+    top = REEL_SAFE_TOP if reel else 70
+    d.rectangle([0, 0, w, 14], fill=TEAL)
+    d.text((pad, top), "DECODE THE DRIVE", font=small, fill=TEAL if not meme else INK)
+    if total > 1 and not reel:
+        counter = f"{index}/{total}"
+        d.text((w - pad - d.textlength(counter, font=small), top), counter, font=small, fill=GREY)
+
+    usable = w - 2 * pad - (REEL_SAFE_RIGHT if reel else 0)
+    head = _fit(d, heading, BOLD, usable, int(h * (0.24 if body else 0.36)),
+                92 if reel else 104, 44) if heading else None
+    text = _fit(d, body, MEDIUM, usable, int(h * 0.26), 50 if reel else 58, 30) if body else None
     gap = 132  # space for the amber divider between heading and body
     block = (len(head[1]) * head[2] if head else 0) + (gap if head and text else 0) \
         + (len(text[1]) * text[2] if text else 0)
-    y = max(int(h * 0.14), (h - block) // 2 - 40)
+    if reel:  # centre within the clear area
+        y = max(REEL_SAFE_TOP + 90, (REEL_SAFE_TOP + h - REEL_SAFE_BOTTOM - block) // 2)
+    else:
+        y = max(int(h * 0.14), (h - block) // 2 - 40)
     if head:
         y = _draw_lines(d, pad, y, head, head_fill)
     if head and text:
@@ -110,7 +119,8 @@ def render_slide(slide: dict, path: Path, size=FEED, index=1, total=1,
         _draw_lines(d, pad, y, text, body_fill)
 
     foot = ImageFont.truetype(MEDIUM, 32)
-    d.text((pad, h - 130), handle, font=foot, fill=GREY if not meme else INK)
+    if not reel:  # on reels Instagram already shows the username at the bottom
+        d.text((pad, h - 130), handle, font=foot, fill=GREY if not meme else INK)
     if total > 1 and index < total and size == FEED:
         swipe = "swipe  >"
         d.text((w - pad - d.textlength(swipe, font=foot), h - 130), swipe, font=foot, fill=TEAL)
