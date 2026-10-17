@@ -153,7 +153,8 @@ photo or filming, so write slides that work as pure text:
   one point each. Last slide: heading "Follow @decodethedrive", body a reason to.
 - reel: 4-6 slides, about 15-20 seconds in total. Slide 1 is shown for under
   2 seconds and decides whether people keep watching, so it must be a scroll
-  stopper of 8 words or fewer, heading only: a surprising claim ("No car in
+  stopper of 8 words or fewer as the heading, with a 3-6 word body naming
+  the topic so nobody is confused (e.g. "ADAS levels, explained"): a surprising claim ("No car in
   India can drive itself"), a common mistake ("You're using your clutch
   wrong"), or a specific question with a number ("Why does 30 min charging
   give 80% but not 100%?"). Never a plain topic label like "X explained" or
