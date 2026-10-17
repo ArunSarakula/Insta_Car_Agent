@@ -114,6 +114,8 @@ def preview(plan: dict, posts: list[dict], today: date) -> str:
                 lines.append(f'<img src="../{f}" width="220">')
         if p.get("music_track"):
             lines += ["", f"Music: {p['music_track']} ({p.get('music')})"]
+        if p["format"] == "reel":
+            lines += ["", f"YouTube Shorts title: **{youtube_title(p)}**"]
         lines += ["", "**Caption:**", "", p["caption"], "", " ".join(p.get("hashtags", [])), ""]
     lines += ["## Story polls (post these yourself)", ""]
     for poll in plan["story_polls"]:
@@ -213,6 +215,27 @@ def cmd_publish_due(cfg: Config, args) -> None:
         store.set_status(post["id"], "published", media_id=media_id,
                          published_at=now.isoformat())
         print(f"Published {post['id']}: {post['title']}")
+        if post["format"] == "reel" and cfg.yt_refresh_token:
+            upload_to_youtube(cfg, post)
+
+
+def youtube_title(post: dict) -> str:
+    return (post.get("youtube_title") or post.get("hook") or post["title"])[:90] + " #shorts"
+
+
+def upload_to_youtube(cfg: Config, post: dict) -> None:
+    """Same reel as a YouTube Short. A failure here never undoes the
+    Instagram post; it is recorded on the post instead."""
+    from .youtube import YouTube
+    try:
+        yt = YouTube(cfg.yt_client_id, cfg.yt_client_secret, cfg.yt_refresh_token)
+        video_id = yt.upload_short(str(ROOT / post["media_files"][0]), youtube_title(post),
+                                   caption_for(post), [t.lstrip("#") for t in post.get("hashtags", [])])
+        store.set_status(post["id"], "published", youtube_id=video_id)
+        print(f"  Also on YouTube: https://youtube.com/shorts/{video_id}")
+    except Exception as e:
+        store.set_status(post["id"], "published", youtube_error=str(e))
+        print(f"  YouTube upload failed: {e}")
 
 
 def cmd_comments(cfg: Config, args) -> None:

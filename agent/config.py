@@ -31,6 +31,9 @@ class Config:
     github_repository: str
     handle: str
     auto_approve: bool
+    yt_client_id: str = ""
+    yt_client_secret: str = ""
+    yt_refresh_token: str = ""
 
     @classmethod
     def load(cls) -> "Config":
@@ -50,4 +53,7 @@ class Config:
             github_repository=os.environ.get("GITHUB_REPOSITORY", ""),
             handle=os.environ.get("HANDLE") or "@decodethedrive",
             auto_approve=os.environ.get("AUTO_APPROVE", "").lower() in ("1", "true", "yes"),
+            yt_client_id=os.environ.get("YT_CLIENT_ID", ""),
+            yt_client_secret=os.environ.get("YT_CLIENT_SECRET", ""),
+            yt_refresh_token=os.environ.get("YT_REFRESH_TOKEN", ""),
         )

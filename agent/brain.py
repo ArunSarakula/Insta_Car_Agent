@@ -11,6 +11,9 @@ POST_SCHEMA = {
         "format": {"type": "string", "enum": ["reel", "carousel", "meme", "image"]},
         "title": {"type": "string", "description": "Short internal name for the post"},
         "hook": {"type": "string", "description": "First line / first 2 seconds that stops the scroll"},
+        "youtube_title": {"type": "string",
+                          "description": "Searchable YouTube Shorts title, under 70 characters, "
+                                         "the words people would type into YouTube search"},
         "caption": {"type": "string", "description": "Full Instagram caption, without hashtags"},
         "hashtags": {"type": "array", "items": {"type": "string"}},
         "slides": {
@@ -34,7 +37,7 @@ POST_SCHEMA = {
         "day": {"type": "string", "enum": ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]},
         "time": {"type": "string", "description": "Posting time HH:MM, 24h, local time"},
     },
-    "required": ["format", "title", "hook", "caption", "hashtags", "slides", "music", "idea_id",
+    "required": ["format", "title", "hook", "youtube_title", "caption", "hashtags", "slides", "music", "idea_id",
                  "day", "time"],
     "additionalProperties": False,
 }

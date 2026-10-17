@@ -37,6 +37,9 @@ jobs:
       POSTS_PER_WEEK: ${{ vars.POSTS_PER_WEEK || '5' }}
       AUTO_APPROVE: ${{ vars.AUTO_APPROVE || 'false' }}
       HANDLE: ${{ vars.HANDLE }}
+      YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
+      YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
+      YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
     steps:
       - uses: actions/checkout@v4
         with:

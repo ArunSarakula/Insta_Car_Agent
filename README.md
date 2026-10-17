@@ -127,6 +127,7 @@ Run the tests with `pip install -r requirements-dev.txt && python -m pytest`.
 | `agent/brain.py` | Claude prompts: weekly plan, comment replies, report |
 | `agent/design.py` | Draws the slides and builds reel videos |
 | `agent/instagram.py` | Instagram API: publish, comments, insights |
+| `agent/youtube.py` | Uploads reels to YouTube as Shorts |
 | `agent/store.py` | The approval queue (JSON files) |
 | `agent/cli.py` | The commands above |
 | `.github/workflows/agent.yml` | The schedule that runs everything |

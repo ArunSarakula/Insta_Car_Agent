@@ -159,6 +159,37 @@ def test_missing_token_is_a_clear_error():
         Instagram("")
 
 
+class FakeGoogle:
+    def __init__(self):
+        self.calls = []
+
+    def post(self, url, data, timeout, headers=None):
+        self.calls.append(("POST", url, headers))
+        if "oauth2" in url:
+            return SimpleNamespace(status_code=200, json=lambda: {"access_token": "at"}, text="")
+        return SimpleNamespace(status_code=200, headers={"Location": "https://up/1"}, text="")
+
+    def put(self, url, data, timeout, headers=None):
+        self.calls.append(("PUT", url, len(data)))
+        return SimpleNamespace(status_code=200, json=lambda: {"id": "yt1"}, text="")
+
+
+def test_youtube_short_upload(tmp_path):
+    from agent.youtube import YouTube
+    video = tmp_path / "reel.mp4"
+    video.write_bytes(b"12345")
+    google = FakeGoogle()
+    assert YouTube("id", "secret", "rt", session=google).upload_short(
+        str(video), "AC vs DC #shorts", "desc", ["ev"]) == "yt1"
+    assert google.calls[1][2]["Authorization"] == "Bearer at"
+    assert google.calls[2] == ("PUT", "https://up/1", 5)
+
+
+def test_youtube_title_adds_shorts_tag():
+    assert cli.youtube_title({"youtube_title": "AC vs DC charging explained", "title": "x"}) == \
+        "AC vs DC charging explained #shorts"
+
+
 # ---- brain -----------------------------------------------------------------
 
 class FakeClaude:
