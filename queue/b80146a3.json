@@ -44,11 +44,13 @@
     }
   ],
   "scheduled_for": "2026-10-17T10:00:00+05:30",
-  "status": "approved",
+  "status": "published",
   "id": "b80146a3",
   "media_files": [
     "media/b80146a3/reel.mp4"
   ],
   "music": "tech",
-  "music_track": "paulyudin-tech-corporate-182507.mp3"
+  "music_track": "paulyudin-tech-corporate-182507.mp3",
+  "media_id": "18421443568153663",
+  "published_at": "2026-10-17T10:49:00.201326+05:30"
 }
