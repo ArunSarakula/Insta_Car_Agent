@@ -33,6 +33,8 @@ REEL = (1080, 1920)   # 9:16
 REEL_SAFE_TOP = 290      # below Instagram's back button and "Reels" title
 REEL_SAFE_BOTTOM = 440   # above the username, caption and audio line
 REEL_SAFE_RIGHT = 120    # clear of the like / comment / share buttons
+LOGO_SIZE = 76           # brand logo + handle shown under the text on reels
+BRAND_GAP = 70
 
 # Inter has no emoji; drop anything outside the ranges it covers.
 _UNSUPPORTED = re.compile("[\U0001F000-\U0001FFFF☀-➿️‍]")
@@ -77,6 +79,19 @@ def _draw_lines(draw, x, y, layout, fill):
     return y
 
 
+def _brand_line(img, d, x, y, handle):
+    logo_path = ROOT / "assets" / "brand" / "logo.jpg"
+    if logo_path.exists():
+        logo = Image.open(logo_path).convert("RGB").resize((LOGO_SIZE, LOGO_SIZE), Image.LANCZOS)
+        mask = Image.new("L", logo.size, 0)
+        ImageDraw.Draw(mask).ellipse([0, 0, LOGO_SIZE - 1, LOGO_SIZE - 1], fill=255)
+        img.paste(logo, (x, y), mask)
+        d.ellipse([x, y, x + LOGO_SIZE, y + LOGO_SIZE], outline=TEAL, width=3)
+        x += LOGO_SIZE + 20
+    font = ImageFont.truetype(BOLD, 36)
+    d.text((x, y + (LOGO_SIZE - 44) // 2), handle, font=font, fill=TEAL)
+
+
 def render_slide(slide: dict, path: Path, size=FEED, index=1, total=1,
                  handle="@decodethedrive", style="info") -> Path:
     w, h = size
@@ -105,7 +120,7 @@ def render_slide(slide: dict, path: Path, size=FEED, index=1, total=1,
     text = _fit(d, body, MEDIUM, usable, int(h * 0.26), 50 if reel else 58, 30) if body else None
     gap = 132  # space for the amber divider between heading and body
     block = (len(head[1]) * head[2] if head else 0) + (gap if head and text else 0) \
-        + (len(text[1]) * text[2] if text else 0)
+        + (len(text[1]) * text[2] if text else 0) + (BRAND_GAP + LOGO_SIZE if reel else 0)
     if reel:  # centre within the clear area
         y = max(REEL_SAFE_TOP + 90, (REEL_SAFE_TOP + h - REEL_SAFE_BOTTOM - block) // 2)
     else:
@@ -116,7 +131,9 @@ def render_slide(slide: dict, path: Path, size=FEED, index=1, total=1,
         d.rectangle([pad, y + 40, pad + 120, y + 50], fill=AMBER)
         y += gap
     if text:
-        _draw_lines(d, pad, y, text, body_fill)
+        y = _draw_lines(d, pad, y, text, body_fill)
+    if reel:  # logo + handle right under the text, away from Instagram's own name
+        _brand_line(img, d, pad, y + BRAND_GAP, handle)
 
     foot = ImageFont.truetype(MEDIUM, 32)
     if not reel:  # on reels Instagram already shows the username at the bottom
