@@ -16,6 +16,10 @@ POST_SCHEMA = {
                                          "the words people would type into YouTube search"},
         "caption": {"type": "string", "description": "Full Instagram caption, without hashtags"},
         "hashtags": {"type": "array", "items": {"type": "string"}},
+        "youtube_hashtags": {"type": "array", "items": {"type": "string"},
+                             "description": "Reels only (empty otherwise): the 2 strongest topic hashtags "
+                                            "people search on YouTube, e.g. #ADAS #CarTech; #shorts is added "
+                                            "automatically"},
         "slides": {
             "type": "array",
             "description": "On-screen text. The agent turns these into designed images "
@@ -37,7 +41,7 @@ POST_SCHEMA = {
         "day": {"type": "string", "enum": ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]},
         "time": {"type": "string", "description": "Posting time HH:MM, 24h, local time"},
     },
-    "required": ["format", "title", "hook", "youtube_title", "caption", "hashtags", "slides", "music", "idea_id",
+    "required": ["format", "title", "hook", "youtube_title", "caption", "hashtags", "youtube_hashtags", "slides", "music", "idea_id",
                  "day", "time"],
     "additionalProperties": False,
 }
@@ -95,6 +99,9 @@ cars (specs, prices, features) must be ones you are confident are true; when
 unsure, phrase it as a question or leave it out. Never suggest reposting other
 creators' photos or videos. Hashtags: 8-15 per post, mix of broad and niche,
 no banned or spammy tags, written without spaces and starting with #.
+Reels also go to YouTube Shorts, where only the first 3 hashtags show (above
+the title) and many tags look spammy, so give them just 2 YouTube hashtags:
+the topic tag people actually search (#ADAS, #EVCharging) plus one broad tag.
 Brands the owner knows well and wants featured: Honda, Hyundai, Volkswagen,
 Skoda and Mahindra (other brands are fine when the topic needs them).
 Be creative: fresh angles, myth-busting, "you're doing it wrong" tips, and

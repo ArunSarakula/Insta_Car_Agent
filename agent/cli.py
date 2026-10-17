@@ -127,7 +127,8 @@ def preview(plan: dict, posts: list[dict], today: date) -> str:
         if p.get("music_track"):
             lines += ["", f"Music: {p['music_track']} ({p.get('music')})"]
         if p["format"] == "reel":
-            lines += ["", f"YouTube Shorts title: **{youtube_title(p)}**"]
+            lines += ["", f"YouTube Shorts title: **{youtube_title(p)}**",
+                      f"YouTube hashtags: {' '.join(youtube_hashtags(p))}"]
         lines += ["", "**Caption:**", "", p["caption"], "", " ".join(p.get("hashtags", [])), ""]
     lines += ["## Story polls (post these yourself)", ""]
     for poll in plan["story_polls"]:
@@ -232,7 +233,22 @@ def cmd_publish_due(cfg: Config, args) -> None:
 
 
 def youtube_title(post: dict) -> str:
-    return (post.get("youtube_title") or post.get("hook") or post["title"])[:90] + " #shorts"
+    # No hashtags in the title: YouTube then shows the description's
+    # first 3 hashtags above it instead. Vertical videos under 3 minutes
+    # become Shorts on their own.
+    return (post.get("youtube_title") or post.get("hook") or post["title"])[:100]
+
+
+def youtube_hashtags(post: dict) -> list[str]:
+    """#shorts plus 2 topic tags. Instagram gets 8-15 tags, YouTube only
+    shows 3 and treats long tag lists as spam."""
+    topic = post.get("youtube_hashtags") or post.get("hashtags", [])
+    tags = ["#shorts"] + [t for t in topic if t.lower() != "#shorts"]
+    return tags[:3]
+
+
+def youtube_description(post: dict) -> str:
+    return f"{post['caption']}\n\n{' '.join(youtube_hashtags(post))}".strip()
 
 
 def upload_to_youtube(cfg: Config, post: dict) -> None:
@@ -242,7 +258,8 @@ def upload_to_youtube(cfg: Config, post: dict) -> None:
     try:
         yt = YouTube(cfg.yt_client_id, cfg.yt_client_secret, cfg.yt_refresh_token)
         video_id = yt.upload_short(str(ROOT / post["media_files"][0]), youtube_title(post),
-                                   caption_for(post), [t.lstrip("#") for t in post.get("hashtags", [])])
+                                   youtube_description(post),
+                                   [t.lstrip("#") for t in post.get("hashtags", [])])
         store.set_status(post["id"], "published", youtube_id=video_id)
         print(f"  Also on YouTube: https://youtube.com/shorts/{video_id}")
     except Exception as e:

@@ -185,9 +185,13 @@ def test_youtube_short_upload(tmp_path):
     assert google.calls[2] == ("PUT", "https://up/1", 5)
 
 
-def test_youtube_title_adds_shorts_tag():
-    assert cli.youtube_title({"youtube_title": "AC vs DC charging explained", "title": "x"}) == \
-        "AC vs DC charging explained #shorts"
+def test_youtube_title_and_hashtags():
+    post = {"youtube_title": "AC vs DC charging explained", "title": "x", "caption": "Cap",
+            "hashtags": ["#EV", "#Charging", "#CarTech", "#IndianCars"]}
+    assert cli.youtube_title(post) == "AC vs DC charging explained"
+    assert cli.youtube_hashtags(post) == ["#shorts", "#EV", "#Charging"]
+    post["youtube_hashtags"] = ["#EVCharging", "#CarTech"]
+    assert cli.youtube_description(post) == "Cap\n\n#shorts #EVCharging #CarTech"
 
 
 # ---- brain -----------------------------------------------------------------
