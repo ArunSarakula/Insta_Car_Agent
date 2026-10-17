@@ -151,8 +151,13 @@ photo or filming, so write slides that work as pure text:
 - meme: exactly 1 slide, heading = the setup, body = the punchline.
 - carousel: 5-8 slides. Slide 1 is the hook (heading only). Middle slides teach
   one point each. Last slide: heading "Follow @decodethedrive", body a reason to.
-- reel: 4-7 slides shown for a few seconds each. Slide 1 hooks in under 8
-  words. Keep each slide short enough to read in 3 seconds.
+- reel: 4-6 slides, about 15-20 seconds in total. Slide 1 is shown for under
+  2 seconds and decides whether people keep watching, so it must be a scroll
+  stopper of 8 words or fewer, heading only: a surprising claim ("No car in
+  India can drive itself"), a common mistake ("You're using your clutch
+  wrong"), or a specific question with a number ("Why does 30 min charging
+  give 80% but not 100%?"). Never a plain topic label like "X explained" or
+  "X vs Y". Keep every other slide readable in 2-3 seconds.
 For every post pick a music mood (it is added to reels): upbeat (future bass,
 general explainers), tech (clean corporate, EV and gadget topics), chill (lofi,
 tips and comparisons), epic (cinematic, reveals and top-5 lists), phonk (drift

@@ -144,9 +144,13 @@ def ffmpeg_exe() -> str:
     return imageio_ffmpeg.get_ffmpeg_exe()
 
 
-def _seconds(slide: dict) -> float:
+def _seconds(slide: dict, first: bool = False) -> float:
+    """Fast pacing: the hook gets under 2 seconds (most viewers decide by
+    then), the rest just long enough to read."""
     words = len(f"{slide.get('heading', '')} {slide.get('body', '')}".split())
-    return max(2.5, min(6.0, 1.2 + words * 0.32))
+    if first:
+        return 1.8
+    return max(2.0, min(4.0, 0.9 + words * 0.26))
 
 
 def pick_track(mood: str, seed: str, music_dir: Path = MUSIC) -> Path | None:
@@ -158,16 +162,16 @@ def pick_track(mood: str, seed: str, music_dir: Path = MUSIC) -> Path | None:
 
 def render_reel(slides: list[dict], path: Path, handle="@decodethedrive",
                 music: Path | None = None) -> Path:
-    """One frame per slide, cross-faded. The music track is trimmed to the
+    """One frame per slide, sliding from one to the next. The music track is trimmed to the
     reel's length (leading silence skipped, faded in and out, levelled);
     without one the reel gets a silent track, as Instagram expects audio."""
     frames = [render_slide(s, path.parent / f"frame-{i + 1}.jpg", REEL, i + 1, len(slides), handle)
               for i, s in enumerate(slides)]
-    durations = [_seconds(s) for s in slides]
-    fade = 0.4
+    durations = [_seconds(s, first=i == 0) for i, s in enumerate(slides)]
+    fade = 0.3
     cmd = [ffmpeg_exe(), "-y", "-loglevel", "error"]
     for frame, dur in zip(frames, durations):
-        cmd += ["-loop", "1", "-t", f"{dur + fade:.2f}", "-i", str(frame)]
+        cmd += ["-framerate", "30", "-loop", "1", "-t", f"{dur + fade:.2f}", "-i", str(frame)]
     total = sum(durations) + fade
     if music:
         cmd += ["-stream_loop", "-1", "-i", str(music)]
@@ -180,12 +184,17 @@ def render_reel(slides: list[dict], path: Path, handle="@decodethedrive",
         audio = f"[{len(frames)}:a]anull[a]"
 
     chains, last, offset = [], "0:v", 0.0
-    for i in range(len(frames)):
-        chains.append(f"[{i}:v]fps=30,format=yuv420p,setsar=1[v{i}]")
+    for i, dur in enumerate(durations):
+        # Constant slow motion keeps the eye on screen: the hook pulls out
+        # from a close zoom, later slides push in gently.
+        n = int((dur + fade) * 30)
+        zoom = f"1.12-0.12*on/{n}" if i == 0 else f"1+0.05*on/{n}"
+        chains.append(f"[{i}:v]scale=1296:2304,zoompan=z='{zoom}':x='iw/2-(iw/zoom/2)':"
+                      f"y='ih/2-(ih/zoom/2)':d=1:s=1080x1920:fps=30,format=yuv420p,setsar=1[v{i}]")
     last = "v0"
     for i in range(1, len(frames)):
         offset += durations[i - 1]
-        chains.append(f"[{last}][v{i}]xfade=transition=fade:duration={fade}:offset={offset:.2f}[x{i}]")
+        chains.append(f"[{last}][v{i}]xfade=transition=slideleft:duration={fade}:offset={offset:.2f}[x{i}]")
         last = f"x{i}"
     cmd += ["-filter_complex", ";".join(chains + [audio]), "-map", f"[{last}]", "-map", "[a]",
             "-c:v", "libx264", "-preset", "medium", "-crf", "20", "-pix_fmt", "yuv420p",
