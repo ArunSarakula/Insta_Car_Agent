@@ -3,7 +3,7 @@ name: Instagram agent
 on:
   schedule:
     - cron: "30 4 * * 0"    # Sunday 10:00 IST: plan next week + weekly report
-    - cron: "0 * * * *"     # every hour: publish approved posts that are due
+    - cron: "7,37 * * * *"  # every 30 min (off the busy :00): publish approved posts that are due
     - cron: "15 */3 * * *"  # every 3 hours: draft replies to new comments
   workflow_dispatch:
     inputs:
@@ -51,7 +51,7 @@ jobs:
         run: |
           case "$SCHEDULE" in
             "30 4 * * 0")   echo "cmds=report plan" >> "$GITHUB_OUTPUT" ;;
-            "0 * * * *")    echo "cmds=publish-due" >> "$GITHUB_OUTPUT" ;;
+            "7,37 * * * *") echo "cmds=publish-due" >> "$GITHUB_OUTPUT" ;;
             "15 */3 * * *") echo "cmds=comments" >> "$GITHUB_OUTPUT" ;;
             *)              echo "cmds=$COMMAND" >> "$GITHUB_OUTPUT" ;;
           esac
