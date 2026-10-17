@@ -66,9 +66,11 @@ class Instagram:
         c = self._call("POST", f"{self.user_id}/media", image_url=image_url, caption=caption)
         return self._publish(c["id"])
 
-    def publish_reel(self, video_url: str, caption: str) -> str:
-        c = self._call("POST", f"{self.user_id}/media", media_type="REELS",
-                       video_url=video_url, caption=caption)
+    def publish_reel(self, video_url: str, caption: str, cover_url: str = "") -> str:
+        params = {"media_type": "REELS", "video_url": video_url, "caption": caption}
+        if cover_url:
+            params["cover_url"] = cover_url
+        c = self._call("POST", f"{self.user_id}/media", **params)
         return self._publish(c["id"])
 
     def publish_reel_file(self, video_path: str, caption: str, cover_url: str = "") -> str:

@@ -44,12 +44,11 @@
     }
   ],
   "scheduled_for": "2026-10-17T10:00:00+05:30",
-  "status": "failed",
+  "status": "approved",
   "id": "b80146a3",
   "media_files": [
     "media/b80146a3/reel.mp4"
   ],
   "music": "tech",
-  "music_track": "paulyudin-tech-corporate-182507.mp3",
-  "error": "POST 17841420343952028/media failed: The parameter video_url is required"
+  "music_track": "paulyudin-tech-corporate-182507.mp3"
 }

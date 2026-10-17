@@ -12,6 +12,7 @@
 """
 
 import argparse
+import os
 import sys
 from datetime import date, datetime, timedelta
 from pathlib import Path
@@ -148,6 +149,28 @@ def caption_for(post: dict) -> str:
     return f"{post['caption']}\n.\n.\n{tags}".strip()
 
 
+def video_urls(post: dict, urls: list[str], github_repository: str) -> list[str]:
+    """Where Instagram can fetch a reel from. Instagram Login accounts can't
+    upload video directly, so it is fetched by URL: jsDelivr first (serves
+    it as video/mp4), then GitHub raw as a fallback."""
+    if post.get("media_urls") or not github_repository:
+        return urls[:1]
+    ref = os.environ.get("GITHUB_SHA") or "main"
+    return [f"https://cdn.jsdelivr.net/gh/{github_repository}@{ref}/{post['media_files'][0]}", urls[0]]
+
+
+def publish_reel(ig, post: dict, urls: list[str], github_repository: str) -> str:
+    cover = urls[0].rsplit("/", 1)[0] + "/cover.jpg" if not post.get("media_urls") else ""
+    error = None
+    for url in video_urls(post, urls, github_repository):
+        try:
+            return ig.publish_reel(url, caption_for(post), cover)
+        except Exception as e:
+            print(f"  reel from {url} failed: {e}")
+            error = e
+    raise error
+
+
 def cmd_publish_due(cfg: Config, args) -> None:
     now = datetime.now(ZoneInfo(cfg.timezone))
     due = store.due_posts(now)
@@ -161,12 +184,8 @@ def cmd_publish_due(cfg: Config, args) -> None:
             print(f"Skipping {post['id']} ({post['title']}): no media attached yet.")
             continue
         try:
-            local = [ROOT / f for f in post.get("media_files", [])]
-            if post["format"] == "reel" and local and local[0].exists():
-                cover = urls[0].rsplit("/", 1)[0] + "/cover.jpg" if not post.get("media_urls") else ""
-                media_id = ig.publish_reel_file(str(local[0]), caption_for(post), cover)
-            elif post["format"] == "reel":
-                media_id = ig.publish_reel(urls[0], caption_for(post))
+            if post["format"] == "reel":
+                media_id = publish_reel(ig, post, urls, cfg.github_repository)
             elif post["format"] == "carousel":
                 media_id = ig.publish_carousel(urls, caption_for(post))
             else:

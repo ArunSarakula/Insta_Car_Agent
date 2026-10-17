@@ -53,6 +53,26 @@ def test_media_urls_from_repo_files():
     assert cli.media_urls(post, "") == []
 
 
+def test_reel_tries_jsdelivr_then_raw(monkeypatch):
+    monkeypatch.setenv("GITHUB_SHA", "abc123")
+    post = {"id": "r1", "caption": "c", "media_files": ["media/r1/reel.mp4"]}
+    urls = cli.media_urls(post, "me/repo")
+    assert cli.video_urls(post, urls, "me/repo") == [
+        "https://cdn.jsdelivr.net/gh/me/repo@abc123/media/r1/reel.mp4", urls[0]]
+
+    tried = []
+
+    class IG:
+        def publish_reel(self, url, caption, cover):
+            tried.append(url)
+            if "jsdelivr" in url:
+                raise InstagramError("Media container is ERROR")
+            return "m1"
+
+    assert cli.publish_reel(IG(), post, urls, "me/repo") == "m1"
+    assert len(tried) == 2
+
+
 def test_caption_appends_hashtags():
     post = {"caption": "EVs explained", "hashtags": ["#ev", "#cars"]}
     assert cli.caption_for(post) == "EVs explained\n.\n.\n#ev #cars"
