@@ -128,8 +128,10 @@ class Brain:
         return json.loads(text)
 
     def weekly_plan(self, posts_per_week: int, recent_posts: list[dict],
-                    performance_notes: str = "", ideas: list[dict] = ()) -> dict:
+                    performance_notes: str = "", ideas: list[dict] = (),
+                    questions: list[str] = ()) -> dict:
         owner_ideas = "\n".join(f"- id {i['id']}: {i['idea']}" for i in ideas)
+        searched = "\n".join(f"- {q}" for q in questions)
         recent = "\n".join(f"- [{p.get('format')}] {p.get('title')}" for p in recent_posts[-20:])
         prompt = f"""Plan next week's content: exactly {posts_per_week} feed posts plus one
 story poll for each day (7 polls).
@@ -174,6 +176,11 @@ When an idea is the owner's personal experience, write it in first person as
 their tip ("From driving my VW and Skoda..."), keeping their advice intact and
 adding any safety note it needs. Skip an idea only if it is unsafe or wrong.
 {owner_ideas or "- none right now"}
+
+Questions Indian buyers search for on Google and YouTube. Pick your own topics
+from these first (answer the question directly; use the question as the hook
+or the YouTube title), skipping ones already covered recently:
+{searched or "- none listed"}
 
 Recently planned posts (don't repeat these topics):
 {recent or "- none yet, this is the first week"}

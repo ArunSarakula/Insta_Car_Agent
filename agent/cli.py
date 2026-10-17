@@ -13,6 +13,7 @@
 """
 
 import argparse
+import json
 import os
 import sys
 import time
@@ -56,6 +57,15 @@ def _instagram(cfg: Config):
     return Instagram(cfg.ig_access_token, cfg.ig_user_id, cfg.ig_api_version)
 
 
+def audience_questions() -> list[str]:
+    """Car questions Indian buyers search on Google and YouTube."""
+    path = ROOT / "ideas" / "questions.json"
+    if not path.exists():
+        return []
+    data = json.loads(path.read_text())
+    return [q for group in data["questions"].values() for q in group]
+
+
 def latest_report() -> str:
     """The newest weekly report, so the plan learns from what worked."""
     reports = sorted((ROOT / "reports").glob("report-*.md"))
@@ -73,7 +83,8 @@ def cmd_plan(cfg: Config, args) -> None:
                            if p.get("scheduled_for") and p["status"] in ("draft", "approved")])
     ideas = store.load_ideas()
     plan = _brain(cfg).weekly_plan(cfg.posts_per_week, posts, latest_report(),
-                                   ideas=[i for i in ideas if i["status"] == "new"])
+                                   ideas=[i for i in ideas if i["status"] == "new"],
+                                   questions=audience_questions())
     used = set()
     status = "approved" if cfg.auto_approve else "draft"
     saved_posts = []

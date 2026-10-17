@@ -1,0 +1,38 @@
+{
+  "researched": "2026-10-18",
+  "questions": {
+    "EV": [
+      "Is an EV really cheaper than petrol per km in India (home vs public charging)?",
+      "How long does an EV battery last in India, and what does a replacement cost?",
+      "Can I own an EV without home parking or a home charger?",
+      "Does DC fast charging damage the battery?",
+      "LFP vs NMC battery: which handles Indian heat better?",
+      "How much range does the AC eat in an EV?",
+      "Is it safe to drive an EV in heavy rain or waterlogged roads?",
+      "Will my EV have resale value in 5 years?"
+    ],
+    "Fuel and powertrain": [
+      "Petrol vs diesel vs CNG vs EV: which one for my monthly kilometres?",
+      "Does CNG damage the engine? What you lose (boot, power) and gain",
+      "Strong hybrid vs mild hybrid: what is the real difference?",
+      "Turbo petrol: reliable? Why real mileage is lower than claimed"
+    ],
+    "Gearbox": [
+      "AMT vs CVT vs DCT vs torque converter: which automatic to buy?",
+      "Is a DCT safe in Indian stop-go traffic?"
+    ],
+    "Features": [
+      "Is ADAS actually useful on Indian roads?",
+      "Ventilated seats vs sunroof: what Indian owners really value (survey: 78% pick ventilated seats)",
+      "Is a sunroof worth it in Indian heat and dust?",
+      "360 camera, TPMS, wireless Android Auto: which features are worth paying for?",
+      "Bharat NCAP stars: what 5 stars really means"
+    ],
+    "Ownership": [
+      "Why mileage drops with AC on and in traffic, and what helps",
+      "Is an extended warranty worth it?",
+      "Correct tyre pressure in Indian summer, and why to check it cold",
+      "Service intervals: when to change oil, coolant and brake fluid"
+    ]
+  }
+}

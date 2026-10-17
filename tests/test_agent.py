@@ -290,7 +290,7 @@ def test_reel_gets_music_trimmed_to_length(tmp_path):
 # ---- plan end to end -------------------------------------------------------
 
 class FakeBrain:
-    def weekly_plan(self, n, recent, notes="", ideas=()):
+    def weekly_plan(self, n, recent, notes="", ideas=(), questions=()):
         self.ideas = ideas
         return {"theme": "Basics", "story_polls": [
             {"day": "Mon", "question": "EV next?", "option_a": "Yes", "option_b": "No"}],
