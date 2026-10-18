@@ -1,0 +1,34 @@
+{
+  "format": "meme",
+  "title": "Claimed mileage = sprint estimate",
+  "hook": "Claimed mileage is just a sprint estimate",
+  "youtube_title": "Claimed mileage vs real mileage: the IT version",
+  "caption": "Every IT person knows this feeling 😅 The brochure number is the planning estimate. Your real mileage depends on traffic, AC use, tyre pressure, load and your right foot.\n\nClaimed figures are measured in standard lab test cycles, not in peak-hour traffic. They are useful for comparing cars with each other, but not as a promise.\n\nWhat's the gap between your car's claimed and real mileage? Drop it below 👇 Tag the friend who still quotes the brochure number.",
+  "hashtags": [
+    "#CarMemes",
+    "#ITLife",
+    "#CarTech",
+    "#Mileage",
+    "#FuelEfficiency",
+    "#IndianCars",
+    "#TechHumour",
+    "#SoftwareEngineer",
+    "#CarLovers",
+    "#DecodeTheDrive"
+  ],
+  "youtube_hashtags": [],
+  "slides": [
+    {
+      "heading": "Claimed mileage is just a sprint estimate",
+      "body": "Looks great in planning. Then real traffic, AC and a heavy right foot join the standup."
+    }
+  ],
+  "music": "phonk",
+  "idea_id": "",
+  "scheduled_for": "2026-11-02T20:00:00+05:30",
+  "status": "draft",
+  "id": "718e1f27",
+  "media_files": [
+    "media/718e1f27/post.jpg"
+  ]
+}

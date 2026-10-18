@@ -1,0 +1,55 @@
+{
+  "format": "reel",
+  "title": "Is ADAS useful on Indian roads",
+  "hook": "ADAS is useless in India? Not quite.",
+  "youtube_title": "Is ADAS actually useful on Indian roads?",
+  "caption": "\"ADAS doesn't work in India\" is half true. Here's the honest version.\n\n✅ Highways and expressways: adaptive cruise and lane keep assist really do reduce fatigue on long drives.\n❌ City traffic: faded lane markings, bikes cutting in and tight gaps can confuse the cameras and radar, so you get beeps and nudges.\n🛑 The quiet hero: automatic emergency braking. It's a backup for the moment you get distracted, not a replacement for you.\n\nMy setup: keep AEB on always, and switch lane keep off in the city if it fights you. Hands on the wheel, eyes on the road, always. No car on sale in India drives itself.\n\nDoes your car have ADAS? Do you keep it on or off? 👇",
+  "hashtags": [
+    "#ADAS",
+    "#CarSafety",
+    "#CarTech",
+    "#IndianRoads",
+    "#AdaptiveCruiseControl",
+    "#DrivingTips",
+    "#IndianCars",
+    "#SafeDriving",
+    "#CarFeatures",
+    "#AutomotiveTech",
+    "#DecodeTheDrive"
+  ],
+  "youtube_hashtags": [
+    "#ADAS",
+    "#CarTech"
+  ],
+  "slides": [
+    {
+      "heading": "ADAS is useless in India? Not quite.",
+      "body": "ADAS on Indian roads, honestly"
+    },
+    {
+      "heading": "Where it shines",
+      "body": "Highways and expressways. Adaptive cruise and lane keep cut fatigue on long drives."
+    },
+    {
+      "heading": "Where it struggles",
+      "body": "Faded lane lines, bikes cutting in, and packed city traffic confuse the sensors."
+    },
+    {
+      "heading": "The real hero: emergency braking",
+      "body": "It can react when you get distracted. A backup, not a driver."
+    },
+    {
+      "heading": "Smart setup",
+      "body": "Keep AEB on. Turn lane keep off in the city if it fights you. Hands on the wheel."
+    }
+  ],
+  "music": "upbeat",
+  "idea_id": "",
+  "scheduled_for": "2026-11-04T19:30:00+05:30",
+  "status": "draft",
+  "id": "26ec0456",
+  "music_track": "prettyjohn1-future-bass-523169.mp3",
+  "media_files": [
+    "media/26ec0456/reel.mp4"
+  ]
+}

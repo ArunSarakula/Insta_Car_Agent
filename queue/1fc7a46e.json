@@ -1,0 +1,55 @@
+{
+  "format": "reel",
+  "title": "Does DC fast charging damage the battery",
+  "hook": "Fast charging won't kill your EV battery",
+  "youtube_title": "Does DC fast charging damage your EV battery?",
+  "caption": "Does DC fast charging damage the battery? Short answer: occasional fast charging is fine. The car protects itself.\n\n🔋 The Battery Management System (BMS) decides how much power the cells accept. It slows charging when the battery is hot or nearly full.\n🐢 That's why the last 20% takes so long. It is deliberate.\n🔥 What adds extra wear: fast charging to 100% every day, in peak heat, right after hard driving.\n\nMy simple rule: AC charging at home for daily use, DC on road trips, and stop around 80% when you can.\n\nDo you fast charge often or mostly charge at home? Tell me in the comments.",
+  "hashtags": [
+    "#EVCharging",
+    "#ElectricVehicles",
+    "#EVIndia",
+    "#FastCharging",
+    "#EVBattery",
+    "#BatteryHealth",
+    "#CarTech",
+    "#ElectricCars",
+    "#EVTips",
+    "#IndianCars",
+    "#DecodeTheDrive"
+  ],
+  "youtube_hashtags": [
+    "#EVCharging",
+    "#CarTech"
+  ],
+  "slides": [
+    {
+      "heading": "Fast charging won't kill your EV battery",
+      "body": "DC fast charging, myth-busted"
+    },
+    {
+      "heading": "Your car's BMS is the bouncer",
+      "body": "It decides how much power the cells take, and cuts it when hot or nearly full."
+    },
+    {
+      "heading": "That's why 80 to 100% crawls",
+      "body": "The last 20% is slowed on purpose to protect the cells."
+    },
+    {
+      "heading": "What actually adds wear",
+      "body": "Daily fast charging to 100%, in peak heat, right after hard driving."
+    },
+    {
+      "heading": "The simple rule",
+      "body": "AC at home for daily use. DC on trips. Stop near 80% when you can."
+    }
+  ],
+  "music": "tech",
+  "idea_id": "",
+  "scheduled_for": "2026-11-03T19:30:00+05:30",
+  "status": "draft",
+  "id": "1fc7a46e",
+  "music_track": "the_mountain-tech-corporate-593075.mp3",
+  "media_files": [
+    "media/1fc7a46e/reel.mp4"
+  ]
+}

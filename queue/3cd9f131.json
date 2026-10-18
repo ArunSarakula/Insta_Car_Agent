@@ -1,0 +1,71 @@
+{
+  "format": "carousel",
+  "title": "Brand series kickoff + vote",
+  "hook": "Each of these 5 brands is best at one thing",
+  "youtube_title": "Honda vs Hyundai vs VW vs Skoda vs Mahindra: what each does best",
+  "caption": "New series alert 🚗 One deep-dive post per brand on what it does best and its signature tech. First, the one-line version of each.\n\nHonda: the City e:HEV strong hybrid, plus Honda Sensing camera-based ADAS.\nHyundai: features for the money, with Level 2 ADAS and Bluelink connected tech on models like the Creta and Verna.\nVolkswagen: 1.5 TSI with cylinder deactivation, and 5-star Global NCAP ratings for the Virtus and Taigun.\nSkoda: the same safety-first engineering, with the Kushaq and Slavia at 5 stars in Global NCAP and the Kylaq at 5 stars in Bharat NCAP.\nMahindra: big tech in SUVs, from ADAS on the XUV700 to the born-electric INGLO platform under the BE 6.\n\nYOU decide which brand gets the full deep dive first. Comment 1, 2, 3, 4 or 5 👇 Most votes wins.",
+  "hashtags": [
+    "#Honda",
+    "#Hyundai",
+    "#Volkswagen",
+    "#Skoda",
+    "#Mahindra",
+    "#CarTech",
+    "#IndianCars",
+    "#CarComparison",
+    "#NewCar",
+    "#CarBuyingGuide",
+    "#AutoIndia",
+    "#DecodeTheDrive"
+  ],
+  "youtube_hashtags": [],
+  "slides": [
+    {
+      "heading": "Each of these 5 brands is best at one thing",
+      "body": ""
+    },
+    {
+      "heading": "1. Honda: hybrid smarts",
+      "body": "The City e:HEV strong hybrid, plus Honda Sensing camera-based ADAS."
+    },
+    {
+      "heading": "2. Hyundai: features for the money",
+      "body": "Level 2 ADAS and Bluelink connected tech on models like Creta and Verna."
+    },
+    {
+      "heading": "3. Volkswagen: TSI engines",
+      "body": "1.5 TSI with cylinder deactivation, and 5-star Global NCAP for Virtus and Taigun."
+    },
+    {
+      "heading": "4. Skoda: safety-first engineering",
+      "body": "Kushaq and Slavia: 5 stars Global NCAP. Kylaq: 5 stars Bharat NCAP."
+    },
+    {
+      "heading": "5. Mahindra: big tech in SUVs",
+      "body": "ADAS on the XUV700, and the born-electric INGLO platform under the BE 6."
+    },
+    {
+      "heading": "You pick the first deep dive",
+      "body": "Comment 1, 2, 3, 4 or 5. Most votes gets the full breakdown next."
+    },
+    {
+      "heading": "Follow @decodethedrive",
+      "body": "One brand a post, decoded simply, so you know exactly what your money buys."
+    }
+  ],
+  "music": "epic",
+  "idea_id": "i05",
+  "scheduled_for": "2026-11-05T20:00:00+05:30",
+  "status": "draft",
+  "id": "3cd9f131",
+  "media_files": [
+    "media/3cd9f131/slide-1.jpg",
+    "media/3cd9f131/slide-2.jpg",
+    "media/3cd9f131/slide-3.jpg",
+    "media/3cd9f131/slide-4.jpg",
+    "media/3cd9f131/slide-5.jpg",
+    "media/3cd9f131/slide-6.jpg",
+    "media/3cd9f131/slide-7.jpg",
+    "media/3cd9f131/slide-8.jpg"
+  ]
+}
