@@ -34,6 +34,7 @@ class Config:
     yt_client_id: str = ""
     yt_client_secret: str = ""
     yt_refresh_token: str = ""
+    tts_api_key: str = ""
 
     @classmethod
     def load(cls) -> "Config":
@@ -56,4 +57,5 @@ class Config:
             yt_client_id=os.environ.get("YT_CLIENT_ID", ""),
             yt_client_secret=os.environ.get("YT_CLIENT_SECRET", ""),
             yt_refresh_token=os.environ.get("YT_REFRESH_TOKEN", ""),
+            tts_api_key=os.environ.get("TTS_API_KEY", ""),
         )

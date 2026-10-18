@@ -96,7 +96,7 @@ def cmd_plan(cfg: Config, args) -> None:
         post["scheduled_for"] = next_occurrence(post.pop("day"), post.pop("time"), start, tz).isoformat()
         used.add(post.get("idea_id", ""))
         post = store.save_post({**post, "status": status})
-        post["media_files"] = render_post(post, ROOT / "media", cfg.handle)
+        post["media_files"] = render_post(post, ROOT / "media", cfg.handle, cfg.tts_api_key)
         store.save_post(post)
         saved_posts.append(post)
         print(f"  {status} {post['id']}  {post['scheduled_for'][:16]}  [{post['format']}] {post['title']}")

@@ -272,6 +272,56 @@ def test_reel_renders_vertical_video_with_cover(tmp_path):
     assert Image.open(tmp_path / "media/p3/cover.jpg").size == (1080, 1920)
 
 
+from agent import styles
+
+VERSUS = {"id": "v1", "format": "reel", "reel_style": "versus", "versus_left": "CVT", "versus_right": "DCT",
+          "slides": [{"heading": "Which automatic should you buy?", "body": ""},
+                     {"heading": "City traffic", "body": "Smooth | Can judder"},
+                     {"heading": "Highway", "body": "Fine | Quick shifts"}]}
+QUIZ = {"id": "q1", "format": "reel", "reel_style": "quiz", "quiz_options": ["Engine hot", "Low tyre", "Brakes"],
+        "quiz_answer": 1, "slides": [{"heading": "What does this light mean?", "body": ""},
+                                     {"heading": "Low tyre pressure", "body": "Check all four tyres."}]}
+MYTH = {"id": "m1", "format": "reel", "reel_style": "myth_fact",
+        "slides": [{"heading": "Fast charging kills batteries", "body": "EV myth"},
+                   {"heading": "Not really", "body": "The BMS slows charging to protect cells."},
+                   {"heading": "Charge to 80% daily", "body": ""}]}
+
+
+def test_reel_styles_fall_back_to_explainer_when_data_missing():
+    assert [styles.usable(p) for p in (VERSUS, QUIZ, MYTH)] == ["versus", "quiz", "myth_fact"]
+    assert styles.usable({**VERSUS, "versus_right": ""}) == "explainer"
+    assert styles.usable({**QUIZ, "quiz_options": ["a", "b"]}) == "explainer"
+    assert styles.usable({"slides": SLIDES}) == "explainer"
+
+
+@pytest.mark.parametrize("post", [VERSUS, QUIZ, MYTH], ids=["versus", "quiz", "myth_fact"])
+def test_each_reel_style_renders(tmp_path, post):
+    design.render_post(dict(post), tmp_path / "media")
+    assert (tmp_path / f"media/{post['id']}/reel.mp4").stat().st_size > 10_000
+    assert Image.open(tmp_path / f"media/{post['id']}/cover.jpg").size == (1080, 1920)
+
+
+def test_voiceover_sets_reel_length(tmp_path, monkeypatch):
+    voice = tmp_path / "voice.mp3"
+    subprocess.run([design.ffmpeg_exe(), "-loglevel", "error", "-f", "lavfi", "-i",
+                    "sine=frequency=300:duration=12", str(voice)], check=True)
+
+    class FakeTTS:
+        def post(self, url, params, timeout, json):
+            import base64
+            assert params == {"key": "k"} and json["voice"]["languageCode"] == "en-IN"
+            return SimpleNamespace(status_code=200, json=lambda: {"audioContent": base64.b64encode(voice.read_bytes())})
+
+    from agent import voice as voice_mod
+    real = voice_mod.synthesize
+    monkeypatch.setattr(voice_mod, "synthesize", lambda text, path, key: real(text, path, key, FakeTTS()))
+    post = {**MYTH, "voiceover": "Here is what most people get wrong."}
+    design.render_post(post, tmp_path / "media", tts_key="k")
+    assert post["voiced"] and post["reel_style"] == "myth_fact"
+    assert 12.5 < design.media_seconds(tmp_path / "media/m1/reel.mp4") < 13.6
+    assert not (tmp_path / "media/m1/voice.mp3").exists()
+
+
 def test_pick_track_uses_mood_folder_and_falls_back(tmp_path):
     for name in ("phonk/a.mp3", "phonk/b.mp3", "chill/c.mp3"):
         (tmp_path / name).parent.mkdir(exist_ok=True)

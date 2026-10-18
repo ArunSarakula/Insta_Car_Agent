@@ -160,45 +160,68 @@ def pick_track(mood: str, seed: str, music_dir: Path = MUSIC) -> Path | None:
     return tracks[zlib.crc32(seed.encode()) % len(tracks)] if tracks else None
 
 
+def media_seconds(path: Path) -> float:
+    out = subprocess.run([ffmpeg_exe(), "-i", str(path)], capture_output=True, text=True).stderr
+    h, m, sec = re.search(r"Duration: (\d+):(\d+):([\d.]+)", out).groups()
+    return int(h) * 3600 + int(m) * 60 + float(sec)
+
+
 def render_reel(slides: list[dict], path: Path, handle="@decodethedrive",
-                music: Path | None = None) -> Path:
-    """One frame per slide, sliding from one to the next. The music track is trimmed to the
-    reel's length (leading silence skipped, faded in and out, levelled);
-    without one the reel gets a silent track, as Instagram expects audio."""
-    frames = [render_slide(s, path.parent / f"frame-{i + 1}.jpg", REEL, i + 1, len(slides), handle)
-              for i, s in enumerate(slides)]
-    durations = [_seconds(s, first=i == 0) for i, s in enumerate(slides)]
+                music: Path | None = None, post: dict | None = None, voice: Path | None = None) -> Path:
+    """Frames in the post's reel style, moving from one to the next. The
+    music track is trimmed to the reel's length (leading silence skipped,
+    faded in and out, levelled). With a voiceover the slides are stretched
+    to match it and the music sits quietly underneath. Without either the
+    reel gets a silent track, as Instagram expects audio."""
+    from .styles import RENDER, usable
+    post = {**(post or {}), "slides": slides}
+    path.parent.mkdir(parents=True, exist_ok=True)
+    images, durations, transition = RENDER[usable(post)](post, handle, path.parent)
+    if voice:  # keep the slides' proportions, fit them to the voice
+        scale = (media_seconds(voice) + 0.8) / sum(durations)
+        durations = [max(1.0, d * scale) for d in durations]
+    frames = []
+    for i, im in enumerate(images):
+        frames.append(path.parent / f"frame-{i + 1}.jpg")
+        im.convert("RGB").save(frames[-1], "JPEG", quality=92)
     fade = 0.3
     cmd = [ffmpeg_exe(), "-y", "-loglevel", "error"]
     for frame, dur in zip(frames, durations):
         cmd += ["-framerate", "30", "-loop", "1", "-t", f"{dur + fade:.2f}", "-i", str(frame)]
     total = sum(durations) + fade
+    n = len(frames)
     if music:
         cmd += ["-stream_loop", "-1", "-i", str(music)]
-        audio = (f"[{len(frames)}:a]silenceremove=start_periods=1:start_threshold=-40dB,"
+        audio = (f"[{n}:a]silenceremove=start_periods=1:start_threshold=-40dB,"
                  f"atrim=0:{total:.2f},asetpts=PTS-STARTPTS,afade=t=in:d=0.5,"
                  f"afade=t=out:st={max(0, total - 1.5):.2f}:d=1.5,"
-                 f"loudnorm=I=-16:TP=-1.5,aresample=44100[a]")
+                 f"loudnorm=I=-16:TP=-1.5,aresample=44100")
     else:
         cmd += ["-f", "lavfi", "-t", f"{total:.2f}", "-i", "anullsrc=r=44100:cl=stereo"]
-        audio = f"[{len(frames)}:a]anull[a]"
+        audio = f"[{n}:a]anull"
+    if voice:
+        cmd += ["-i", str(voice)]
+        audio += (f",volume=0.18[m];[{n + 1}:a]loudnorm=I=-15:TP=-1.5,aresample=44100,"
+                  f"adelay=300:all=1,apad[vo];[m][vo]amix=inputs=2:duration=first:normalize=0[a]")
+    else:
+        audio += "[a]"
 
-    chains, last, offset = [], "0:v", 0.0
+    chains = []
     for i, dur in enumerate(durations):
         # Constant slow motion keeps the eye on screen: the hook pulls out
         # from a close zoom, later slides push in gently.
-        n = int((dur + fade) * 30)
-        zoom = f"1.12-0.12*on/{n}" if i == 0 else f"1+0.05*on/{n}"
+        frames_n = int((dur + fade) * 30)
+        zoom = f"1.12-0.12*on/{frames_n}" if i == 0 else f"1+0.05*on/{frames_n}"
         chains.append(f"[{i}:v]scale=1296:2304,zoompan=z='{zoom}':x='iw/2-(iw/zoom/2)':"
                       f"y='ih/2-(ih/zoom/2)':d=1:s=1080x1920:fps=30,format=yuv420p,setsar=1[v{i}]")
-    last = "v0"
-    for i in range(1, len(frames)):
+    last, offset = "v0", 0.0
+    for i in range(1, n):
         offset += durations[i - 1]
-        chains.append(f"[{last}][v{i}]xfade=transition=slideleft:duration={fade}:offset={offset:.2f}[x{i}]")
+        chains.append(f"[{last}][v{i}]xfade=transition={transition}:duration={fade}:offset={offset:.2f}[x{i}]")
         last = f"x{i}"
     cmd += ["-filter_complex", ";".join(chains + [audio]), "-map", f"[{last}]", "-map", "[a]",
             "-c:v", "libx264", "-preset", "medium", "-crf", "20", "-pix_fmt", "yuv420p",
-            "-c:a", "aac", "-b:a", "128k", "-shortest", "-movflags", "+faststart", str(path)]
+            "-c:a", "aac", "-b:a", "128k", "-t", f"{total:.2f}", "-movflags", "+faststart", str(path)]
     subprocess.run(cmd, check=True)
     for frame in frames[1:]:
         frame.unlink()
@@ -206,7 +229,7 @@ def render_reel(slides: list[dict], path: Path, handle="@decodethedrive",
     return path
 
 
-def render_post(post: dict, media_root: Path, handle="@decodethedrive") -> list[str]:
+def render_post(post: dict, media_root: Path, handle="@decodethedrive", tts_key: str = "") -> list[str]:
     """Render a post's media and return paths relative to the repo root."""
     out = media_root / post["id"]
     slides = [s for s in post.get("slides", []) if s.get("heading") or s.get("body")]
@@ -214,8 +237,20 @@ def render_post(post: dict, media_root: Path, handle="@decodethedrive") -> list[
         slides = [{"heading": post.get("hook", post.get("title", "")), "body": ""}]
     fmt = post["format"]
     if fmt == "reel":
+        from .styles import usable
         track = pick_track(post.get("music") or "upbeat", post["id"])
-        files = [render_reel(slides, out / "reel.mp4", handle, track)]
+        voice = None
+        if tts_key and post.get("voiceover"):
+            from .voice import synthesize
+            try:
+                voice = synthesize(post["voiceover"], out / "voice.mp3", tts_key)
+            except Exception as e:  # a reel without voice beats no reel
+                print(f"  voiceover skipped: {e}")
+        files = [render_reel(slides, out / "reel.mp4", handle, track, post, voice)]
+        post["reel_style"] = usable({**post, "slides": slides})
+        post["voiced"] = bool(voice)
+        if voice:
+            voice.unlink()
         if track:
             post["music_track"] = track.name
     elif fmt == "carousel" and len(slides) >= 2:

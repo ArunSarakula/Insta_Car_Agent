@@ -34,6 +34,15 @@ POST_SCHEMA = {
                 "additionalProperties": False,
             },
         },
+        "reel_style": {"type": "string", "enum": ["explainer", "myth_fact", "versus", "quiz"],
+                       "description": "Reels only (explainer otherwise): the visual format"},
+        "versus_left": {"type": "string", "description": "versus reels: left side name, e.g. Petrol; else empty"},
+        "versus_right": {"type": "string", "description": "versus reels: right side name, e.g. CNG; else empty"},
+        "quiz_options": {"type": "array", "items": {"type": "string"},
+                         "description": "quiz reels: exactly 3 short options; else empty"},
+        "quiz_answer": {"type": "integer", "description": "quiz reels: index 0-2 of the right option; else 0"},
+        "voiceover": {"type": "string",
+                      "description": "Reels only (empty otherwise): what the AI voice says over the reel"},
         "music": {"type": "string", "enum": ["upbeat", "tech", "chill", "epic", "phonk"],
                   "description": "Background music mood (used for reels)"},
         "idea_id": {"type": "string",
@@ -41,7 +50,8 @@ POST_SCHEMA = {
         "day": {"type": "string", "enum": ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]},
         "time": {"type": "string", "description": "Posting time HH:MM, 24h, local time"},
     },
-    "required": ["format", "title", "hook", "youtube_title", "caption", "hashtags", "youtube_hashtags", "slides", "music", "idea_id",
+    "required": ["format", "title", "hook", "youtube_title", "caption", "hashtags", "youtube_hashtags", "slides", "reel_style", "versus_left", "versus_right",
+                 "quiz_options", "quiz_answer", "voiceover", "music", "idea_id",
                  "day", "time"],
     "additionalProperties": False,
 }
@@ -139,7 +149,9 @@ class Brain:
                     questions: list[str] = ()) -> dict:
         owner_ideas = "\n".join(f"- id {i['id']}: {i['idea']}" for i in ideas)
         searched = "\n".join(f"- {q}" for q in questions)
-        recent = "\n".join(f"- [{p.get('format')}] {p.get('title')}" for p in recent_posts[-20:])
+        recent = "\n".join(f"- [{p.get('format')}"
+                           + (f", {p['reel_style']}" if p.get("format") == "reel" and p.get("reel_style") else "")
+                           + f"] {p.get('title')}" for p in sorted(recent_posts, key=lambda p: p.get("scheduled_for", ""))[-20:])
         prompt = f"""Plan next week's content: exactly {posts_per_week} feed posts plus one
 story poll for each day (7 polls).
 
@@ -171,6 +183,27 @@ photo or filming, so write slides that work as pure text:
   wrong"), or a specific question with a number ("Why does 30 min charging
   give 80% but not 100%?"). Never a plain topic label like "X explained" or
   "X vs Y". Keep every other slide readable in 2-3 seconds.
+Reels rotate between 4 visual formats so no two reels look alike (YouTube
+flags channels where every video looks the same). Use each format at most
+once a week, never the same as the previous reel, and pick the one that suits
+the topic. How the slides are used in each:
+- explainer: as above, one point per slide.
+- myth_fact: slide 1 heading = the myth people believe (the hook), body = the
+  topic; slide 2 heading = the fact in a few words, body = the short reason;
+  1-2 more slides = practical tips.
+- versus: set versus_left and versus_right (e.g. CVT, DCT). Slide 1 heading =
+  the question ("Which automatic should you buy?"); then 4-5 slides, one per
+  comparison row: heading = what is compared (e.g. "City traffic"), body =
+  "left value | right value", each value 1-4 words.
+- quiz: slide 1 heading = the question ("What does this warning light
+  mean?" or "Guess what this button does"); quiz_options = 3 short options;
+  quiz_answer = index of the right one; slide 2 heading = the answer, body =
+  a one-line explanation. Good for comments: people guess before the reveal.
+Every reel also gets a voiceover: what an Indian English AI voice says over
+it, 35-55 words, spoken and friendly, in first person as the owner
+("Here's what most people get wrong..."). It must follow the slides in order,
+not read them word for word, and end with a short call to follow. Plain words
+only: no hashtags, emoji or symbols, and write numbers the way they're said.
 For every post pick a music mood (it is added to reels): upbeat (future bass,
 general explainers), tech (clean corporate, EV and gadget topics), chill (lofi,
 tips and comparisons), epic (cinematic, reveals and top-5 lists), phonk (drift

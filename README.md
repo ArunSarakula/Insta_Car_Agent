@@ -143,6 +143,28 @@ One-time setup (about 15 minutes):
    audit: apply with the YouTube API Services audit form. Until then, make each
    Short public in YouTube Studio with one tap.
 
+## Reel formats and AI voiceover
+
+Reels rotate between four looks so no two in a row are alike (YouTube
+treats a channel of identical-looking videos as reused content):
+**explainer**, **myth vs fact**, **X vs Y** split screen and **quiz** with a
+3-2-1 countdown. The weekly plan picks the format that suits each topic. If
+a post is missing what its format needs, it falls back to the explainer.
+
+Each reel can also get a voiceover in an Indian English voice from Google
+Cloud Text-to-Speech, with the music lowered underneath. To turn it on, in
+the same Google Cloud project used for YouTube:
+
+1. **APIs & Services → Library**, search "Cloud Text-to-Speech API", **Enable**.
+   Google asks for a billing account; a few Shorts a week stay well inside
+   the free monthly allowance.
+2. **APIs & Services → Credentials → Create credentials → API key**. Edit the
+   key, under **API restrictions** choose "Cloud Text-to-Speech API", save.
+3. In GitHub: **Settings → Secrets and variables → Actions → New repository
+   secret**, name `TTS_API_KEY`, paste the key.
+
+Without the key, reels are made exactly the same, just with music only.
+
 ## Project layout
 
 | Path | What it is |
