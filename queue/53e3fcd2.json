@@ -1,0 +1,56 @@
+{
+  "format": "reel",
+  "title": "Strong vs mild hybrid",
+  "hook": "Your 'hybrid' might barely be a hybrid",
+  "youtube_title": "Strong hybrid vs mild hybrid: what is the real difference?",
+  "caption": "'Hybrid' on the boot lid can mean two very different things 🔋⛽\n\nStrong hybrid: a bigger battery and electric motor that can move the car on electric power alone at low speeds, like the Honda City e:HEV. That's why they shine in stop-go city traffic.\n\nMild hybrid: a small motor-generator that assists the engine and runs start-stop. Helpful, but it cannot drive the car on electric power alone, so the mileage gain is smaller.\n\nMostly city driving? A strong hybrid makes the most sense. Mostly highway? The gap between them narrows.\n\nWhich one would you pick? Tell me in the comments 👇",
+  "hashtags": [
+    "#StrongHybrid",
+    "#MildHybrid",
+    "#HybridCars",
+    "#HondaCity",
+    "#eHEV",
+    "#CarTech",
+    "#FuelEfficiency",
+    "#CarBuyingTips",
+    "#IndianCars",
+    "#Mileage",
+    "#CarExplained",
+    "#DecodeTheDrive"
+  ],
+  "youtube_hashtags": [
+    "#HybridCars",
+    "#CarTech"
+  ],
+  "slides": [
+    {
+      "heading": "Your 'hybrid' might barely be a hybrid",
+      "body": "Strong vs mild hybrid, explained"
+    },
+    {
+      "heading": "Strong hybrid",
+      "body": "Can drive on electric power alone at low speeds. Example: Honda City e:HEV."
+    },
+    {
+      "heading": "Mild hybrid",
+      "body": "Small motor assists the engine and runs start-stop. No electric-only driving."
+    },
+    {
+      "heading": "The mileage gap",
+      "body": "Strong hybrids shine in city traffic. Mild hybrids give a small gain."
+    },
+    {
+      "heading": "Mostly city? Go strong hybrid",
+      "body": "Mostly highway? The difference narrows."
+    }
+  ],
+  "music": "tech",
+  "idea_id": "",
+  "scheduled_for": "2026-10-28T19:30:00+05:30",
+  "status": "draft",
+  "id": "53e3fcd2",
+  "music_track": "paulyudin-tech-corporate-182507.mp3",
+  "media_files": [
+    "media/53e3fcd2/reel.mp4"
+  ]
+}

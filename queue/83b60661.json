@@ -1,0 +1,56 @@
+{
+  "format": "reel",
+  "title": "Highway pulse and coast mileage tip",
+  "hook": "Stop holding the accelerator on highways",
+  "youtube_title": "How to get better highway mileage: the coast and press trick",
+  "caption": "From driving my VW and Skoda on long highway runs, this one habit made a clear difference to my mileage ⛽\n\nDon't keep the accelerator pressed continuously. Press gently up to about 100 km/h, lift off and let the car coast down to about 90, then press lightly again. Repeat. Avoid heavy or full throttle.\n\nIt works on EVs too: smooth, light inputs help your range.\n\nImportant safety notes:\n• Stay in gear while coasting. Never shift to neutral to coast.\n• Only do this on a clear road with a safe gap to the car ahead, not in dense traffic.\n• Always stay within the posted speed limit for that road.\n\nTry it on your next road trip and tell me what mileage you got 👇",
+  "hashtags": [
+    "#MileageTips",
+    "#FuelEfficiency",
+    "#HighwayDriving",
+    "#RoadTrip",
+    "#Volkswagen",
+    "#Skoda",
+    "#EVRange",
+    "#DrivingTips",
+    "#CarTips",
+    "#IndianRoads",
+    "#CarTech",
+    "#DecodeTheDrive"
+  ],
+  "youtube_hashtags": [
+    "#MileageTips",
+    "#Cars"
+  ],
+  "slides": [
+    {
+      "heading": "Stop holding the accelerator on highways",
+      "body": "Highway mileage trick, explained"
+    },
+    {
+      "heading": "Press gently up to about 100 km/h",
+      "body": "Light, smooth throttle. Never floor it."
+    },
+    {
+      "heading": "Lift off, coast down to about 90",
+      "body": "Stay in gear. Never coast in neutral."
+    },
+    {
+      "heading": "Press lightly again. Repeat.",
+      "body": "Works on EVs too: smooth inputs mean more range."
+    },
+    {
+      "heading": "Only when it is safe",
+      "body": "Clear road, safe gap, within the speed limit. Not in dense traffic."
+    }
+  ],
+  "music": "chill",
+  "idea_id": "i01",
+  "scheduled_for": "2026-10-30T19:30:00+05:30",
+  "status": "draft",
+  "id": "83b60661",
+  "music_track": "alex-morgan-lofi-beat-587404.mp3",
+  "media_files": [
+    "media/83b60661/reel.mp4"
+  ]
+}
