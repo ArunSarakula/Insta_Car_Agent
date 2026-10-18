@@ -49,7 +49,7 @@
     }
   ],
   "scheduled_for": "2026-10-18T11:00:00+05:30",
-  "status": "approved",
+  "status": "published",
   "id": "fedad8f0",
   "media_files": [
     "media/fedad8f0/slide-1.jpg",
@@ -59,5 +59,7 @@
     "media/fedad8f0/slide-5.jpg",
     "media/fedad8f0/slide-6.jpg",
     "media/fedad8f0/slide-7.jpg"
-  ]
+  ],
+  "media_id": "17973371802167835",
+  "published_at": "2026-10-18T11:00:00.000168+05:30"
 }
