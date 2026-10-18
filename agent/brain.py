@@ -143,8 +143,11 @@ class Brain:
         prompt = f"""Plan next week's content: exactly {posts_per_week} feed posts plus one
 story poll for each day (7 polls).
 
-Mix for a growing account: about 3 reels (they also go to YouTube Shorts), 1 carousel, 1 meme (car + IT humour
-works well), the rest whatever fits. Spread posts across the week at the
+YouTube Shorts is the main platform (that is where earnings come from);
+Instagram is second. Every reel goes to both, carousels and memes only to
+Instagram. So the mix is about 4 reels plus 1 carousel or meme (car + IT
+humour works well). Pick reel topics people actually search for on YouTube,
+and make each youtube_title the exact question or phrase they would type. Spread posts across the week at the
 times Indian users are most active (IST):
 - Mon-Fri: 19:00-21:00 (reels do best 19:00-20:30; Tue and Wed are the strongest days)
 - Sat: 10:30-12:30
