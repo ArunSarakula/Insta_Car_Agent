@@ -337,3 +337,7 @@ def test_plan_designs_media_and_approve_all(tmp_path, monkeypatch):
     first, second = store.load_posts()
     assert date.fromisoformat(second["scheduled_for"][:10]) - \
         date.fromisoformat(first["scheduled_for"][:10]) == timedelta(days=7)
+
+    # A late duplicate run in the same week doesn't plan a third week.
+    cli.cmd_plan(cfg, None)
+    assert len(store.load_posts()) == 2

@@ -81,6 +81,10 @@ def cmd_plan(cfg: Config, args) -> None:
     # Start after the last post already scheduled, so weeks don't overlap.
     start = max([today] + [date.fromisoformat(p["scheduled_for"][:10]) for p in posts
                            if p.get("scheduled_for") and p["status"] in ("draft", "approved")])
+    if (start - today).days > 7:
+        # Next week is already planned (a late cron run after a manual one).
+        print(f"Already planned up to {start}; skipping.")
+        return
     ideas = store.load_ideas()
     plan = _brain(cfg).weekly_plan(cfg.posts_per_week, posts, latest_report(),
                                    ideas=[i for i in ideas if i["status"] == "new"],
