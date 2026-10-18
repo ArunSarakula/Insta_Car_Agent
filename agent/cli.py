@@ -248,7 +248,8 @@ def youtube_hashtags(post: dict) -> list[str]:
 
 
 def youtube_description(post: dict) -> str:
-    return f"{post['caption']}\n\n{' '.join(youtube_hashtags(post))}".strip()
+    return (f"{post['caption']}\n\nMore car tech on Instagram: https://instagram.com/decodethedrive"
+            f"\n\n{' '.join(youtube_hashtags(post))}").strip()
 
 
 def upload_to_youtube(cfg: Config, post: dict) -> None:

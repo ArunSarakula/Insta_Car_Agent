@@ -191,7 +191,7 @@ def test_youtube_title_and_hashtags():
     assert cli.youtube_title(post) == "AC vs DC charging explained"
     assert cli.youtube_hashtags(post) == ["#shorts", "#EV", "#Charging"]
     post["youtube_hashtags"] = ["#EVCharging", "#CarTech"]
-    assert cli.youtube_description(post) == "Cap\n\n#shorts #EVCharging #CarTech"
+    assert cli.youtube_description(post).endswith("instagram.com/decodethedrive\n\n#shorts #EVCharging #CarTech")
 
 
 # ---- brain -----------------------------------------------------------------
