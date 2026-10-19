@@ -1,0 +1,60 @@
+{
+  "format": "reel",
+  "title": "Glass fog inside vs outside",
+  "reel_style": "myth_fact",
+  "hook": "Wiping fog with your hand makes it worse",
+  "youtube_title": "Why does my car windshield fog up? Inside vs outside fix",
+  "caption": "Rainy or cold morning, and your windshield fogs up just as you start driving? 🌧️\n\nFrom my own driving, the trick is knowing WHICH side is fogged:\n\nInside fog: the cabin air is warm and humid (breath, wet clothes) and the glass is cold. Turn on the front demister, switch the AC on and use fresh air mode, not recirculation.\n\nOutside fog: on humid monsoon days, strong AC makes the glass colder than the air outside. Use the wipers, or set the AC a little warmer.\n\nWiping with your hand just smears oil on the glass, and it fogs up again faster.\n\nSave this for the next rainy drive and send it to someone who always wipes with a hanky 👇",
+  "hashtags": [
+    "#CarTips",
+    "#DrivingTips",
+    "#Monsoon",
+    "#MonsoonDriving",
+    "#WinterDriving",
+    "#Windshield",
+    "#Defogger",
+    "#CarCare",
+    "#RoadSafety",
+    "#IndianRoads",
+    "#IndianCars",
+    "#CarTech",
+    "#DecodeTheDrive"
+  ],
+  "youtube_hashtags": [
+    "#CarTips",
+    "#Monsoon"
+  ],
+  "slides": [
+    {
+      "heading": "Wiping fog with your hand fixes it",
+      "body": "Glass fog, inside vs outside"
+    },
+    {
+      "heading": "Fog is moisture",
+      "body": "It forms on whichever side has warm, humid air touching colder glass. Wiping just smears it."
+    },
+    {
+      "heading": "Fog inside? Rain or winter",
+      "body": "Demister on, AC on, fresh air mode. Not recirculation."
+    },
+    {
+      "heading": "Fog outside? Humid monsoon days",
+      "body": "Your AC made the glass too cold. Use wipers, or set the AC a little warmer."
+    }
+  ],
+  "versus_left": "",
+  "versus_right": "",
+  "quiz_options": [],
+  "quiz_answer": 0,
+  "voiceover": "Here's what most people get wrong when the glass fogs up. Fog is just moisture, and it forms on the side where warm humid air hits cold glass. Fogged inside? Demister on, AC on, fresh air mode. Fogged outside on a humid day? Use your wipers or warm the AC a little. Follow for more car tips.",
+  "music": "chill",
+  "idea_id": "i07",
+  "scheduled_for": "2026-10-22T19:30:00+05:30",
+  "status": "draft",
+  "id": "a9e744bb",
+  "voiced": false,
+  "music_track": "atlasaudio-lofi-chill-589987.mp3",
+  "media_files": [
+    "media/a9e744bb/reel.mp4"
+  ]
+}
