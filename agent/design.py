@@ -174,13 +174,20 @@ def render_reel(slides: list[dict], path: Path, handle="@decodethedrive",
     faded in and out, levelled). With a voiceover the slides are stretched
     to match it and the music sits quietly underneath. Without either the
     reel gets a silent track, as Instagram expects audio."""
-    from .styles import RENDER, usable
+    from .styles import HOOK_TAG, RENDER, hook_frames, usable
     post = {**(post or {}), "slides": slides}
     path.parent.mkdir(parents=True, exist_ok=True)
-    images, durations, transition = RENDER[usable(post)](post, handle, path.parent)
+    style = usable(post)
+    images, durations, transition = RENDER[style](post, handle, path.parent)
+    hook, hook_durations = hook_frames(slides[0].get("heading", ""), HOOK_TAG.get(style, ""))
     if voice:  # keep the slides' proportions, fit them to the voice
-        scale = (media_seconds(voice) + 0.8) / sum(durations)
+        scale = (media_seconds(voice) + 0.8 - sum(hook_durations)) / sum(durations)
         durations = [max(1.0, d * scale) for d in durations]
+    # Hard cuts inside the hook, the style's own transition after it.
+    cuts = [len(hook) > 0 and i < len(hook) for i in range(1, len(hook) + len(images))]
+    images, durations = hook + images, hook_durations + durations
+    if hook:
+        hook[-1].convert("RGB").save(path.parent / "cover-hook.jpg", "JPEG", quality=92)
     frames = []
     for i, im in enumerate(images):
         frames.append(path.parent / f"frame-{i + 1}.jpg")
@@ -212,13 +219,14 @@ def render_reel(slides: list[dict], path: Path, handle="@decodethedrive",
         # Constant slow motion keeps the eye on screen: the hook pulls out
         # from a close zoom, later slides push in gently.
         frames_n = int((dur + fade) * 30)
-        zoom = f"1.12-0.12*on/{frames_n}" if i == 0 else f"1+0.05*on/{frames_n}"
+        zoom = f"1.12-0.12*on/{frames_n}" if i == 0 or cuts[i - 1] else f"1+0.05*on/{frames_n}"
         chains.append(f"[{i}:v]scale=1296:2304,zoompan=z='{zoom}':x='iw/2-(iw/zoom/2)':"
                       f"y='ih/2-(ih/zoom/2)':d=1:s=1080x1920:fps=30,format=yuv420p,setsar=1[v{i}]")
     last, offset = "v0", 0.0
     for i in range(1, n):
         offset += durations[i - 1]
-        chains.append(f"[{last}][v{i}]xfade=transition={transition}:duration={fade}:offset={offset:.2f}[x{i}]")
+        kind, length = ("fade", 0.04) if cuts[i - 1] else (transition, fade)
+        chains.append(f"[{last}][v{i}]xfade=transition={kind}:duration={length}:offset={offset:.2f}[x{i}]")
         last = f"x{i}"
     cmd += ["-filter_complex", ";".join(chains + [audio]), "-map", f"[{last}]", "-map", "[a]",
             "-c:v", "libx264", "-preset", "medium", "-crf", "20", "-pix_fmt", "yuv420p",
@@ -226,7 +234,12 @@ def render_reel(slides: list[dict], path: Path, handle="@decodethedrive",
     subprocess.run(cmd, check=True)
     for frame in frames[1:]:
         frame.unlink()
-    frames[0].rename(path.parent / "cover.jpg")
+    cover, hook_cover = path.parent / "cover.jpg", path.parent / "cover-hook.jpg"
+    if hook_cover.exists():
+        frames[0].unlink()
+        hook_cover.rename(cover)
+    else:
+        frames[0].rename(cover)
     return path
 
 

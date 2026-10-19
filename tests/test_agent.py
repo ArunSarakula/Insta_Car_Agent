@@ -391,3 +391,11 @@ def test_plan_designs_media_and_approve_all(tmp_path, monkeypatch):
     # A late duplicate run in the same week doesn't plan a third week.
     cli.cmd_plan(cfg, None)
     assert len(store.load_posts()) == 2
+
+
+def test_hook_builds_word_by_word_and_tags_myths():
+    from agent.styles import hook_frames
+    frames, durations = hook_frames("Wiping fog with your hand fixes it", "MYTH OR FACT?")
+    assert len(frames) == 3 and abs(sum(durations) - 1.45) < 0.01
+    assert frames[0].getpixel((5, 5)) == frames[-1].getpixel((5, 5))  # amber background
+    assert hook_frames("") == ([], [])

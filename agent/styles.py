@@ -54,6 +54,32 @@ def _pill(d, y, label, bg):
     return y + 92
 
 
+def hook_frames(heading, tag=""):
+    """The first second: the hook slams in chunk by chunk, black on amber,
+    so it stands out from the dark reels around it and something changes
+    on screen every few tenths of a second. `tag` (e.g. MYTH OR FACT?)
+    sits above it so a myth never reads as advice. Returns frames, durations."""
+    words = clean(heading).split()
+    if not words:
+        return [], []
+    n = 1 if len(words) <= 2 else (2 if len(words) <= 4 else 3)
+    size = -(-len(words) // n)
+    chunks = [" ".join(words[:size * (k + 1)]) for k in range(n)]
+    frames = []
+    for text in chunks:
+        im, d = _canvas(AMBER)
+        full = _fit(d, clean(heading), BOLD, XW, 700, 130, 60)  # sized for the full line
+        font, lines, line_h = _fit(d, text, BOLD, XW, 700, full[0].size, 60)
+        y = (TOP + BOT) // 2 - len(full[1]) * line_h // 2
+        if tag:
+            f = _font(52)
+            d.rounded_rectangle([X0, y - 150, X0 + d.textlength(tag, font=f) + 52, y - 64], radius=43, fill=INK)
+            d.text((X0 + 26, y - 136), tag, font=f, fill=AMBER)
+        _draw_lines(d, X0, y, (font, lines, line_h), INK)
+        frames.append(im)
+    return frames, [0.35] * (n - 1) + [0.75]
+
+
 def explainer(post, handle, tmp):
     """The original look: one idea per slide, navy and teal."""
     slides = post["slides"]
@@ -80,7 +106,7 @@ def myth_fact(post, handle, tmp):
     if myth.get("body"):
         y = _text(d, myth["body"], y + 30, GREY, 48, height=120, font=MEDIUM)
     _handle(d, y + 50, handle)
-    frames.append(im); durations.append(2.4)
+    frames.append(im); durations.append(1.8)
 
     im, d = _canvas(dark)
     y = _pill(d, TOP + 120, "MYTH", RED)
@@ -193,5 +219,7 @@ def usable(post) -> str:
         return style
     return "explainer"
 
+
+HOOK_TAG = {"myth_fact": "MYTH OR FACT?", "quiz": "QUIZ"}
 
 RENDER = {"explainer": explainer, "myth_fact": myth_fact, "versus": versus, "quiz": quiz}

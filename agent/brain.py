@@ -182,7 +182,11 @@ photo or filming, so write slides that work as pure text:
   India can drive itself"), a common mistake ("You're using your clutch
   wrong"), or a specific question with a number ("Why does 30 min charging
   give 80% but not 100%?"). Never a plain topic label like "X explained" or
-  "X vs Y". Keep every other slide readable in 2-3 seconds.
+  "X vs Y". The slide 1 heading also opens the reel as a full-screen amber
+  title that appears 2-3 words at a time, so its first 2-3 words must already
+  hook on their own ("Your AC is", "Never wipe fog", "80% charge is"). Our
+  first reel lost 94% of Instagram viewers in 2 seconds. Keep every other
+  slide readable in 2-3 seconds.
 Reels rotate between 4 visual formats so no two reels look alike (YouTube
 flags channels where every video looks the same). Use each format at most
 once a week, never the same as the previous reel, and pick the one that suits
