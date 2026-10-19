@@ -51,5 +51,7 @@
   "music_track": "the_mountain-tech-corporate-593075.mp3",
   "media_files": [
     "media/1fc7a46e/reel.mp4"
-  ]
+  ],
+  "reel_style": "explainer",
+  "voiced": false
 }

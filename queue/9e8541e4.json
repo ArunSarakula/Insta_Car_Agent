@@ -51,5 +51,7 @@
   "music_track": "atlasaudio-lofi-chill-589987.mp3",
   "media_files": [
     "media/9e8541e4/reel.mp4"
-  ]
+  ],
+  "reel_style": "explainer",
+  "voiced": false
 }

@@ -101,7 +101,8 @@ def render_slide(slide: dict, path: Path, size=FEED, index=1, total=1,
     # ~22% and a column on the right, so text stays inside the clear area.
     top = REEL_SAFE_TOP if reel else 70
     d.rectangle([0, 0, w, 14], fill=TEAL)
-    d.text((pad, top), "DECODE THE DRIVE", font=small, fill=TEAL if not meme else INK)
+    if not reel:  # reels already carry the handle under the text
+        d.text((pad, top), "DECODE THE DRIVE", font=small, fill=TEAL if not meme else INK)
     if total > 1 and not reel:
         counter = f"{index}/{total}"
         d.text((w - pad - d.textlength(counter, font=small), top), counter, font=small, fill=GREY)
