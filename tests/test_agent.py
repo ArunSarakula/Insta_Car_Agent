@@ -192,6 +192,9 @@ def test_youtube_title_and_hashtags():
     assert cli.youtube_hashtags(post) == ["#shorts", "#EV", "#Charging"]
     post["youtube_hashtags"] = ["#EVCharging", "#CarTech"]
     assert cli.youtube_description(post).endswith("instagram.com/decodethedrive\n\n#shorts #EVCharging #CarTech")
+    post["slides"] = [{"heading": "Hook"}, {"heading": "AC is slow"}, {"heading": "Follow @decodethedrive"}]
+    assert cli.youtube_description(post).startswith(
+        "AC vs DC charging explained\n\nIn this Short:\n- AC is slow\n\nCap")
 
 
 # ---- brain -----------------------------------------------------------------

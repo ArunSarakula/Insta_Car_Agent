@@ -252,8 +252,13 @@ def youtube_hashtags(post: dict) -> list[str]:
 
 
 def youtube_description(post: dict) -> str:
-    return (f"{post['caption']}\n\nMore car tech on Instagram: https://instagram.com/decodethedrive"
-            f"\n\n{' '.join(youtube_hashtags(post))}").strip()
+    """Search is our biggest YouTube source, so the description opens with the
+    searched question and the slide points, which carry the key terms."""
+    points = "\n".join(f"- {s['heading']}" for s in post.get("slides", [])[1:]
+                       if "@decodethedrive" not in s["heading"])
+    head = youtube_title(post) + (f"\n\nIn this Short:\n{points}" if points else "")
+    return (f"{head}\n\n{post['caption']}\n\nMore car tech on Instagram: https://instagram.com/decodethedrive"
+            f"\n\n{' '.join(youtube_hashtags(post))}").strip()[:4900]
 
 
 def upload_to_youtube(cfg: Config, post: dict) -> None:
