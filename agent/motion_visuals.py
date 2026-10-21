@@ -78,7 +78,17 @@ def clutch(frame, d, t, i):
     if heat > 0.2:
         _label(d, fx + 85, fy - r - 50, "SLIPPING", RED, 30, "ma", 255 * min(1, heat * 2))
     lo, hi = wear
-    _bar(d, X0 + 420, VY + 340, 420, lo + (hi - lo) * ease_out((t - 0.6) / 1.6), RED, "PLATE WEAR")
+    if i < 2:  # riding the clutch: wear climbs
+        _bar(d, X0 + 420, VY + 340, 420, lo + (hi - lo) * ease_out((t - 0.6) / 1.6), RED, "PLATE WEAR")
+    elif i == 2:  # foot off: no slip, the bar turns green and stops
+        g = ease_out((t - 1.3) / 0.4)
+        col = tuple(int(RED[k] + (GREEN[k] - RED[k]) * g) for k in range(3))
+        _bar(d, X0 + 420, VY + 340, 420, hi, col, "WEAR STOPPED" if g > 0.5 else "PLATE WEAR")
+        if g > 0.5:
+            _label(d, fx + 85, fy - r - 50, "NO SLIP", GREEN, 30, "ma")
+    else:  # the payoff: a long clutch life
+        _bar(d, X0 + 420, VY + 340, 420, 0.3 + 0.6 * ease_out((t - 0.4) / 1.2), GREEN, "CLUTCH LIFE")
+        _label(d, fx + 85, fy - r - 50, "LASTS LONGER", GREEN, 30, "ma")
 
 
 # ---- hybrid ----------------------------------------------------------------
