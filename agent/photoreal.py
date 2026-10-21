@@ -312,3 +312,52 @@ def fog_written_thumbnail(post, path, handle="@decodethedrive"):
     _title_3d(out, "outside?", y, AMBER, 130)
     out.convert("RGB").save(path, "JPEG", quality=92)
     return path
+
+
+def _photo_base(photo):
+    """The owner's own photo, letterbox bars trimmed, filled to 9:16 and
+    given a little extra contrast so it reads on a small screen."""
+    from PIL import ImageEnhance, ImageOps
+    im = ImageOps.exif_transpose(Image.open(photo)).convert("RGB")
+    rows = np.where(np.asarray(im.convert("L"), float).mean(1) > 12)[0]
+    im = im.crop((0, rows[0] + 2, im.width, rows[-1] - 2))
+    im = ImageOps.fit(im, (W, H), Image.LANCZOS)
+    im = ImageEnhance.Contrast(im).enhance(1.25)
+    yy = np.linspace(0, 1, H)[:, None, None]  # darker at the top behind the title
+    shade = np.clip(1 - 0.45 * np.clip(1 - yy / 0.42, 0, 1), 0, 1)
+    return Image.fromarray((np.asarray(im, float) * shade).astype(np.uint8)).convert("RGBA")
+
+
+def _lit_key(im, cx, y, size):
+    from .motion_fog import demister_icon
+    lit = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+    ld = ImageDraw.Draw(lit)
+    x = cx - size // 2
+    ld.rounded_rectangle([x, y, x + size, y + size], radius=size // 5, fill=(26, 28, 34, 255),
+                         outline=(80, 84, 92, 255), width=5)
+    demister_icon(ld, x + size * 17 // 100, y + size * 13 // 100, size * 66 // 100, AMBER)
+    im.alpha_composite(lit.filter(ImageFilter.GaussianBlur(size / 6)))
+    im.alpha_composite(lit)
+
+
+def fog_real_thumbnail(post, path, handle="@decodethedrive", photo=None, variant="question"):
+    """Thumbnail on the owner's real fogged-windshield photo."""
+    out = _photo_base(photo)
+    if variant == "button":
+        y = _title_3d(out, "Press", 170, WHITE, 170)
+        _title_3d(out, "this button", y, AMBER, 140)
+        key_y = int(H * 0.70)
+        _lit_key(out, W // 2, key_y, 280)
+        d = ImageDraw.Draw(out)
+        d.line([(W // 2, key_y - 250), (W // 2, key_y - 70)], fill=(*RED, 255), width=26)
+        d.polygon([(W // 2 - 60, key_y - 100), (W // 2 + 60, key_y - 100), (W // 2, key_y - 15)], fill=(*RED, 255))
+        _red_pill(out, "FOGGY WINDSHIELD?", int(H * 0.47), 54)
+    else:
+        text = post.get("thumbnail_text") or "Windshield | fogging up?"
+        top, _, accent = text.partition("|")
+        y = _title_3d(out, top, 170, WHITE, 150)
+        _title_3d(out, accent, y, AMBER, 150)
+        _red_pill(out, "INSIDE OR OUTSIDE?", int(H * 0.60), 54)
+        _lit_key(out, W // 2, int(H * 0.76), 200)
+    out.convert("RGB").save(path, "JPEG", quality=92)
+    return path
