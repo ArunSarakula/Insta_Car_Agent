@@ -46,6 +46,7 @@
   "media_files": [
     "media/53e3fcd2/reel.mp4"
   ],
-  "reel_style": "explainer",
-  "voiced": false
+  "reel_style": "hybrid",
+  "voiced": false,
+  "thumbnail_text": "Strong or mild | hybrid?"
 }

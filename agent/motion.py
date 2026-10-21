@@ -237,7 +237,9 @@ def _write_sfx(cues, total, path):
 def formats():
     """Animated formats: reel_style -> (scene builder, thumbnail designer)."""
     from .motion_fog import fog_scenes, fog_thumbnail
-    return {"meter": (meter_scenes, meter_thumbnail), "fog": (fog_scenes, fog_thumbnail)}
+    from .motion_visuals import VISUALS, visual_scenes, visual_thumbnail
+    return {"meter": (meter_scenes, meter_thumbnail), "fog": (fog_scenes, fog_thumbnail),
+            **{name: (visual_scenes, visual_thumbnail) for name in VISUALS}}
 
 
 def render_motion(post, path: Path, handle="@decodethedrive", music: Path | None = None) -> Path:

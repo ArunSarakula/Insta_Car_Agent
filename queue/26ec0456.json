@@ -46,6 +46,7 @@
   "media_files": [
     "media/26ec0456/reel.mp4"
   ],
-  "reel_style": "explainer",
-  "voiced": false
+  "reel_style": "adas",
+  "voiced": false,
+  "thumbnail_text": "Is ADAS useful | on Indian roads?"
 }

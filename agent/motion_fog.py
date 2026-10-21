@@ -127,8 +127,7 @@ class Section:
                 d.ellipse([dx - rr, dy - rr, dx + rr, dy + rr], fill=(220, 235, 250, 230))
 
 
-def _chips(d, chips, y, t, start, gap=0.5):
-    x = X0
+def _chips(d, chips, y, t, start, gap=0.5, x=X0):
     for i, c in enumerate(chips):
         p = ease_out((t - start - i * gap) / 0.25)
         if p <= 0:

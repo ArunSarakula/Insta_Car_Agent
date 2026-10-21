@@ -46,6 +46,7 @@
   "media_files": [
     "media/9e8541e4/reel.mp4"
   ],
-  "reel_style": "explainer",
-  "voiced": false
+  "reel_style": "wheel",
+  "voiced": false,
+  "thumbnail_text": "How often should you | balance your wheels?"
 }

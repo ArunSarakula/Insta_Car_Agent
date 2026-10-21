@@ -34,7 +34,7 @@ POST_SCHEMA = {
                 "additionalProperties": False,
             },
         },
-        "reel_style": {"type": "string", "enum": ["explainer", "myth_fact", "versus", "quiz"],
+        "reel_style": {"type": "string", "enum": ["explainer", "myth_fact", "versus", "quiz", "meter"],
                        "description": "Reels only (explainer otherwise): the visual format"},
         "versus_left": {"type": "string", "description": "versus reels: left side name, e.g. Petrol; else empty"},
         "versus_right": {"type": "string", "description": "versus reels: right side name, e.g. CNG; else empty"},
@@ -205,6 +205,11 @@ the topic. How the slides are used in each:
   mean?" or "Guess what this button does"); quiz_options = 3 short options;
   quiz_answer = index of the right one; slide 2 heading = the answer, body =
   a one-line explanation. Good for comments: people guess before the reveal.
+- meter (fully animated; the owner's favourite): for "what eats your X"
+  topics (EV range, mileage, tyre life, battery health). Slide 1 = hook,
+  slide 2 = the baseline/claim, 2-4 slides = one thing that drains it each,
+  last slide = the fix. An animated meter drains as each point lands.
+  Prefer it whenever a topic fits.
 Every reel also gets a voiceover: what an Indian English AI voice says over
 it, 35-55 words, spoken and friendly, in first person as the owner
 ("Here's what most people get wrong..."). It must follow the slides in order,
