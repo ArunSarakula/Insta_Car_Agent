@@ -41,54 +41,70 @@ def _step(steps, i):
 
 # ---- clutch ----------------------------------------------------------------
 
-def clutch(frame, d, t, i):
-    """Pedal on the left, flywheel and clutch plate on the right. Slip
-    (plate turning slower than the engine) heats it and adds wear."""
-    press, slip, wear, foot = _step([(0.12, 0.35, (0.0, 0.35), "rest"), (0.55, 0.7, (0.35, 0.65), "rest"),
-                                     (0.0, 0.0, (0.65, 0.65), "dead"), (0.0, 0.0, (0.65, 0.65), "dead")], i)
-    if i == 2:  # foot moves off to the dead pedal
-        mv = ease_out((t - 0.8) / 0.5)
-        press = 0.12 * (1 - mv)
-    px, py = X0 + 150, VY + 10
-    ang = math.radians(70 - 35 * press)
-    ex, ey = px + 260 * math.cos(ang), py + 260 * math.sin(ang)
-    d.line([(px, py), (ex, ey)], fill=_a(GREY), width=18)
-    d.ellipse([px - 16, py - 16, px + 16, py + 16], fill=_a(WHITE))
-    d.rounded_rectangle([ex - 60, ey - 18, ex + 60, ey + 18], radius=10, fill=_a(WHITE))
-    _label(d, ex + 80, ey - 12, "CLUTCH", size=26)
-    dead = (X0, VY + 330)
-    d.rounded_rectangle([dead[0], dead[1], dead[0] + 120, dead[1] + 26], radius=8, fill=_a(DIM))
-    _label(d, dead[0], dead[1] + 34, "DEAD PEDAL", size=24)
-    sx, sy = ex - 80, ey - 62  # shoe on the pedal pad
-    if i >= 2:
-        mv = ease_out((t - 0.8) / 0.5) if i == 2 else 1.0
-        sx, sy = sx + (dead[0] - 20 - sx) * mv, sy + (dead[1] - 46 - sy) * mv
-    d.rounded_rectangle([sx, sy, sx + 160, sy + 44], radius=22, fill=_a(AMBER))  # shoe
-    # flywheel + plate
-    fx, fy, r = X0 + 540, VY + 130, 120
-    engine = t * 9
-    plate = engine * (1 - slip * ease_out((t - 0.4) / 0.6))
-    heat = slip * ease_out((t - 0.6) / 0.8)
-    for cx, rot, name, col in ((fx, engine, "ENGINE", GREY), (fx + 170, plate, "PLATE", WHITE)):
-        glow = tuple(int(c + (RED[k] - c) * heat) for k, c in enumerate(col)) if name == "PLATE" else col
-        d.ellipse([cx - 40, fy - r, cx + 40, fy + r], fill=_a(DIM), outline=_a(glow), width=8)
-        my = fy + r * 0.8 * math.sin(rot)
-        d.ellipse([cx - 12, my - 12, cx + 12, my + 12], fill=_a(glow))
-        _label(d, cx, fy + r + 14, name, size=24, anchor="ma")
+def _disc(d, cx, cy, r, rot, rim, label, heat=0.0):
+    """A clutch disc seen face-on, spinning."""
+    col = tuple(int(rim[k] + (RED[k] - rim[k]) * heat) for k in range(3))
     if heat > 0.2:
-        _label(d, fx + 85, fy - r - 50, "SLIPPING", RED, 30, "ma", 255 * min(1, heat * 2))
-    lo, hi = wear
+        d.ellipse([cx - r - 18, cy - r - 18, cx + r + 18, cy + r + 18], fill=_a(RED, 70 * heat))
+    d.ellipse([cx - r, cy - r, cx + r, cy + r], fill=_a((50, 56, 68)), outline=_a(col), width=14)
+    for k in range(6):
+        a = rot + k * math.pi / 3
+        d.line([(cx + 26 * math.cos(a), cy + 26 * math.sin(a)),
+                (cx + (r - 16) * math.cos(a), cy + (r - 16) * math.sin(a))], fill=_a(col), width=8)
+    d.ellipse([cx - 24, cy - 24, cx + 24, cy + 24], fill=_a(col))
+    _label(d, cx, cy + r + 16, label, GREY, 24, "ma")
+
+
+def clutch(frame, d, t, i):
+    """Left: the pedals as the driver sees them, foot on the clutch or the
+    dead pedal. Right: engine flywheel and clutch plate spinning; when the
+    plate lags behind (slip) it heats up and wears."""
+    press, slip, wear = _step([(0.25, 0.4, (0.0, 0.35)), (0.7, 0.75, (0.35, 0.65)),
+                               (0.0, 0.0, (0.65, 0.65)), (0.0, 0.0, (0.65, 0.65))], i)
+    move = ease_out((t - 0.8) / 0.5) if i == 2 else (1.0 if i == 3 else 0.0)
+    press *= 1 - move
+    # footwell
+    fx0, fy0 = X0, VY - 10
+    d.rounded_rectangle([fx0, fy0, fx0 + 400, fy0 + 380], radius=24, fill=_a((30, 34, 42)))
+    pedals = [("DEAD\nPEDAL", fx0 + 20, 70, 150), ("CLUTCH", fx0 + 112, 80, 110),
+              ("BRAKE", fx0 + 210, 90, 110), ("ACCEL", fx0 + 320, 48, 150)]
+    for name, x, w, h in pedals:
+        dy = 50 * press if name == "CLUTCH" else 0
+        top = fy0 + 120 + dy
+        if name != "DEAD\nPEDAL":
+            d.line([(x + w / 2, fy0 + 20), (x + w / 2, top)], fill=_a(DIM), width=10)  # pedal arm
+        d.rounded_rectangle([x, top, x + w, top + h], radius=14,
+                            fill=_a(WHITE if name == "CLUTCH" else ((60, 66, 78) if "DEAD" in name else GREY)))
+        for n, line in enumerate(name.split("\n")):
+            _label(d, x + w / 2, fy0 + 290 + n * 28 + (0 if name != "CLUTCH" else 0), line,
+                   AMBER if name == "CLUTCH" else GREY, 22, "ma")
+    # the left foot, a shoe sole seen from above
+    cx_c, cy_c = fx0 + 152, fy0 + 175 + 50 * press
+    cx_d, cy_d = fx0 + 55, fy0 + 195
+    sx, sy = cx_c + (cx_d - cx_c) * move, cy_c + (cy_d - cy_c) * move
+    d.rounded_rectangle([sx - 34, sy - 64, sx + 34, sy + 64], radius=34, fill=_a(AMBER, 235))
+    _label(d, sx, sy - 14, "FOOT", INK, 22, "ma")
+    # flywheel and plate, face-on
+    engine = t * 7
+    lag = slip * ease_out((t - 0.3) / 0.6)
+    plate = engine * (1 - lag)
+    heat = lag * ease_out((t - 0.6) / 0.8)
+    _disc(d, X0 + 530, VY + 140, 100, engine, GREY, "ENGINE")
+    _disc(d, X0 + 760, VY + 140, 100, plate, WHITE, "CLUTCH PLATE", heat)
+    if heat > 0.2:
+        _label(d, X0 + 760, VY - 20, "SLIPPING!", RED, 32, "ma", 255 * min(1, heat * 2))
     if i < 2:  # riding the clutch: wear climbs
-        _bar(d, X0 + 420, VY + 340, 420, lo + (hi - lo) * ease_out((t - 0.6) / 1.6), RED, "PLATE WEAR")
+        _bar(d, X0 + 440, VY + 340, 420, wear[0] + (wear[1] - wear[0]) * ease_out((t - 0.6) / 1.6), RED,
+             "PLATE WEAR")
     elif i == 2:  # foot off: no slip, the bar turns green and stops
         g = ease_out((t - 1.3) / 0.4)
         col = tuple(int(RED[k] + (GREEN[k] - RED[k]) * g) for k in range(3))
-        _bar(d, X0 + 420, VY + 340, 420, hi, col, "WEAR STOPPED" if g > 0.5 else "PLATE WEAR")
+        _bar(d, X0 + 440, VY + 340, 420, wear[1], col, "WEAR STOPPED" if g > 0.5 else "PLATE WEAR")
         if g > 0.5:
-            _label(d, fx + 85, fy - r - 50, "NO SLIP", GREEN, 30, "ma")
+            _label(d, X0 + 645, VY - 20, "NO SLIP: BOTH SPIN TOGETHER", GREEN, 26, "ma")
     else:  # the payoff: a long clutch life
-        _bar(d, X0 + 420, VY + 340, 420, 0.3 + 0.6 * ease_out((t - 0.4) / 1.2), GREEN, "CLUTCH LIFE")
-        _label(d, fx + 85, fy - r - 50, "LASTS LONGER", GREEN, 30, "ma")
+        _bar(d, X0 + 440, VY + 340, 420, 0.3 + 0.6 * ease_out((t - 0.4) / 1.2), GREEN, "CLUTCH LIFE")
+        _label(d, X0 + 645, VY - 20, "LASTS LONGER", GREEN, 30, "ma")
 
 
 # ---- hybrid ----------------------------------------------------------------
