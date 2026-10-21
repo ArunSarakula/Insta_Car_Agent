@@ -290,5 +290,40 @@ def render_meter(post, path: Path, handle="@decodethedrive", music: Path | None 
     if proc.wait():
         raise RuntimeError("ffmpeg failed while rendering the animated reel")
     sfx.unlink()
-    (cover or rgb).save(path.parent / "cover.jpg", "JPEG", quality=92)
+    (cover or rgb).save(path.parent / "cover.jpg", "JPEG", quality=92)  # Instagram cover
+    meter_thumbnail(post, path.parent / "thumbnail.jpg", handle)
+    return path
+
+
+def meter_thumbnail(post, path: Path, handle="@decodethedrive") -> Path:
+    """Search thumbnail: a short question in huge type and the meter's
+    before/after, readable at the size YouTube shows it in results.
+    `thumbnail_text` is "white part | amber part"."""
+    text = post.get("thumbnail_text") or post["slides"][0]["heading"]
+    top, _, accent = text.partition("|")
+    im = Image.new("RGBA", (W, H), (*NAVY, 255))
+    im.alpha_composite(_glow(900, AMBER, 60), (-360, 980))
+    im.alpha_composite(_glow(700, TEAL, 50), (300, -500))
+    d = ImageDraw.Draw(im)
+    y = 250
+    for part, color in ((top, WHITE), (accent, AMBER)):
+        part = clean(part).upper()
+        if not part:
+            continue
+        f, lines, line_h = _fit(d, part, BOLD, W - 2 * X0, 520, 170, 90, spacing=1.05)
+        for line in lines:
+            d.text((W // 2, y), line, font=f, fill=color, anchor="ma")
+            y += line_h
+    real = post.get("meter_end", 0.55)
+    for n, (label, level, color) in enumerate((("CLAIMED", 1.0, GREEN), ("REAL", real, RED))):
+        by = max(y + 120, 1010) + n * 360
+        bw, bh, x = 800, 230, (W - 800) // 2 - 16
+        d.text((x, by - 80), label, font=_font(BOLD, 62), fill=WHITE)
+        if n:  # the real figure depends on the car and the drive, so ask instead of inventing one
+            d.text((x + bw, by - 96), "?", font=_font(BOLD, 96), fill=color, anchor="ra")
+        d.rounded_rectangle([x, by, x + bw, by + bh], radius=40, outline=WHITE, width=14)
+        d.rounded_rectangle([x + bw + 10, by + bh * 0.3, x + bw + 44, by + bh * 0.7], radius=10, fill=WHITE)
+        d.rounded_rectangle([x + 28, by + 28, x + 28 + (bw - 56) * level, by + bh - 28], radius=24, fill=color)
+    d.text((W // 2, H - 210), handle, font=_font(BOLD, 48), fill=TEAL, anchor="ma")
+    im.convert("RGB").save(path, "JPEG", quality=92)
     return path

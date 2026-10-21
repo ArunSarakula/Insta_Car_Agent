@@ -283,7 +283,8 @@ def upload_to_youtube(cfg: Config, post: dict) -> None:
                                    [t.lstrip("#") for t in post.get("hashtags", [])])
         store.set_status(post["id"], "published", youtube_id=video_id)
         print(f"  Also on YouTube: https://youtube.com/shorts/{video_id}")
-        cover = (ROOT / post["media_files"][0]).parent / "cover.jpg"
+        folder = (ROOT / post["media_files"][0]).parent
+        cover = folder / "thumbnail.jpg" if (folder / "thumbnail.jpg").exists() else folder / "cover.jpg"
         if cover.exists():
             try:
                 yt.set_thumbnail(video_id, str(cover))
