@@ -23,3 +23,19 @@ these are starting points until our own Insights take over.
 Once the account has 100 followers, Instagram shares when *our* followers are
 online. The weekly report then lists those hours (IST), and the weekly plan
 follows them instead of the table above.
+
+## Fixed weekly slots (owner's choice, 21 Oct 2026)
+
+The same times every week (IST). Set in `agent/slots.py`.
+
+| Day | Time | Post | Where |
+|---|---|---|---|
+| Mon | 20:00 | Carousel | Instagram |
+| Tue | 19:30 | Reel | YouTube |
+| Wed | 19:30 | Reel | YouTube |
+| Thu | 20:00 | Carousel | Instagram |
+| Fri | 19:30 | Reel | YouTube |
+| Sat | 11:00 | Reel | YouTube + Instagram |
+| Sat | 20:30 | Meme | Instagram |
+| Sun | 11:30 | Reel | YouTube + Instagram |
+| Sun | 20:30 | Meme | Instagram |
