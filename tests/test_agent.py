@@ -444,3 +444,12 @@ def test_meter_reel_renders(tmp_path):
     assert (tmp_path / "m1" / "reel.mp4").stat().st_size > 10_000
     assert (tmp_path / "m1" / "cover.jpg").exists() and post["reel_style"] == "meter"
     assert files
+
+
+def test_instagram_cover_fits_the_grid_crop(tmp_path):
+    from PIL import Image
+    from agent.motion import instagram_cover
+    Image.new("RGB", (1080, 1920), (255, 0, 0)).save(tmp_path / "t.jpg")
+    with Image.open(instagram_cover(tmp_path / "t.jpg", tmp_path / "c.jpg")) as im:
+        assert im.size == (1080, 1920)
+        assert im.getpixel((540, 200))[0] < 100 and im.getpixel((540, 960))[0] > 200

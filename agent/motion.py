@@ -301,7 +301,21 @@ def render_motion(post, path: Path, handle="@decodethedrive", music: Path | None
     sfx.unlink()
     (cover or rgb).save(path.parent / "cover.jpg", "JPEG", quality=92)  # Instagram cover
     thumbnail(post, path.parent / "thumbnail.jpg", handle)
+    instagram_cover(path.parent / "thumbnail.jpg", path.parent / "cover.jpg")
     return path
+
+
+def instagram_cover(thumbnail: Path, cover: Path) -> Path:
+    """The YouTube thumbnail as the Instagram reel cover. The profile grid
+    shows only the middle 3:4 of a reel cover, so the whole design is shrunk
+    into that band to keep the title and visual from being cut off."""
+    band = W * 4 // 3
+    with Image.open(thumbnail) as im:
+        art = im.convert("RGB").resize((band * W // H, band), Image.LANCZOS)
+    out = Image.new("RGB", (W, H), NAVY)
+    out.paste(art, ((W - art.width) // 2, (H - band) // 2))
+    out.save(cover, "JPEG", quality=92)
+    return cover
 
 
 def render_meter(post, path: Path, handle="@decodethedrive", music: Path | None = None) -> Path:
