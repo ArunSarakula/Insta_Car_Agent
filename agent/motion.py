@@ -1,0 +1,294 @@
+"""Animated reels: every frame is drawn, so text pops in word by word, a
+meter drains as each point lands, and sound effects mark each beat.
+
+"meter" format, for "what eats your X" topics (range, mileage, tyre life):
+slide 1 is the hook, slide 2 the baseline (meter full), the middle slides
+each knock a piece off the meter, and the last slide is the takeaway."""
+
+import math
+import subprocess
+import wave
+from pathlib import Path
+
+import numpy as np
+from PIL import Image, ImageDraw, ImageFont
+
+from .design import (AMBER, BOLD, GREY, INK, MEDIUM, NAVY, REEL, REEL_SAFE_BOTTOM, REEL_SAFE_RIGHT,
+                     REEL_SAFE_TOP, TEAL, WHITE, _fit, clean, ffmpeg_exe)
+
+W, H = REEL
+FPS = 30
+X0 = 80
+XW = W - X0 - REEL_SAFE_RIGHT - 40
+TOP, BOT = REEL_SAFE_TOP, H - REEL_SAFE_BOTTOM
+RED = (235, 70, 70)
+GREEN = (40, 200, 120)
+RATE = 44100
+
+
+def ease_out(x):
+    x = min(1.0, max(0.0, x))
+    return 1 - (1 - x) ** 3
+
+
+def ease_back(x):  # overshoots a little, then settles: a "pop"
+    x = min(1.0, max(0.0, x))
+    c = 1.7
+    return 1 + (c + 1) * (x - 1) ** 3 + c * (x - 1) ** 2
+
+
+def _font(path, size):
+    return ImageFont.truetype(path, size)
+
+
+def _glow(radius=700, color=TEAL, strength=70):
+    yy, xx = np.mgrid[-radius:radius, -radius:radius]
+    a = np.clip(1 - np.sqrt(xx ** 2 + yy ** 2) / radius, 0, 1) ** 2 * strength
+    im = np.zeros((2 * radius, 2 * radius, 4), np.uint8)
+    im[..., :3] = color
+    im[..., 3] = a.astype(np.uint8)
+    return Image.fromarray(im, "RGBA")
+
+
+class Words:
+    """A heading laid out once; each word slides up and fades in on cue."""
+
+    def __init__(self, text, y, size=96, minimum=56, height=420, font=BOLD, color=WHITE):
+        probe = ImageDraw.Draw(Image.new("RGB", (10, 10)))
+        f, lines, line_h = _fit(probe, clean(text), font, XW, height, size, minimum)
+        self.font, self.color, self.items = f, color, []
+        for n, line in enumerate(lines):
+            x = X0
+            for word in line.split():
+                self.items.append((x, y + n * line_h, word))
+                x += probe.textlength(word + " ", font=f)
+        self.bottom = y + len(lines) * line_h
+
+    def draw(self, d, t, start=0.0, stagger=0.07, rise=46):
+        for i, (x, y, word) in enumerate(self.items):
+            p = ease_out((t - start - i * stagger) / 0.28)
+            if p > 0:
+                d.text((x, y + rise * (1 - p)), word, font=self.font, fill=(*self.color, int(255 * p)))
+
+
+def _fade_text(d, text, x, y, t, start, font, color, width=XW, height=300, size=48):
+    p = ease_out((t - start) / 0.35)
+    if p <= 0:
+        return y
+    f, lines, line_h = _fit(d, clean(text), font, width, height, size, 30)
+    for n, line in enumerate(lines):
+        d.text((x, y + n * line_h + 20 * (1 - p)), line, font=f, fill=(*color, int(255 * p)))
+    return y + len(lines) * line_h
+
+
+def _pill(d, x, y, label, bg, fg=WHITE, alpha=255, size=40):
+    f = _font(BOLD, size)
+    w = d.textlength(label, font=f)
+    d.rounded_rectangle([x, y, x + w + 44, y + size + 34], radius=(size + 34) // 2, fill=(*bg, alpha))
+    d.text((x + 22, y + 15), label, font=f, fill=(*fg, alpha))
+
+
+def _level_color(level):
+    return GREEN if level > 0.62 else (AMBER if level > 0.4 else RED)
+
+
+def _battery(d, y, level, label, flash=None, marker=None, alpha=255):
+    """Horizontal battery. `flash` = (low, high, strength) for the piece
+    just lost; `marker` = level of the buffer line."""
+    bw, bh = 760, 190
+    x = X0
+    d.rounded_rectangle([x, y, x + bw, y + bh], radius=34, outline=(*WHITE, alpha), width=10)
+    d.rounded_rectangle([x + bw + 8, y + bh * 0.3, x + bw + 34, y + bh * 0.7], radius=8, fill=(*WHITE, alpha))
+    inner = bw - 44
+    fill_w = max(0, inner * level)
+    if fill_w > 4:
+        d.rounded_rectangle([x + 22, y + 22, x + 22 + fill_w, y + bh - 22], radius=20,
+                            fill=(*_level_color(level), alpha))
+    if flash:
+        lo, hi, s = flash
+        if s > 0 and hi > lo:
+            d.rounded_rectangle([x + 22 + inner * lo, y + 22, x + 22 + inner * hi, y + bh - 22], radius=20,
+                                fill=(*RED, int(alpha * s)))
+    if marker is not None:
+        mx = x + 22 + inner * marker
+        for yy in range(int(y - 26), int(y + bh + 26), 22):
+            d.line([(mx, yy), (mx, yy + 12)], fill=(*WHITE, alpha), width=6)
+        d.text((mx - 10, y + bh + 40), "buffer", font=_font(BOLD, 34), fill=(*WHITE, alpha))
+    d.text((x, y - 62), label, font=_font(BOLD, 38), fill=(*GREY, alpha))
+    d.text((x + bw - 10, y - 62), f"{round(level * 100)}%", font=_font(BOLD, 38),
+           fill=(*_level_color(level), alpha), anchor="ra")
+
+
+def _hook_scene(heading, tag):
+    words = clean(heading).split()
+    probe = ImageDraw.Draw(Image.new("RGB", (10, 10)))
+    f, lines, line_h = _fit(probe, clean(heading), BOLD, XW, 760, 140, 70)
+    sprites, x, y0 = [], 0, (TOP + BOT) // 2 - len(lines) * line_h // 2
+    for n, line in enumerate(lines):
+        x = X0
+        for word in line.split():
+            w = int(probe.textlength(word, font=f)) + 8
+            im = Image.new("RGBA", (w, line_h), (0, 0, 0, 0))
+            ImageDraw.Draw(im).text((0, 0), word, font=f, fill=INK)
+            sprites.append((x, y0 + n * line_h, im))
+            x += probe.textlength(word + " ", font=f)
+    step = min(0.2, 1.0 / max(1, len(words)))
+    landed = step * (len(sprites) - 1) + 0.16
+    dur = landed + 0.55
+
+    def draw(frame, d, t):
+        frame.paste((*AMBER, 255), [0, 0, W, H])
+        shake = 0
+        if landed < t < landed + 0.22:
+            shake = int(10 * math.sin(t * 90) * (1 - (t - landed) / 0.22))
+        if tag:
+            _pill(d, X0 + shake, y0 - 130, tag, INK, AMBER, size=44)
+        for i, (x, y, im) in enumerate(sprites):
+            p = (t - i * step) / 0.12
+            if p <= 0:
+                continue
+            s = 1 + 0.3 * (1 - ease_out(p))
+            sp = im.resize((max(1, int(im.width * s)), max(1, int(im.height * s))))
+            frame.alpha_composite(sp, (int(x - (sp.width - im.width) / 2) + shake,
+                                       int(y - (sp.height - im.height) / 2)))
+    cues = [("pop", i * step) for i in range(len(sprites))] + [("hit", landed)]
+    return dur, draw, cues
+
+
+def meter_scenes(post, handle):
+    """(duration, draw(frame, draw, t), sound cues) for each scene."""
+    slides = post["slides"]
+    base, drains, last = slides[1], slides[2:-1], slides[-1]
+    levels = [round(v, 2) for v in np.linspace(1.0, 0.55, len(drains) + 1)]
+    scenes = [_hook_scene(slides[0]["heading"], post.get("hook_tag", ""))]
+    battery_y = 1000
+
+    def text_scene(slide, badge, battery, dur, cues):
+        heading = Words(slide["heading"], TOP + 150, size=92)
+
+        def draw(frame, d, t):
+            if badge:
+                _pill(d, X0, TOP + 40, badge, TEAL, INK, alpha=int(255 * ease_out(t / 0.2)), size=34)
+            heading.draw(d, t)
+            _fade_text(d, slide.get("body", ""), X0, heading.bottom + 30, t, 0.45, MEDIUM, GREY, size=46,
+                       height=260)
+            battery(d, t)
+        return dur, draw, cues
+
+    scenes.append(text_scene(base, "THE CLAIM", lambda d, t: _battery(
+        d, battery_y, 1.0, "CLAIMED RANGE", alpha=int(255 * ease_out((t - 0.3) / 0.4))), 3.0, [("whoosh", 0)]))
+    for i, s in enumerate(drains):
+        hi, lo = levels[i], levels[i + 1]
+
+        def battery(d, t, hi=hi, lo=lo):
+            p = ease_out((t - 0.9) / 0.45)
+            _battery(d, battery_y, hi - (hi - lo) * p, "REAL RANGE",
+                     flash=(lo, hi, max(0.0, 1 - max(0, t - 0.9) / 0.7)) if t > 0.9 else (lo, hi, 0.0))
+        scenes.append(text_scene(s, f"RANGE KILLER {i + 1}/{len(drains)}", battery, 3.1,
+                                 [("whoosh", 0), ("drain", 0.9)]))
+    final = levels[-1]
+    scenes.append(text_scene(last, "THE FIX", lambda d, t: _battery(
+        d, battery_y, final, "PLAN FOR THIS", marker=0.15 if t > 0.8 else None), 3.6,
+        [("whoosh", 0), ("ding", 0.8)]))
+    return scenes
+
+
+# ---- sound -----------------------------------------------------------------
+
+def _sfx(kind):
+    n = {"whoosh": 0.45, "pop": 0.09, "hit": 0.35, "drain": 0.5, "ding": 0.8}[kind]
+    t = np.arange(int(RATE * n)) / RATE
+    rng = np.random.default_rng(len(kind))
+    if kind == "whoosh":  # noise swept through a moving low-pass
+        noise = rng.standard_normal(len(t))
+        out, acc = np.zeros_like(noise), 0.0
+        cut = 0.02 + 0.25 * np.sin(np.pi * t / n)
+        for i, x in enumerate(noise):
+            acc += cut[i] * (x - acc)
+            out[i] = acc
+        return out * np.sin(np.pi * t / n) ** 2 * 1.4
+    if kind == "pop":
+        return np.sin(2 * np.pi * 900 * t) * np.exp(-t * 60) * 0.5
+    if kind == "hit":
+        return (np.sin(2 * np.pi * (70 - 30 * t) * t) * np.exp(-t * 9)
+                + 0.15 * rng.standard_normal(len(t)) * np.exp(-t * 30))
+    if kind == "drain":  # falling tone: something lost
+        f = 520 - 380 * t / n
+        return np.sin(2 * np.pi * np.cumsum(f) / RATE) * np.exp(-t * 4) * 0.45
+    return (np.sin(2 * np.pi * 1320 * t) + 0.5 * np.sin(2 * np.pi * 1980 * t)) * np.exp(-t * 5) * 0.3
+
+
+def _write_sfx(cues, total, path):
+    track = np.zeros(int(RATE * total) + RATE)
+    for kind, at in cues:
+        s = _sfx(kind)
+        i = int(at * RATE)
+        track[i:i + len(s)] += s[:len(track) - i]
+    track = np.clip(track * 0.6, -1, 1)
+    with wave.open(str(path), "wb") as w:
+        w.setnchannels(1)
+        w.setsampwidth(2)
+        w.setframerate(RATE)
+        w.writeframes((track * 32767).astype(np.int16).tobytes())
+
+
+# ---- render ----------------------------------------------------------------
+
+def render_meter(post, path: Path, handle="@decodethedrive", music: Path | None = None) -> Path:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    scenes = meter_scenes(post, handle)
+    starts, total = [], 0.0
+    for dur, _, _ in scenes:
+        starts.append(total)
+        total += dur
+    cues = [(k, s + at) for s, (_, _, c) in zip(starts, scenes) for k, at in c]
+    sfx = path.parent / "sfx.wav"
+    _write_sfx(cues, total, sfx)
+
+    cmd = [ffmpeg_exe(), "-y", "-loglevel", "error", "-f", "rawvideo", "-pix_fmt", "rgb24",
+           "-s", f"{W}x{H}", "-r", str(FPS), "-i", "-", "-i", str(sfx)]
+    if music:
+        cmd += ["-stream_loop", "-1", "-i", str(music)]
+        audio = (f"[2:a]silenceremove=start_periods=1:start_threshold=-40dB,atrim=0:{total:.2f},"
+                 f"asetpts=PTS-STARTPTS,afade=t=in:d=0.3,afade=t=out:st={total - 1.2:.2f}:d=1.2,"
+                 f"loudnorm=I=-18:TP=-2,aresample=44100,volume=0.7[m];"
+                 f"[1:a]aresample=44100,pan=stereo|c0=c0|c1=c0[s];"
+                 f"[m][s]amix=inputs=2:duration=first:normalize=0[a]")
+    else:
+        audio = "[1:a]aresample=44100,pan=stereo|c0=c0|c1=c0[a]"
+    cmd += ["-filter_complex", audio, "-map", "0:v", "-map", "[a]", "-c:v", "libx264", "-preset", "medium",
+            "-crf", "19", "-pix_fmt", "yuv420p", "-c:a", "aac", "-b:a", "160k", "-t", f"{total:.2f}",
+            "-movflags", "+faststart", str(path)]
+    proc = subprocess.Popen(cmd, stdin=subprocess.PIPE)
+
+    glow, glow2 = _glow(), _glow(560, AMBER, 34)
+    handle_font = _font(BOLD, 36)
+    cover = None
+    for i in range(int(total * FPS)):
+        t = i / FPS
+        k = max(j for j, s in enumerate(starts) if s <= t)
+        dur, draw, _ = scenes[k]
+        local = t - starts[k]
+        frame = Image.new("RGBA", (W, H), (*NAVY, 255))
+        if k > 0:  # slow drifting light keeps the background alive
+            frame.alpha_composite(glow, (int(-300 + 160 * math.sin(t * 0.5)), int(200 + 120 * math.cos(t * 0.4))))
+            frame.alpha_composite(glow2, (int(500 + 120 * math.cos(t * 0.6)), int(900 + 140 * math.sin(t * 0.45))))
+        layer = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+        d = ImageDraw.Draw(layer)
+        draw(frame, d, local)
+        if k > 0:
+            p = (t - starts[1]) / (total - starts[1])
+            d.rounded_rectangle([X0, TOP - 6, X0 + XW, TOP + 2], radius=4, fill=(255, 255, 255, 40))
+            d.rounded_rectangle([X0, TOP - 6, X0 + XW * p, TOP + 2], radius=4, fill=(*TEAL, 255))
+            d.text((X0, BOT - 70), handle, font=handle_font, fill=(*TEAL, 255))
+        frame.alpha_composite(layer)
+        rgb = frame.convert("RGB")
+        if k == 0 and local >= dur - 1 / FPS - 1e-6 and cover is None:
+            cover = rgb
+        proc.stdin.write(rgb.tobytes())
+    proc.stdin.close()
+    if proc.wait():
+        raise RuntimeError("ffmpeg failed while rendering the animated reel")
+    sfx.unlink()
+    (cover or rgb).save(path.parent / "cover.jpg", "JPEG", quality=92)
+    return path

@@ -431,3 +431,16 @@ def test_youtube_thumbnail(tmp_path):
     YouTube("id", "secret", "rt", session=google).set_thumbnail("yt1", str(cover))
     assert google.calls[-1][1].endswith("thumbnails/set?videoId=yt1")
     assert google.calls[-1][2]["Content-Type"] == "image/jpeg"
+
+
+def test_meter_reel_renders(tmp_path):
+    from agent.design import render_post
+    post = {"id": "m1", "format": "reel", "reel_style": "meter", "slides": [
+        {"heading": "Why your EV never hits its range", "body": ""},
+        {"heading": "Claimed range is a lab test", "body": "Real roads are messier."},
+        {"heading": "Highway speed eats range", "body": "Drag rises with speed."},
+        {"heading": "Plan with a buffer", "body": "Spare 50 km."}]}
+    files = render_post(post, tmp_path, "@decodethedrive")
+    assert (tmp_path / "m1" / "reel.mp4").stat().st_size > 10_000
+    assert (tmp_path / "m1" / "cover.jpg").exists() and post["reel_style"] == "meter"
+    assert files
