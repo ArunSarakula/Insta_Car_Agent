@@ -3,6 +3,7 @@ light bokeh, condensation droplets and glowing 3D lettering, so a cover
 looks like a real camera shot rather than a flat diagram."""
 
 import math
+from pathlib import Path
 
 import numpy as np
 from PIL import Image, ImageChops, ImageDraw, ImageFilter
@@ -11,6 +12,35 @@ from .design import AMBER, BOLD, WHITE, _fit, clean
 from .motion import H, RED, W, X0, _font
 
 RNG_SEED = 7
+
+
+BLACK_FONT = str(Path(__file__).resolve().parent.parent / "assets" / "fonts" / "InterDisplay-Black.otf")
+
+
+def _banner_title(im, top, accent, y=150, tilt=4):
+    """Title as two slightly tilted blocks: white on black, then black on amber."""
+    from PIL import ImageFont
+    layer = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+    d = ImageDraw.Draw(layer)
+    for txt, bg, fg in ((top, (15, 15, 18), WHITE), (accent, AMBER, (15, 15, 18))):
+        txt = clean(txt).upper()
+        if not txt:
+            continue
+        size = 150
+        while d.textlength(txt, font=ImageFont.truetype(BLACK_FONT, size)) > W - 220:
+            size -= 4
+        f = ImageFont.truetype(BLACK_FONT, size)
+        b = d.textbbox((0, 0), txt, font=f)
+        tw, th = b[2] - b[0], b[3] - b[1]
+        x = (W - tw) // 2
+        d.rectangle([x - 36, y - 20, x + tw + 36, y + th + 40], fill=(*bg, 255))
+        d.text((x - b[0], y - b[1] + 10), txt, font=f, fill=(*fg, 255))
+        y += th + 80
+    layer = layer.rotate(tilt, resample=Image.BICUBIC, center=(W // 2, 300))
+    shadow = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+    shadow.paste((0, 0, 0, 180), mask=layer.split()[3])
+    im.alpha_composite(shadow.filter(ImageFilter.GaussianBlur(18)), (10, 18))
+    im.alpha_composite(layer)
 
 
 def _night_road(rng):
@@ -355,8 +385,7 @@ def fog_real_thumbnail(post, path, handle="@decodethedrive", photo=None, variant
     else:
         text = post.get("thumbnail_text") or "Windshield | fogging up?"
         top, _, accent = text.partition("|")
-        y = _title_3d(out, top, 170, WHITE, 150)
-        _title_3d(out, accent, y, AMBER, 150)
+        _banner_title(out, top, accent)
         _red_pill(out, "INSIDE OR OUTSIDE?", int(H * 0.60), 54)
         _lit_key(out, W // 2, int(H * 0.76), 200)
     out.convert("RGB").save(path, "JPEG", quality=92)
