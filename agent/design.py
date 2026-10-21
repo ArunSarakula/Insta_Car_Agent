@@ -259,9 +259,9 @@ def render_post(post: dict, media_root: Path, handle="@decodethedrive", tts_key:
                 voice = synthesize(post["voiceover"], out / "voice.mp3", tts_key)
             except Exception as e:  # a reel without voice beats no reel
                 print(f"  voiceover skipped: {e}")
-        if post.get("reel_style") == "meter" and len(slides) >= 4 and not voice:
-            from .motion import render_meter
-            files = [render_meter({**post, "slides": slides}, out / "reel.mp4", handle, track)]
+        if post.get("reel_style") in ("meter", "fog") and len(slides) >= 4 and not voice:
+            from .motion import render_motion
+            files = [render_motion({**post, "slides": slides}, out / "reel.mp4", handle, track)]
         else:
             files = [render_reel(slides, out / "reel.mp4", handle, track, post, voice)]
             post["reel_style"] = usable({**post, "slides": slides})

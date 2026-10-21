@@ -234,9 +234,16 @@ def _write_sfx(cues, total, path):
 
 # ---- render ----------------------------------------------------------------
 
-def render_meter(post, path: Path, handle="@decodethedrive", music: Path | None = None) -> Path:
+def formats():
+    """Animated formats: reel_style -> (scene builder, thumbnail designer)."""
+    from .motion_fog import fog_scenes, fog_thumbnail
+    return {"meter": (meter_scenes, meter_thumbnail), "fog": (fog_scenes, fog_thumbnail)}
+
+
+def render_motion(post, path: Path, handle="@decodethedrive", music: Path | None = None) -> Path:
     path.parent.mkdir(parents=True, exist_ok=True)
-    scenes = meter_scenes(post, handle)
+    build, thumbnail = formats()[post["reel_style"]]
+    scenes = build(post, handle)
     starts, total = [], 0.0
     for dur, _, _ in scenes:
         starts.append(total)
@@ -291,39 +298,66 @@ def render_meter(post, path: Path, handle="@decodethedrive", music: Path | None 
         raise RuntimeError("ffmpeg failed while rendering the animated reel")
     sfx.unlink()
     (cover or rgb).save(path.parent / "cover.jpg", "JPEG", quality=92)  # Instagram cover
-    meter_thumbnail(post, path.parent / "thumbnail.jpg", handle)
+    thumbnail(post, path.parent / "thumbnail.jpg", handle)
     return path
 
 
+def render_meter(post, path: Path, handle="@decodethedrive", music: Path | None = None) -> Path:
+    return render_motion({**post, "reel_style": "meter"}, path, handle, music)
+
+
+def _ev_car(d, cx, y, w, body=WHITE):
+    """Side view of an EV with a bolt on the door, so the battery reads as
+    a car's, not a phone's."""
+    x0, h = cx - w // 2, int(w * 0.42)
+    d.rounded_rectangle([x0, y + h * 0.42, x0 + w, y + h * 0.82], radius=int(h * 0.16), fill=body)
+    d.polygon([(x0 + w * 0.18, y + h * 0.45), (x0 + w * 0.33, y + h * 0.08), (x0 + w * 0.70, y + h * 0.08),
+               (x0 + w * 0.86, y + h * 0.45)], fill=body)
+    d.polygon([(x0 + w * 0.26, y + h * 0.43), (x0 + w * 0.36, y + h * 0.16), (x0 + w * 0.505, y + h * 0.16),
+               (x0 + w * 0.505, y + h * 0.43)], fill=NAVY)
+    d.polygon([(x0 + w * 0.535, y + h * 0.43), (x0 + w * 0.535, y + h * 0.16), (x0 + w * 0.67, y + h * 0.16),
+               (x0 + w * 0.78, y + h * 0.43)], fill=NAVY)
+    d.rounded_rectangle([x0 + w * 0.94, y + h * 0.5, x0 + w, y + h * 0.6], radius=6, fill=AMBER)
+    bx, by = x0 + w * 0.47, y + h * 0.5
+    d.polygon([(bx + 28, by), (bx - 6, by + 52), (bx + 14, by + 52), (bx - 4, by + 100), (bx + 40, by + 38),
+               (bx + 18, by + 38), (bx + 34, by)], fill=AMBER)
+    for wx in (0.22, 0.78):
+        r = w * 0.115
+        cxw, cyw = x0 + w * wx, y + h * 0.82
+        d.ellipse([cxw - r, cyw - r, cxw + r, cyw + r], fill=INK, outline=body, width=8)
+        d.ellipse([cxw - r * 0.45, cyw - r * 0.45, cxw + r * 0.45, cyw + r * 0.45], fill=GREY)
+
+
 def meter_thumbnail(post, path: Path, handle="@decodethedrive") -> Path:
-    """Search thumbnail: a short question in huge type and the meter's
-    before/after, readable at the size YouTube shows it in results.
+    """Search thumbnail: a short question in huge type, the car, and the
+    meter's before/after, readable at the size YouTube shows in results.
     `thumbnail_text` is "white part | amber part"."""
     text = post.get("thumbnail_text") or post["slides"][0]["heading"]
     top, _, accent = text.partition("|")
     im = Image.new("RGBA", (W, H), (*NAVY, 255))
-    im.alpha_composite(_glow(900, AMBER, 60), (-360, 980))
-    im.alpha_composite(_glow(700, TEAL, 50), (300, -500))
+    im.alpha_composite(_glow(900, AMBER, 60), (-360, 1000))
+    im.alpha_composite(_glow(700, TEAL, 60), (180, 420))
     d = ImageDraw.Draw(im)
-    y = 250
+    y = 170
     for part, color in ((top, WHITE), (accent, AMBER)):
         part = clean(part).upper()
         if not part:
             continue
-        f, lines, line_h = _fit(d, part, BOLD, W - 2 * X0, 520, 170, 90, spacing=1.05)
+        f, lines, line_h = _fit(d, part, BOLD, W - 2 * X0, 400, 150, 80, spacing=1.04)
         for line in lines:
             d.text((W // 2, y), line, font=f, fill=color, anchor="ma")
             y += line_h
+    _ev_car(d, W // 2, y + 50, 760)
     real = post.get("meter_end", 0.55)
+    bw, bh, x = 760, 150, (W - 760) // 2 - 16
     for n, (label, level, color) in enumerate((("CLAIMED", 1.0, GREEN), ("REAL", real, RED))):
-        by = max(y + 120, 1010) + n * 360
-        bw, bh, x = 800, 230, (W - 800) // 2 - 16
-        d.text((x, by - 80), label, font=_font(BOLD, 62), fill=WHITE)
+        by = y + 520 + n * 250
+        d.text((x, by - 70), label, font=_font(BOLD, 54), fill=WHITE)
         if n:  # the real figure depends on the car and the drive, so ask instead of inventing one
-            d.text((x + bw, by - 96), "?", font=_font(BOLD, 96), fill=color, anchor="ra")
-        d.rounded_rectangle([x, by, x + bw, by + bh], radius=40, outline=WHITE, width=14)
-        d.rounded_rectangle([x + bw + 10, by + bh * 0.3, x + bw + 44, by + bh * 0.7], radius=10, fill=WHITE)
-        d.rounded_rectangle([x + 28, by + 28, x + 28 + (bw - 56) * level, by + bh - 28], radius=24, fill=color)
-    d.text((W // 2, H - 210), handle, font=_font(BOLD, 48), fill=TEAL, anchor="ma")
+            d.text((x + bw, by - 88), "?", font=_font(BOLD, 86), fill=color, anchor="ra")
+        d.rounded_rectangle([x, by, x + bw, by + bh], radius=32, outline=WHITE, width=12)
+        d.rounded_rectangle([x + bw + 10, by + bh * 0.3, x + bw + 40, by + bh * 0.7], radius=8, fill=WHITE)
+        d.rounded_rectangle([x + 24, by + 24, x + 24 + (bw - 48) * level, by + bh - 24], radius=20, fill=color)
+    d.text((W // 2, H - 150), handle, font=_font(BOLD, 48), fill=TEAL, anchor="ma")
     im.convert("RGB").save(path, "JPEG", quality=92)
     return path
