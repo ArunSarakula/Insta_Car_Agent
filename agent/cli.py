@@ -217,6 +217,14 @@ def cmd_publish_due(cfg: Config, args) -> None:
             print(f"Waiting {wait / 60:.0f} min to post {post['id']} at {post['scheduled_for'][11:16]}")
             time.sleep(wait)
         now = datetime.now(tz)
+        if post.get("youtube_only"):  # e.g. a carousel already on Instagram, remade as a Short
+            if not cfg.yt_refresh_token:
+                print(f"Skipping {post['id']} ({post['title']}): YouTube is not connected.")
+                continue
+            store.set_status(post["id"], "published", published_at=now.isoformat())
+            print(f"Published {post['id']} to YouTube only: {post['title']}")
+            upload_to_youtube(cfg, post)
+            continue
         urls = media_urls(post, cfg.github_repository)
         if not urls:
             print(f"Skipping {post['id']} ({post['title']}): no media attached yet.")

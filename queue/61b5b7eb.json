@@ -1,0 +1,56 @@
+{
+  "format": "reel",
+  "reel_style": "explainer",
+  "youtube_only": true,
+  "title": "Why EVs miss claimed range (Short)",
+  "hook": "Why your EV never hits its claimed range",
+  "youtube_title": "Why your EV never gets its claimed range",
+  "caption": "The brochure says one number, your dashboard says another. Nobody is lying: the claimed figure comes from a lab test, and real Indian roads add highway speed, summer AC and a heavy right foot.\n\nEV owners: what real-world range do you get vs the claim? Tell me your car and number in the comments.",
+  "hashtags": [
+    "#EVRange",
+    "#EVIndia",
+    "#ElectricCars",
+    "#EVTips",
+    "#CarTech"
+  ],
+  "youtube_hashtags": [
+    "#EVRange",
+    "#EVIndia"
+  ],
+  "slides": [
+    {
+      "heading": "Why your EV never hits its claimed range",
+      "body": "EV range, explained"
+    },
+    {
+      "heading": "Claimed range is a lab test",
+      "body": "In India, certified figures come from the MIDC test cycle under controlled conditions. Real roads are messier."
+    },
+    {
+      "heading": "Highway speed eats range",
+      "body": "Air resistance rises sharply with speed. Cruising at 100 km/h uses noticeably more energy than 70 km/h."
+    },
+    {
+      "heading": "Indian summers cost kilometres",
+      "body": "Cabin AC runs off the same battery. In high heat, the car may also spend energy cooling the battery itself."
+    },
+    {
+      "heading": "Heavy right foot, lower range",
+      "body": "Hard acceleration burns energy fast. Smooth driving and regenerative braking win some of it back."
+    },
+    {
+      "heading": "Plan with a buffer",
+      "body": "Many owners plan trips assuming noticeably less than the claim, especially on fast highway runs. Better a spare 50 km than a tense last 5."
+    }
+  ],
+  "music": "upbeat",
+  "scheduled_for": "2026-10-25T19:30:00+05:30",
+  "status": "approved",
+  "from_post": "a85764a4",
+  "id": "61b5b7eb",
+  "voiced": false,
+  "music_track": "bombinsound-future-bass-581620.mp3",
+  "media_files": [
+    "media/61b5b7eb/reel.mp4"
+  ]
+}

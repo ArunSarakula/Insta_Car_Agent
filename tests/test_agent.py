@@ -407,3 +407,17 @@ def test_hook_builds_word_by_word_and_tags_myths():
 def test_caption_keeps_instagram_hashtag_limit():
     post = {"caption": "c", "hashtags": [f"#t{i}" for i in range(9)]}
     assert cli.caption_for(post).endswith("#t0 #t1 #t2 #t3 #t4")
+
+
+def test_youtube_only_post_skips_instagram(tmp_path, monkeypatch):
+    past = (datetime.now(ZoneInfo("Asia/Kolkata")) - timedelta(minutes=5)).isoformat()
+    store.save_post({"id": "y", "status": "approved", "scheduled_for": past, "format": "reel", "title": "t",
+                     "caption": "c", "youtube_only": True, "media_files": ["media/y/reel.mp4"]}, tmp_path)
+    for fn in (store.load_posts, store.set_status, store.get_post, store.save_post, store.due_posts):
+        monkeypatch.setattr(fn, "__defaults__", (tmp_path,))
+    uploaded = []
+    monkeypatch.setattr(cli, "_instagram", lambda cfg: SimpleNamespace())  # any Instagram call would fail
+    monkeypatch.setattr(cli, "upload_to_youtube", lambda cfg, post: uploaded.append(post["id"]))
+    cfg = SimpleNamespace(timezone="Asia/Kolkata", yt_refresh_token="rt", github_repository="me/repo")
+    cli.cmd_publish_due(cfg, None)
+    assert uploaded == ["y"] and store.get_post("y")["status"] == "published"
