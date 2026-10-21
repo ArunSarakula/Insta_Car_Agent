@@ -421,3 +421,13 @@ def test_youtube_only_post_skips_instagram(tmp_path, monkeypatch):
     cfg = SimpleNamespace(timezone="Asia/Kolkata", yt_refresh_token="rt", github_repository="me/repo")
     cli.cmd_publish_due(cfg, None)
     assert uploaded == ["y"] and store.get_post("y")["status"] == "published"
+
+
+def test_youtube_thumbnail(tmp_path):
+    from agent.youtube import YouTube
+    cover = tmp_path / "cover.jpg"
+    cover.write_bytes(b"jpg")
+    google = FakeGoogle()
+    YouTube("id", "secret", "rt", session=google).set_thumbnail("yt1", str(cover))
+    assert google.calls[-1][1].endswith("thumbnails/set?videoId=yt1")
+    assert google.calls[-1][2]["Content-Type"] == "image/jpeg"

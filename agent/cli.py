@@ -283,6 +283,13 @@ def upload_to_youtube(cfg: Config, post: dict) -> None:
                                    [t.lstrip("#") for t in post.get("hashtags", [])])
         store.set_status(post["id"], "published", youtube_id=video_id)
         print(f"  Also on YouTube: https://youtube.com/shorts/{video_id}")
+        cover = (ROOT / post["media_files"][0]).parent / "cover.jpg"
+        if cover.exists():
+            try:
+                yt.set_thumbnail(video_id, str(cover))
+            except Exception as e:  # the Short is up either way
+                store.set_status(post["id"], "published", thumbnail_error=str(e))
+                print(f"  Thumbnail not set: {e}")
     except Exception as e:
         store.set_status(post["id"], "published", youtube_error=str(e))
         print(f"  YouTube upload failed: {e}")

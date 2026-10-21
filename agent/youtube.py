@@ -10,6 +10,7 @@ import requests
 
 TOKEN_URL = "https://oauth2.googleapis.com/token"
 UPLOAD_URL = "https://www.googleapis.com/upload/youtube/v3/videos"
+THUMBNAIL_URL = "https://www.googleapis.com/upload/youtube/v3/thumbnails/set"
 AUTOS_AND_VEHICLES = "2"
 
 
@@ -53,3 +54,14 @@ class YouTube:
         if done.status_code >= 400:
             raise YouTubeError(f"Upload failed: {done.text}")
         return done.json()["id"]
+
+    def set_thumbnail(self, video_id: str, image_path: str) -> None:
+        """The amber hook cover, shown in search (our biggest source). Needs
+        a phone-verified channel; YouTube refuses it otherwise."""
+        with open(image_path, "rb") as f:
+            data = f.read()
+        resp = self.http.post(f"{THUMBNAIL_URL}?videoId={video_id}", data=data, timeout=120,
+                              headers={"Authorization": f"Bearer {self._token()}",
+                                       "Content-Type": "image/jpeg"})
+        if resp.status_code >= 400:
+            raise YouTubeError(f"Thumbnail failed: {resp.text}")
