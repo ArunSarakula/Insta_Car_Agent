@@ -201,7 +201,7 @@ def fog_thumbnail(post, path, handle="@decodethedrive"):
     for part, color in ((top, WHITE), (accent, AMBER)):
         part = clean(part).upper()
         if part:
-            f, lines, line_h = _fit(d, part, BOLD, W - 2 * X0, 520, 170, 90, spacing=1.05)
+            f, lines, line_h = _fit(d, part, BOLD, W - 2 * X0, 520, 140, 90, spacing=1.05)
             for line in lines:
                 d.text((W // 2, y), line, font=f, fill=color, anchor="ma")
                 y += line_h

@@ -298,45 +298,74 @@ def charging(frame, d, t, i):
 
 # ---- ADAS ------------------------------------------------------------------
 
-def _car_top(d, cx, cy, color, w=90, h=160):
-    d.rounded_rectangle([cx - w / 2, cy - h / 2, cx + w / 2, cy + h / 2], radius=24, fill=_a(color))
-    d.rounded_rectangle([cx - w / 2 + 12, cy - h / 2 + 26, cx + w / 2 - 12, cy - h / 2 + 62], radius=8,
-                        fill=_a(NAVY))
+def _car_top(d, cx, cy, color, L=190, Wd=100, brake=False):
+    """A car seen from above, pointing right: wheels, glass, mirrors, lights."""
+    x0, x1, y0, y1 = cx - L / 2, cx + L / 2, cy - Wd / 2, cy + Wd / 2
+    for wx in (x0 + 30, x1 - 58):  # tyres poking out
+        d.rounded_rectangle([wx, y0 - 9, wx + 30, y0 + 8], radius=5, fill=_a(INK))
+        d.rounded_rectangle([wx, y1 - 8, wx + 30, y1 + 9], radius=5, fill=_a(INK))
+    d.rounded_rectangle([x0, y0, x1, y1], radius=30, fill=_a(color))
+    dark = tuple(max(0, c - 45) for c in color)
+    d.rounded_rectangle([x0 + 62, y0 + 12, x1 - 62, y1 - 12], radius=14, fill=_a(dark))  # roof
+    d.polygon([(x1 - 62, y0 + 12), (x1 - 38, y0 + 20), (x1 - 38, y1 - 20), (x1 - 62, y1 - 12)], fill=_a(NAVY))
+    d.polygon([(x0 + 62, y0 + 12), (x0 + 44, y0 + 22), (x0 + 44, y1 - 22), (x0 + 62, y1 - 12)], fill=_a(NAVY))
+    for my in (y0 - 6, y1 - 2):  # mirrors
+        d.ellipse([x1 - 70, my, x1 - 56, my + 8], fill=_a(dark))
+    for ly in (y0 + 8, y1 - 22):
+        d.rounded_rectangle([x1 - 12, ly, x1 - 2, ly + 14], radius=4, fill=_a((255, 240, 180)))
+        d.rounded_rectangle([x0 + 2, ly, x0 + 12, ly + 14], radius=4,
+                            fill=_a((255, 40, 40) if brake else (150, 30, 30)))
+    if brake:
+        d.ellipse([x0 - 40, cy - 50, x0 + 10, cy + 50], fill=_a(RED, 60))
+
+
+def _bike_top(d, cx, cy, color=AMBER):
+    """A motorbike and rider from above, pointing right."""
+    d.rounded_rectangle([cx + 36, cy - 6, cx + 74, cy + 6], radius=6, fill=_a(INK))   # front tyre
+    d.rounded_rectangle([cx - 74, cy - 7, cx - 34, cy + 7], radius=6, fill=_a(INK))   # rear tyre
+    d.rounded_rectangle([cx - 44, cy - 14, cx + 44, cy + 14], radius=14, fill=_a(color))
+    d.line([(cx + 34, cy - 34), (cx + 34, cy + 34)], fill=_a(GREY), width=8)          # handlebar
+    d.ellipse([cx - 30, cy - 30, cx + 16, cy + 30], fill=_a((60, 70, 90)))           # rider's shoulders
+    d.ellipse([cx - 12, cy - 18, cx + 22, cy + 18], fill=_a(WHITE))                   # helmet
 
 
 def adas(frame, d, t, i):
-    rx0, rx1, ry0, ry1 = X0 + 140, X0 + XW - 140, VY - 20, VY + 330
+    """Top view of a two-lane road; our car drives right with its radar."""
+    rx0, rx1, ry0, ry1 = X0, X0 + XW, VY + 10, VY + 300
     d.rectangle([rx0, ry0, rx1, ry1], fill=_a((44, 48, 56)))
     fade = 0.25 if i == 1 else 1.0
-    speed = 1.0 if i != 2 else max(0.0, 1 - ease_out((t - 1.0) / 0.6))
-    mid = (rx0 + rx1) / 2
-    off = (t * 420 * speed) % 80 if i != 2 else (min(t, 1.0) * 420 + 0) % 80
-    for x in (rx0 + 10, rx1 - 10):
-        d.line([(x, ry0), (x, ry1)], fill=_a(WHITE, 220 * fade), width=8)
-    y = ry0 - 80 + off
-    while y < ry1:
-        d.line([(mid, max(ry0, y)), (mid, min(ry1, y + 40))], fill=_a(WHITE, 220 * fade), width=8)
-        y += 80
-    me = ((rx0 + mid) / 2, ry1 - 100)
-    cone_col = RED if (i == 2 and t > 0.8) or (i == 1 and t > 1.2) else TEAL
-    d.polygon([(me[0] - 30, me[1] - 80), (me[0] + 30, me[1] - 80), (me[0] + 110, ry0 + 20),
-               (me[0] - 110, ry0 + 20)], fill=_a(cone_col, 70))
+    run = t if i != 2 else min(t, 1.0) + max(0.0, t - 1.0) * 0.05
+    mid = (ry0 + ry1) / 2
+    for y in (ry0 + 8, ry1 - 8):
+        d.line([(rx0, y), (rx1, y)], fill=_a(WHITE, 220 * fade), width=8)
+    x = rx0 - 100 + (-(run * 420) % 100)
+    while x < rx1:
+        d.line([(max(rx0, x), mid), (min(rx1, x + 50), mid)], fill=_a(WHITE, 220 * fade), width=8)
+        x += 100
+    me = (rx0 + 150, (mid + ry1) / 2)
+    alert = (i == 2 and t > 0.8) or (i == 1 and t > 1.1)
+    cone = RED if alert else TEAL
+    d.polygon([(me[0] + 95, me[1] - 24), (me[0] + 95, me[1] + 24), (rx1 - 20, me[1] + 66), (rx1 - 20, me[1] - 66)],
+              fill=_a(cone, 70))
     _car_top(d, *me, TEAL)
     if i == 0:
-        _car_top(d, me[0], ry0 + 90 + 10 * math.sin(t * 2), GREY)
-        _chips(d, ["Adaptive cruise", "Lane keep"], ry1 + 16, t, 0.6)
+        _car_top(d, rx1 - 190 + 12 * math.sin(t * 2), me[1], GREY)
+        _label(d, rx0 + 330, me[1] - 30, "SAFE GAP", WHITE, 26, alpha=200)
+        _chips(d, ["Adaptive cruise", "Lane keep"], ry1 + 30, t, 0.6)
     elif i == 1:
-        bx = rx1 - 40 - (rx1 - me[0] - 20) * ease_out((t - 0.6) / 0.8)
-        d.rounded_rectangle([bx - 22, ry0 + 120, bx + 22, ry0 + 200], radius=14, fill=_a(AMBER))
-        _label(d, bx, ry0 + 90, "BIKE", AMBER, 26, "ma")
-        _chips(d, ["Faded lines", "Cut-ins", "City traffic"], ry1 + 16, t, 0.8)
+        p = ease_out((t - 0.5) / 0.9)
+        bx, by = rx1 - 120 - 300 * p, (mid + ry0) / 2 + (me[1] - (mid + ry0) / 2) * p
+        _bike_top(d, bx, by)
+        _label(d, bx, ry0 - 40, "BIKE CUTS IN", AMBER, 28, "ma")
+        _chips(d, ["Faded lines", "Cut-ins", "City traffic"], ry1 + 30, t, 0.8)
     elif i == 2:
-        oy = ry0 + 40 + 90 * ease_out(t / 1.0)
-        d.rounded_rectangle([me[0] - 45, oy, me[0] + 45, oy + 70], radius=16, fill=_a(RED))
+        ox = rx1 - 120 - 230 * ease_out(t / 1.0)
+        _car_top(d, ox, me[1], GREY, brake=True)
+        _label(d, ox, ry0 - 40, "SUDDEN STOP", RED, 28, "ma")
         if t > 1.0:
-            _pill(d, rx0 - 60, ry1 + 16, "AUTO BRAKE", RED, WHITE, size=40)
+            _pill(d, X0, ry1 + 30, "AUTO BRAKE", RED, WHITE, size=40)
     else:
-        _chips(d, ["AEB on", "Lane keep off in city", "Hands on"], ry1 + 16, t, 0.4)
+        _chips(d, ["AEB on", "Lane keep off in city", "Hands on"], ry1 + 30, t, 0.4)
 
 
 VISUALS = {
@@ -381,18 +410,25 @@ def visual_thumbnail(post, path, handle="@decodethedrive"):
     im.alpha_composite(_glow(900, TEAL, 55), (-300, 900))
     d = ImageDraw.Draw(im)
     parts = [(clean(p).upper(), c) for p, c in ((top, WHITE), (accent, AMBER)) if clean(p)]
-    for size in range(160, 70, -8):
+    for size in range(180, 70, -8):  # short titles get huge type
         layouts = [(_fit(d, p, BOLD, W - 2 * X0, 2000, size, size, spacing=1.04), c) for p, c in parts]
-        if 200 + sum(len(l[1]) * l[2] for l, _ in layouts) <= VY - 60:
+        if 180 + sum(len(l[1]) * l[2] for l, _ in layouts) <= 820:
             break
-    y = 200
+    y = 180
     for (f, lines, line_h), color in layouts:
         for line in lines:
             d.text((W // 2, y), line, font=f, fill=color, anchor="ma")
             y += line_h
+    # the visual, cropped to what it draws and blown up to fill the space left
     layer = Image.new("RGBA", (W, H), (0, 0, 0, 0))
     visual(im, ImageDraw.Draw(layer), 2.5, step)
-    im.alpha_composite(layer)
-    ImageDraw.Draw(im).text((W // 2, H - 200), handle, font=_font(BOLD, 48), fill=TEAL, anchor="ma")
+    box = layer.getbbox()
+    if box:
+        art = layer.crop(box)
+        room_h = H - 260 - (y + 70)
+        k = min(1000 / art.width, room_h / art.height, 1.6)
+        art = art.resize((int(art.width * k), int(art.height * k)), Image.LANCZOS)
+        im.alpha_composite(art, ((W - art.width) // 2, y + 70 + (room_h - art.height) // 2))
+    ImageDraw.Draw(im).text((W // 2, H - 190), handle, font=_font(BOLD, 48), fill=TEAL, anchor="ma")
     im.convert("RGB").save(path, "JPEG", quality=92)
     return path
