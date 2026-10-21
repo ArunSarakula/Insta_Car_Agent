@@ -1,7 +1,7 @@
 {
   "format": "reel",
   "reel_style": "meter",
-  "youtube_only": true,
+  "youtube_only": false,
   "title": "Why EVs miss claimed range (Short)",
   "hook": "Why your EV never hits its claimed range",
   "youtube_title": "Why does your EV never hit its claimed range?",
