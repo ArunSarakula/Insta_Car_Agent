@@ -150,3 +150,165 @@ def fog_photo_thumbnail(post, path, handle="@decodethedrive"):
     d.text((W / 2, H * 0.73 + 18), tag, font=f, fill=(*WHITE, 255), anchor="ma")
     out.convert("RGB").save(path, "JPEG", quality=92)
     return path
+
+
+def _fogged(rng, sharp, density=1.0):
+    """The same scene seen through misted glass."""
+    blurred = sharp.filter(ImageFilter.GaussianBlur(26))
+    haze = np.asarray(Image.fromarray((rng.random((24, 14)) * 255).astype(np.uint8))
+                      .resize((W, H), Image.BICUBIC), float) / 255
+    mix = (0.32 + 0.12 * haze[..., None]) * density
+    fog = np.asarray(blurred, float) * (1 - mix) * 1.15 + 200 * mix
+    return Image.fromarray(np.clip(fog, 0, 255).astype(np.uint8))
+
+
+def _day_road(rng):
+    """Overcast, rainy highway in daytime: grey sky, tree line, wet road
+    with lane marks and a car ahead with its tail lights on."""
+    yy = np.linspace(0, 1, H)[:, None, None]
+    sky = np.array([150, 165, 180]) * (1 - yy) + np.array([95, 105, 115]) * yy
+    im = Image.fromarray(np.broadcast_to(sky, (H, W, 3)).astype(np.uint8))
+    d = ImageDraw.Draw(im, "RGBA")
+    hz = int(H * 0.50)
+    for k in range(60):  # tree line
+        x = rng.uniform(-50, W + 50)
+        r = rng.uniform(40, 110)
+        d.ellipse([x - r, hz - r * 1.6, x + r, hz + 20], fill=(48, 66, 52, 255))
+    d.rectangle([0, hz, W, H], fill=(70, 78, 84, 255))
+    d.polygon([(W * 0.44, hz), (W * 0.56, hz), (W * 1.2, H), (-W * 0.2, H)], fill=(52, 56, 62, 255))
+    for k in range(8):  # dashed centre line in perspective
+        t0, t1 = (k / 8) ** 1.8, ((k + 0.5) / 8) ** 1.8
+        y0, y1 = hz + (H - hz) * t0, hz + (H - hz) * t1
+        w0, w1 = 3 + 30 * t0, 3 + 30 * t1
+        d.polygon([(W / 2 - w0, y0), (W / 2 + w0, y0), (W / 2 + w1, y1), (W / 2 - w1, y1)], fill=(235, 235, 225, 255))
+    cy = hz + 90  # car ahead
+    d.rounded_rectangle([W * 0.33, cy - 70, W * 0.67, cy + 60], radius=26, fill=(36, 40, 48, 255))
+    d.rounded_rectangle([W * 0.38, cy - 140, W * 0.62, cy - 60], radius=26, fill=(44, 50, 60, 255))
+    d.rectangle([W * 0.40, cy - 130, W * 0.60, cy - 72], fill=(90, 105, 120, 255))
+    d.rectangle([W * 0.30, cy + 50, W * 0.70, cy + 80], fill=(20, 22, 26, 255))
+    glow = Image.new("RGB", (W, H))
+    gd = ImageDraw.Draw(glow)
+    for x in (W * 0.36, W * 0.64):
+        gd.rounded_rectangle([x - 40, cy - 40, x + 40, cy - 10], radius=10, fill=(255, 40, 40))
+    for x, y in ((W * 0.12, hz + 10), (W * 0.2, hz + 4), (W * 0.85, hz + 6)):  # oncoming headlights
+        gd.ellipse([x - 12, y - 8, x + 12, y + 8], fill=(255, 245, 220))
+    im = ImageChops.add(im, glow.filter(ImageFilter.GaussianBlur(3)))
+    im = ImageChops.add(im, glow.filter(ImageFilter.GaussianBlur(28)))
+    # wet road reflection of the tail lights
+    refl = glow.transpose(Image.FLIP_TOP_BOTTOM).crop((0, H - 2 * cy, W, 2 * H - 2 * cy)).filter(ImageFilter.GaussianBlur(18))
+    return ImageChops.add(im, ImageChops.multiply(refl, Image.new("RGB", (W, H), (90, 90, 90))))
+
+
+def _cabin(im, dash_frac=0.82, button=True, size=140):
+    """Dark A-pillars and dashboard around the glass, with the lit demister key."""
+    from .motion_fog import demister_icon
+    frame = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+    fd = ImageDraw.Draw(frame)
+    fd.polygon([(0, 0), (90, 0), (0, H * 0.75)], fill=(10, 11, 14, 255))
+    fd.polygon([(W, 0), (W - 90, 0), (W, H * 0.75)], fill=(10, 11, 14, 255))
+    dash_top = int(H * dash_frac)
+    fd.rectangle([0, dash_top, W, H], fill=(16, 17, 21, 255))
+    fd.ellipse([-200, dash_top - 60, W + 200, dash_top + 120], fill=(16, 17, 21, 255))
+    im.alpha_composite(frame)
+    if button:
+        bx, by = W // 2 - size // 2, dash_top + 50
+        lit = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+        ld = ImageDraw.Draw(lit)
+        ld.rounded_rectangle([bx, by, bx + size, by + size], radius=size // 5, fill=(30, 32, 38, 255),
+                             outline=(70, 74, 82, 255), width=4)
+        demister_icon(ld, bx + size * 17 // 100, by + size * 13 // 100, size * 66 // 100, AMBER)
+        im.alpha_composite(lit.filter(ImageFilter.GaussianBlur(size / 7)))
+        im.alpha_composite(lit)
+        return bx, by
+    return None
+
+
+def _vignette(im, lo=0.4):
+    yy, xx = np.mgrid[0:H, 0:W]
+    v = np.clip(1.25 - np.sqrt(((xx - W / 2) / (W * 0.75)) ** 2 + ((yy - H / 2) / (H * 0.75)) ** 2), lo, 1)
+    return Image.fromarray((np.asarray(im.convert("RGB"), float) * v[..., None]).astype(np.uint8)).convert("RGBA")
+
+
+def _red_pill(im, text, y, size=52):
+    d = ImageDraw.Draw(im)
+    f = _font(BOLD, size)
+    tw = d.textlength(text, font=f)
+    d.rounded_rectangle([(W - tw) / 2 - 34, y, (W + tw) / 2 + 34, y + size * 1.75], radius=size, fill=(*RED, 255))
+    d.text((W / 2, y + size * 0.35), text, font=f, fill=(*WHITE, 255), anchor="ma")
+
+
+def fog_split_thumbnail(post, path, handle="@decodethedrive"):
+    """Before / after: the left half fogged with droplets, the right half
+    crystal clear, split by a bright line."""
+    rng = np.random.default_rng(11)
+    sharp = _day_road(rng)
+    fogged = _fogged(rng, sharp, 1.4)
+    mask = Image.new("L", (W, H), 0)
+    ImageDraw.Draw(mask).rectangle([W // 2, 0, W, H], fill=255)
+    glass = Image.composite(sharp, fogged, mask.filter(ImageFilter.GaussianBlur(3))).convert("RGBA")
+    glass.alpha_composite(_droplets(rng, ImageChops.invert(mask), 3000))
+    _cabin(glass, 0.84, button=False)
+    out = _vignette(glass, 0.5)
+    d = ImageDraw.Draw(out)
+    d.line([(W // 2, 0), (W // 2, int(H * 0.84))], fill=(255, 255, 255, 255), width=8)
+    f = _font(BOLD, 56)
+    for x, label, col in ((W * 0.27, "BEFORE", RED), (W * 0.73, "AFTER", (40, 200, 120))):
+        tw = d.textlength(label, font=f)
+        d.rounded_rectangle([x - tw / 2 - 28, H * 0.70, x + tw / 2 + 28, H * 0.70 + 90], radius=45, fill=(*col, 255))
+        d.text((x, H * 0.70 + 16), label, font=f, fill=(*WHITE, 255), anchor="ma")
+    y = _title_3d(out, "Foggy", 190, WHITE, 170)
+    _title_3d(out, "windshield?", y, AMBER, 118)
+    d.text((W // 2, H - 150), handle, font=_font(BOLD, 46), fill=(255, 255, 255, 230), anchor="ma")
+    out.convert("RGB").save(path, "JPEG", quality=92)
+    return path
+
+
+def fog_button_thumbnail(post, path, handle="@decodethedrive"):
+    """Close-up: a fully fogged windshield and one big glowing demister key
+    with an arrow pointing at it."""
+    rng = np.random.default_rng(5)
+    sharp = _night_road(rng)
+    glass = _fogged(rng, sharp, 1.5).convert("RGBA")
+    glass.alpha_composite(_droplets(rng, Image.new("L", (W, H), 255), 4200))
+    bx, by = _cabin(glass, 0.62, button=True, size=300)
+    out = _vignette(glass, 0.45)
+    y = _title_3d(out, "Press", 170, WHITE, 170)
+    _title_3d(out, "this button", y, AMBER, 140)
+    d = ImageDraw.Draw(out)
+    ax = W // 2  # arrow down to the key
+    d.line([(ax, by - 230), (ax, by - 60)], fill=(*RED, 255), width=26)
+    d.polygon([(ax - 60, by - 90), (ax + 60, by - 90), (ax, by - 10)], fill=(*RED, 255))
+    _red_pill(out, "FOGGY WINDSHIELD?", int(H * 0.86) - 40, 50)
+    out.convert("RGB").save(path, "JPEG", quality=92)
+    return path
+
+
+def fog_written_thumbnail(post, path, handle="@decodethedrive"):
+    """'FOG?' written by a finger on the misted glass, the clear road
+    showing through the letters, with drips running down."""
+    rng = np.random.default_rng(21)
+    sharp = _day_road(rng)
+    fogged = _fogged(rng, sharp, 1.7)
+    mask = Image.new("L", (W, H), 0)
+    md = ImageDraw.Draw(mask)
+    f = _font(BOLD, 300)
+    md.text((W // 2, int(H * 0.36)), "FOG?", font=f, fill=255, anchor="ma")
+    mask = mask.filter(ImageFilter.GaussianBlur(6))
+    glass = Image.composite(sharp, fogged, mask).convert("RGBA")
+    glass.alpha_composite(_droplets(rng, ImageChops.invert(mask.point(lambda v: 255 if v > 20 else 0)), 3600))
+    drips = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+    dd = ImageDraw.Draw(drips)
+    box = mask.getbbox()
+    for _ in range(12):
+        x = rng.uniform(box[0] + 20, box[2] - 20)
+        y0 = box[3] - 30
+        ln = rng.uniform(60, 260)
+        dd.line([(x, y0), (x, y0 + ln)], fill=(230, 236, 245, 150), width=int(rng.uniform(5, 10)))
+        dd.ellipse([x - 9, y0 + ln - 9, x + 9, y0 + ln + 9], fill=(240, 245, 255, 190))
+    glass.alpha_composite(drips.filter(ImageFilter.GaussianBlur(1.5)))
+    _cabin(glass, 0.84, button=True, size=150)
+    out = _vignette(glass, 0.5)
+    y = _title_3d(out, "Inside or", 170, WHITE, 130)
+    _title_3d(out, "outside?", y, AMBER, 130)
+    out.convert("RGB").save(path, "JPEG", quality=92)
+    return path
