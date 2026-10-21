@@ -161,18 +161,35 @@ class Section:
                 d.ellipse([dx - rr, dy - rr, dx + rr, dy + rr], fill=(220, 235, 250, 230))
 
 
+def demister_icon(d, x, y, size, color, alpha=255):
+    """The front demister symbol: a windshield outline with three wavy
+    arrows rising through it, as printed on the AC button."""
+    s, c, lw = size, (*color, int(alpha)), max(3, size // 14)
+    top = [(x + s * (0.2 + 0.6 * u / 10), y + s * (0.14 - 0.05 * math.sin(math.pi * u / 10))) for u in range(11)]
+    bottom = [(x + s * (0.98 - 0.96 * u / 10), y + s * (0.6 + 0.06 * math.sin(math.pi * u / 10))) for u in range(11)]
+    d.line(top + bottom + [top[0]], fill=c, width=lw, joint="curve")
+    for k in (0.32, 0.5, 0.68):  # wavy arrows going up through the glass
+        pts = [(x + s * k + s * 0.05 * math.sin(n / 8 * 2 * math.pi), y + s * (0.98 - 0.7 * n / 8)) for n in range(9)]
+        d.line(pts, fill=c, width=lw, joint="curve")
+        tx, ty = pts[-1]
+        d.polygon([(tx, ty - s * 0.12), (tx - s * 0.07, ty), (tx + s * 0.07, ty)], fill=c)
+
+
 def _chips(d, chips, y, t, start, gap=0.5, x=X0):
     for i, c in enumerate(chips):
         p = ease_out((t - start - i * gap) / 0.25)
         if p <= 0:
             continue
         f = _font(BOLD, 30)
-        w = d.textlength(c.upper(), font=f) + 44
+        icon = c.lower().startswith("demister")
+        w = d.textlength(c.upper(), font=f) + 44 + (58 if icon else 0)
         if x + w > X0 + XW:
             break
-        d.rounded_rectangle([x, y + 20 * (1 - p), x + w, y + 60 + 20 * (1 - p)], radius=30,
-                            fill=(*GREEN, int(255 * p)))
-        d.text((x + 22, y + 13 + 20 * (1 - p)), c.upper(), font=f, fill=(*INK, int(255 * p)))
+        dy = 20 * (1 - p)
+        d.rounded_rectangle([x, y + dy, x + w, y + 60 + dy], radius=30, fill=(*GREEN, int(255 * p)))
+        if icon:
+            demister_icon(d, x + 18, y + 8 + dy, 44, INK, 255 * p)
+        d.text((x + 22 + (58 if icon else 0), y + 13 + dy), c.upper(), font=f, fill=(*INK, int(255 * p)))
         x += w + 16
 
 
@@ -220,6 +237,15 @@ def fog_scenes(post, handle):
         def visual(f, d, t, warm=warm, chips=chips):
             section.draw(d, t, warm, ("OUTSIDE", "CABIN"), grow=(0.5, 1.4), clear=(2.6, 3.4))
             _chips(d, chips, vis_y + 390, t, 1.6)
+            if warm == "right" and any(c.lower().startswith("demister") for c in chips):
+                p = ease_out((t - 1.6) / 0.3)  # the button itself, big, on the empty outside half
+                if p > 0:
+                    bx, by, bs = X0 + 70, vis_y + 110, int(150 * (0.6 + 0.4 * p))
+                    d.rounded_rectangle([bx, by, bx + bs, by + bs], radius=28, fill=(30, 34, 42, int(255 * p)),
+                                        outline=(*AMBER, int(255 * p)), width=5)
+                    demister_icon(d, bx + bs * 0.17, by + bs * 0.12, int(bs * 0.66), AMBER, 255 * p)
+                    d.text((bx + bs / 2, by + bs + 12), "THIS BUTTON", font=_font(BOLD, 26),
+                           fill=(*AMBER, int(255 * p)), anchor="ma")
         cues = [("whoosh", 0)] + [("pop", 1.6 + i * 0.5) for i in range(len(chips))] + [("ding", 2.8)]
         scenes.append(text_scene(slide, badge, TEAL, 4.3, visual, cues))
     return scenes
