@@ -236,7 +236,8 @@ def _write_sfx(cues, total, path):
 
 def formats():
     """Animated formats: reel_style -> (scene builder, thumbnail designer)."""
-    from .motion_fog import fog_scenes, fog_thumbnail
+    from .motion_fog import fog_scenes
+    from .photoreal import fog_photo_thumbnail as fog_thumbnail
     from .motion_visuals import VISUALS, visual_scenes, visual_thumbnail
     return {"meter": (meter_scenes, meter_thumbnail), "fog": (fog_scenes, fog_thumbnail),
             **{name: (visual_scenes, visual_thumbnail) for name in VISUALS}}
