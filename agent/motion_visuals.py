@@ -84,8 +84,12 @@ def clutch(frame, d, t, i):
     """Left: the pedals as the driver sees them, foot on the clutch or the
     dead pedal. Right: engine flywheel and clutch plate spinning; when the
     plate lags behind (slip) it heats up and wears."""
-    press, slip, wear = _step([(0.25, 0.4, (0.0, 0.35)), (0.7, 0.75, (0.35, 0.65)),
-                               (0.0, 0.0, (0.65, 0.65)), (0.0, 0.0, (0.65, 0.65))], i)
+    # 0 foot resting: partly pressed, the plate slips and wears
+    # 1 pedal held down through a turn: plate pulled clear, it turns with the wheels
+    #   while the engine spins on its own (no rubbing, but no engine control)
+    # 2/3 foot off: plate clamped to the flywheel, both spin together
+    press, slip, wear = _step([(0.25, 0.4, (0.0, 0.35)), (1.0, 0.45, (0.35, 0.35)),
+                               (0.0, 0.0, (0.35, 0.35)), (0.0, 0.0, (0.35, 0.35))], i)
     move = ease_out((t - 0.8) / 0.5) if i == 2 else (1.0 if i == 3 else 0.0)
     press *= 1 - move
     # footwell
@@ -113,14 +117,18 @@ def clutch(frame, d, t, i):
     engine = t * 7
     lag = slip * ease_out((t - 0.3) / 0.6)
     plate = engine * (1 - lag)
-    heat = lag * ease_out((t - 0.6) / 0.8)
+    heat = lag * ease_out((t - 0.6) / 0.8) if i == 0 else 0.0
     _flywheel(d, X0 + 530, VY + 140, 96, engine, "ENGINE FLYWHEEL")
     _clutch_plate(d, X0 + 760, VY + 140, 100, plate, "CLUTCH PLATE", heat)
     if heat > 0.2:
         _label(d, X0 + 760, VY - 20, "SLIPPING!", RED, 32, "ma", 255 * min(1, heat * 2))
-    if i < 2:  # riding the clutch: wear climbs
+    if i == 0:  # riding the clutch: wear climbs
         _bar(d, X0 + 440, VY + 340, 420, wear[0] + (wear[1] - wear[0]) * ease_out((t - 0.6) / 1.6), RED,
              "PLATE WEAR")
+    elif i == 1:  # held down: plate spins down, no engine braking, release bearing works
+        if t > 0.8:
+            _label(d, X0 + 645, VY - 20, "DISENGAGED: CAR COASTS", AMBER, 28, "ma")
+        _bar(d, X0 + 440, VY + 340, 420, 0.4 * ease_out((t - 0.8) / 1.6), AMBER, "RELEASE BEARING WEAR")
     elif i == 2:  # foot off: no slip, the bar turns green and stops
         g = ease_out((t - 1.3) / 0.4)
         col = tuple(int(RED[k] + (GREEN[k] - RED[k]) * g) for k in range(3))
