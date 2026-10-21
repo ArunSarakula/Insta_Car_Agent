@@ -5,6 +5,8 @@ import json
 
 import anthropic
 
+from .slots import POST_SLOTS
+
 POST_SCHEMA = {
     "type": "object",
     "properties": {
@@ -154,23 +156,18 @@ class Brain:
         recent = "\n".join(f"- [{p.get('format')}"
                            + (f", {p['reel_style']}" if p.get("format") == "reel" and p.get("reel_style") else "")
                            + f"] {p.get('title')}" for p in sorted(recent_posts, key=lambda p: p.get("scheduled_for", ""))[-20:])
-        prompt = f"""Plan next week's content: exactly {posts_per_week} feed posts plus one
+        slot_lines = "\n".join(f"- {d} {t}: {f}" for d, t, f in POST_SLOTS)
+        prompt = f"""Plan next week's content: exactly {len(POST_SLOTS)} feed posts plus one
 story poll for each day (7 polls).
 
 YouTube Shorts is the main platform (that is where earnings come from);
-Instagram is second. Every reel goes to both, carousels and memes only to
-Instagram. So the mix is about 4 reels plus 1 carousel or meme (car + IT
-humour works well). Pick reel topics people actually search for on YouTube,
-and make each youtube_title the exact question or phrase they would type. Spread posts across the week at the
-times Indian users are most active (IST):
-- Mon-Fri: 19:00-21:00 (reels do best 19:00-20:30; Tue and Wed are the strongest days)
-- Sat: 10:30-12:30
-- Sun: 11:00-13:00 or 20:00-21:30
-Owner's weekly pattern: carousels only on weekdays (Mon-Fri), memes only on
-Sat or Sun, and both Sat and Sun get a reel (reels can also go on weekdays).
-Never between 23:00 and 07:00. Use times on :00 or :30. If "What has been
-working" below has this account's own follower-activity hours, follow those
-instead.
+Instagram is second. Pick reel topics people actually search for on YouTube,
+and make each youtube_title the exact question or phrase they would type.
+Use exactly these fixed weekly slots (IST), one post each; the owner wants
+the same timings every week:
+{slot_lines}
+Weekday reels go to YouTube only; weekend reels go to YouTube and Instagram.
+Carousels and memes go to Instagram only. Car + IT humour works well for memes.
 
 Every post is made only from text slides that the agent designs automatically
 (dark branded background, big bold heading, smaller body text). There is no

@@ -48,5 +48,6 @@
   ],
   "reel_style": "hybrid",
   "voiced": false,
-  "thumbnail_text": "Strong or | mild hybrid?"
+  "thumbnail_text": "Strong or | mild hybrid?",
+  "youtube_only": true
 }

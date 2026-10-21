@@ -218,7 +218,7 @@ def test_weekly_plan_requests_structured_output():
     assert Brain("cars", client=fake).weekly_plan(5, []) == plan
     assert fake.kwargs["model"] == "claude-opus-5-5"
     assert fake.kwargs["output_config"]["format"]["type"] == "json_schema"
-    assert "exactly 5 feed posts" in fake.kwargs["messages"][0]["content"]
+    assert "exactly 9 feed posts" in fake.kwargs["messages"][0]["content"]
     Brain("cars", client=fake).weekly_plan(5, [], ideas=[{"id": "i9", "idea": "clutch tip"}])
     assert "- id i9: clutch tip" in fake.kwargs["messages"][0]["content"]
 
@@ -453,3 +453,11 @@ def test_instagram_cover_fits_the_grid_crop(tmp_path):
     with Image.open(instagram_cover(tmp_path / "t.jpg", tmp_path / "c.jpg")) as im:
         assert im.size == (1080, 1920)
         assert im.getpixel((540, 200))[0] < 100 and im.getpixel((540, 960))[0] > 200
+
+
+def test_weekday_reels_are_youtube_only():
+    from agent.slots import POST_SLOTS, youtube_only
+    assert youtube_only("reel", "Tue") and not youtube_only("reel", "Sat")
+    assert not youtube_only("carousel", "Mon")
+    assert {d for d, _, f in POST_SLOTS if f in ("meme",)} <= {"Sat", "Sun"}
+    assert {d for d, _, f in POST_SLOTS if f == "carousel"}.isdisjoint({"Sat", "Sun"})

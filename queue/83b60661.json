@@ -48,5 +48,6 @@
   ],
   "reel_style": "mileage",
   "voiced": false,
-  "thumbnail_text": "Better highway | mileage?"
+  "thumbnail_text": "Better highway | mileage?",
+  "youtube_only": true
 }

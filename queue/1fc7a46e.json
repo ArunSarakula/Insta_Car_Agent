@@ -48,5 +48,6 @@
   ],
   "reel_style": "charging",
   "voiced": false,
-  "thumbnail_text": "Fast charging | kills batteries?"
+  "thumbnail_text": "Fast charging | kills batteries?",
+  "youtube_only": true
 }

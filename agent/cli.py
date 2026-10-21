@@ -23,6 +23,7 @@ from zoneinfo import ZoneInfo
 
 from . import store
 from .config import ROOT, Config
+from .slots import youtube_only
 
 DAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
 
@@ -93,7 +94,10 @@ def cmd_plan(cfg: Config, args) -> None:
     status = "approved" if cfg.auto_approve else "draft"
     saved_posts = []
     for post in plan["posts"]:
-        post["scheduled_for"] = next_occurrence(post.pop("day"), post.pop("time"), start, tz).isoformat()
+        day = post.pop("day")
+        post["scheduled_for"] = next_occurrence(day, post.pop("time"), start, tz).isoformat()
+        if youtube_only(post["format"], day):
+            post["youtube_only"] = True
         used.add(post.get("idea_id", ""))
         post = store.save_post({**post, "status": status})
         post["media_files"] = render_post(post, ROOT / "media", cfg.handle, cfg.tts_api_key)
