@@ -237,15 +237,6 @@ def fog_scenes(post, handle):
         def visual(f, d, t, warm=warm, chips=chips):
             section.draw(d, t, warm, ("OUTSIDE", "CABIN"), grow=(0.5, 1.4), clear=(2.6, 3.4))
             _chips(d, chips, vis_y + 390, t, 1.6)
-            if warm == "right" and any(c.lower().startswith("demister") for c in chips):
-                p = ease_out((t - 1.6) / 0.3)  # the button itself, big, on the empty outside half
-                if p > 0:
-                    bx, by, bs = X0 + 70, vis_y + 110, int(150 * (0.6 + 0.4 * p))
-                    d.rounded_rectangle([bx, by, bx + bs, by + bs], radius=28, fill=(30, 34, 42, int(255 * p)),
-                                        outline=(*AMBER, int(255 * p)), width=5)
-                    demister_icon(d, bx + bs * 0.17, by + bs * 0.12, int(bs * 0.66), AMBER, 255 * p)
-                    d.text((bx + bs / 2, by + bs + 12), "THIS BUTTON", font=_font(BOLD, 26),
-                           fill=(*AMBER, int(255 * p)), anchor="ma")
         cues = [("whoosh", 0)] + [("pop", 1.6 + i * 0.5) for i in range(len(chips))] + [("ding", 2.8)]
         scenes.append(text_scene(slide, badge, TEAL, 4.3, visual, cues))
     return scenes
