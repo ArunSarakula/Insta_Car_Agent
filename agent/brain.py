@@ -166,6 +166,8 @@ times Indian users are most active (IST):
 - Mon-Fri: 19:00-21:00 (reels do best 19:00-20:30; Tue and Wed are the strongest days)
 - Sat: 10:30-12:30
 - Sun: 11:00-13:00 or 20:00-21:30
+Owner's weekly pattern: carousels only on weekdays (Mon-Fri), memes only on
+Sat or Sun, and both Sat and Sun get a reel (reels can also go on weekdays).
 Never between 23:00 and 07:00. Use times on :00 or :30. If "What has been
 working" below has this account's own follower-activity hours, follow those
 instead.
