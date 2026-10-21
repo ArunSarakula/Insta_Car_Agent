@@ -48,7 +48,7 @@
     }
   ],
   "scheduled_for": "2026-10-21T20:30:00+05:30",
-  "status": "approved",
+  "status": "published",
   "id": "a85764a4",
   "media_files": [
     "media/a85764a4/slide-1.jpg",
@@ -58,5 +58,7 @@
     "media/a85764a4/slide-5.jpg",
     "media/a85764a4/slide-6.jpg",
     "media/a85764a4/slide-7.jpg"
-  ]
+  ],
+  "media_id": "18050287736627657",
+  "published_at": "2026-10-21T20:30:00.000127+05:30"
 }
