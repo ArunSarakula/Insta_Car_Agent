@@ -41,18 +41,43 @@ def _step(steps, i):
 
 # ---- clutch ----------------------------------------------------------------
 
-def _disc(d, cx, cy, r, rot, rim, label, heat=0.0):
-    """A clutch disc seen face-on, spinning."""
-    col = tuple(int(rim[k] + (RED[k] - rim[k]) * heat) for k in range(3))
-    if heat > 0.2:
-        d.ellipse([cx - r - 18, cy - r - 18, cx + r + 18, cy + r + 18], fill=_a(RED, 70 * heat))
-    d.ellipse([cx - r, cy - r, cx + r, cy + r], fill=_a((50, 56, 68)), outline=_a(col), width=14)
-    for k in range(6):
+def _flywheel(d, cx, cy, r, rot, label):
+    """The engine's flywheel: a steel disc with a toothed ring gear and bolts."""
+    for k in range(36):  # ring gear teeth
+        a = rot + k * math.pi / 18
+        d.line([(cx + (r - 4) * math.cos(a), cy + (r - 4) * math.sin(a)),
+                (cx + (r + 10) * math.cos(a), cy + (r + 10) * math.sin(a))], fill=_a((150, 158, 170)), width=7)
+    d.ellipse([cx - r, cy - r, cx + r, cy + r], fill=_a((120, 128, 140)), outline=_a((90, 96, 108)), width=6)
+    d.ellipse([cx - r * 0.72, cy - r * 0.72, cx + r * 0.72, cy + r * 0.72], fill=_a((160, 168, 180)))
+    for k in range(6):  # bolts; one marked so the spin is visible
         a = rot + k * math.pi / 3
-        d.line([(cx + 26 * math.cos(a), cy + 26 * math.sin(a)),
-                (cx + (r - 16) * math.cos(a), cy + (r - 16) * math.sin(a))], fill=_a(col), width=8)
-    d.ellipse([cx - 24, cy - 24, cx + 24, cy + 24], fill=_a(col))
-    _label(d, cx, cy + r + 16, label, GREY, 24, "ma")
+        bx, by = cx + r * 0.36 * math.cos(a), cy + r * 0.36 * math.sin(a)
+        d.ellipse([bx - 9, by - 9, bx + 9, by + 9], fill=_a(AMBER if k == 0 else (70, 76, 88)))
+    d.ellipse([cx - 16, cy - 16, cx + 16, cy + 16], fill=_a((70, 76, 88)))
+    _label(d, cx, cy + r + 22, label, GREY, 24, "ma")
+
+
+def _clutch_plate(d, cx, cy, r, rot, label, heat=0.0):
+    """The clutch plate: friction lining round the edge, damper springs and
+    a splined hub. Heat turns the lining red."""
+    if heat > 0.2:
+        d.ellipse([cx - r - 20, cy - r - 20, cx + r + 20, cy + r + 20], fill=_a(RED, 80 * heat))
+    lining = tuple(int((175, 130, 90)[k] + (RED[k] - (175, 130, 90)[k]) * heat) for k in range(3))
+    d.ellipse([cx - r, cy - r, cx + r, cy + r], fill=_a(lining))
+    for k in range(16):  # grooves in the lining
+        a = rot + k * math.pi / 8
+        d.line([(cx + r * 0.68 * math.cos(a), cy + r * 0.68 * math.sin(a)),
+                (cx + r * math.cos(a), cy + r * math.sin(a))], fill=_a((110, 80, 55)), width=4)
+    d.ellipse([cx - r * 0.66, cy - r * 0.66, cx + r * 0.66, cy + r * 0.66], fill=_a((150, 158, 170)))
+    for k in range(6):  # damper springs
+        a = rot + k * math.pi / 3 + 0.5
+        sx, sy = cx + r * 0.42 * math.cos(a), cy + r * 0.42 * math.sin(a)
+        d.ellipse([sx - 12, sy - 12, sx + 12, sy + 12], fill=_a(AMBER if k == 0 else (90, 96, 108)))
+    d.ellipse([cx - 20, cy - 20, cx + 20, cy + 20], fill=_a((70, 76, 88)))
+    for k in range(8):  # splines
+        a = rot + k * math.pi / 4
+        d.line([(cx, cy), (cx + 18 * math.cos(a), cy + 18 * math.sin(a))], fill=_a((160, 168, 180)), width=3)
+    _label(d, cx, cy + r + 22, label, GREY, 24, "ma")
 
 
 def clutch(frame, d, t, i):
@@ -89,8 +114,8 @@ def clutch(frame, d, t, i):
     lag = slip * ease_out((t - 0.3) / 0.6)
     plate = engine * (1 - lag)
     heat = lag * ease_out((t - 0.6) / 0.8)
-    _disc(d, X0 + 530, VY + 140, 100, engine, GREY, "ENGINE")
-    _disc(d, X0 + 760, VY + 140, 100, plate, WHITE, "CLUTCH PLATE", heat)
+    _flywheel(d, X0 + 530, VY + 140, 96, engine, "ENGINE FLYWHEEL")
+    _clutch_plate(d, X0 + 760, VY + 140, 100, plate, "CLUTCH PLATE", heat)
     if heat > 0.2:
         _label(d, X0 + 760, VY - 20, "SLIPPING!", RED, 32, "ma", 255 * min(1, heat * 2))
     if i < 2:  # riding the clutch: wear climbs
