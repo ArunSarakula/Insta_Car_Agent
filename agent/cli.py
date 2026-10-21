@@ -133,7 +133,7 @@ def preview(plan: dict, posts: list[dict], today: date) -> str:
         if p["format"] == "reel":
             lines += ["", f"YouTube Shorts title: **{youtube_title(p)}**",
                       f"YouTube hashtags: {' '.join(youtube_hashtags(p))}"]
-        lines += ["", "**Caption:**", "", p["caption"], "", " ".join(p.get("hashtags", [])), ""]
+        lines += ["", "**Caption:**", "", p["caption"], "", " ".join(p.get("hashtags", [])[:INSTAGRAM_HASHTAGS]), ""]
     lines += ["## Story polls (post these yourself)", ""]
     for poll in plan["story_polls"]:
         lines.append(f"- **{poll['day']}**: {poll['question']}  ({poll['option_a']} / {poll['option_b']})")
@@ -170,8 +170,11 @@ def cmd_reject(cfg: Config, args) -> None:
     print(f"Rejected {post['id']}: {post['title']}")
 
 
+INSTAGRAM_HASHTAGS = 5  # Instagram's per-post limit
+
+
 def caption_for(post: dict) -> str:
-    tags = " ".join(post.get("hashtags", []))
+    tags = " ".join(post.get("hashtags", [])[:INSTAGRAM_HASHTAGS])
     return f"{post['caption']}\n.\n.\n{tags}".strip()
 
 

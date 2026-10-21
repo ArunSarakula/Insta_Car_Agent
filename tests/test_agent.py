@@ -402,3 +402,8 @@ def test_hook_builds_word_by_word_and_tags_myths():
     assert len(frames) == 3 and abs(sum(durations) - 1.45) < 0.01
     assert frames[0].getpixel((5, 5)) == frames[-1].getpixel((5, 5))  # amber background
     assert hook_frames("") == ([], [])
+
+
+def test_caption_keeps_instagram_hashtag_limit():
+    post = {"caption": "c", "hashtags": [f"#t{i}" for i in range(9)]}
+    assert cli.caption_for(post).endswith("#t0 #t1 #t2 #t3 #t4")

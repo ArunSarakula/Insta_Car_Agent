@@ -107,8 +107,10 @@ The owner works in IT and explains car tech in plain language. The voice is
 friendly, confident, a little nerdy, never clickbait-dishonest. Facts about
 cars (specs, prices, features) must be ones you are confident are true; when
 unsure, phrase it as a question or leave it out. Never suggest reposting other
-creators' photos or videos. Hashtags: 8-15 per post, mix of broad and niche,
-no banned or spammy tags, written without spaces and starting with #.
+creators' photos or videos. Hashtags: exactly 5 per post (Instagram's
+limit), most specific first: the topic tag people search (#EVRange), then
+#EVIndia or #IndianCars, then broad ones (#CarTech). No banned or spammy
+tags, written without spaces and starting with #.
 Reels also go to YouTube Shorts, where only the first 3 hashtags show (above
 the title) and many tags look spammy, so give them just 2 YouTube hashtags:
 the topic tag people actually search (#ADAS, #EVCharging) plus one broad tag.

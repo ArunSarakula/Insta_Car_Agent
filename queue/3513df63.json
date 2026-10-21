@@ -4,17 +4,11 @@
   "hook": "Car: Software update available",
   "caption": "Some rules apply in production AND in the parking lot. 😅\n\nIT folks, you know exactly why. Everyone else: deploying anything on a Friday evening is how weekends get ruined.\n\nTag the colleague who would 100% hit \"Update now\" anyway 👇",
   "hashtags": [
-    "#ITHumor",
     "#CarMemes",
-    "#TechMemes",
-    "#DeveloperLife",
-    "#SoftwareEngineer",
-    "#CarTech",
+    "#ITHumor",
     "#OTAUpdate",
     "#ConnectedCar",
-    "#FridayDeploy",
-    "#ITLife",
-    "#CarLovers"
+    "#CarTech"
   ],
   "slides": [
     {
