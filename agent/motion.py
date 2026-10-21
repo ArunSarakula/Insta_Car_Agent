@@ -287,7 +287,7 @@ def render_motion(post, path: Path, handle="@decodethedrive", music: Path | None
             p = (t - starts[1]) / (total - starts[1])
             d.rounded_rectangle([X0, TOP - 6, X0 + XW, TOP + 2], radius=4, fill=(255, 255, 255, 40))
             d.rounded_rectangle([X0, TOP - 6, X0 + XW * p, TOP + 2], radius=4, fill=(*TEAL, 255))
-            d.text((X0, BOT - 70), handle, font=handle_font, fill=(*TEAL, 255))
+            d.text((X0, BOT - 40), handle, font=handle_font, fill=(*TEAL, 255))
         frame.alpha_composite(layer)
         rgb = frame.convert("RGB")
         if k == 0 and local >= dur - 1 / FPS - 1e-6 and cover is None:
@@ -338,12 +338,13 @@ def meter_thumbnail(post, path: Path, handle="@decodethedrive") -> Path:
     im.alpha_composite(_glow(900, AMBER, 60), (-360, 1000))
     im.alpha_composite(_glow(700, TEAL, 60), (180, 420))
     d = ImageDraw.Draw(im)
+    parts = [(clean(p).upper(), c) for p, c in ((top, WHITE), (accent, AMBER)) if clean(p)]
+    for size in range(150, 70, -8):  # largest title that still leaves room for the car and meters
+        layouts = [(_fit(d, p, BOLD, W - 2 * X0, 2000, size, size, spacing=1.04), c) for p, c in parts]
+        if 170 + sum(len(l[1]) * l[2] for l, _ in layouts) <= 760:
+            break
     y = 170
-    for part, color in ((top, WHITE), (accent, AMBER)):
-        part = clean(part).upper()
-        if not part:
-            continue
-        f, lines, line_h = _fit(d, part, BOLD, W - 2 * X0, 400, 150, 80, spacing=1.04)
+    for (f, lines, line_h), color in layouts:
         for line in lines:
             d.text((W // 2, y), line, font=f, fill=color, anchor="ma")
             y += line_h

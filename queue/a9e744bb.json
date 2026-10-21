@@ -1,7 +1,7 @@
 {
   "format": "reel",
   "title": "Glass fog inside vs outside",
-  "reel_style": "myth_fact",
+  "reel_style": "fog",
   "hook": "Wiping fog with your hand makes it worse",
   "youtube_title": "Why does my car windshield fog up? Inside vs outside fix",
   "caption": "Rainy or cold morning, and your windshield fogs up just as you start driving? 🌧️\n\nFrom my own driving, the trick is knowing WHICH side is fogged:\n\nInside fog: the cabin air is warm and humid (breath, wet clothes) and the glass is cold. Turn on the front demister, switch the AC on and use fresh air mode, not recirculation.\n\nOutside fog: on humid monsoon days, strong AC makes the glass colder than the air outside. Use the wipers, or set the AC a little warmer.\n\nWiping with your hand just smears oil on the glass, and it fogs up again faster.\n\nSave this for the next rainy drive and send it to someone who always wipes with a hanky 👇",
@@ -27,11 +27,20 @@
     },
     {
       "heading": "Fog inside? Rain or winter",
-      "body": "Demister on, AC on, fresh air mode. Not recirculation."
+      "body": "Demister on, AC on, fresh air mode. Not recirculation.",
+      "chips": [
+        "Demister on",
+        "AC on",
+        "Fresh air"
+      ]
     },
     {
       "heading": "Fog outside? Humid monsoon days",
-      "body": "Your AC made the glass too cold. Use wipers, or set the AC a little warmer."
+      "body": "Your AC made the glass too cold. Use wipers, or set the AC a little warmer.",
+      "chips": [
+        "Wipers",
+        "AC a bit warmer"
+      ]
     }
   ],
   "versus_left": "",
@@ -48,5 +57,6 @@
   "music_track": "atlasaudio-lofi-chill-589987.mp3",
   "media_files": [
     "media/a9e744bb/reel.mp4"
-  ]
+  ],
+  "thumbnail_text": "Why does my | glass fog up?"
 }
