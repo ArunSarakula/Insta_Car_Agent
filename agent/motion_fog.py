@@ -19,13 +19,13 @@ GLASS = (160, 205, 235)
 SHIELD = [(X0 + 100, 0), (X0 + XW - 100, 0), (X0 + XW, 360), (X0, 360)]  # relative to its top
 
 
-def _fog_texture(w, h, seed=3, strength=215):
+def _fog_texture(w, h, seed=3, strength=245):
     rng = np.random.default_rng(seed)
     a = np.zeros((h, w))
     for cells, weight in ((6, 0.5), (14, 0.3), (40, 0.2)):
         small = Image.fromarray((rng.random((cells, cells * w // h + 1)) * 255).astype(np.uint8))
         a += np.asarray(small.resize((w, h), Image.BICUBIC), float) / 255 * weight
-    a = np.clip(0.55 + (a - 0.5) * 1.2, 0, 1) * strength
+    a = np.clip(0.8 + (a - 0.5) * 0.8, 0, 1) * strength
     im = np.zeros((h, w, 4), np.uint8)
     im[..., :3] = (232, 238, 244)
     im[..., 3] = a.astype(np.uint8)
@@ -42,37 +42,52 @@ class Windshield:
         self.fog = _fog_texture(self.w, self.h)
 
     def view(self, t):
+        """Daytime road seen through the glass, with a car ahead."""
         im = Image.new("RGB", (self.w, self.h))
         d = ImageDraw.Draw(im)
-        for yy in range(self.h):  # dusk sky into road
-            k = yy / self.h
-            d.line([(0, yy), (self.w, yy)], fill=(int(30 + 40 * k), int(45 + 30 * k), int(80 - 20 * k)))
+        hz = 140
+        for yy in range(hz):
+            k = yy / hz
+            d.line([(0, yy), (self.w, yy)], fill=(int(110 + 60 * k), int(160 + 40 * k), int(220 + 20 * k)))
+        d.rectangle([0, hz, self.w, self.h], fill=(70, 130, 70))
+        for tx in (60, 150, self.w - 170, self.w - 80):  # trees on the verge
+            d.ellipse([tx - 34, hz - 70, tx + 34, hz + 4], fill=(40, 100, 55))
+            d.rectangle([tx - 5, hz - 4, tx + 5, hz + 16], fill=(80, 60, 40))
         cx = self.w // 2
-        d.polygon([(cx - 30, 150), (cx + 30, 150), (cx + 330, self.h), (cx - 330, self.h)], fill=(52, 56, 64))
+        d.polygon([(cx - 40, hz), (cx + 40, hz), (cx + 380, self.h), (cx - 380, self.h)], fill=(70, 74, 82))
         for n in range(6):  # lane dashes rushing toward you
             p = ((t * 0.9 + n / 6) % 1) ** 2
-            yy, ln = 150 + p * (self.h - 150), 6 + 40 * p
-            d.rectangle([cx - 3 - 6 * p, yy, cx + 3 + 6 * p, yy + ln], fill=(230, 220, 160))
+            yy, ln = hz + p * (self.h - hz), 6 + 40 * p
+            d.rectangle([cx - 3 - 6 * p, yy, cx + 3 + 6 * p, yy + ln], fill=(240, 240, 230))
+        ax, ay = cx - 70, hz + 40  # car ahead
+        d.rounded_rectangle([ax - 50, ay, ax + 50, ay + 56], radius=12, fill=(200, 200, 205))
+        d.rounded_rectangle([ax - 36, ay - 22, ax + 36, ay + 4], radius=10, fill=(60, 70, 90))
+        for lx in (ax - 42, ax + 30):
+            d.rounded_rectangle([lx, ay + 14, lx + 12, ay + 26], radius=3, fill=(220, 40, 40))
         return im
 
     def draw(self, frame, d, t, fog_level=1.0, wipe=None):
-        """`wipe` = (sweep 0..1, recovery 0..1): a hand smear across the glass."""
+        """`wipe` = (sweep 0..1, recovery 0..1): a hand smears across the
+        glass. Pillars, mirror, dashboard and steering make it read as the
+        view from the driver's seat."""
         view = self.view(t).convert("RGBA")
         fog = self.fog
         if fog_level < 1:
             fog = fog.copy()
             fog.putalpha(fog.getchannel("A").point(lambda v: int(v * fog_level)))
+        hand = None
         if wipe:
             sweep, rec = wipe
             m = Image.new("L", (self.w, self.h), 255)
             if sweep > 0:
-                v = int(30 + 170 * ease_out(rec))  # it fogs back, streakier than before
-                # a hand's wavy smear, drawn left to right
+                v = int(20 + 215 * ease_out(rec))  # it fogs back, streakier than before
                 n = max(2, int(40 * sweep))
-                pts = [(120 + (self.w - 240) * k / 39, self.h * 0.52 + 46 * math.sin(k / 39 * 7))
+                pts = [(140 + (self.w - 280) * k / 39, self.h * 0.5 + 40 * math.sin(k / 39 * 7))
                        for k in range(n)]
-                ImageDraw.Draw(m).line(pts, fill=v, width=120, joint="curve")
+                ImageDraw.Draw(m).line(pts, fill=v, width=110, joint="curve")
                 m = m.filter(ImageFilter.GaussianBlur(14))
+                if sweep < 1:
+                    hand = (pts[-1][0], pts[-1][1] + self.y)
             alpha = Image.fromarray((np.asarray(fog.getchannel("A"), float) * np.asarray(m, float) / 255)
                                     .astype(np.uint8))
             fog = fog.copy()
@@ -80,7 +95,26 @@ class Windshield:
         view.alpha_composite(fog)
         frame.paste(view.convert("RGB"), (0, self.y), self.mask)
         pts = [(x, y + self.y) for x, y in SHIELD]
-        d.line(pts + [pts[0]], fill=(*WHITE, 255), width=10, joint="curve")
+        cabin = (24, 27, 33)
+        d.line(pts + [pts[0]], fill=(*cabin, 255), width=34, joint="curve")          # pillars and roof
+        mx = (pts[0][0] + pts[1][0]) / 2
+        d.rectangle([mx - 6, self.y - 4, mx + 6, self.y + 22], fill=(*cabin, 255))  # rear-view mirror
+        d.rounded_rectangle([mx - 90, self.y + 18, mx + 90, self.y + 62], radius=14, fill=(*cabin, 255),
+                            outline=(*GREY, 255), width=3)
+        by = self.y + self.h
+        d.rounded_rectangle([X0 - 40, by - 14, X0 + XW + 40, by + 70], radius=30, fill=(*cabin, 255))  # dashboard
+        sx, sy, sr = X0 + XW - 190, by + 120, 150   # steering on the right, as in Indian cars
+        d.arc([sx - sr, sy - sr, sx + sr, sy + sr], 200, 340, fill=(*(50, 54, 62), 255), width=30)
+        _label = _font(BOLD, 26)
+        d.text((X0, by + 22), "DRIVER'S VIEW", font=_label, fill=(*GREY, 255))
+        if hand:  # a palm with fingers, wiping
+            hx, hy = hand
+            skin = (224, 172, 130, 255)
+            d.ellipse([hx - 44, hy - 30, hx + 44, hy + 60], fill=skin)
+            for k, (dx, ln) in enumerate(((-34, 50), (-12, 62), (10, 60), (31, 48))):
+                d.rounded_rectangle([hx + dx - 10, hy - 20 - ln, hx + dx + 10, hy - 10], radius=10, fill=skin)
+            d.rounded_rectangle([hx + 36, hy, hx + 74, hy + 20], radius=10, fill=skin)
+            d.rectangle([hx - 30, hy + 55, hx + 30, hy + 120], fill=(60, 90, 160, 255))  # sleeve
 
 
 class Section:
@@ -158,7 +192,7 @@ def fog_scenes(post, handle):
         rec = ease_out((t - 1.6) / 1.0)
         shield.draw(frame, d, t, wipe=(sweep, rec))
         if t > 1.2:
-            d.text((X0, vis_y + 380), "Wiped... and it's back.", font=_font(MEDIUM, 40),
+            d.text((X0, vis_y - 80), "Wiped... and it's back.", font=_font(MEDIUM, 40),
                    fill=(*GREY, int(255 * ease_out((t - 1.2) / 0.3))))
         p = ease_out((t - 2.4) / 0.25)
         if p > 0:
@@ -210,7 +244,7 @@ def fog_thumbnail(post, path, handle="@decodethedrive"):
     layer = Image.new("RGBA", (W, H), (0, 0, 0, 0))
     ld = ImageDraw.Draw(layer)
     shield.draw(frame, ld, 0.3, wipe=(1.0, 0.0))
-    _pill(ld, X0 + 160, shield.y + 400, "INSIDE OR OUTSIDE?", RED, WHITE, size=46)
+    _pill(ld, X0 + 160, shield.y + 480, "INSIDE OR OUTSIDE?", RED, WHITE, size=46)
     ld.text((W // 2, H - 210), handle, font=_font(BOLD, 48), fill=(*TEAL, 255), anchor="ma")
     out = frame.convert("RGBA")
     out.alpha_composite(layer)
