@@ -209,6 +209,7 @@ def cmd_publish_due(cfg: Config, args) -> None:
     # GitHub's scheduled runs can be hours late, so a run also picks up posts
     # due soon and waits for their exact time instead of hoping the next run
     # comes on time.
+    retry_thumbnails(cfg)
     lookahead = int(os.environ.get("PUBLISH_LOOKAHEAD_MIN") or 0)
     due = store.due_posts(datetime.now(tz) + timedelta(minutes=lookahead))
     if not due:
@@ -250,6 +251,30 @@ def cmd_publish_due(cfg: Config, args) -> None:
         if post["format"] == "reel" and cfg.yt_refresh_token:
             upload_to_youtube(cfg, post)
 
+
+
+def retry_thumbnails(cfg: Config) -> None:
+    """Set thumbnails YouTube refused earlier, e.g. before the channel was
+    phone-verified. Runs on every publish check; one try per post per run."""
+    pending = [p for p in store.load_posts() if p.get("youtube_id") and p.get("thumbnail_error")]
+    if not pending or not cfg.yt_refresh_token:
+        return
+    from .youtube import YouTube
+    yt = YouTube(cfg.yt_client_id, cfg.yt_client_secret, cfg.yt_refresh_token)
+    for post in pending:
+        folder = (ROOT / post["media_files"][0]).parent
+        image = folder / "thumbnail.jpg" if (folder / "thumbnail.jpg").exists() else folder / "cover.jpg"
+        if not image.exists():
+            continue
+        try:
+            yt.set_thumbnail(post["youtube_id"], str(image))
+        except Exception as e:
+            store.set_status(post["id"], post["status"], thumbnail_error=str(e))
+            print(f"  Thumbnail still not set for {post['id']}: {e}")
+            continue
+        post.pop("thumbnail_error", None)
+        store.save_post(post)
+        print(f"  Thumbnail set for {post['id']} (https://youtube.com/shorts/{post['youtube_id']})")
 
 def youtube_title(post: dict) -> str:
     # No hashtags in the title: YouTube then shows the description's

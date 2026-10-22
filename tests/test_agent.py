@@ -460,3 +460,28 @@ def test_weekday_reels_are_youtube_only():
     assert youtube_only("reel", "Tue") and not youtube_only("reel", "Fri")
     assert not youtube_only("carousel", "Mon")
     assert {d for d, _, f in POST_SLOTS if f in ("meme", "carousel")}.isdisjoint({"Sat", "Sun"})
+
+
+def test_retry_thumbnails_clears_error(tmp_path, monkeypatch):
+    from agent import cli, store
+    calls = []
+
+    class FakeYT:
+        def __init__(self, *a): pass
+        def set_thumbnail(self, vid, path): calls.append((vid, path))
+
+    load, save, setst = store.load_posts, store.save_post, store.set_status
+    monkeypatch.setattr(store, "load_posts", lambda: load(tmp_path))
+    monkeypatch.setattr(store, "save_post", lambda p: save(p, tmp_path))
+    monkeypatch.setattr(store, "set_status", lambda i, s, **e: setst(i, s, tmp_path, **e))
+    monkeypatch.setattr(cli, "ROOT", tmp_path)
+    (tmp_path / "media" / "x").mkdir(parents=True)
+    (tmp_path / "media" / "x" / "thumbnail.jpg").write_bytes(b"jpg")
+    save({"id": "x", "status": "published", "youtube_id": "abc", "thumbnail_error": "403",
+          "media_files": ["media/x/reel.mp4"]}, tmp_path)
+    import agent.youtube
+    monkeypatch.setattr(agent.youtube, "YouTube", FakeYT)
+    cfg = type("C", (), {"yt_refresh_token": "t", "yt_client_id": "i", "yt_client_secret": "s"})()
+    cli.retry_thumbnails(cfg)
+    assert calls and calls[0][0] == "abc"
+    assert "thumbnail_error" not in store.get_post("x", tmp_path)
