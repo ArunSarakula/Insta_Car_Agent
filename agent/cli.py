@@ -358,12 +358,17 @@ def cmd_report(cfg: Config, args) -> None:
     online = ig.online_followers_ist()
     if online:
         profile["followers_online_by_ist_hour"] = online
+    by_media = {p["media_id"]: p for p in store.load_posts() if p.get("media_id")}
     posts = []
     for media in ig.recent_media(limit=10):
         try:
             media["insights"] = ig.media_insights(media["id"])
         except Exception:
             media["insights"] = {}
+        ours = by_media.get(media["id"])
+        if ours:  # what each post tested, so the report can compare hook types
+            media["hook_type"] = ours.get("hook_type", "")
+            media["hook"] = ours.get("hook", "")
         posts.append(media)
     report = _brain(cfg).weekly_report(profile, posts)
     today = datetime.now(ZoneInfo(cfg.timezone)).date()

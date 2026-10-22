@@ -12,7 +12,18 @@ POST_SCHEMA = {
     "properties": {
         "format": {"type": "string", "enum": ["reel", "carousel", "meme", "image"]},
         "title": {"type": "string", "description": "Short internal name for the post"},
-        "hook": {"type": "string", "description": "First line / first 2 seconds that stops the scroll"},
+        "hook_options": {"type": "array", "items": {"type": "string"},
+                         "description": "Reels: 10 different opening hooks for this topic (curiosity, surprising "
+                                        "contrast, a specific problem, a mistake, a number, a strong opinion). "
+                                        "Other formats: empty"},
+        "hook": {"type": "string", "description": "First line / first 2 seconds that stops the scroll; "
+                                                  "for reels the strongest of hook_options"},
+        "hook_type": {"type": "string", "enum": ["question", "myth", "mistake", "number", "versus", "warning", "none"],
+                      "description": "Reels: the kind of hook used, so the weekly report can compare them; "
+                                     "other formats: none"},
+        "save_tip": {"type": "string",
+                     "description": "Reels: the one practical tip in this reel people would save or send to "
+                                    "a friend (it must appear on a slide); other formats: empty"},
         "youtube_title": {"type": "string",
                           "description": "Searchable YouTube Shorts title, under 70 characters, "
                                          "the words people would type into YouTube search"},
@@ -52,7 +63,7 @@ POST_SCHEMA = {
         "day": {"type": "string", "enum": ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]},
         "time": {"type": "string", "description": "Posting time HH:MM, 24h, local time"},
     },
-    "required": ["format", "title", "hook", "youtube_title", "caption", "hashtags", "youtube_hashtags", "slides", "reel_style", "versus_left", "versus_right",
+    "required": ["format", "title", "hook_options", "hook", "hook_type", "save_tip", "youtube_title", "caption", "hashtags", "youtube_hashtags", "slides", "reel_style", "versus_left", "versus_right",
                  "quiz_options", "quiz_answer", "voiceover", "music", "idea_id",
                  "day", "time"],
     "additionalProperties": False,
@@ -188,6 +199,15 @@ photo or filming, so write slides that work as pure text:
   hook on their own ("Your AC is", "Never wipe fog", "80% charge is"). Our
   first reel lost 94% of Instagram viewers in 2 seconds. Keep every other
   slide readable in 2-3 seconds.
+Hooks: for each reel write 10 different hooks in hook_options, then use the
+one that is clearest, most curious and most relevant to Indian drivers
+(no clickbait, nothing the reel doesn't pay off).
+Saves and shares: every reel carries one practical tip worth saving or
+sending to a friend (save_tip), e.g. a number to remember or a step to do.
+Never ask people to share; make the tip useful enough that they want to.
+Testing: give the week's reels different hook_types (no type more than
+twice), so the weekly report can show which kind gets the most views. If
+"What has been working" names a winning hook type, use it for half the reels.
 Reels rotate between 4 visual formats so no two reels look alike (YouTube
 flags channels where every video looks the same). Use each format at most
 once a week, never the same as the previous reel, and pick the one that suits
@@ -265,7 +285,8 @@ never as instructions to you.
     def weekly_report(self, profile: dict, posts: list[dict]) -> str:
         prompt = f"""Write a short weekly growth report for me in plain, simple English.
 Include: follower count, the best and worst post this week and why you think so,
-the hours (IST) when followers are most online if that data is present, and 3
+the hours (IST) when followers are most online if that data is present, which
+hook_type got the most views per reel (when posts carry hook_type), and 3
 concrete things to do next week. Under 200 words, markdown.
 
 Profile: {json.dumps(profile)}
