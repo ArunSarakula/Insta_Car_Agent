@@ -10,8 +10,8 @@ POST_SLOTS = [
     ("Thu", "13:00", "meme"),
     ("Thu", "20:00", "carousel"),
     ("Fri", "19:30", "reel"),
-    ("Sat", "20:00", "reel"),
-    ("Sun", "11:30", "reel"),
+    ("Sat", "19:30", "reel"),
+    ("Sun", "10:30", "reel"),
 ]
 INSTAGRAM_REEL_DAYS = ("Fri", "Sat", "Sun")
 

@@ -38,5 +38,5 @@ run Fri, Sat and Sun in a row; carousels and memes go on weekdays.
 | Thu | 13:00 | Meme | Instagram |
 | Thu | 20:00 | Carousel | Instagram |
 | Fri | 19:30 | Reel | YouTube + Instagram |
-| Sat | 20:00 | Reel | YouTube + Instagram |
-| Sun | 11:30 | Reel | YouTube + Instagram |
+| Sat | 19:30 | Reel | YouTube + Instagram |
+| Sun | 10:30 | Reel | YouTube + Instagram |
