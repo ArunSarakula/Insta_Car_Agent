@@ -1,62 +1,68 @@
 [
- {
-  "id": "i01",
-  "idea": "Owner's experience (VW and Skoda): for better highway mileage, don't hold the accelerator down continuously. Press gently up to about 100 km/h, lift off and let it coast down to about 90, then press lightly again, and repeat. Avoid heavy or full throttle. This improves mileage, and range on EVs too.",
-  "status": "used",
-  "added": "2026-10-17"
- },
- {
-  "id": "i02",
-  "idea": "Owner's tip: get wheel balancing done every 5,000 km without fail (sooner if the steering vibrates).",
-  "status": "used",
-  "added": "2026-10-17"
- },
- {
-  "id": "i03",
-  "idea": "Owner's tip: use the clutch only to change gear. Many people keep the clutch pressed while turning or keep their foot resting on it. Don't, it wears out the clutch plate. Press it only for gear shifts.",
-  "status": "used",
-  "added": "2026-10-17"
- },
- {
-  "id": "i04",
-  "idea": "Vote post: Sedan vs SUV, which segment do car lovers prefer? Ask followers to vote (comment to vote; the matching story poll lets them tap and see results).",
-  "status": "used",
-  "added": "2026-10-17"
- },
- {
-  "id": "i05",
-  "idea": "Brand series: one post per brand on what it does best and its signature tech, for Honda, Hyundai, Volkswagen, Skoda and Mahindra.",
-  "status": "used",
-  "added": "2026-10-17"
- },
- {
-  "id": "i06",
-  "idea": "EV comparison: Mahindra XEV 9S vs Mahindra BE 6 vs MG Windsor EV. Compare battery options, claimed range, charging and who each suits. Use only official figures and say they are claimed (MIDC) figures; leave out prices.",
-  "status": "new",
-  "added": "2026-10-17"
- },
- {
-  "id": "i07",
-  "idea": "Owner's tip: why car glass fogs inside vs outside (rainy season and winter). Fog forms on whichever side has warm, humid air touching colder glass. Inside fog: cabin is warmer/humid (breath, wet clothes) and glass is cold, e.g. winter or rain. Fix: front demister, AC on, fresh-air mode (not recirculation). Outside fog: AC has chilled the glass and outside air is warm and humid, common in monsoon. Fix: wipers, or set the AC slightly warmer. Timely for monsoon/winter; good for a Diagram or Myth vs Fact reel.",
-  "status": "used",
-  "added": "2026-10-18"
- },
- {
-  "id": "i08",
-  "idea": "Regenerative braking explained: how EVs and hybrids turn braking into charge, why one-pedal driving helps in city traffic, and why it doesn't add much range on the highway. YouTube's own suggestion from our analytics (people who watched AC vs DC charging).",
-  "status": "new",
-  "added": "2026-10-20"
- },
- {
-  "id": "i09",
-  "idea": "Hybrid vs pure EV for Indian buyers: running cost, charging needs, highway trips, who each suits. Good as a versus reel; a follow-up to the strong vs mild hybrid reel. Suggested by YouTube analytics.",
-  "status": "new",
-  "added": "2026-10-20"
- },
- {
-  "id": "i10",
-  "idea": "Autonomous Emergency Braking (AEB): how the radar and camera spot a hazard, warn, then brake on their own; why it can miss bikes, animals or sudden cut-ins on Indian roads. Follow-up to the ADAS Short; suggested by YouTube analytics. Good as a quiz or explainer reel.",
-  "status": "new",
-  "added": "2026-10-20"
- }
+  {
+    "id": "i01",
+    "idea": "Owner's experience (VW and Skoda): for better highway mileage, don't hold the accelerator down continuously. Press gently up to about 100 km/h, lift off and let it coast down to about 90, then press lightly again, and repeat. Avoid heavy or full throttle. This improves mileage, and range on EVs too.",
+    "status": "used",
+    "added": "2026-10-17"
+  },
+  {
+    "id": "i02",
+    "idea": "Owner's tip: get wheel balancing done every 5,000 km without fail (sooner if the steering vibrates).",
+    "status": "used",
+    "added": "2026-10-17"
+  },
+  {
+    "id": "i03",
+    "idea": "Owner's tip: use the clutch only to change gear. Many people keep the clutch pressed while turning or keep their foot resting on it. Don't, it wears out the clutch plate. Press it only for gear shifts.",
+    "status": "used",
+    "added": "2026-10-17"
+  },
+  {
+    "id": "i04",
+    "idea": "Vote post: Sedan vs SUV, which segment do car lovers prefer? Ask followers to vote (comment to vote; the matching story poll lets them tap and see results).",
+    "status": "used",
+    "added": "2026-10-17"
+  },
+  {
+    "id": "i05",
+    "idea": "Brand series: one post per brand on what it does best and its signature tech, for Honda, Hyundai, Volkswagen, Skoda and Mahindra.",
+    "status": "used",
+    "added": "2026-10-17"
+  },
+  {
+    "id": "i06",
+    "idea": "EV comparison: Mahindra XEV 9S vs Mahindra BE 6 vs MG Windsor EV. Compare battery options, claimed range, charging and who each suits. Use only official figures and say they are claimed (MIDC) figures; leave out prices.",
+    "status": "new",
+    "added": "2026-10-17"
+  },
+  {
+    "id": "i07",
+    "idea": "Owner's tip: why car glass fogs inside vs outside (rainy season and winter). Fog forms on whichever side has warm, humid air touching colder glass. Inside fog: cabin is warmer/humid (breath, wet clothes) and glass is cold, e.g. winter or rain. Fix: front demister, AC on, fresh-air mode (not recirculation). Outside fog: AC has chilled the glass and outside air is warm and humid, common in monsoon. Fix: wipers, or set the AC slightly warmer. Timely for monsoon/winter; good for a Diagram or Myth vs Fact reel.",
+    "status": "used",
+    "added": "2026-10-18"
+  },
+  {
+    "id": "i08",
+    "idea": "Regenerative braking explained: how EVs and hybrids turn braking into charge, why one-pedal driving helps in city traffic, and why it doesn't add much range on the highway. YouTube's own suggestion from our analytics (people who watched AC vs DC charging).",
+    "status": "new",
+    "added": "2026-10-20"
+  },
+  {
+    "id": "i09",
+    "idea": "Hybrid vs pure EV for Indian buyers: running cost, charging needs, highway trips, who each suits. Good as a versus reel; a follow-up to the strong vs mild hybrid reel. Suggested by YouTube analytics.",
+    "status": "new",
+    "added": "2026-10-20"
+  },
+  {
+    "id": "i10",
+    "idea": "Autonomous Emergency Braking (AEB): how the radar and camera spot a hazard, warn, then brake on their own; why it can miss bikes, animals or sudden cut-ins on Indian roads. Follow-up to the ADAS Short; suggested by YouTube analytics. Good as a quiz or explainer reel.",
+    "status": "new",
+    "added": "2026-10-20"
+  },
+  {
+    "id": "i11",
+    "idea": "The WiFi option on the car's touchscreen, from the owner's own Virtus: what it is for (wireless Android Auto / CarPlay, joining the phone hotspot for software updates and online features, and in some connected cars an eSIM hotspot for passengers) and how to set it up step by step. Owner will film the screen. Good as a step-by-step Short, plus a longer vertical video.",
+    "status": "new",
+    "added": "2026-10-22"
+  }
 ]
