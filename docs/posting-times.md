@@ -24,18 +24,19 @@ Once the account has 100 followers, Instagram shares when *our* followers are
 online. The weekly report then lists those hours (IST), and the weekly plan
 follows them instead of the table above.
 
-## Fixed weekly slots (owner's choice, 21 Oct 2026)
+## Fixed weekly slots (owner's choice, from 22 Oct 2026)
 
-The same times every week (IST). Set in `agent/slots.py`.
+The same times every week (IST). Set in `agent/slots.py`. Instagram reels
+run Fri, Sat and Sun in a row; carousels and memes go on weekdays.
 
 | Day | Time | Post | Where |
 |---|---|---|---|
 | Mon | 20:00 | Carousel | Instagram |
+| Tue | 13:00 | Meme | Instagram |
 | Tue | 19:30 | Reel | YouTube |
 | Wed | 19:30 | Reel | YouTube |
+| Thu | 13:00 | Meme | Instagram |
 | Thu | 20:00 | Carousel | Instagram |
-| Fri | 19:30 | Reel | YouTube |
-| Sat | 11:00 | Reel | YouTube + Instagram |
-| Sat | 20:30 | Meme | Instagram |
+| Fri | 19:30 | Reel | YouTube + Instagram |
+| Sat | 20:00 | Reel | YouTube + Instagram |
 | Sun | 11:30 | Reel | YouTube + Instagram |
-| Sun | 20:30 | Meme | Instagram |

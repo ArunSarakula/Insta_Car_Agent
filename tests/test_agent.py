@@ -457,7 +457,6 @@ def test_instagram_cover_fits_the_grid_crop(tmp_path):
 
 def test_weekday_reels_are_youtube_only():
     from agent.slots import POST_SLOTS, youtube_only
-    assert youtube_only("reel", "Tue") and not youtube_only("reel", "Sat")
+    assert youtube_only("reel", "Tue") and not youtube_only("reel", "Fri")
     assert not youtube_only("carousel", "Mon")
-    assert {d for d, _, f in POST_SLOTS if f in ("meme",)} <= {"Sat", "Sun"}
-    assert {d for d, _, f in POST_SLOTS if f == "carousel"}.isdisjoint({"Sat", "Sun"})
+    assert {d for d, _, f in POST_SLOTS if f in ("meme", "carousel")}.isdisjoint({"Sat", "Sun"})

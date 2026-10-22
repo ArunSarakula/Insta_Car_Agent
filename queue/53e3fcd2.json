@@ -39,7 +39,7 @@
   ],
   "music": "tech",
   "idea_id": "",
-  "scheduled_for": "2026-10-28T19:30:00+05:30",
+  "scheduled_for": "2026-10-24T20:00:00+05:30",
   "status": "approved",
   "id": "53e3fcd2",
   "music_track": "paulyudin-tech-corporate-182507.mp3",
@@ -48,6 +48,5 @@
   ],
   "reel_style": "hybrid",
   "voiced": false,
-  "thumbnail_text": "Strong or | mild hybrid?",
-  "youtube_only": true
+  "thumbnail_text": "Strong or | mild hybrid?"
 }

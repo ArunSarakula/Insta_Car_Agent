@@ -166,7 +166,7 @@ and make each youtube_title the exact question or phrase they would type.
 Use exactly these fixed weekly slots (IST), one post each; the owner wants
 the same timings every week:
 {slot_lines}
-Weekday reels go to YouTube only; weekend reels go to YouTube and Instagram.
+Mon-Thu reels go to YouTube only; Fri, Sat and Sun reels go to YouTube and Instagram.
 Carousels and memes go to Instagram only. Car + IT humour works well for memes.
 
 Every post is made only from text slides that the agent designs automatically
