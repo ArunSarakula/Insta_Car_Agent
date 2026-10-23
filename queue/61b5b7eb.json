@@ -45,7 +45,7 @@
   ],
   "music": "upbeat",
   "scheduled_for": "2026-10-23T19:30:00+05:30",
-  "status": "approved",
+  "status": "published",
   "from_post": "a85764a4",
   "id": "61b5b7eb",
   "voiced": false,
@@ -53,5 +53,8 @@
   "media_files": [
     "media/61b5b7eb/reel.mp4"
   ],
-  "thumbnail_text": "Where did my | EV range go?"
+  "thumbnail_text": "Where did my | EV range go?",
+  "media_id": "18127947073804447",
+  "published_at": "2026-10-23T19:30:00.000206+05:30",
+  "youtube_id": "V9hPuRRo42I"
 }
