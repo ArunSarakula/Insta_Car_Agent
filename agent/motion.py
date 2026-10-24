@@ -120,7 +120,6 @@ def _battery(d, y, level, label, flash=None, marker=None, alpha=255):
 
 
 def _hook_scene(heading, tag):
-    words = clean(heading).split()
     probe = ImageDraw.Draw(Image.new("RGB", (10, 10)))
     f, lines, line_h = _fit(probe, clean(heading), BOLD, XW, 760, 140, 70)
     sprites, x, y0 = [], 0, (TOP + BOT) // 2 - len(lines) * line_h // 2
@@ -132,26 +131,22 @@ def _hook_scene(heading, tag):
             ImageDraw.Draw(im).text((0, 0), word, font=f, fill=INK)
             sprites.append((x, y0 + n * line_h, im))
             x += probe.textlength(word + " ", font=f)
-    step = min(0.2, 1.0 / max(1, len(words)))
-    landed = step * (len(sprites) - 1) + 0.16
-    dur = landed + 0.55
+    # The whole question is readable from the very first frame (in the feed
+    # the video autoplays and viewers decide in about a second), then a quick
+    # punch-in and shake; content starts at 1.0s.
+    dur = 1.0
 
     def draw(frame, d, t):
         frame.paste((*AMBER, 255), [0, 0, W, H])
-        shake = 0
-        if landed < t < landed + 0.22:
-            shake = int(10 * math.sin(t * 90) * (1 - (t - landed) / 0.22))
+        shake = int(10 * math.sin(t * 90) * (1 - t / 0.22)) if 0.08 < t < 0.22 else 0
         if tag:
             _pill(d, X0 + shake, y0 - 130, tag, INK, AMBER, size=44)
-        for i, (x, y, im) in enumerate(sprites):
-            p = (t - i * step) / 0.12
-            if p <= 0:
-                continue
-            s = 1 + 0.3 * (1 - ease_out(p))
-            sp = im.resize((max(1, int(im.width * s)), max(1, int(im.height * s))))
+        s = 1 + 0.08 * (1 - ease_out(t / 0.15))
+        for x, y, im in sprites:
+            sp = im.resize((max(1, int(im.width * s)), max(1, int(im.height * s)))) if s > 1.001 else im
             frame.alpha_composite(sp, (int(x - (sp.width - im.width) / 2) + shake,
                                        int(y - (sp.height - im.height) / 2)))
-    cues = [("pop", i * step) for i in range(len(sprites))] + [("hit", landed)]
+    cues = [("hit", 0.0)]
     return dur, draw, cues
 
 
