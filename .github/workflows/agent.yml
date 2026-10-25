@@ -18,6 +18,10 @@ on:
       voices:
         description: "voice-test only: voices to compare, e.g. Charon,Kore (default: a male and a female voice)"
         required: false
+      no_text:
+        description: "voice-test only: leave out the on-screen text"
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -81,6 +85,7 @@ jobs:
           POST_ID: ${{ steps.pick.outputs.post_id }}
           PUBLISH_LOOKAHEAD_MIN: ${{ steps.pick.outputs.lookahead }}
           TEST_VOICES: ${{ inputs.voices }}
+          TEST_NO_TEXT: ${{ inputs.no_text }}
         run: |
           for cmd in $CMDS; do
             echo "::group::$cmd"

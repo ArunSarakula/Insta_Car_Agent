@@ -453,6 +453,11 @@ def visual_scenes(post, handle):
 
         def draw(frame, d, t, heading=heading, slide=slide, badge=badge, i=i):
             _pill(d, X0, TOP + 40, badge, TEAL, INK, alpha=int(255 * ease_out(t / 0.2)), size=34)
+            if post.get("hide_text"):  # voice-only version: just the visual, moved up to the middle
+                art = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+                visual(art, ImageDraw.Draw(art), t, i)
+                frame.alpha_composite(art.crop((0, VY - 120, W, VY + 540)), (0, (H - 660) // 2 - 60))
+                return
             heading.draw(d, t)
             _fade_text(d, slide.get("body", ""), X0, heading.bottom + 22, t, 0.4, MEDIUM, GREY, size=40,
                        height=VY - heading.bottom - 70)
