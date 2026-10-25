@@ -421,7 +421,7 @@ def cmd_revoice(cfg: Config, args) -> None:
         except KeyError as e:
             print(f"  skipped {post['id']}: {e}")
             continue
-        store.set_status(post["id"], post["status"], voiced=True)
+        store.set_status(post["id"], post["status"], voiced=True, voice=cfg.voice)
         print(f"  voiced {post['id']}: {post['title']}")
 
 

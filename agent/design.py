@@ -295,6 +295,8 @@ def render_post(post: dict, media_root: Path, handle="@decodethedrive", tts_key:
             files = [render_reel(slides, out / "reel.mp4", handle, track, post, voices and voices[0])]
             post["reel_style"] = usable({**post, "slides": slides})
         post["voiced"] = bool(voices)
+        if voices:
+            post["voice"] = voice
         for f in voices or []:
             f.unlink()
         if track:
