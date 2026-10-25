@@ -554,3 +554,17 @@ def test_animated_reel_waits_for_each_voice_line(tmp_path):
     # the first scene stretches to fit its 7-second line; the others keep their length
     gap = design.media_seconds(voiced) - design.media_seconds(plain)
     assert 2.0 < gap < 4.5
+
+
+def test_voice_names_and_listing():
+    from agent import voice
+    assert voice.voice_name("female") == "en-IN-Neural2-A"
+    assert voice.voice_name("en-IN-Chirp3-HD-Charon") == "en-IN-Chirp3-HD-Charon"
+    assert voice.voice_name("nonsense") == "en-IN-Neural2-B"
+    listing = {"voices": [{"name": "en-IN-Standard-A", "ssmlGender": "FEMALE"},
+                          {"name": "en-IN-Neural2-C", "ssmlGender": "MALE"},
+                          {"name": "en-US-Neural2-A", "ssmlGender": "MALE"},
+                          {"name": "en-IN-Chirp3-HD-Kore", "ssmlGender": "FEMALE"}]}
+    http = SimpleNamespace(get=lambda url, params, timeout: SimpleNamespace(status_code=200, json=lambda: listing))
+    assert voice.list_voices("k", http) == [{"name": "en-IN-Chirp3-HD-Kore", "gender": "female"},
+                                            {"name": "en-IN-Neural2-C", "gender": "male"}]

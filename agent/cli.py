@@ -13,6 +13,7 @@
     python -m agent x-check         test the X (Twitter) connection (no post)
     python -m agent voice-test ID   render a reel in both AI voices to compare
     python -m agent revoice         add the AI voice to every queued reel
+    python -m agent voice-samples   save a short sample of every Indian English voice
 """
 
 import argparse
@@ -386,6 +387,27 @@ def cmd_voice_test(cfg: Config, args) -> None:
         print(f"  {voice}: {target.relative_to(ROOT)}")
 
 
+def cmd_voice_samples(cfg: Config, args) -> None:
+    """One spoken line in every Indian English Google voice, under
+    media/voice-test/samples/, with a list of names and genders."""
+    from .voice import list_voices, synthesize
+    if not cfg.tts_api_key:
+        raise KeyError("TTS_API_KEY is not set, so there is no voice to sample.")
+    text = ("Are you using your clutch wrong? If your foot rests on the pedal, "
+            "even light pressure slips it and wears the plate.")
+    folder = ROOT / "media" / "voice-test" / "samples"
+    made = []
+    for v in list_voices(cfg.tts_api_key):
+        try:
+            synthesize(text, folder / f"{v['name']}.mp3", cfg.tts_api_key, voice=v["name"])
+        except RuntimeError as e:
+            print(f"  skipped {v['name']}: {e}")
+            continue
+        made.append(v)
+        print(f"  {v['gender']:7} {v['name']}")
+    (folder / "voices.json").write_text(json.dumps(made, indent=2) + "\n")
+
+
 def cmd_revoice(cfg: Config, args) -> None:
     """Adds the voice to queued reels that don't have it yet. Only the video
     is replaced; thumbnails and covers chosen by hand stay as they are."""
@@ -493,6 +515,7 @@ COMMANDS = {
     "publish-due": cmd_publish_due, "comments": cmd_comments,
     "send-replies": cmd_send_replies, "report": cmd_report, "youtube-check": cmd_youtube_check,
     "x-check": cmd_x_check, "voice-test": cmd_voice_test, "revoice": cmd_revoice,
+    "voice-samples": cmd_voice_samples,
 }
 
 
