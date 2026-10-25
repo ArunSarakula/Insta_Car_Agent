@@ -11,7 +11,7 @@ import numpy as np
 from PIL import Image, ImageDraw, ImageFilter
 
 from .design import AMBER, BOLD, GREY, INK, MEDIUM, NAVY, TEAL, WHITE, _fit, clean
-from .motion import (BOT, GREEN, H, RED, TOP, W, X0, XW, Words, _fade_text, _font, _glow, _hook_scene,
+from .motion import (BOT, GREEN, H, RED, TOP, W, X0, XW, Words, _fade_text, _font, _glow,
                      _pill, ease_out)
 
 BLUE = (90, 170, 255)
@@ -198,7 +198,7 @@ def fog_scenes(post, handle):
     hook, answer, inside, outside = slides[0], slides[1], slides[2], slides[3]
     vis_y = 960
     shield, section = Windshield(vis_y), Section(vis_y + 70)
-    scenes = [_hook_scene(hook["heading"], "MYTH OR FACT?")]
+    scenes = []
 
     myth = Words(hook["heading"], TOP + 150, size=92)
 

@@ -18,6 +18,8 @@ from .design import (AMBER, BOLD, GREY, INK, MEDIUM, NAVY, REEL, REEL_SAFE_BOTTO
 
 W, H = REEL
 FPS = 30
+PACE = 0.65  # content plays at 65% of its timed speed
+LEAD = 0.8   # seconds of the first scene's intro skipped
 X0 = 80
 XW = W - X0 - REEL_SAFE_RIGHT - 40
 TOP, BOT = REEL_SAFE_TOP, H - REEL_SAFE_BOTTOM
@@ -119,43 +121,12 @@ def _battery(d, y, level, label, flash=None, marker=None, alpha=255):
            fill=(*_level_color(level), alpha), anchor="ra")
 
 
-def _hook_scene(heading, tag):
-    probe = ImageDraw.Draw(Image.new("RGB", (10, 10)))
-    f, lines, line_h = _fit(probe, clean(heading), BOLD, XW, 760, 140, 70)
-    sprites, x, y0 = [], 0, (TOP + BOT) // 2 - len(lines) * line_h // 2
-    for n, line in enumerate(lines):
-        x = X0
-        for word in line.split():
-            w = int(probe.textlength(word, font=f)) + 8
-            im = Image.new("RGBA", (w, line_h), (0, 0, 0, 0))
-            ImageDraw.Draw(im).text((0, 0), word, font=f, fill=INK)
-            sprites.append((x, y0 + n * line_h, im))
-            x += probe.textlength(word + " ", font=f)
-    # The whole question is readable from the very first frame (in the feed
-    # the video autoplays and viewers decide in about a second), then a quick
-    # punch-in and shake; content starts at 1.0s.
-    dur = 1.0
-
-    def draw(frame, d, t):
-        frame.paste((*AMBER, 255), [0, 0, W, H])
-        shake = int(10 * math.sin(t * 90) * (1 - t / 0.22)) if 0.08 < t < 0.22 else 0
-        if tag:
-            _pill(d, X0 + shake, y0 - 130, tag, INK, AMBER, size=44)
-        s = 1 + 0.08 * (1 - ease_out(t / 0.15))
-        for x, y, im in sprites:
-            sp = im.resize((max(1, int(im.width * s)), max(1, int(im.height * s)))) if s > 1.001 else im
-            frame.alpha_composite(sp, (int(x - (sp.width - im.width) / 2) + shake,
-                                       int(y - (sp.height - im.height) / 2)))
-    cues = [("hit", 0.0)]
-    return dur, draw, cues
-
-
 def meter_scenes(post, handle):
     """(duration, draw(frame, draw, t), sound cues) for each scene."""
     slides = post["slides"]
     base, drains, last = slides[1], slides[2:-1], slides[-1]
     levels = [round(v, 2) for v in np.linspace(1.0, 0.55, len(drains) + 1)]
-    scenes = [_hook_scene(slides[0]["heading"], post.get("hook_tag", ""))]
+    scenes = []
     battery_y = 1000
 
     def text_scene(slide, badge, battery, dur, cues):
@@ -240,7 +211,15 @@ def formats():
 def render_motion(post, path: Path, handle="@decodethedrive", music: Path | None = None) -> Path:
     path.parent.mkdir(parents=True, exist_ok=True)
     build, thumbnail = formats()[post["reel_style"]]
-    scenes = build(post, handle)
+    # Scenes play slower than they were timed so the text can be read; there
+    # is no question card up front, the thumbnail and cover already ask it.
+    # The first scene starts with its heading already in, so the very first
+    # frame (what the feed shows on autoplay) is never an empty screen.
+    scenes = []
+    for n, (dur, draw, c) in enumerate(build(post, handle)):
+        lead = LEAD if n == 0 else 0.0
+        scenes.append(((dur - lead) / PACE, lambda f, d, t, draw=draw, lead=lead: draw(f, d, lead + t * PACE),
+                       [(k, (at - lead) / PACE) for k, at in c if at >= lead]))
     starts, total = [], 0.0
     for dur, _, _ in scenes:
         starts.append(total)
@@ -267,34 +246,27 @@ def render_motion(post, path: Path, handle="@decodethedrive", music: Path | None
 
     glow, glow2 = _glow(), _glow(560, AMBER, 34)
     handle_font = _font(BOLD, 36)
-    cover = None
     for i in range(int(total * FPS)):
         t = i / FPS
         k = max(j for j, s in enumerate(starts) if s <= t)
-        dur, draw, _ = scenes[k]
+        _, draw, _ = scenes[k]
         local = t - starts[k]
         frame = Image.new("RGBA", (W, H), (*NAVY, 255))
-        if k > 0:  # slow drifting light keeps the background alive
-            frame.alpha_composite(glow, (int(-300 + 160 * math.sin(t * 0.5)), int(200 + 120 * math.cos(t * 0.4))))
-            frame.alpha_composite(glow2, (int(500 + 120 * math.cos(t * 0.6)), int(900 + 140 * math.sin(t * 0.45))))
+        # slow drifting light keeps the background alive
+        frame.alpha_composite(glow, (int(-300 + 160 * math.sin(t * 0.5)), int(200 + 120 * math.cos(t * 0.4))))
+        frame.alpha_composite(glow2, (int(500 + 120 * math.cos(t * 0.6)), int(900 + 140 * math.sin(t * 0.45))))
         layer = Image.new("RGBA", (W, H), (0, 0, 0, 0))
         d = ImageDraw.Draw(layer)
         draw(frame, d, local)
-        if k > 0:
-            p = (t - starts[1]) / (total - starts[1])
-            d.rounded_rectangle([X0, TOP - 6, X0 + XW, TOP + 2], radius=4, fill=(255, 255, 255, 40))
-            d.rounded_rectangle([X0, TOP - 6, X0 + XW * p, TOP + 2], radius=4, fill=(*TEAL, 255))
-            d.text((X0, BOT - 40), handle, font=handle_font, fill=(*TEAL, 255))
+        d.rounded_rectangle([X0, TOP - 6, X0 + XW, TOP + 2], radius=4, fill=(255, 255, 255, 40))
+        d.rounded_rectangle([X0, TOP - 6, X0 + XW * t / total, TOP + 2], radius=4, fill=(*TEAL, 255))
+        d.text((X0, BOT - 40), handle, font=handle_font, fill=(*TEAL, 255))
         frame.alpha_composite(layer)
-        rgb = frame.convert("RGB")
-        if k == 0 and local >= dur - 1 / FPS - 1e-6 and cover is None:
-            cover = rgb
-        proc.stdin.write(rgb.tobytes())
+        proc.stdin.write(frame.convert("RGB").tobytes())
     proc.stdin.close()
     if proc.wait():
         raise RuntimeError("ffmpeg failed while rendering the animated reel")
     sfx.unlink()
-    (cover or rgb).save(path.parent / "cover.jpg", "JPEG", quality=92)  # Instagram cover
     thumbnail(post, path.parent / "thumbnail.jpg", handle)
     instagram_cover(path.parent / "thumbnail.jpg", path.parent / "cover.jpg")
     return path

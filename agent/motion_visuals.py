@@ -10,8 +10,8 @@ import numpy as np
 from PIL import Image, ImageDraw
 
 from .design import AMBER, BOLD, GREY, INK, MEDIUM, NAVY, TEAL, WHITE, _fit, clean
-from .motion import (BOT, GREEN, H, RED, TOP, W, X0, XW, Words, _ev_car, _fade_text, _font, _glow,
-                     _hook_scene, _pill, ease_out)
+from .motion import (BOT, GREEN, H, RED, TOP, W, X0, XW, Words, _ev_car, _fade_text, _font, _glow, _pill,
+                     ease_out)
 from .motion_fog import _chips
 
 VY = 990            # top of the visual
@@ -446,7 +446,7 @@ VISUALS = {
 def visual_scenes(post, handle):
     visual, badges, cues, _ = VISUALS[post["reel_style"]]
     slides = post["slides"]
-    scenes = [_hook_scene(slides[0]["heading"], post.get("hook_tag", ""))]
+    scenes = []
     for i, slide in enumerate(slides[1:]):
         heading = Words(slide["heading"], TOP + 150, size=86)
         badge = badges[min(i, len(badges) - 1)]
