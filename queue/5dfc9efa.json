@@ -47,7 +47,7 @@
     "media/5dfc9efa/reel.mp4"
   ],
   "reel_style": "clutch",
-  "voiced": false,
+  "voiced": true,
   "thumbnail_text": "Killing | your clutch?",
   "youtube_only": true,
   "voice_lines": [
@@ -55,5 +55,6 @@
     "Holding the clutch down while turning is bad too. You lose engine control and wear out the release bearing.",
     "My rule is simple. Clutch only to change gear, move off or stop. The rest of the time, foot on the dead pedal.",
     "Your clutch plate will thank you. Send this to the friend who rides the clutch, and follow for more."
-  ]
+  ],
+  "voice": "en-IN-Chirp3-HD-Zephyr"
 }
