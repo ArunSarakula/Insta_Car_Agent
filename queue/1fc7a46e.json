@@ -40,7 +40,7 @@
   "music": "tech",
   "idea_id": "",
   "scheduled_for": "2026-10-25T10:30:00+05:30",
-  "status": "approved",
+  "status": "published",
   "id": "1fc7a46e",
   "music_track": "the_mountain-tech-corporate-593075.mp3",
   "media_files": [
@@ -48,5 +48,8 @@
   ],
   "reel_style": "charging",
   "voiced": false,
-  "thumbnail_text": "Fast charging | kills batteries?"
+  "thumbnail_text": "Fast charging | kills batteries?",
+  "media_id": "18144019201609704",
+  "published_at": "2026-10-25T10:44:52.878073+05:30",
+  "youtube_id": "sujtt1RL9yw"
 }
