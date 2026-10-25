@@ -222,6 +222,31 @@ def formats():
             **{name: (visual_scenes, visual_thumbnail) for name in VISUALS}}
 
 
+def caption_chunks(text, start, length, words=3, chars=18):
+    """A spoken line cut into short on-screen captions, each shown for its
+    share of the line's length (by letters), so they follow the voice."""
+    weak = {"the", "a", "an", "to", "of", "and", "or", "your", "is", "are", "on", "in", "if", "you", "it"}
+    chunks, cur = [], []
+    for w in text.split():
+        if cur and (len(cur) == words or len(" ".join(cur + [w])) > chars):
+            carry = [cur.pop()] if len(cur) > 1 and cur[-1].lower() in weak else []
+            chunks.append(" ".join(cur))
+            cur = carry
+        cur.append(w)
+        if w[-1] in ".,?!:;" and cur:
+            chunks.append(" ".join(cur))
+            cur = []
+    if cur:
+        chunks.append(" ".join(cur))
+    total = sum(len(c) + 2 for c in chunks) or 1
+    out, at = [], start
+    for c in chunks:
+        dur = length * (len(c) + 2) / total
+        out.append((at, at + dur, c.strip(".,;:")))
+        at += dur
+    return out
+
+
 def render_motion(post, path: Path, handle="@decodethedrive", music: Path | None = None,
                   voices: list[Path] | None = None) -> Path:
     """voices: one spoken line per scene; each scene then lasts at least as
@@ -246,6 +271,11 @@ def render_motion(post, path: Path, handle="@decodethedrive", music: Path | None
         starts.append(total)
         total += dur
     cues = [(k, s + at) for s, (_, _, c) in zip(starts, scenes) for k, at in c]
+    captions = []
+    if post.get("layout") == "big3d" and lines:
+        from .design import voice_lines
+        for text, samples, s in zip(voice_lines(post, len(scenes)), lines, starts):
+            captions += caption_chunks(text, s + VOICE_AT, len(samples) / RATE)
     sfx = path.parent / "sfx.wav"
     _write_sfx(cues, total, sfx, [(samples, s + VOICE_AT) for samples, s in zip(lines, starts)])
 
@@ -282,6 +312,11 @@ def render_motion(post, path: Path, handle="@decodethedrive", music: Path | None
         d.rounded_rectangle([X0, TOP - 6, X0 + XW, TOP + 2], radius=4, fill=(255, 255, 255, 40))
         d.rounded_rectangle([X0, TOP - 6, X0 + XW * t / total, TOP + 2], radius=4, fill=(*TEAL, 255))
         d.text((X0, BOT - 40), handle, font=handle_font, fill=(*TEAL, 255))
+        for a, b, text in captions:
+            if a <= t < b:  # pops in, slightly enlarged, then settles
+                f = _font(BOLD, int(78 * (1 + 0.12 * (1 - ease_out((t - a) / 0.12)))))
+                d.text((X0 + XW / 2, BOT - 115), text.upper(), font=f, fill=(*WHITE, 255), anchor="mm",
+                       stroke_width=6, stroke_fill=(*INK, 255))
         frame.alpha_composite(layer)
         proc.stdin.write(frame.convert("RGB").tobytes())
     proc.stdin.close()

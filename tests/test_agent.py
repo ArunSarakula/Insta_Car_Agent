@@ -578,3 +578,20 @@ def test_voice_usage_and_cost(tmp_path):
     summary = voice.usage_summary(log, "2026-11")
     assert "1,100,000 characters" in summary and "US$3.00" in summary and "₹264" in summary
     assert "free" in voice.usage_summary(log, "2026-12")
+
+
+def test_caption_chunks_follow_the_line():
+    from agent.motion import caption_chunks
+    chunks = caption_chunks("Holding the clutch down while turning is bad too.", 1.0, 4.0)
+    assert chunks[0][0] == 1.0 and abs(chunks[-1][1] - 5.0) < 1e-6
+    assert all(len(c.split()) <= 3 and not c.lower().endswith(" the") for _, _, c in chunks)
+
+
+def test_clutch3d_draws_every_scene():
+    from PIL import Image, ImageDraw
+    from agent.motion_3d import clutch3d
+    for i in range(4):
+        frame = Image.new("RGBA", (1080, 1920), (0, 0, 0, 255))
+        layer = Image.new("RGBA", frame.size, (0, 0, 0, 0))
+        clutch3d(frame, ImageDraw.Draw(layer), 1.5, i)
+        assert layer.getbbox()

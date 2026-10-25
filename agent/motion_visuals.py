@@ -445,6 +445,10 @@ VISUALS = {
 
 def visual_scenes(post, handle):
     visual, badges, cues, _ = VISUALS[post["reel_style"]]
+    big = None
+    if post.get("layout") == "big3d":  # the 3D part fills the screen; the voice carries the words
+        from .motion_3d import VISUALS3D
+        big = VISUALS3D.get(post["reel_style"])
     slides = post["slides"]
     scenes = []
     for i, slide in enumerate(slides[1:]):
@@ -453,6 +457,9 @@ def visual_scenes(post, handle):
 
         def draw(frame, d, t, heading=heading, slide=slide, badge=badge, i=i):
             _pill(d, X0, TOP + 40, badge, TEAL, INK, alpha=int(255 * ease_out(t / 0.2)), size=34)
+            if big:
+                big(frame, d, t, i)
+                return
             if post.get("hide_text"):  # voice-only version: just the visual, moved up to the middle
                 art = Image.new("RGBA", (W, H), (0, 0, 0, 0))
                 visual(art, ImageDraw.Draw(art), t, i)

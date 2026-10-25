@@ -386,6 +386,8 @@ def cmd_voice_test(cfg: Config, args) -> None:
     suffix = ""
     if os.environ.get("TEST_NO_TEXT", "").lower() == "true":  # voice and animation only
         post, suffix = {**post, "hide_text": True}, "-notext"
+    if os.environ.get("TEST_LAYOUT"):  # e.g. big3d: the 3D part with short captions
+        post, suffix = {**post, "layout": os.environ["TEST_LAYOUT"]}, suffix + "-" + os.environ["TEST_LAYOUT"]
     names = [v.strip() for v in os.environ.get("TEST_VOICES", "").split(",") if v.strip()] or ["male", "female"]
     for voice in names:
         if voice not in ("male", "female") and not voice.startswith("en-IN-"):
