@@ -15,6 +15,9 @@ on:
       post_id:
         description: "Post id (only for approve / reject / voice-test of a single post)"
         required: false
+      voices:
+        description: "voice-test only: voices to compare, e.g. Charon,Kore (default: a male and a female voice)"
+        required: false
 
 permissions:
   contents: write
@@ -77,6 +80,7 @@ jobs:
           CMDS: ${{ steps.pick.outputs.cmds }}
           POST_ID: ${{ steps.pick.outputs.post_id }}
           PUBLISH_LOOKAHEAD_MIN: ${{ steps.pick.outputs.lookahead }}
+          TEST_VOICES: ${{ inputs.voices }}
         run: |
           for cmd in $CMDS; do
             echo "::group::$cmd"

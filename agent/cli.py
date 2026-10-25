@@ -378,10 +378,15 @@ def _voiced_reel(cfg: Config, post: dict, voice: str) -> Path:
 
 
 def cmd_voice_test(cfg: Config, args) -> None:
-    """The same reel in both voices, saved under media/voice-test/ to compare."""
+    """The same reel in several voices, saved under media/voice-test/ to
+    compare: TEST_VOICES (comma-separated names, e.g. Charon,Kore), or a male
+    and a female voice."""
     post = store.get_post(args.id)
-    for voice in ("male", "female"):
-        target = ROOT / "media" / "voice-test" / f"{post['id']}-{voice}.mp4"
+    names = [v.strip() for v in os.environ.get("TEST_VOICES", "").split(",") if v.strip()] or ["male", "female"]
+    for voice in names:
+        if voice not in ("male", "female") and not voice.startswith("en-IN-"):
+            voice = f"en-IN-Chirp3-HD-{voice}"
+        target = ROOT / "media" / "voice-test" / f"{post['id']}-{voice.split('-')[-1].lower()}.mp4"
         target.parent.mkdir(parents=True, exist_ok=True)
         _voiced_reel(cfg, post, voice).replace(target)
         print(f"  {voice}: {target.relative_to(ROOT)}")
