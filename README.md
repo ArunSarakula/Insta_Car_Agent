@@ -143,6 +143,20 @@ One-time setup (about 15 minutes):
    audit: apply with the YouTube API Services audit form. Until then, make each
    Short public in YouTube Studio with one tap.
 
+## X (Twitter) (optional)
+
+Reels and memes are also posted to X, with the hook and two hashtags.
+
+1. Sign in at developer.x.com with the X account and open your app.
+2. Under **User authentication settings**, set app permissions to **Read and write**.
+3. Under **Keys and tokens**, generate the API Key and Secret, then the Access Token and Secret
+   (generate the token after switching to Read and write, or it can't post).
+4. Add them as repository secrets: `X_API_KEY`, `X_API_SECRET`, `X_ACCESS_TOKEN`, `X_ACCESS_SECRET`.
+5. Run the workflow with **x-check** to test the connection without posting.
+
+Without these secrets the agent simply skips X. A failed X post is recorded on the post as
+`x_error` and never undoes the Instagram or YouTube post.
+
 ## Reel formats and AI voiceover
 
 Reels rotate between four looks so no two in a row are alike (YouTube

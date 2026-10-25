@@ -418,7 +418,8 @@ def test_youtube_only_post_skips_instagram(tmp_path, monkeypatch):
     uploaded = []
     monkeypatch.setattr(cli, "_instagram", lambda cfg: SimpleNamespace())  # any Instagram call would fail
     monkeypatch.setattr(cli, "upload_to_youtube", lambda cfg, post: uploaded.append(post["id"]))
-    cfg = SimpleNamespace(timezone="Asia/Kolkata", yt_refresh_token="rt", github_repository="me/repo")
+    cfg = SimpleNamespace(timezone="Asia/Kolkata", yt_refresh_token="rt", github_repository="me/repo",
+                          x_connected=False)
     cli.cmd_publish_due(cfg, None)
     assert uploaded == ["y"] and store.get_post("y")["status"] == "published"
 
@@ -485,3 +486,45 @@ def test_retry_thumbnails_clears_error(tmp_path, monkeypatch):
     cli.retry_thumbnails(cfg)
     assert calls and calls[0][0] == "abc"
     assert "thumbnail_error" not in store.get_post("x", tmp_path)
+
+
+# ---- X (Twitter) -----------------------------------------------------------
+
+def test_x_signature_matches_the_documented_example():
+    from agent.x import signature
+    params = {"include_entities": "true", "status": "Hello Ladies + Gentlemen, a signed OAuth request!",
+              "oauth_consumer_key": "xvz1evFS4wEEPTGEFPHBog",
+              "oauth_nonce": "kYjzVBB8Y0ZFabxSWbWovY3uYSQ2pTgmZeNu2VS4cg",
+              "oauth_signature_method": "HMAC-SHA1", "oauth_timestamp": "1318622958",
+              "oauth_token": "370773112-GmHxMAgYyLbNEtIKZeRNFsMKPR9EyMZeS9weJAEb", "oauth_version": "1.0"}
+    assert signature("POST", "https://api.twitter.com/1.1/statuses/update.json", params,
+                     "kAcSOqF21Fu85e7zjz7ZN2U4ZRhfV3WpwPAoE3Z7kBw",
+                     "LswwdoUaIvS8ltyTt5jkRh4J50vUPVVHtR2YPi5kE") == "hCtSmYh+iHYCEqBWrE7C7hYmtUk="
+
+
+def test_x_text_fits_and_keeps_two_hashtags():
+    post = {"format": "reel", "title": "t", "hook": "Why " * 100, "hashtags": ["#A", "#B", "#C"]}
+    text = cli.x_text(post)
+    assert len(text) <= 280 and text.endswith("#A #B") and "#C" not in text
+
+
+def test_post_to_x_records_the_tweet(tmp_path, monkeypatch):
+    from agent import store
+    import agent.x
+    posted = []
+
+    class FakeX:
+        def __init__(self, *a): pass
+        def post(self, text, path): posted.append((text, path)); return "123"
+
+    save, setst = store.save_post, store.set_status
+    monkeypatch.setattr(store, "set_status", lambda i, s, **e: setst(i, s, tmp_path, **e))
+    monkeypatch.setattr(agent.x, "X", FakeX)
+    save({"id": "r", "status": "published", "format": "reel", "title": "t", "hook": "Q?", "hashtags": [],
+          "media_files": ["media/r/reel.mp4"]}, tmp_path)
+    off = SimpleNamespace(x_connected=False)
+    cli.post_to_x(off, store.get_post("r", tmp_path))
+    assert not posted
+    on = SimpleNamespace(x_connected=True, x_api_key="k", x_api_secret="s", x_access_token="t", x_access_secret="a")
+    cli.post_to_x(on, store.get_post("r", tmp_path))
+    assert posted and store.get_post("r", tmp_path)["x_id"] == "123"

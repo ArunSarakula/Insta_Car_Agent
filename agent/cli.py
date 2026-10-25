@@ -10,6 +10,7 @@
     python -m agent send-replies    post the replies you approved
     python -m agent report          write this week's growth report
     python -m agent youtube-check   test the YouTube connection (no upload)
+    python -m agent x-check         test the X (Twitter) connection (no post)
 """
 
 import argparse
@@ -229,6 +230,7 @@ def cmd_publish_due(cfg: Config, args) -> None:
             store.set_status(post["id"], "published", published_at=now.isoformat())
             print(f"Published {post['id']} to YouTube only: {post['title']}")
             upload_to_youtube(cfg, post)
+            post_to_x(cfg, post)
             continue
         urls = media_urls(post, cfg.github_repository)
         if not urls:
@@ -250,6 +252,7 @@ def cmd_publish_due(cfg: Config, args) -> None:
         print(f"Published {post['id']}: {post['title']}")
         if post["format"] == "reel" and cfg.yt_refresh_token:
             upload_to_youtube(cfg, post)
+        post_to_x(cfg, post)
 
 
 
@@ -323,6 +326,45 @@ def upload_to_youtube(cfg: Config, post: dict) -> None:
     except Exception as e:
         store.set_status(post["id"], "published", youtube_error=str(e))
         print(f"  YouTube upload failed: {e}")
+
+
+X_FORMATS = ("reel", "meme")
+X_HASHTAGS = 2
+
+
+def x_text(post: dict) -> str:
+    """The searched question plus two hashtags, inside X's 280 characters."""
+    tags = " ".join(post.get("hashtags", [])[:X_HASHTAGS])
+    room = 270 - len(tags) - 2
+    head = post.get("hook") or post["title"]
+    if post["format"] == "meme":
+        head = post["caption"].split("\n")[0]
+    if len(head) > room:
+        head = head[:room - 1].rstrip() + "…"
+    return f"{head}\n\n{tags}".strip()
+
+
+def post_to_x(cfg: Config, post: dict) -> None:
+    """Same reel or meme on X. A failure here never undoes the other posts;
+    it is recorded on the post instead."""
+    if not cfg.x_connected or post["format"] not in X_FORMATS or not post.get("media_files"):
+        return
+    from .x import X
+    try:
+        x = X(cfg.x_api_key, cfg.x_api_secret, cfg.x_access_token, cfg.x_access_secret)
+        tweet_id = x.post(x_text(post), str(ROOT / post["media_files"][0]))
+        store.set_status(post["id"], "published", x_id=tweet_id)
+        print(f"  Also on X: https://x.com/i/status/{tweet_id}")
+    except Exception as e:
+        store.set_status(post["id"], "published", x_error=str(e))
+        print(f"  X post failed: {e}")
+
+
+def cmd_x_check(cfg: Config, args) -> None:
+    """Checks the X keys work, without posting anything."""
+    from .x import X
+    me = X(cfg.x_api_key, cfg.x_api_secret, cfg.x_access_token, cfg.x_access_secret).me()
+    print(f"X connection OK as @{me['username']}: reels and memes will be posted there too.")
 
 
 def cmd_youtube_check(cfg: Config, args) -> None:
@@ -407,6 +449,7 @@ COMMANDS = {
     "plan": cmd_plan, "list": cmd_list, "approve": cmd_approve, "approve-all": cmd_approve_all, "reject": cmd_reject,
     "publish-due": cmd_publish_due, "comments": cmd_comments,
     "send-replies": cmd_send_replies, "report": cmd_report, "youtube-check": cmd_youtube_check,
+    "x-check": cmd_x_check,
 }
 
 
