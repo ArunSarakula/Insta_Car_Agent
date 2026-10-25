@@ -568,3 +568,13 @@ def test_voice_names_and_listing():
     http = SimpleNamespace(get=lambda url, params, timeout: SimpleNamespace(status_code=200, json=lambda: listing))
     assert voice.list_voices("k", http) == [{"name": "en-IN-Chirp3-HD-Kore", "gender": "female"},
                                             {"name": "en-IN-Neural2-C", "gender": "male"}]
+
+
+def test_voice_usage_and_cost(tmp_path):
+    from agent import voice
+    log = tmp_path / "usage.json"
+    voice.record_usage(log, "en-IN-Chirp3-HD-Kore", 600_000, "2026-11")
+    voice.record_usage(log, "en-IN-Chirp3-HD-Charon", 500_000, "2026-11")
+    summary = voice.usage_summary(log, "2026-11")
+    assert "1,100,000 characters" in summary and "US$3.00" in summary and "₹264" in summary
+    assert "free" in voice.usage_summary(log, "2026-12")

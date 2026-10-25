@@ -14,6 +14,7 @@
     python -m agent voice-test ID   render a reel in both AI voices to compare
     python -m agent revoice         add the AI voice to every queued reel
     python -m agent voice-samples   save a short sample of every Indian English voice
+    python -m agent voice-usage     this month's AI voice characters and cost
 """
 
 import argparse
@@ -413,11 +414,16 @@ def cmd_voice_samples(cfg: Config, args) -> None:
     (folder / "voices.json").write_text(json.dumps(made, indent=2) + "\n")
 
 
+def cmd_voice_usage(cfg: Config, args) -> None:
+    from .voice import USAGE_FILE, usage_summary
+    print(usage_summary(USAGE_FILE))
+
+
 def cmd_revoice(cfg: Config, args) -> None:
-    """Adds the voice to queued reels that don't have it yet. Only the video
+    """Gives queued reels the current voice (VOICE) if they don't have it. Only the video
     is replaced; thumbnails and covers chosen by hand stay as they are."""
     for post in store.load_posts():
-        if post["status"] not in ("draft", "approved") or post["format"] != "reel" or post.get("voiced"):
+        if post["status"] not in ("draft", "approved") or post["format"] != "reel" or post.get("voice") == cfg.voice:
             continue
         if not post.get("media_files"):
             continue
@@ -511,6 +517,8 @@ def cmd_report(cfg: Config, args) -> None:
     today = datetime.now(ZoneInfo(cfg.timezone)).date()
     out = ROOT / "reports" / f"report-{today}.md"
     out.parent.mkdir(exist_ok=True)
+    from .voice import USAGE_FILE, usage_summary
+    report += "\n\n" + usage_summary(USAGE_FILE)
     out.write_text(report + "\n")
     print(report)
 
@@ -520,7 +528,7 @@ COMMANDS = {
     "publish-due": cmd_publish_due, "comments": cmd_comments,
     "send-replies": cmd_send_replies, "report": cmd_report, "youtube-check": cmd_youtube_check,
     "x-check": cmd_x_check, "voice-test": cmd_voice_test, "revoice": cmd_revoice,
-    "voice-samples": cmd_voice_samples,
+    "voice-samples": cmd_voice_samples, "voice-usage": cmd_voice_usage,
 }
 
 
@@ -534,6 +542,8 @@ def main(argv: list[str] | None = None) -> int:
             p.add_argument("id")
     args = parser.parse_args(argv)
     cfg = Config.load()
+    from . import voice
+    voice.USAGE_FILE = ROOT / "reports" / "tts-usage.json"
     try:
         COMMANDS[args.command](cfg, args)
     except KeyError as e:
