@@ -242,7 +242,38 @@ def render_reel(slides: list[dict], path: Path, handle="@decodethedrive",
     return path
 
 
-def render_post(post: dict, media_root: Path, handle="@decodethedrive", tts_key: str = "") -> list[str]:
+def voice_lines(post: dict, scenes: int) -> list[str]:
+    """One spoken line per animated scene: the post's own voice_lines, or its
+    older single voiceover split by sentences into that many parts."""
+    lines = [line for line in post.get("voice_lines") or [] if line.strip()]
+    if len(lines) == scenes:
+        return lines
+    sentences = re.findall(r"[^.!?]+[.!?]*", post.get("voiceover") or "")
+    sentences = [x.strip() for x in sentences if x.strip()]
+    if len(sentences) < scenes:
+        return []
+    cut = [round(i * len(sentences) / scenes) for i in range(scenes + 1)]
+    return [" ".join(sentences[cut[i]:cut[i + 1]]) for i in range(scenes)]
+
+
+def speak(lines: list[str], out: Path, tts_key: str, voice: str = "male") -> list[Path] | None:
+    """Each line as its own audio file, or None if any of them fails: a reel
+    without voice beats no reel."""
+    from .voice import synthesize
+    files = []
+    try:
+        for i, line in enumerate(lines):
+            files.append(synthesize(line, out / f"voice-{i + 1}.mp3", tts_key, voice=voice))
+    except Exception as e:
+        print(f"  voiceover skipped: {e}")
+        for f in files:
+            f.unlink()
+        return None
+    return files
+
+
+def render_post(post: dict, media_root: Path, handle="@decodethedrive", tts_key: str = "",
+                voice: str = "male") -> list[str]:
     """Render a post's media and return paths relative to the repo root."""
     out = media_root / post["id"]
     slides = [s for s in post.get("slides", []) if s.get("heading") or s.get("body")]
@@ -250,25 +281,22 @@ def render_post(post: dict, media_root: Path, handle="@decodethedrive", tts_key:
         slides = [{"heading": post.get("hook", post.get("title", "")), "body": ""}]
     fmt = post["format"]
     if fmt == "reel":
+        from .motion import formats
         from .styles import usable
         track = pick_track(post.get("music") or "upbeat", post["id"])
-        voice = None
-        if tts_key and post.get("voiceover"):
-            from .voice import synthesize
-            try:
-                voice = synthesize(post["voiceover"], out / "voice.mp3", tts_key)
-            except Exception as e:  # a reel without voice beats no reel
-                print(f"  voiceover skipped: {e}")
-        from .motion import formats
-        if post.get("reel_style") in formats() and len(slides) >= 4 and not voice:
+        if post.get("reel_style") in formats() and len(slides) >= 4:
             from .motion import render_motion
-            files = [render_motion({**post, "slides": slides}, out / "reel.mp4", handle, track)]
+            lines = voice_lines(post, len(slides) - 1) if tts_key else []
+            voices = speak(lines, out, tts_key, voice) if lines else None
+            files = [render_motion({**post, "slides": slides}, out / "reel.mp4", handle, track, voices)]
         else:
-            files = [render_reel(slides, out / "reel.mp4", handle, track, post, voice)]
+            script = post.get("voiceover") or " ".join(post.get("voice_lines") or [])
+            voices = speak([script], out, tts_key, voice) if tts_key and script else None
+            files = [render_reel(slides, out / "reel.mp4", handle, track, post, voices and voices[0])]
             post["reel_style"] = usable({**post, "slides": slides})
-        post["voiced"] = bool(voice)
-        if voice:
-            voice.unlink()
+        post["voiced"] = bool(voices)
+        for f in voices or []:
+            f.unlink()
         if track:
             post["music_track"] = track.name
     elif fmt == "carousel" and len(slides) >= 2:

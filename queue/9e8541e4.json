@@ -48,5 +48,11 @@
   ],
   "reel_style": "wheel",
   "voiced": false,
-  "thumbnail_text": "When to | balance wheels?"
+  "thumbnail_text": "When to | balance wheels?",
+  "voice_lines": [
+    "Most people balance their wheels way too late. My rule is every five thousand kilometres, sooner if the steering shakes.",
+    "Here's why. Potholes knock the weights loose, and unbalanced wheels wear tyres unevenly and stress the suspension.",
+    "Watch for steering shake at eighty to a hundred, patchy tyre wear, or a hum that grows with speed.",
+    "Shaking after a big pothole? Get the tyre and rim checked before a highway drive. Follow for more."
+  ]
 }

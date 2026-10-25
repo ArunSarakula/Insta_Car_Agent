@@ -10,10 +10,10 @@ on:
       command:
         description: "What should the agent do?"
         type: choice
-        options: [plan, approve-all, publish-due, comments, send-replies, report, approve, reject, youtube-check, x-check]
+        options: [plan, approve-all, publish-due, comments, send-replies, report, approve, reject, youtube-check, x-check, voice-test, revoice]
         default: plan
       post_id:
-        description: "Post id (only for approve / reject of a single post)"
+        description: "Post id (only for approve / reject / voice-test of a single post)"
         required: false
 
 permissions:
@@ -41,6 +41,7 @@ jobs:
       YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
       YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
       TTS_API_KEY: ${{ secrets.TTS_API_KEY }}
+      VOICE: ${{ vars.VOICE }}
       X_API_KEY: ${{ secrets.X_API_KEY }}
       X_API_SECRET: ${{ secrets.X_API_SECRET }}
       X_ACCESS_TOKEN: ${{ secrets.X_ACCESS_TOKEN }}
@@ -79,7 +80,7 @@ jobs:
         run: |
           for cmd in $CMDS; do
             echo "::group::$cmd"
-            if [ "$cmd" = approve ] || [ "$cmd" = reject ]; then
+            if [ "$cmd" = approve ] || [ "$cmd" = reject ] || [ "$cmd" = voice-test ]; then
               python -m agent "$cmd" "$POST_ID"
             else
               python -m agent "$cmd"

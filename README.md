@@ -179,6 +179,14 @@ the same Google Cloud project used for YouTube:
 
 Without the key, reels are made exactly the same, just with music only.
 
+On animated reels each scene has its own spoken line (`voice_lines`), and a
+scene lasts until its line is finished. To pick a voice, run the workflow with
+**voice-test** and a post id: it saves the reel in a male and a female voice
+under `media/voice-test/`. Set the repository variable `VOICE` to `male` or
+`female` (male is the default), then run **revoice** to add the voice to every
+queued reel. Revoice only replaces the video, so hand-picked thumbnails and
+covers stay.
+
 ## Project layout
 
 | Path | What it is |

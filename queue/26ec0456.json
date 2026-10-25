@@ -48,5 +48,11 @@
   ],
   "reel_style": "adas",
   "voiced": false,
-  "thumbnail_text": "Is ADAS useless | in India?"
+  "thumbnail_text": "Is ADAS useless | in India?",
+  "voice_lines": [
+    "Is ADAS useless in India? Not quite. On highways, adaptive cruise and lane keep really cut the fatigue.",
+    "But it struggles with faded lane lines, bikes cutting in, and packed city traffic.",
+    "The real hero is emergency braking. It can react when you get distracted, but it's a backup, not a driver.",
+    "Keep emergency braking on, switch lane keep off in the city if it fights you, and keep your hands on the wheel. Follow for more."
+  ]
 }

@@ -54,8 +54,9 @@ POST_SCHEMA = {
         "quiz_options": {"type": "array", "items": {"type": "string"},
                          "description": "quiz reels: exactly 3 short options; else empty"},
         "quiz_answer": {"type": "integer", "description": "quiz reels: index 0-2 of the right option; else 0"},
-        "voiceover": {"type": "string",
-                      "description": "Reels only (empty otherwise): what the AI voice says over the reel"},
+        "voice_lines": {"type": "array", "items": {"type": "string"},
+                        "description": "Reels only (empty otherwise): what the AI voice says, one line per "
+                                       "slide after the first"},
         "music": {"type": "string", "enum": ["upbeat", "tech", "chill", "epic", "phonk"],
                   "description": "Background music mood (used for reels)"},
         "idea_id": {"type": "string",
@@ -64,7 +65,7 @@ POST_SCHEMA = {
         "time": {"type": "string", "description": "Posting time HH:MM, 24h, local time"},
     },
     "required": ["format", "title", "hook_options", "hook", "hook_type", "save_tip", "youtube_title", "caption", "hashtags", "youtube_hashtags", "slides", "reel_style", "versus_left", "versus_right",
-                 "quiz_options", "quiz_answer", "voiceover", "music", "idea_id",
+                 "quiz_options", "quiz_answer", "voice_lines", "music", "idea_id",
                  "day", "time"],
     "additionalProperties": False,
 }
@@ -229,11 +230,14 @@ the topic. How the slides are used in each:
   slide 2 = the baseline/claim, 2-4 slides = one thing that drains it each,
   last slide = the fix. An animated meter drains as each point lands.
   Prefer it whenever a topic fits.
-Every reel also gets a voiceover: what an Indian English AI voice says over
-it, 35-55 words, spoken and friendly, in first person as the owner
-("Here's what most people get wrong..."). It must follow the slides in order,
-not read them word for word, and end with a short call to follow. Plain words
-only: no hashtags, emoji or symbols, and write numbers the way they're said.
+Every reel also gets voice_lines: what an Indian English AI voice says, one
+line for each slide after the first (the first slide's hook is shown on the
+thumbnail, not as a scene). Line 1 opens with the hook question, then says
+what slide 2 shows. Each line is 10-22 words, spoken and friendly, in first
+person as the owner ("Here's what most people get wrong..."), saying the
+slide's point in other words rather than reading it out. The last line ends
+with a short call to follow. Plain words only: no hashtags, emoji or symbols,
+and write numbers the way they're said.
 For every post pick a music mood (it is added to reels): upbeat (future bass,
 general explainers), tech (clean corporate, EV and gadget topics), chill (lofi,
 tips and comparisons), epic (cinematic, reveals and top-5 lists), phonk (drift

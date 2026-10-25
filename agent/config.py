@@ -35,6 +35,7 @@ class Config:
     yt_client_secret: str = ""
     yt_refresh_token: str = ""
     tts_api_key: str = ""
+    voice: str = "male"
     x_api_key: str = ""
     x_api_secret: str = ""
     x_access_token: str = ""
@@ -66,6 +67,7 @@ class Config:
             yt_client_secret=os.environ.get("YT_CLIENT_SECRET", ""),
             yt_refresh_token=os.environ.get("YT_REFRESH_TOKEN", ""),
             tts_api_key=os.environ.get("TTS_API_KEY", ""),
+            voice=os.environ.get("VOICE") or "male",
             x_api_key=os.environ.get("X_API_KEY", ""),
             x_api_secret=os.environ.get("X_API_SECRET", ""),
             x_access_token=os.environ.get("X_ACCESS_TOKEN", ""),

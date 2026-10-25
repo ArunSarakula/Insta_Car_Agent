@@ -48,5 +48,11 @@
   ],
   "reel_style": "mileage",
   "voiced": false,
-  "thumbnail_text": "Better highway | mileage?"
+  "thumbnail_text": "Better highway | mileage?",
+  "voice_lines": [
+    "Stop holding the accelerator on highways. Press gently up to about a hundred, with a light, smooth throttle.",
+    "Then lift off and coast down to about ninety. Stay in gear, and never coast in neutral.",
+    "Press lightly again and repeat. It works on EVs too, because smooth inputs mean more range.",
+    "Only do this when it's safe. A clear road, a safe gap, and within the speed limit. Follow for more."
+  ]
 }

@@ -20,6 +20,7 @@ W, H = REEL
 FPS = 30
 PACE = 0.65  # content plays at 65% of its timed speed
 LEAD = 0.8   # seconds of the first scene's intro skipped
+VOICE_AT = 0.25  # each scene's line starts this long after the scene
 X0 = 80
 XW = W - X0 - REEL_SAFE_RIGHT - 40
 TOP, BOT = REEL_SAFE_TOP, H - REEL_SAFE_BOTTOM
@@ -184,13 +185,26 @@ def _sfx(kind):
     return (np.sin(2 * np.pi * 1320 * t) + 0.5 * np.sin(2 * np.pi * 1980 * t)) * np.exp(-t * 5) * 0.3
 
 
-def _write_sfx(cues, total, path):
+def _decode(path):
+    """An audio file as mono samples at RATE, from -1 to 1."""
+    raw = subprocess.run([ffmpeg_exe(), "-loglevel", "error", "-i", str(path), "-f", "s16le", "-ac", "1",
+                          "-ar", str(RATE), "-"], capture_output=True, check=True).stdout
+    return np.frombuffer(raw, dtype=np.int16) / 32768
+
+
+def _write_sfx(cues, total, path, voice=()):
+    """Sound effects, plus the voice lines (samples, start) when there are
+    any, with the effects turned down so the voice stays clear."""
     track = np.zeros(int(RATE * total) + RATE)
     for kind, at in cues:
         s = _sfx(kind)
         i = int(at * RATE)
         track[i:i + len(s)] += s[:len(track) - i]
-    track = np.clip(track * 0.6, -1, 1)
+    track *= 0.25 if voice else 0.6
+    for samples, at in voice:
+        i = int(at * RATE)
+        track[i:i + len(samples)] += samples[:len(track) - i]
+    track = np.clip(track, -1, 1)
     with wave.open(str(path), "wb") as w:
         w.setnchannels(1)
         w.setsampwidth(2)
@@ -208,7 +222,10 @@ def formats():
             **{name: (visual_scenes, visual_thumbnail) for name in VISUALS}}
 
 
-def render_motion(post, path: Path, handle="@decodethedrive", music: Path | None = None) -> Path:
+def render_motion(post, path: Path, handle="@decodethedrive", music: Path | None = None,
+                  voices: list[Path] | None = None) -> Path:
+    """voices: one spoken line per scene; each scene then lasts at least as
+    long as its line, so the text never moves on mid-sentence."""
     path.parent.mkdir(parents=True, exist_ok=True)
     build, thumbnail = formats()[post["reel_style"]]
     # Scenes play slower than they were timed so the text can be read; there
@@ -220,13 +237,17 @@ def render_motion(post, path: Path, handle="@decodethedrive", music: Path | None
         lead = LEAD if n == 0 else 0.0
         scenes.append(((dur - lead) / PACE, lambda f, d, t, draw=draw, lead=lead: draw(f, d, lead + t * PACE),
                        [(k, (at - lead) / PACE) for k, at in c if at >= lead]))
+    lines = [_decode(v) for v in voices] if voices else []
+    for n, samples in enumerate(lines[:len(scenes)]):
+        dur, draw, c = scenes[n]
+        scenes[n] = (max(dur, VOICE_AT + len(samples) / RATE + 0.5), draw, c)
     starts, total = [], 0.0
     for dur, _, _ in scenes:
         starts.append(total)
         total += dur
     cues = [(k, s + at) for s, (_, _, c) in zip(starts, scenes) for k, at in c]
     sfx = path.parent / "sfx.wav"
-    _write_sfx(cues, total, sfx)
+    _write_sfx(cues, total, sfx, [(samples, s + VOICE_AT) for samples, s in zip(lines, starts)])
 
     cmd = [ffmpeg_exe(), "-y", "-loglevel", "error", "-f", "rawvideo", "-pix_fmt", "rgb24",
            "-s", f"{W}x{H}", "-r", str(FPS), "-i", "-", "-i", str(sfx)]
@@ -234,7 +255,7 @@ def render_motion(post, path: Path, handle="@decodethedrive", music: Path | None
         cmd += ["-stream_loop", "-1", "-i", str(music)]
         audio = (f"[2:a]silenceremove=start_periods=1:start_threshold=-40dB,atrim=0:{total:.2f},"
                  f"asetpts=PTS-STARTPTS,afade=t=in:d=0.3,afade=t=out:st={total - 1.2:.2f}:d=1.2,"
-                 f"loudnorm=I=-18:TP=-2,aresample=44100,volume=0.7[m];"
+                 f"loudnorm=I=-18:TP=-2,aresample=44100,volume={0.22 if lines else 0.7}[m];"
                  f"[1:a]aresample=44100,pan=stereo|c0=c0|c1=c0[s];"
                  f"[m][s]amix=inputs=2:duration=first:normalize=0[a]")
     else:

@@ -7,13 +7,13 @@ from pathlib import Path
 import requests
 
 URL = "https://texttospeech.googleapis.com/v1/text:synthesize"
-VOICE = {"languageCode": "en-IN", "name": "en-IN-Neural2-B"}
+VOICES = {"male": "en-IN-Neural2-B", "female": "en-IN-Neural2-A"}
 
 
-def synthesize(text: str, path: Path, api_key: str, session=requests) -> Path:
+def synthesize(text: str, path: Path, api_key: str, session=requests, voice: str = "male") -> Path:
     r = session.post(URL, params={"key": api_key}, timeout=60, json={
         "input": {"text": text},
-        "voice": VOICE,
+        "voice": {"languageCode": "en-IN", "name": VOICES.get(voice, VOICES["male"])},
         "audioConfig": {"audioEncoding": "MP3", "speakingRate": 1.1},
     })
     if r.status_code != 200:

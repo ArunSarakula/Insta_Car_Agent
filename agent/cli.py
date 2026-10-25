@@ -11,6 +11,8 @@
     python -m agent report          write this week's growth report
     python -m agent youtube-check   test the YouTube connection (no upload)
     python -m agent x-check         test the X (Twitter) connection (no post)
+    python -m agent voice-test ID   render a reel in both AI voices to compare
+    python -m agent revoice         add the AI voice to every queued reel
 """
 
 import argparse
@@ -101,7 +103,7 @@ def cmd_plan(cfg: Config, args) -> None:
             post["youtube_only"] = True
         used.add(post.get("idea_id", ""))
         post = store.save_post({**post, "status": status})
-        post["media_files"] = render_post(post, ROOT / "media", cfg.handle, cfg.tts_api_key)
+        post["media_files"] = render_post(post, ROOT / "media", cfg.handle, cfg.tts_api_key, cfg.voice)
         store.save_post(post)
         saved_posts.append(post)
         print(f"  {status} {post['id']}  {post['scheduled_for'][:16]}  [{post['format']}] {post['title']}")
@@ -360,6 +362,47 @@ def post_to_x(cfg: Config, post: dict) -> None:
         print(f"  X post failed: {e}")
 
 
+def _voiced_reel(cfg: Config, post: dict, voice: str) -> Path:
+    """Renders the post's reel with the AI voice in a scratch folder."""
+    import tempfile
+    from .design import render_post
+    if not cfg.tts_api_key:
+        raise KeyError("TTS_API_KEY is not set, so there is no voice to add.")
+    out = Path(tempfile.mkdtemp())
+    trial = {**post, "id": "reel"}
+    render_post(trial, out, cfg.handle, cfg.tts_api_key, voice)
+    if not trial.get("voiced"):
+        raise KeyError(f"The voice could not be made for {post['id']}; see the log above.")
+    return out / "reel" / "reel.mp4"
+
+
+def cmd_voice_test(cfg: Config, args) -> None:
+    """The same reel in both voices, saved under media/voice-test/ to compare."""
+    post = store.get_post(args.id)
+    for voice in ("male", "female"):
+        target = ROOT / "media" / "voice-test" / f"{post['id']}-{voice}.mp4"
+        target.parent.mkdir(parents=True, exist_ok=True)
+        _voiced_reel(cfg, post, voice).replace(target)
+        print(f"  {voice}: {target.relative_to(ROOT)}")
+
+
+def cmd_revoice(cfg: Config, args) -> None:
+    """Adds the voice to queued reels that don't have it yet. Only the video
+    is replaced; thumbnails and covers chosen by hand stay as they are."""
+    for post in store.load_posts():
+        if post["status"] not in ("draft", "approved") or post["format"] != "reel" or post.get("voiced"):
+            continue
+        if not post.get("media_files"):
+            continue
+        try:
+            _voiced_reel(cfg, post, cfg.voice).replace(ROOT / post["media_files"][0])
+        except KeyError as e:
+            print(f"  skipped {post['id']}: {e}")
+            continue
+        store.set_status(post["id"], post["status"], voiced=True)
+        print(f"  voiced {post['id']}: {post['title']}")
+
+
 def cmd_x_check(cfg: Config, args) -> None:
     """Checks the X keys work, without posting anything."""
     from .x import X
@@ -449,7 +492,7 @@ COMMANDS = {
     "plan": cmd_plan, "list": cmd_list, "approve": cmd_approve, "approve-all": cmd_approve_all, "reject": cmd_reject,
     "publish-due": cmd_publish_due, "comments": cmd_comments,
     "send-replies": cmd_send_replies, "report": cmd_report, "youtube-check": cmd_youtube_check,
-    "x-check": cmd_x_check,
+    "x-check": cmd_x_check, "voice-test": cmd_voice_test, "revoice": cmd_revoice,
 }
 
 
@@ -459,7 +502,7 @@ def main(argv: list[str] | None = None) -> int:
     sub = parser.add_subparsers(dest="command", required=True)
     for name in COMMANDS:
         p = sub.add_parser(name)
-        if name in ("approve", "reject"):
+        if name in ("approve", "reject", "voice-test"):
             p.add_argument("id")
     args = parser.parse_args(argv)
     cfg = Config.load()

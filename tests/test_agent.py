@@ -317,7 +317,8 @@ def test_voiceover_sets_reel_length(tmp_path, monkeypatch):
 
     from agent import voice as voice_mod
     real = voice_mod.synthesize
-    monkeypatch.setattr(voice_mod, "synthesize", lambda text, path, key: real(text, path, key, FakeTTS()))
+    monkeypatch.setattr(voice_mod, "synthesize",
+                        lambda text, path, key, voice="male": real(text, path, key, FakeTTS(), voice))
     post = {**MYTH, "voiceover": "Here is what most people get wrong."}
     design.render_post(post, tmp_path / "media", tts_key="k")
     assert post["voiced"] and post["reel_style"] == "myth_fact"
@@ -528,3 +529,28 @@ def test_post_to_x_records_the_tweet(tmp_path, monkeypatch):
     on = SimpleNamespace(x_connected=True, x_api_key="k", x_api_secret="s", x_access_token="t", x_access_secret="a")
     cli.post_to_x(on, store.get_post("r", tmp_path))
     assert posted and store.get_post("r", tmp_path)["x_id"] == "123"
+
+
+# ---- voice on animated reels ----------------------------------------------
+
+def test_voice_lines_come_from_the_post_or_its_old_voiceover():
+    assert design.voice_lines({"voice_lines": ["a", "b"]}, 2) == ["a", "b"]
+    old = {"voiceover": "One. Two. Three. Four. Five."}
+    assert design.voice_lines(old, 2) == ["One. Two.", "Three. Four. Five."]
+    assert design.voice_lines({"voiceover": "Too short."}, 4) == []
+
+
+def test_animated_reel_waits_for_each_voice_line(tmp_path):
+    from agent.motion import render_motion
+    lines = []
+    for i, secs in enumerate((7, 1, 1, 1)):
+        lines.append(tmp_path / f"v{i}.mp3")
+        subprocess.run([design.ffmpeg_exe(), "-loglevel", "error", "-f", "lavfi", "-i",
+                        f"sine=frequency=300:duration={secs}", str(lines[-1])], check=True)
+    post = {"id": "c", "reel_style": "clutch", "hook": "Q?",
+            "slides": [{"heading": "Q?"}] + [{"heading": f"Step {i}", "body": "b"} for i in range(4)]}
+    plain = render_motion(post, tmp_path / "plain" / "reel.mp4")
+    voiced = render_motion(post, tmp_path / "voiced" / "reel.mp4", voices=lines)
+    # the first scene stretches to fit its 7-second line; the others keep their length
+    gap = design.media_seconds(voiced) - design.media_seconds(plain)
+    assert 2.0 < gap < 4.5
