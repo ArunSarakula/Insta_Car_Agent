@@ -272,7 +272,7 @@ def render_motion(post, path: Path, handle="@decodethedrive", music: Path | None
         total += dur
     cues = [(k, s + at) for s, (_, _, c) in zip(starts, scenes) for k, at in c]
     captions = []
-    if post.get("layout") == "big3d" and lines:
+    if post.get("layout") in ("big3d", "captions") and lines:  # short captions follow the voice
         from .design import voice_lines
         for text, samples, s in zip(voice_lines(post, len(scenes)), lines, starts):
             captions += caption_chunks(text, s + VOICE_AT, len(samples) / RATE)

@@ -23,7 +23,7 @@ on:
         type: boolean
         default: false
       layout:
-        description: "voice-test only: big3d for the big 3D visual with short captions"
+        description: "voice-test only: big3d (3D visual) or captions (2D visual), each with short captions at the top"
         required: false
 
 permissions:

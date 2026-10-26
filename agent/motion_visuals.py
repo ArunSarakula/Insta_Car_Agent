@@ -460,10 +460,16 @@ def visual_scenes(post, handle):
             if big:
                 big(frame, d, t, i)
                 return
-            if post.get("hide_text"):  # voice-only version: just the visual, moved up to the middle
+            if post.get("hide_text") or post.get("layout") == "captions":  # just the visual, in the middle
                 art = Image.new("RGBA", (W, H), (0, 0, 0, 0))
                 visual(art, ImageDraw.Draw(art), t, i)
-                frame.alpha_composite(art.crop((0, VY - 120, W, VY + 540)), (0, (H - 660) // 2 - 60))
+                if post.get("layout") == "captions":  # enlarged, under the captions at the top
+                    box = art.crop((X0 - 20, VY - 120, X0 + XW + 20, VY + 540))
+                    k = (W - 80) / box.width
+                    box = box.resize((W - 80, int(box.height * k)), Image.LANCZOS)
+                    frame.alpha_composite(box, (40, 600))
+                else:
+                    frame.alpha_composite(art.crop((0, VY - 120, W, VY + 540)), (0, (H - 660) // 2 - 60))
                 return
             heading.draw(d, t)
             _fade_text(d, slide.get("body", ""), X0, heading.bottom + 22, t, 0.4, MEDIUM, GREY, size=40,
