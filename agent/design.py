@@ -288,6 +288,10 @@ def render_post(post: dict, media_root: Path, handle="@decodethedrive", tts_key:
             from .motion import render_motion
             lines = voice_lines(post, len(slides) - 1) if tts_key else []
             voices = speak(lines, out, tts_key, voice) if lines else None
+            if voices and not post.get("layout"):
+                from .motion_visuals import VISUALS
+                if post["reel_style"] in VISUALS:  # the voice carries the words: short captions follow it
+                    post["layout"] = "captions"
             files = [render_motion({**post, "slides": slides}, out / "reel.mp4", handle, track, voices)]
         else:
             script = post.get("voiceover") or " ".join(post.get("voice_lines") or [])

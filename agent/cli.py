@@ -13,6 +13,7 @@
     python -m agent x-check         test the X (Twitter) connection (no post)
     python -m agent voice-test ID   render a reel in both AI voices to compare
     python -m agent revoice         add the AI voice to every queued reel
+    python -m agent recaption       queued voiced reels get short captions timed to the voice
     python -m agent voice-samples   save a short sample of every Indian English voice
     python -m agent voice-usage     this month's AI voice characters and cost
 """
@@ -441,6 +442,23 @@ def cmd_revoice(cfg: Config, args) -> None:
         print(f"  voiced {post['id']}: {post['title']}")
 
 
+def cmd_recaption(cfg: Config, args) -> None:
+    """Re-renders queued voiced reels in their own voice with short captions
+    timed to it instead of headings. Thumbnails and covers stay as they are."""
+    from .motion_visuals import VISUALS
+    for post in store.load_posts():
+        if (post["status"] not in ("draft", "approved") or post["format"] != "reel" or not post.get("voiced")
+                or post.get("layout") or post.get("reel_style") not in VISUALS or not post.get("media_files")):
+            continue
+        try:
+            _voiced_reel(cfg, {**post, "layout": "captions"}, post["voice"]).replace(ROOT / post["media_files"][0])
+        except KeyError as e:
+            print(f"  skipped {post['id']}: {e}")
+            continue
+        store.set_status(post["id"], post["status"], layout="captions")
+        print(f"  captions {post['id']}: {post['title']}")
+
+
 def cmd_x_check(cfg: Config, args) -> None:
     """Checks the X keys work, without posting anything."""
     from .x import X
@@ -532,7 +550,7 @@ COMMANDS = {
     "plan": cmd_plan, "list": cmd_list, "approve": cmd_approve, "approve-all": cmd_approve_all, "reject": cmd_reject,
     "publish-due": cmd_publish_due, "comments": cmd_comments,
     "send-replies": cmd_send_replies, "report": cmd_report, "youtube-check": cmd_youtube_check,
-    "x-check": cmd_x_check, "voice-test": cmd_voice_test, "revoice": cmd_revoice,
+    "x-check": cmd_x_check, "voice-test": cmd_voice_test, "revoice": cmd_revoice, "recaption": cmd_recaption,
     "voice-samples": cmd_voice_samples, "voice-usage": cmd_voice_usage,
 }
 
