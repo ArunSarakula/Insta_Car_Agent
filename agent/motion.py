@@ -222,29 +222,80 @@ def formats():
             **{name: (visual_scenes, visual_thumbnail) for name in VISUALS}}
 
 
-def caption_chunks(text, start, length, words=3, chars=18):
-    """A spoken line cut into short on-screen captions, each shown for its
-    share of the line's length (by letters), so they follow the voice."""
+def _pauses(samples):
+    """Where the voice speaks: (first sound, last sound, [(gap start, gap end)])
+    in seconds, from the loudness in 20 ms steps."""
+    step = int(RATE * 0.02)
+    n = len(samples) // step
+    if not n:
+        return 0.0, 0.0, []
+    rms = np.sqrt((samples[:n * step].reshape(n, step) ** 2).mean(1))
+    on = rms > 0.1 * np.percentile(rms, 95)
+    idx = np.flatnonzero(on)
+    if not len(idx):
+        return 0.0, len(samples) / RATE, []
+    first, last = idx[0], idx[-1] + 1
+    gaps, k = [], first
+    while k < last:
+        if not on[k]:
+            j = k
+            while j < last and not on[j]:
+                j += 1
+            if j - k >= 4:  # 80 ms or more of quiet
+                gaps.append((k * 0.02, j * 0.02))
+            k = j
+        else:
+            k += 1
+    return first * 0.02, last * 0.02, gaps
+
+
+def caption_chunks(text, start, length, words=3, chars=18, samples=None):
+    """A spoken line cut into short on-screen captions. With the voice's
+    samples, each phrase (up to a comma or full stop) is pinned to the pause
+    the voice makes there, and its captions share the time between pauses by
+    letters; without them, the whole line is shared out by letters."""
     weak = {"the", "a", "an", "to", "of", "and", "or", "your", "is", "are", "on", "in", "if", "you", "it"}
-    chunks, cur = [], []
+    phrases, chunks, cur = [], [], []
     for w in text.split():
         if cur and (len(cur) == words or len(" ".join(cur + [w])) > chars):
             carry = [cur.pop()] if len(cur) > 1 and cur[-1].lower() in weak else []
             chunks.append(" ".join(cur))
             cur = carry
         cur.append(w)
-        if w[-1] in ".,?!:;" and cur:
+        if w[-1] in ".,?!:;":
             chunks.append(" ".join(cur))
-            cur = []
+            phrases.append(chunks)
+            chunks, cur = [], []
     if cur:
         chunks.append(" ".join(cur))
-    total = sum(len(c) + 2 for c in chunks) or 1
-    out, at = [], start
-    for c in chunks:
-        dur = length * (len(c) + 2) / total
-        out.append((at, at + dur, c.strip(".,;:")))
-        at += dur
-    return out
+    if chunks:
+        phrases.append(chunks)
+    size = lambda c: len(c) + 2
+    total = sum(size(c) for p in phrases for c in p) or 1
+    begin, end, gaps = _pauses(samples) if samples is not None and len(samples) else (0.0, length, [])
+    # phrase boundaries: where the letters say, moved to the nearest real pause
+    bounds, done = [(begin, begin)], 0
+    for p in phrases[:-1]:
+        done += sum(size(c) for c in p)
+        guess = begin + (end - begin) * done / total
+        near = [g for g in gaps if abs((g[0] + g[1]) / 2 - guess) < 0.8 and g[0] > bounds[-1][1]]
+        gap = min(near, key=lambda g: abs((g[0] + g[1]) / 2 - guess)) if near else (guess, guess)
+        bounds.append(gap)
+    bounds.append((end, end))
+    out = []
+    for n, p in enumerate(phrases):
+        a, b = bounds[n][1], bounds[n + 1][0]
+        letters = sum(size(c) for c in p)
+        at = a
+        for c in p:
+            dur = (b - a) * size(c) / letters
+            out.append([start + at, start + at + dur, c.strip(".,;:")])
+            at += dur
+    for k in range(len(out) - 1):  # each caption stays up until the next one
+        out[k][1] = out[k + 1][0]
+    if out:
+        out[-1][1] += 0.4
+    return [tuple(c) for c in out]
 
 
 def render_motion(post, path: Path, handle="@decodethedrive", music: Path | None = None,
@@ -275,7 +326,7 @@ def render_motion(post, path: Path, handle="@decodethedrive", music: Path | None
     if post.get("layout") in ("big3d", "captions") and lines:  # short captions follow the voice
         from .design import voice_lines
         for text, samples, s in zip(voice_lines(post, len(scenes)), lines, starts):
-            captions += caption_chunks(text, s + VOICE_AT, len(samples) / RATE)
+            captions += caption_chunks(text, s + VOICE_AT, len(samples) / RATE, samples=samples)
     sfx = path.parent / "sfx.wav"
     _write_sfx(cues, total, sfx, [(samples, s + VOICE_AT) for samples, s in zip(lines, starts)])
 

@@ -583,7 +583,7 @@ def test_voice_usage_and_cost(tmp_path):
 def test_caption_chunks_follow_the_line():
     from agent.motion import caption_chunks
     chunks = caption_chunks("Holding the clutch down while turning is bad too.", 1.0, 4.0)
-    assert chunks[0][0] == 1.0 and abs(chunks[-1][1] - 5.0) < 1e-6
+    assert chunks[0][0] == 1.0 and abs(chunks[-1][1] - 5.4) < 1e-6
     assert all(len(c.split()) <= 3 and not c.lower().endswith(" the") for _, _, c in chunks)
 
 
@@ -595,3 +595,15 @@ def test_clutch3d_draws_every_scene():
         layer = Image.new("RGBA", frame.size, (0, 0, 0, 0))
         clutch3d(frame, ImageDraw.Draw(layer), 1.5, i)
         assert layer.getbbox()
+
+
+def test_captions_wait_for_the_voice():
+    import numpy as np
+    from agent.motion import RATE, caption_chunks
+    tone = lambda sec: 0.5 * np.sin(np.arange(int(RATE * sec)) * 0.05)
+    quiet = lambda sec: np.zeros(int(RATE * sec))
+    # 0.5 s of silence, a phrase, a 0.6 s pause, then a second phrase
+    voice = np.concatenate([quiet(0.5), tone(1.0), quiet(0.6), tone(1.0), quiet(0.3)])
+    chunks = caption_chunks("Foot off the clutch, always.", 0.0, len(voice) / RATE, samples=voice)
+    assert abs(chunks[0][0] - 0.5) < 0.05
+    assert abs(chunks[-1][0] - 2.1) < 0.05  # the second phrase starts after the pause
