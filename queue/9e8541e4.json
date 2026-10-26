@@ -55,5 +55,6 @@
     "Watch for steering shake at eighty to a hundred, patchy tyre wear, or a hum that grows with speed.",
     "Shaking after a big pothole? Get the tyre and rim checked before a highway drive. Follow for more."
   ],
-  "voice": "en-IN-Chirp3-HD-Kore"
+  "voice": "en-IN-Chirp3-HD-Kore",
+  "layout": "captions"
 }
