@@ -13,7 +13,7 @@ from .three import Cam, Scene, glow, mix, shade
 STEEL = (150, 158, 172)
 DARK = (78, 86, 100)
 LINING = (175, 130, 90)
-VY3 = 430  # top of the 3D area; the caption sits under it
+VY3 = 580  # top of the 3D area; the caption sits above it, under the badge
 
 
 def callout(d, cam, q, dx, dy, text, col, fg=INK, size=28):
@@ -108,8 +108,8 @@ def clutch3d(frame, d, t, i):
     if i == 1:
         callout(d, cam, (xb, 0.0, -0.08), 120, 110, "RELEASE BEARING", AMBER)
 
-    _pedal(d, X0 + XW - 250, VY3 + 570, press, move > 0.5)
-    bx, by, bw = X0, VY3 + 800, XW - 300
+    _pedal(d, X0 + XW - 250, VY3 + 520, press, move > 0.5)
+    bx, by, bw = X0, VY3 + 760, XW - 300
     if i == 0:
         if heat > 0.3:
             _pill(d, X0, VY3 - 10, "SLIPPING: PLATE WEARS", RED, WHITE, size=32)

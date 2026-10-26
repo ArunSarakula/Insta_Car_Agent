@@ -315,7 +315,7 @@ def render_motion(post, path: Path, handle="@decodethedrive", music: Path | None
         for a, b, text in captions:
             if a <= t < b:  # pops in, slightly enlarged, then settles
                 f = _font(BOLD, int(78 * (1 + 0.12 * (1 - ease_out((t - a) / 0.12)))))
-                d.text((X0 + XW / 2, BOT - 115), text.upper(), font=f, fill=(*WHITE, 255), anchor="mm",
+                d.text((X0 + XW / 2, TOP + 195), text.upper(), font=f, fill=(*WHITE, 255), anchor="mm",
                        stroke_width=6, stroke_fill=(*INK, 255))
         frame.alpha_composite(layer)
         proc.stdin.write(frame.convert("RGB").tobytes())
