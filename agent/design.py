@@ -256,6 +256,16 @@ def voice_lines(post: dict, scenes: int) -> list[str]:
     return [" ".join(sentences[cut[i]:cut[i + 1]]) for i in range(scenes)]
 
 
+def spoken_lines(post: dict, scenes: int) -> list[str]:
+    """voice_lines, plus the line for the owner's proof photo (if the post has
+    one) just before the last scene, where the photo is shown."""
+    lines = voice_lines(post, scenes)
+    line = (post.get("proof") or {}).get("line")
+    if lines and line:
+        lines = lines[:-1] + [line] + lines[-1:]
+    return lines
+
+
 def speak(lines: list[str], out: Path, tts_key: str, voice: str = "male") -> list[Path] | None:
     """Each line as its own audio file, or None if any of them fails: a reel
     without voice beats no reel."""
@@ -286,7 +296,7 @@ def render_post(post: dict, media_root: Path, handle="@decodethedrive", tts_key:
         track = pick_track(post.get("music") or "upbeat", post["id"])
         if post.get("reel_style") in formats() and len(slides) >= 4:
             from .motion import render_motion
-            lines = voice_lines(post, len(slides) - 1) if tts_key else []
+            lines = spoken_lines(post, len(slides) - 1) if tts_key else []
             voices = speak(lines, out, tts_key, voice) if lines else None
             if voices and not post.get("layout"):
                 from .motion_visuals import VISUALS

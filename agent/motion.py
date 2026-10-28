@@ -298,6 +298,32 @@ def caption_chunks(text, start, length, words=3, chars=18, samples=None):
     return [tuple(c) for c in out]
 
 
+def _proof_scene(proof):
+    """A real photo from the owner (a trip screen, a receipt), slowly zooming
+    in on proof["focus"] (a box in the photo's pixels) under a badge."""
+    from PIL import ImageOps
+    photo = ImageOps.exif_transpose(Image.open(proof["image"])).convert("RGB")
+    bw, bh = W - 80, 820
+    x0, y0, x1, y1 = proof.get("focus") or (0, 0, photo.width, photo.height)
+    cx, cy = (x0 + x1) / 2, (y0 + y1) / 2
+    w = max(x1 - x0, (y1 - y0) * bw / bh)  # widen the box to the frame's shape
+    h = w * bh / bw
+    src = photo.crop((int(cx - w / 2), int(cy - h / 2), int(cx + w / 2), int(cy + h / 2)))
+    src = src.resize((int(bw * 1.1), int(bh * 1.1)), Image.LANCZOS)
+    mask = Image.new("L", (bw, bh), 0)
+    ImageDraw.Draw(mask).rounded_rectangle([0, 0, bw, bh], radius=28, fill=255)
+    badge = proof.get("badge", "MY REAL DRIVE")
+
+    def draw(frame, d, t):
+        _pill(d, X0, TOP + 40, badge, TEAL, INK, alpha=int(255 * ease_out(t / 0.2)), size=34)
+        z = 1.1 - 0.1 * ease_out(t / 3.0)  # starts close, eases out to the whole box
+        cw, ch = int(src.width / 1.1 * z), int(src.height / 1.1 * z)
+        ox, oy = (src.width - cw) // 2, (src.height - ch) // 2
+        view = src.crop((ox, oy, ox + cw, oy + ch)).resize((bw, bh), Image.LANCZOS)
+        frame.paste(view, (40, 600), mask)
+    return (3.0, draw, [("whoosh", 0.0), ("ding", 0.5)])
+
+
 def render_motion(post, path: Path, handle="@decodethedrive", music: Path | None = None,
                   voices: list[Path] | None = None) -> Path:
     """voices: one spoken line per scene; each scene then lasts at least as
@@ -313,6 +339,9 @@ def render_motion(post, path: Path, handle="@decodethedrive", music: Path | None
         lead = LEAD if n == 0 else 0.0
         scenes.append(((dur - lead) / PACE, lambda f, d, t, draw=draw, lead=lead: draw(f, d, lead + t * PACE),
                        [(k, (at - lead) / PACE) for k, at in c if at >= lead]))
+    visual_count = len(scenes)
+    if post.get("proof"):  # the owner's own photo, shown before the last scene
+        scenes.insert(len(scenes) - 1, _proof_scene(post["proof"]))
     lines = [_decode(v) for v in voices] if voices else []
     for n, samples in enumerate(lines[:len(scenes)]):
         dur, draw, c = scenes[n]
@@ -324,8 +353,8 @@ def render_motion(post, path: Path, handle="@decodethedrive", music: Path | None
     cues = [(k, s + at) for s, (_, _, c) in zip(starts, scenes) for k, at in c]
     captions = []
     if post.get("layout") in ("big3d", "captions") and lines:  # short captions follow the voice
-        from .design import voice_lines
-        for text, samples, s in zip(voice_lines(post, len(scenes)), lines, starts):
+        from .design import spoken_lines
+        for text, samples, s in zip(spoken_lines(post, visual_count), lines, starts):
             captions += caption_chunks(text, s + VOICE_AT, len(samples) / RATE, samples=samples)
     sfx = path.parent / "sfx.wav"
     _write_sfx(cues, total, sfx, [(samples, s + VOICE_AT) for samples, s in zip(lines, starts)])

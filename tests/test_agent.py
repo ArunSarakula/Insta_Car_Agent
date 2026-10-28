@@ -622,3 +622,15 @@ def test_captions_wait_for_the_voice():
     chunks = caption_chunks("Foot off the clutch, always.", 0.0, len(voice) / RATE, samples=voice)
     assert abs(chunks[0][0] - 0.5) < 0.05
     assert abs(chunks[-1][0] - 2.1) < 0.05  # the second phrase starts after the pause
+
+
+def test_proof_photo_gets_its_own_scene_and_line(tmp_path):
+    from PIL import Image
+    from agent.motion import _proof_scene
+    Image.new("RGB", (400, 600), (90, 90, 90)).save(tmp_path / "p.jpg")
+    post = {"voice_lines": ["a.", "b.", "c.", "d."], "proof": {"image": str(tmp_path / "p.jpg"), "line": "proof."}}
+    assert design.spoken_lines(post, 4) == ["a.", "b.", "c.", "proof.", "d."]
+    dur, draw, cues = _proof_scene(post["proof"])
+    frame = Image.new("RGBA", (1080, 1920))
+    draw(frame, __import__("PIL.ImageDraw", fromlist=["ImageDraw"]).Draw(frame), 1.0)
+    assert frame.getpixel((540, 1000))[:3] == (90, 90, 90)
