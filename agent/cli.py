@@ -255,8 +255,8 @@ def cmd_publish_due(cfg: Config, args) -> None:
         store.set_status(post["id"], "published", media_id=media_id,
                          published_at=now.isoformat())
         print(f"Published {post['id']}: {post['title']}")
-        if post["format"] == "reel" and cfg.yt_refresh_token:
-            upload_to_youtube(cfg, post)
+        if post["format"] == "reel" and cfg.yt_refresh_token and not post.get("instagram_only"):
+            upload_to_youtube(cfg, post)  # instagram_only: a reel already on YouTube, shared to Instagram later
         post_to_x(cfg, post)
 
 

@@ -1,0 +1,56 @@
+{
+  "format": "reel",
+  "title": "Clutch riding fix (Instagram)",
+  "hook": "You're using your clutch wrong",
+  "caption": "This one is from my own driving habits 🚗\n\nMany people keep the clutch pressed while turning, or drive with their foot resting lightly on it. A resting foot makes the clutch plate slip and wear out faster. Holding the pedal down through a turn wears the release bearing and leaves the car coasting. Either way, an expensive clutch job comes sooner.\n\nMy rule: press the clutch only to change gear (and of course when moving off or coming to a stop so you don't stall). The rest of the time, your left foot lives on the dead pedal.\n\nBonus safety point: taking a turn with the clutch pressed means the car is coasting with less control. Turn in the right gear, foot off the clutch.\n\nSave this and send it to the friend who rides the clutch 👇",
+  "hashtags": [
+    "#ClutchRiding",
+    "#ManualCar",
+    "#DrivingTips",
+    "#CarCare",
+    "#IndianCars"
+  ],
+  "slides": [
+    {
+      "heading": "You're using your clutch wrong",
+      "body": "Clutch riding, explained"
+    },
+    {
+      "heading": "Foot resting on the clutch?",
+      "body": "Even light pressure partly disengages it and wears the plate."
+    },
+    {
+      "heading": "Clutch pressed while turning?",
+      "body": "No engine control, and the release bearing wears. Turn in gear, foot off."
+    },
+    {
+      "heading": "My rule: clutch only to change gear",
+      "body": "Plus moving off and stopping. Otherwise, foot on the dead pedal."
+    },
+    {
+      "heading": "Your clutch plate will thank you",
+      "body": "Send this to the friend who rides the clutch."
+    }
+  ],
+  "music": "phonk",
+  "reel_style": "clutch",
+  "music_track": "vaitsez-dark-beat-620108.mp3",
+  "media_files": [
+    "media/5dfc9efa/reel.mp4"
+  ],
+  "voice_lines": [
+    "Are you using your clutch wrong? If your foot rests on the pedal, even light pressure slips it and wears the plate.",
+    "Holding the clutch down while turning is bad too. You lose engine control and wear out the release bearing.",
+    "My rule is simple. Clutch only to change gear, move off or stop. The rest of the time, foot on the dead pedal.",
+    "Your clutch plate will thank you. Send this to the friend who rides the clutch, and follow for more."
+  ],
+  "voice": "en-IN-Chirp3-HD-Kore",
+  "voiced": true,
+  "layout": "captions",
+  "thumbnail_text": "Killing | your clutch?",
+  "id": "5dfc9e1a",
+  "status": "approved",
+  "scheduled_for": "2026-10-28T19:00:00+05:30",
+  "instagram_only": true,
+  "shared_from": "5dfc9efa"
+}

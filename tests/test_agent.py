@@ -425,6 +425,21 @@ def test_youtube_only_post_skips_instagram(tmp_path, monkeypatch):
     assert uploaded == ["y"] and store.get_post("y")["status"] == "published"
 
 
+def test_instagram_only_reel_skips_youtube(tmp_path, monkeypatch):
+    past = (datetime.now(ZoneInfo("Asia/Kolkata")) - timedelta(minutes=5)).isoformat()
+    store.save_post({"id": "i", "status": "approved", "scheduled_for": past, "format": "reel", "title": "t",
+                     "caption": "c", "instagram_only": True, "media_files": ["media/i/reel.mp4"]}, tmp_path)
+    for fn in (store.load_posts, store.set_status, store.get_post, store.save_post, store.due_posts):
+        monkeypatch.setattr(fn, "__defaults__", (tmp_path,))
+    uploaded = []
+    monkeypatch.setattr(cli, "_instagram", lambda cfg: SimpleNamespace(publish_reel=lambda url, cap, cover: "ig1"))
+    monkeypatch.setattr(cli, "upload_to_youtube", lambda cfg, post: uploaded.append(post["id"]))
+    cfg = SimpleNamespace(timezone="Asia/Kolkata", yt_refresh_token="rt", github_repository="me/repo",
+                          x_connected=False)
+    cli.cmd_publish_due(cfg, None)
+    assert uploaded == [] and store.get_post("i")["media_id"] == "ig1"
+
+
 def test_youtube_thumbnail(tmp_path):
     from agent.youtube import YouTube
     cover = tmp_path / "cover.jpg"
