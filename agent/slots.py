@@ -9,9 +9,9 @@ POST_SLOTS = [
     ("Wed", "19:30", "reel"),
     ("Thu", "13:00", "meme"),
     ("Thu", "20:00", "carousel"),
-    ("Fri", "18:00", "reel"),  # Instagram insights: followers peak 6-9 PM Fri and Sat
+    ("Fri", "18:00", "reel"),  # Instagram insights: followers peak 6-9 PM Fri-Sun
     ("Sat", "18:00", "reel"),
-    ("Sun", "10:30", "reel"),
+    ("Sun", "18:00", "reel"),
 ]
 INSTAGRAM_REEL_DAYS = ("Fri", "Sat", "Sun")
 
