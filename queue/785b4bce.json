@@ -21,9 +21,11 @@
   "music": "upbeat",
   "idea_id": "",
   "scheduled_for": "2026-10-29T13:00:00+05:30",
-  "status": "approved",
+  "status": "published",
   "id": "785b4bce",
   "media_files": [
     "media/785b4bce/post.jpg"
-  ]
+  ],
+  "media_id": "17958320997283001",
+  "published_at": "2026-10-29T15:20:08.061738+05:30"
 }
