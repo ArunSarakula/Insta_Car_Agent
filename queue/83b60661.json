@@ -40,7 +40,7 @@
   "music": "chill",
   "idea_id": "i01",
   "scheduled_for": "2026-10-30T18:00:00+05:30",
-  "status": "approved",
+  "status": "published",
   "id": "83b60661",
   "music_track": "alex-morgan-lofi-beat-587404.mp3",
   "media_files": [
@@ -67,5 +67,8 @@
     ],
     "badge": "MY REAL DRIVE",
     "line": "Here's my own Volkswagen Virtus after a 304 kilometre highway trip: 20.5 kilometres per litre. And this tip works for any car."
-  }
+  },
+  "media_id": "18107251955253938",
+  "published_at": "2026-10-30T18:00:00.000133+05:30",
+  "youtube_id": "4-sczlhVtxg"
 }
