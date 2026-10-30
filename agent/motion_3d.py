@@ -7,6 +7,7 @@ import random
 
 from .design import AMBER, BOLD, GREY, INK, TEAL, WHITE
 from .motion import GREEN, RED, W, X0, XW, _font, _pill, ease_out
+from .motion_fog import _chips
 from .motion_visuals import DIM, _a, _bar, _label, _step
 from .three import Cam, Scene, glow, mix, shade
 
@@ -127,4 +128,98 @@ def clutch3d(frame, d, t, i):
         _bar(d, bx, by, bw, 0.3 + 0.6 * ease_out((t - 0.3) / 1.2), GREEN, "CLUTCH LIFE")
 
 
-VISUALS3D = {"clutch": clutch3d}
+RUBBER = (40, 44, 52)
+RIM = (176, 184, 196)
+
+
+def wheel3d(frame, d, t, i):
+    # 0 my rule: a balanced wheel spins smoothly, the weight sits on the rim, 5,000 km ticks by
+    # 1 why: a pothole knocks the weight off and the wheel starts to wobble
+    # 2 warning signs: the wobble at 80-100 km/h, and the signs to watch for
+    # 3 safety: after a big hit, check the tyre and rim before balancing
+    yaw = -28 + 5 * math.sin(t * 0.5) + 12 * (1 - ease_out(t / 0.8))
+    spin = -t * (6.0 if i < 3 else 6.0 * max(0.0, 1 - t / 2.5))
+    lost = i >= 2 or (i == 1 and t > 1.1)
+    wob = (0.0 if not lost else (0.6 if i == 1 else 1.0)) * (0.0 if i == 3 and t > 2.0 else 1.0)
+    jolt = 0.05 * max(0.0, 1 - abs(t - 1.1) / 0.15) if i == 1 else 0.0
+    cy = 0.018 * wob * math.cos(spin * 1.0)
+    cz = 0.018 * wob * math.sin(spin * 1.0) + jolt
+    cam = Cam(yaw, 14, 820, W / 2 + 10, VY3 + 330)
+
+    # road and the pothole coming in
+    road = [cam.p(q) for q in ((-1.6, -1.6, -0.43), (0.9, -1.6, -0.43), (0.9, 1.6, -0.43), (-1.6, 1.6, -0.43))]
+    d.polygon(road, fill=_a((28, 34, 44)))
+    for k in range(-4, 5):  # lane marks rolling under the wheel
+        y0 = ((k * 0.3 - t * 0.9) % 2.4) - 1.2
+        d.line([cam.p((-0.45, y0, -0.43)), cam.p((-0.45, y0 + 0.12, -0.43))], fill=_a((90, 98, 110)), width=6)
+    if i == 1 and t < 1.6:
+        py = 1.0 - t * 0.9
+        hole = [cam.p((x, py + 0.1 * math.sin(a), -0.43)) for x, a in
+                ((0.1 * math.cos(a) - 0.02, a) for a in (2 * math.pi * k / 16 for k in range(16)))]
+        d.polygon(hole, fill=_a((10, 12, 16)))
+
+    if i == 0 or (i == 1 and not lost):
+        glow(frame, [cam.p((0, cy, cz))], GREEN, 260, 60, 0.9)
+    elif i in (1, 2):
+        glow(frame, [cam.p((0, cy, cz))], RED, 260, 40 + 30 * abs(math.sin(t * 9)), 0.9)
+
+    tread = lambda k, n: shade(RUBBER, 0.75) if k % 2 else RUBBER
+    sidewall = lambda k, n: shade(RUBBER, 1.15) if k % 8 == 0 else RUBBER
+    spokes = lambda k, n: RIM if (k % 8) in (0, 1) else (52, 58, 70)
+    sc = Scene(cam)
+    sc.disc(0.0, 0.42, 0.2, RUBBER, cap=sidewall, side=tread, rot=spin, n=48, centre=(cy, cz))
+    sc.disc(-0.104, 0.28, 0.012, (60, 66, 78), cap=spokes, rot=spin, n=40, centre=(cy, cz))  # rim face
+    sc.disc(-0.115, 0.07, 0.03, (140, 148, 160), rot=spin, n=16, centre=(cy, cz))  # hub cap
+    sc.draw(d)
+
+    face = -0.12  # the outer face of the rim
+    on_rim = lambda a, r: cam.p((face, cy + r * math.cos(a), cz + r * math.sin(a)))
+    wa = spin + 1.2
+    if not lost:  # the balancing weight clipped to the rim lip
+        w0, w1 = on_rim(wa - 0.16, 0.285), on_rim(wa + 0.16, 0.285)
+        d.line([w0, w1], fill=_a(GREEN if i == 0 else AMBER), width=30)
+        if i == 0:
+            callout(d, cam, (face, cy + 0.27 * math.cos(wa), cz + 0.27 * math.sin(wa)), -60, -150, "BALANCE WEIGHT",
+                    GREEN)
+    elif i == 1:  # it flies off after the hit
+        k = (t - 1.1) * 1.6
+        x0, y0 = on_rim(spin + 1.2 - (t - 1.1) * 6, 0.27)
+        d.rounded_rectangle([x0 - 40 * k - 14, y0 - 300 * k + 260 * k * k - 8, x0 - 40 * k + 14,
+                             y0 - 300 * k + 260 * k * k + 8], radius=6, fill=_a(AMBER))
+    if wob > 0:  # shake lines either side of the tyre
+        amp = 10 * wob * abs(math.sin(t * 14))
+        for side in (-1, 1):
+            x, y = cam.p((0, cy + side * 0.5, cz))
+            for n in range(3):
+                d.arc([x - 30 - n * 18 + side * 30, y - 60 - amp, x + 30 + n * 18 + side * 30, y + 60 + amp],
+                      -60 if side > 0 else 120, 60 if side > 0 else 240, fill=_a(RED, 200), width=5)
+
+    if i == 0:
+        km = int(5000 * min(1, ease_out(t / 2.2)) / 100) * 100
+        _pill(d, X0, VY3 - 10, "BALANCED: SMOOTH RIDE", GREEN, INK, size=32)
+        d.rounded_rectangle([X0, VY3 + 740, X0 + 420, VY3 + 840], radius=20, fill=_a((24, 28, 36)))
+        _label(d, X0 + 24, VY3 + 752, "ODOMETER", GREY, 24)
+        _label(d, X0 + 24, VY3 + 782, f"{km:,} km", AMBER if km < 5000 else GREEN, 44)
+        if km >= 5000:
+            _pill(d, X0 + 450, VY3 + 758, "BALANCE NOW", GREEN, INK, size=32)
+    elif i == 1:
+        if t > 1.1:
+            _pill(d, X0, VY3 - 10, "POTHOLE: WEIGHT KNOCKED OFF", RED, WHITE, size=32)
+            _bar(d, X0, VY3 + 790, XW - 40, 0.15 + 0.45 * ease_out((t - 1.3) / 1.5), RED, "UNEVEN TYRE WEAR")
+    elif i == 2:
+        _pill(d, X0, VY3 - 10, "SHAKE AT 80-100 KM/H", RED, WHITE, size=32)
+        _chips(d, ["Steering shake", "Patchy wear", "Hum"], VY3 + 770, t, 0.6, gap=0.6)
+    else:
+        _pill(d, X0, VY3 - 10, "CHECK BEFORE A HIGHWAY RUN", AMBER, INK, size=32)
+        if t > 0.8:  # a bulge on the sidewall and a bent rim lip
+            a = 3.7
+            bx, by = cam.p((-0.1, cy + 0.36 * math.cos(a), cz + 0.36 * math.sin(a)))
+            p = ease_out((t - 0.8) / 0.3)
+            d.ellipse([bx - 34 * p, by - 34 * p, bx + 34 * p, by + 34 * p], outline=_a(RED), width=7)
+            callout(d, cam, (-0.1, cy + 0.36 * math.cos(a), cz + 0.36 * math.sin(a)), -20, 170, "TYRE BULGE?", RED,
+                    WHITE)
+        if t > 1.4:
+            callout(d, cam, (face, cy + 0.27, cz + 0.02), 120, -170, "BENT RIM?", AMBER)
+
+
+VISUALS3D = {"clutch": clutch3d, "wheel": wheel3d}

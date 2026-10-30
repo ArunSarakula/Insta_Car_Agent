@@ -634,3 +634,13 @@ def test_proof_photo_gets_its_own_scene_and_line(tmp_path):
     frame = Image.new("RGBA", (1080, 1920))
     draw(frame, __import__("PIL.ImageDraw", fromlist=["ImageDraw"]).Draw(frame), 1.0)
     assert frame.getpixel((540, 1000))[:3] == (90, 90, 90)
+
+
+def test_wheel3d_draws_every_scene():
+    from PIL import Image, ImageDraw
+    from agent.motion_3d import wheel3d
+    for i in range(4):
+        frame = Image.new("RGBA", (1080, 1920), (0, 0, 0, 255))
+        layer = Image.new("RGBA", frame.size, (0, 0, 0, 0))
+        wheel3d(frame, ImageDraw.Draw(layer), 2.0, i)
+        assert layer.getbbox()

@@ -80,9 +80,10 @@ class Scene:
         self.face([v(x0, y0, z0), v(x0, y1, z0), v(x0, y1, z1), v(x0, y0, z1)], col)  # left
         self.face([v(x0, y0, z0), v(x1, y0, z0), v(x1, y1, z0), v(x0, y1, z0)], col)  # bottom
 
-    def disc(self, x, r, length, col, cap=None, rot=0.0, n=32, after=None, centre=(0.0, 0.0)):
+    def disc(self, x, r, length, col, cap=None, rot=0.0, n=32, after=None, centre=(0.0, 0.0), side=None):
         """A cylinder on the x axis (the shaft line). cap(k, n) gives the
-        colour of wedge k of each end face, so marks on it turn with rot."""
+        colour of wedge k of each end face, so marks on it turn with rot;
+        side(k, n) does the same for the curved face (tyre tread)."""
         cy, cz = centre
         self.begin((x, cy, cz), after)
         pt = lambda a, s: (x + s, cy + r * math.cos(a), cz + r * math.sin(a))
@@ -90,7 +91,7 @@ class Scene:
         angs = [rot + 2 * math.pi * k / n for k in range(n + 1)]
         for k in range(n):
             a, b = angs[k], angs[k + 1]
-            self.face([pt(a, h), pt(b, h), pt(b, -h), pt(a, -h)], col)
+            self.face([pt(a, h), pt(b, h), pt(b, -h), pt(a, -h)], side(k, n) if side else col)
             c = cap(k, n) if cap else col
             self.face([(x + h, cy, cz), pt(b, h), pt(a, h)], c)
             self.face([(x - h, cy, cz), pt(a, -h), pt(b, -h)], c)
