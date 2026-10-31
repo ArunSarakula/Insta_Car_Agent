@@ -463,13 +463,13 @@ def test_meter_reel_renders(tmp_path):
     assert files
 
 
-def test_instagram_cover_fits_the_grid_crop(tmp_path):
+def test_instagram_cover_is_full_screen(tmp_path):
     from PIL import Image
     from agent.motion import instagram_cover
     Image.new("RGB", (1080, 1920), (255, 0, 0)).save(tmp_path / "t.jpg")
     with Image.open(instagram_cover(tmp_path / "t.jpg", tmp_path / "c.jpg")) as im:
         assert im.size == (1080, 1920)
-        assert im.getpixel((540, 200))[0] < 100 and im.getpixel((540, 960))[0] > 200
+        assert im.getpixel((540, 10))[0] > 200 and im.getpixel((540, 960))[0] > 200
 
 
 def test_weekday_reels_are_youtube_only():

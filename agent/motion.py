@@ -409,15 +409,10 @@ def render_motion(post, path: Path, handle="@decodethedrive", music: Path | None
 
 
 def instagram_cover(thumbnail: Path, cover: Path) -> Path:
-    """The YouTube thumbnail as the Instagram reel cover. The profile grid
-    shows only the middle 3:4 of a reel cover, so the whole design is shrunk
-    into that band to keep the title and visual from being cut off."""
-    band = W * 4 // 3
+    """The YouTube thumbnail as the Instagram reel cover, full screen with no
+    border (the owner's choice; the profile grid shows its middle 3:4)."""
     with Image.open(thumbnail) as im:
-        art = im.convert("RGB").resize((band * W // H, band), Image.LANCZOS)
-    out = Image.new("RGB", (W, H), NAVY)
-    out.paste(art, ((W - art.width) // 2, (H - band) // 2))
-    out.save(cover, "JPEG", quality=92)
+        im.convert("RGB").resize((W, H), Image.LANCZOS).save(cover, "JPEG", quality=92)
     return cover
 
 
