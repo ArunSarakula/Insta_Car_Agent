@@ -40,7 +40,7 @@
   "music": "chill",
   "idea_id": "i02",
   "scheduled_for": "2026-10-31T18:05:00+05:30",
-  "status": "approved",
+  "status": "published",
   "id": "a3d31031",
   "music_track": "atlasaudio-lofi-chill-589987.mp3",
   "media_files": [
@@ -56,5 +56,8 @@
     "Shaking after a big pothole? Get the tyre and rim checked before a highway drive. Follow for more."
   ],
   "voice": "en-IN-Chirp3-HD-Kore",
-  "layout": "big3d"
+  "layout": "big3d",
+  "media_id": "18135595495726312",
+  "published_at": "2026-10-31T18:09:50.814612+05:30",
+  "youtube_id": "1M9FTtTRv2o"
 }
