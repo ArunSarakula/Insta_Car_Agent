@@ -40,7 +40,7 @@
   "music": "upbeat",
   "idea_id": "",
   "scheduled_for": "2026-11-01T18:00:00+05:30",
-  "status": "approved",
+  "status": "published",
   "id": "26ec0456",
   "music_track": "prettyjohn1-future-bass-523169.mp3",
   "media_files": [
@@ -56,5 +56,8 @@
     "Keep emergency braking on, switch lane keep off in the city if it fights you, and keep your hands on the wheel. Follow for more."
   ],
   "voice": "en-IN-Chirp3-HD-Kore",
-  "layout": "captions"
+  "layout": "captions",
+  "media_id": "17909598798657040",
+  "published_at": "2026-11-01T18:43:29.311408+05:30",
+  "youtube_id": "AfUaaPlxKec"
 }
