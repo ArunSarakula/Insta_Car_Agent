@@ -1,0 +1,68 @@
+{
+  "format": "carousel",
+  "title": "EV vs petrol cost per km (home vs public charging)",
+  "hook_options": [],
+  "hook": "Is an EV really cheaper than petrol per km?",
+  "hook_type": "none",
+  "save_tip": "",
+  "youtube_title": "",
+  "caption": "Everyone says EVs are cheaper to run. But how much cheaper, and does it still hold if you only use public fast chargers? 🔌⛽\n\nI did the maths with simple example numbers so you can plug in your own. Swipe through and save this for when you're comparing cars.\n\nThese are example figures, not exact quotes. Your electricity tariff, local fuel price and real-world efficiency will change the result, so do your own maths with slide 6.\n\nWhat's your car's real cost per km? Drop it in the comments 👇",
+  "hashtags": [
+    "#EVCost",
+    "#EVIndia",
+    "#ElectricCars",
+    "#EVTips",
+    "#CarTech"
+  ],
+  "youtube_hashtags": [],
+  "slides": [
+    {
+      "heading": "Is an EV really cheaper than petrol per km?",
+      "body": ""
+    },
+    {
+      "heading": "The simple formula",
+      "body": "Cost per km = energy price divided by distance per unit. Same maths for a litre of petrol or a unit of electricity."
+    },
+    {
+      "heading": "Petrol example",
+      "body": "Assume Rs 100 a litre and 15 km/l real mileage. That works out to roughly Rs 6.7 per km."
+    },
+    {
+      "heading": "EV charged at home",
+      "body": "Assume Rs 8 per unit and about 6.5 km per kWh. That is roughly Rs 1.2 per km."
+    },
+    {
+      "heading": "EV on public DC fast chargers",
+      "body": "Assume around Rs 20 per kWh. The same EV costs about Rs 3 per km. Still cheaper, but the gap shrinks a lot."
+    },
+    {
+      "heading": "Do your own maths",
+      "body": "Check your electricity bill tariff and your car's real km per kWh. Home charging is where EVs win big."
+    },
+    {
+      "heading": "Follow @decodethedrive",
+      "body": "Plain-language car tech for Indian buyers, with the maths shown, not just opinions."
+    }
+  ],
+  "reel_style": "explainer",
+  "versus_left": "",
+  "versus_right": "",
+  "quiz_options": [],
+  "quiz_answer": 0,
+  "voice_lines": [],
+  "music": "tech",
+  "idea_id": "",
+  "scheduled_for": "2026-11-09T20:00:00+05:30",
+  "status": "draft",
+  "id": "b022e4e5",
+  "media_files": [
+    "media/b022e4e5/slide-1.jpg",
+    "media/b022e4e5/slide-2.jpg",
+    "media/b022e4e5/slide-3.jpg",
+    "media/b022e4e5/slide-4.jpg",
+    "media/b022e4e5/slide-5.jpg",
+    "media/b022e4e5/slide-6.jpg",
+    "media/b022e4e5/slide-7.jpg"
+  ]
+}

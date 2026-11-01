@@ -1,0 +1,38 @@
+{
+  "format": "meme",
+  "title": "Lane keep assist 404 meme",
+  "hook_options": [],
+  "hook": "Lane keep assist on most Indian city roads",
+  "hook_type": "none",
+  "save_tip": "",
+  "youtube_title": "",
+  "caption": "Lane keep assist needs lane markings. Indian roads have... vibes 😅\n\nIf you work in IT, you've seen this error before. Tag the friend who keeps switching it on in city traffic.",
+  "hashtags": [
+    "#LaneKeepAssist",
+    "#IndianCars",
+    "#ADAS",
+    "#CarMemes",
+    "#CarTech"
+  ],
+  "youtube_hashtags": [],
+  "slides": [
+    {
+      "heading": "Lane keep assist on most Indian city roads",
+      "body": "Error 404: Lane not found. Please contact your municipal administrator."
+    }
+  ],
+  "reel_style": "explainer",
+  "versus_left": "",
+  "versus_right": "",
+  "quiz_options": [],
+  "quiz_answer": 0,
+  "voice_lines": [],
+  "music": "upbeat",
+  "idea_id": "",
+  "scheduled_for": "2026-11-10T13:00:00+05:30",
+  "status": "draft",
+  "id": "13789a91",
+  "media_files": [
+    "media/13789a91/post.jpg"
+  ]
+}

@@ -1,0 +1,77 @@
+{
+  "format": "reel",
+  "title": "Regen braking myth: highway range",
+  "hook_options": [
+    "Regen adds big range on highways",
+    "Regen won't save you on highways",
+    "Your EV charges itself? Not quite",
+    "You're using regen braking wrong",
+    "Why one-pedal driving wins in traffic",
+    "Braking that charges your car, explained",
+    "Highway regen is mostly a myth",
+    "Stop braking late in your EV",
+    "Traffic jams actually help your EV",
+    "How braking turns into battery charge"
+  ],
+  "hook": "Regen adds big range on highways",
+  "hook_type": "myth",
+  "save_tip": "See a red signal ahead? Lift off early and let regen do the slowing instead of the brake pedal.",
+  "youtube_title": "How does regenerative braking work in EVs?",
+  "caption": "Regenerative braking turns your motor into a generator when you slow down, sending energy back to the battery. That's why EVs and strong hybrids love stop-go city traffic, and why it doesn't add much on a steady highway run.\n\nOne safety note: one-pedal or strong regen modes are great, but keep your foot ready for the brake pedal. Regen alone won't do an emergency stop.\n\nDo you drive in one-pedal mode? Tell me below 👇",
+  "hashtags": [
+    "#RegenerativeBraking",
+    "#EVIndia",
+    "#ElectricVehicles",
+    "#EVTips",
+    "#CarTech"
+  ],
+  "youtube_hashtags": [
+    "#RegenerativeBraking",
+    "#EV"
+  ],
+  "slides": [
+    {
+      "heading": "Regen adds big range on highways",
+      "body": "Regenerative braking, myth vs fact"
+    },
+    {
+      "heading": "Only when you slow down",
+      "body": "Regen turns braking into charge. Steady highway cruising means little braking, so little gain."
+    },
+    {
+      "heading": "City traffic is where it shines",
+      "body": "Stop-go traffic means constant slowing. One-pedal mode recovers energy brakes would waste as heat."
+    },
+    {
+      "heading": "Hybrids do it too",
+      "body": "Strong hybrids store braking energy in their battery to drive on electric at low speeds."
+    },
+    {
+      "heading": "Lift off early, brake less",
+      "body": "Red signal ahead? Lift off early and let regen slow you. Saves energy and brake pads."
+    }
+  ],
+  "reel_style": "myth_fact",
+  "versus_left": "",
+  "versus_right": "",
+  "quiz_options": [],
+  "quiz_answer": 0,
+  "voice_lines": [
+    "Does regen add big range on highways? Not really. It only makes charge when you slow down.",
+    "In city traffic you're slowing all the time, so one pedal mode keeps recovering energy that brakes would waste.",
+    "Hybrids do the same trick, storing braking energy in their battery to drive on electric at low speeds.",
+    "My tip: see a red light ahead, lift off early and let regen slow you. Follow for more EV tips."
+  ],
+  "music": "upbeat",
+  "idea_id": "i08",
+  "scheduled_for": "2026-11-11T19:30:00+05:30",
+  "youtube_only": true,
+  "status": "draft",
+  "id": "0b8463fe",
+  "voiced": true,
+  "voice": "en-IN-Chirp3-HD-Charon",
+  "music_track": "alex-morgan-future-bass-545515.mp3",
+  "media_files": [
+    "media/0b8463fe/reel.mp4"
+  ]
+}

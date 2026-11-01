@@ -1,0 +1,81 @@
+{
+  "format": "reel",
+  "title": "Hybrid vs EV for Indian buyers",
+  "hook_options": [
+    "Hybrid or EV: which suits your driving?",
+    "No home charger? Don't buy an EV yet",
+    "Hybrid beats EV for one type of buyer",
+    "EV or hybrid for highway trips?",
+    "Your parking spot decides: hybrid or EV",
+    "Stop choosing an EV for the wrong reason",
+    "Which costs less per km: hybrid or EV?",
+    "Hybrid vs EV in 5 quick rounds",
+    "Road trips every month? Read this first",
+    "The real question before buying an EV"
+  ],
+  "hook": "Hybrid or EV: which suits your driving?",
+  "hook_type": "versus",
+  "save_tip": "No home charger? A strong hybrid usually makes more sense than an EV.",
+  "youtube_title": "Hybrid vs electric car: which is better in India?",
+  "caption": "Follow-up to my strong vs mild hybrid reel ⚡⛽\n\nBoth are brilliant in city traffic. The real decider for most Indian buyers is simple: can you charge at home? If yes, an EV's running cost is hard to beat. If not, or you do lots of long highway trips, a strong hybrid is the easier life.\n\nWhich side are you on? Hybrid or EV, comment below 👇",
+  "hashtags": [
+    "#HybridVsEV",
+    "#EVIndia",
+    "#HybridCars",
+    "#ElectricCars",
+    "#CarTech"
+  ],
+  "youtube_hashtags": [
+    "#HybridVsEV",
+    "#CarTech"
+  ],
+  "slides": [
+    {
+      "heading": "Hybrid or EV: which suits your driving?",
+      "body": "Strong hybrid vs pure EV"
+    },
+    {
+      "heading": "Running cost",
+      "body": "Low | Lowest with home charging"
+    },
+    {
+      "heading": "Charging needed",
+      "body": "None | Home charger ideal"
+    },
+    {
+      "heading": "Long highway trips",
+      "body": "Fill up anywhere | Plan charging stops"
+    },
+    {
+      "heading": "City traffic",
+      "body": "Very efficient | Very efficient"
+    },
+    {
+      "heading": "Best for",
+      "body": "No home charger | Home parking and charger"
+    }
+  ],
+  "reel_style": "versus",
+  "versus_left": "Hybrid",
+  "versus_right": "EV",
+  "quiz_options": [],
+  "quiz_answer": 0,
+  "voice_lines": [
+    "Hybrid or EV, which one suits you? Let's start with running cost, where a home charged EV wins.",
+    "Charging is the big one. A hybrid needs none, while an EV really wants a charger at home.",
+    "On long highway trips, a hybrid just fills up anywhere, but with an EV you plan charging stops.",
+    "In city traffic both are brilliant, because they run on electric power at crawling speeds.",
+    "No home charger? Pick a hybrid. Home parking with a charger? An EV makes sense. Follow for more comparisons."
+  ],
+  "music": "epic",
+  "idea_id": "i09",
+  "scheduled_for": "2026-11-07T18:00:00+05:30",
+  "status": "draft",
+  "id": "fbf4e28e",
+  "voiced": true,
+  "voice": "en-IN-Chirp3-HD-Charon",
+  "music_track": "the_mountain-trailer-cinematic-593077.mp3",
+  "media_files": [
+    "media/fbf4e28e/reel.mp4"
+  ]
+}

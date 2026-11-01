@@ -1,0 +1,81 @@
+{
+  "format": "reel",
+  "title": "Tyre pressure: you're checking it wrong",
+  "hook_options": [
+    "You're checking tyre pressure wrong",
+    "Never check tyre pressure after driving",
+    "Your tyre's max number is a trap",
+    "Summer is killing your tyres",
+    "What eats your tyre life?",
+    "Hot tyres lie about pressure",
+    "Stop filling air to the sidewall number",
+    "Petrol pump air check? Do this first",
+    "Low tyre pressure costs you mileage",
+    "One sticker tells your correct pressure"
+  ],
+  "hook": "You're checking tyre pressure wrong",
+  "hook_type": "mistake",
+  "save_tip": "Check pressure cold (before driving or after 3 hours parked) and use the driver door sticker number, not the sidewall.",
+  "youtube_title": "Correct tyre pressure in summer: check it cold or hot?",
+  "caption": "Most of us check air at the petrol pump right after a drive. Problem: hot tyres read higher, so we let air out and end up underinflated 🔥\n\nThe right number is on the sticker inside your driver's door (or in the owner's manual), not the max pressure printed on the tyre.\n\nSave this for your next petrol pump stop. When did you last check yours?",
+  "hashtags": [
+    "#TyrePressure",
+    "#IndianCars",
+    "#CarCare",
+    "#CarTips",
+    "#CarTech"
+  ],
+  "youtube_hashtags": [
+    "#TyrePressure",
+    "#CarTips"
+  ],
+  "slides": [
+    {
+      "heading": "You're checking tyre pressure wrong",
+      "body": "Tyre pressure in Indian summer"
+    },
+    {
+      "heading": "Your tyres: full life",
+      "body": "The pressure on your door sticker gives even wear and the best mileage."
+    },
+    {
+      "heading": "Checking right after a drive",
+      "body": "Hot tyres read higher, so you let air out and end up underinflated."
+    },
+    {
+      "heading": "Running underinflated",
+      "body": "Edges wear fast, mileage drops and tyres run hotter on summer highways."
+    },
+    {
+      "heading": "Filling to the sidewall max",
+      "body": "That number is the tyre's limit, not your car's recommended pressure."
+    },
+    {
+      "heading": "The fix: check cold",
+      "body": "Before driving or after 3 hours parked. Use the door sticker number, every 2 weeks."
+    }
+  ],
+  "reel_style": "meter",
+  "versus_left": "",
+  "versus_right": "",
+  "quiz_options": [],
+  "quiz_answer": 0,
+  "voice_lines": [
+    "Are you checking tyre pressure wrong? First, the right pressure from your door sticker gives even wear and better mileage.",
+    "Here's the big mistake. Hot tyres read higher after a drive, so people let air out and end up low.",
+    "Running low wears out the edges, hurts mileage, and makes the tyre run hotter on summer highways.",
+    "And that max number on the sidewall? That's the tyre's limit, not what your car actually needs.",
+    "So check cold, every two weeks, using the door sticker number. Follow for more simple car care tips."
+  ],
+  "music": "chill",
+  "idea_id": "",
+  "scheduled_for": "2026-11-06T18:00:00+05:30",
+  "status": "draft",
+  "id": "431f0d66",
+  "voiced": true,
+  "voice": "en-IN-Chirp3-HD-Charon",
+  "music_track": "tunetank-vlog-beat-349853.mp3",
+  "media_files": [
+    "media/431f0d66/reel.mp4"
+  ]
+}

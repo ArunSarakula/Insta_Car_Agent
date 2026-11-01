@@ -1,0 +1,76 @@
+{
+  "format": "reel",
+  "title": "DCT in stop-go traffic: habit fixes",
+  "hook_options": [
+    "You're driving your DCT wrong in traffic",
+    "Never hold a DCT on a slope",
+    "Is a DCT safe in Indian traffic?",
+    "Stop creeping in your DCT",
+    "Your DCT clutch hates this habit",
+    "3 DCT mistakes in city traffic",
+    "DSG owners, stop doing this at signals",
+    "Why DCTs overheat in traffic",
+    "Using the accelerator as a handbrake? Stop",
+    "The one DCT habit that saves your clutch"
+  ],
+  "hook": "You're driving your DCT wrong in traffic",
+  "hook_type": "mistake",
+  "save_tip": "Never hold your DCT on a slope with the accelerator: use the brake or auto hold.",
+  "youtube_title": "Is DCT safe in city traffic? How to drive a DCT in India",
+  "caption": "A DCT (Volkswagen and Skoda call theirs DSG) is basically two automated clutches. It's quick and efficient, but it doesn't like being half-engaged for long, which is exactly what bad stop-go habits do.\n\nFix three habits and a DCT is perfectly happy in Indian traffic. And if you ever see a gearbox heat warning on the dash, pull over safely and let it cool.\n\nDCT owners, which habit were you guilty of? 👇",
+  "hashtags": [
+    "#DCT",
+    "#IndianCars",
+    "#DSG",
+    "#AutomaticCars",
+    "#CarTech"
+  ],
+  "youtube_hashtags": [
+    "#DCT",
+    "#CarTips"
+  ],
+  "slides": [
+    {
+      "heading": "You're driving your DCT wrong in traffic",
+      "body": "DCT in stop-go traffic"
+    },
+    {
+      "heading": "Don't hold slopes with throttle",
+      "body": "Balancing on an incline with the accelerator slips the clutches and heats them. Use the brake or auto hold."
+    },
+    {
+      "heading": "Don't creep inch by inch",
+      "body": "Constant crawling keeps clutches half-engaged. Wait for a gap, then move in one go."
+    },
+    {
+      "heading": "Brake firmly at signals",
+      "body": "Foot firmly on the brake when stopped, or use auto hold if your car has it."
+    },
+    {
+      "heading": "So, is a DCT safe in traffic?",
+      "body": "Yes, with these habits. Heat warning on the dash? Pull over safely and let it cool."
+    }
+  ],
+  "reel_style": "explainer",
+  "versus_left": "",
+  "versus_right": "",
+  "quiz_options": [],
+  "quiz_answer": 0,
+  "voice_lines": [
+    "Driving your DCT wrong in traffic? The biggest mistake is holding the car on a slope with the accelerator.",
+    "Crawling forward inch by inch keeps the clutches half engaged. I'd rather wait for a gap and move once.",
+    "At signals, keep your foot firmly on the brake, or use auto hold if your car has it.",
+    "So yes, a DCT is fine in traffic with these habits. Follow for more automatic gearbox tips."
+  ],
+  "music": "phonk",
+  "idea_id": "",
+  "scheduled_for": "2026-11-08T18:00:00+05:30",
+  "status": "draft",
+  "id": "abb82bd7",
+  "voiced": true,
+  "voice": "en-IN-Chirp3-HD-Charon",
+  "music_track": "vaitsez-dark-beat-620108.mp3",
+  "media_files": [
+    "media/abb82bd7/reel.mp4"
+  ]
+}

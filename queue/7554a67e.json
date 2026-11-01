@@ -1,0 +1,68 @@
+{
+  "format": "carousel",
+  "title": "Vote: ventilated seats vs sunroof vs 360 camera",
+  "hook_options": [],
+  "hook": "You can only pick one. Which feature wins?",
+  "hook_type": "none",
+  "save_tip": "",
+  "youtube_title": "",
+  "caption": "VOTE TIME 🗳️ Your next car can have only ONE of these:\n\nV = Ventilated seats\nS = Sunroof\nC = 360 camera\n\nComment one letter. I'll share the results in my stories next week. Bonus points if you tell me why 👇",
+  "hashtags": [
+    "#VentilatedSeats",
+    "#IndianCars",
+    "#Sunroof",
+    "#CarFeatures",
+    "#CarTech"
+  ],
+  "youtube_hashtags": [],
+  "slides": [
+    {
+      "heading": "You can only pick one. Which feature wins?",
+      "body": ""
+    },
+    {
+      "heading": "Ventilated seats",
+      "body": "Air flows through perforated seats so your back stays dry in Indian summer heat. Comment V."
+    },
+    {
+      "heading": "Sunroof",
+      "body": "Brighter cabin and that open feel, but in heat and dust many owners rarely open it. Comment S."
+    },
+    {
+      "heading": "360 camera",
+      "body": "Tight parking and narrow lanes get much easier with a top-down view. Comment C."
+    },
+    {
+      "heading": "What one survey found",
+      "body": "78% of owners picked ventilated seats over a sunroof. Do you agree?"
+    },
+    {
+      "heading": "Vote in the comments",
+      "body": "Comment V, S or C. Results in next week's stories."
+    },
+    {
+      "heading": "Follow @decodethedrive",
+      "body": "Honest takes on which car tech is actually worth your money in India."
+    }
+  ],
+  "reel_style": "explainer",
+  "versus_left": "",
+  "versus_right": "",
+  "quiz_options": [],
+  "quiz_answer": 0,
+  "voice_lines": [],
+  "music": "epic",
+  "idea_id": "",
+  "scheduled_for": "2026-11-12T20:00:00+05:30",
+  "status": "draft",
+  "id": "7554a67e",
+  "media_files": [
+    "media/7554a67e/slide-1.jpg",
+    "media/7554a67e/slide-2.jpg",
+    "media/7554a67e/slide-3.jpg",
+    "media/7554a67e/slide-4.jpg",
+    "media/7554a67e/slide-5.jpg",
+    "media/7554a67e/slide-6.jpg",
+    "media/7554a67e/slide-7.jpg"
+  ]
+}

@@ -1,0 +1,81 @@
+{
+  "format": "reel",
+  "title": "AEB quiz: what can it miss on Indian roads",
+  "hook_options": [
+    "What can your AEB easily miss?",
+    "Your car's AEB can miss this",
+    "AEB won't always save you",
+    "Guess what auto braking struggles with",
+    "Would your car brake for this bike?",
+    "3 things AEB can't see well",
+    "Your car brakes by itself. Mostly.",
+    "Which hazard fools auto emergency braking?",
+    "Don't trust AEB in Indian traffic blindly",
+    "How does your car know to brake?"
+  ],
+  "hook": "What can your AEB easily miss?",
+  "hook_type": "question",
+  "save_tip": "AEB is a backup, not your brake: keep a 3-second gap and cover the brake near bikes.",
+  "youtube_title": "How does Autonomous Emergency Braking work? AEB explained",
+  "caption": "Guess before the reveal 👀 Which one can AEB miss most easily?\n\nA) Stopped car ahead\nB) Bike cutting in\nC) Slow truck ahead\n\nAutonomous Emergency Braking uses radar and/or a camera to spot a hazard, warn you, and then brake if you don't react. It's genuinely useful, but Indian roads throw a lot at it.\n\nComment your answer before you watch the end.",
+  "hashtags": [
+    "#AEB",
+    "#IndianCars",
+    "#ADAS",
+    "#CarSafety",
+    "#CarTech"
+  ],
+  "youtube_hashtags": [
+    "#AEB",
+    "#CarTech"
+  ],
+  "slides": [
+    {
+      "heading": "What can your AEB easily miss?",
+      "body": "Auto emergency braking, quiz"
+    },
+    {
+      "heading": "A sudden bike cut-in",
+      "body": "The sensors need a moment to confirm a hazard. A bike cutting in close leaves almost no time."
+    },
+    {
+      "heading": "How AEB works",
+      "body": "Radar or camera spots a hazard, warns you first, then brakes if you don't react."
+    },
+    {
+      "heading": "Also tricky: cattle, night, rain",
+      "body": "Odd shapes, pedestrians in low light and heavy rain can confuse the sensors."
+    },
+    {
+      "heading": "AEB is a backup",
+      "body": "Keep a 3-second gap and cover the brake near bikes. Never rely on it to stop for you."
+    }
+  ],
+  "reel_style": "quiz",
+  "versus_left": "",
+  "versus_right": "",
+  "quiz_options": [
+    "Stopped car ahead",
+    "Bike cutting in",
+    "Slow truck ahead"
+  ],
+  "quiz_answer": 1,
+  "voice_lines": [
+    "What can your AEB easily miss? It's a bike suddenly cutting in, because the system gets almost no time to react.",
+    "Here's how it works. Radar or a camera spots something ahead, warns you first, then brakes if you don't.",
+    "Indian roads add more trouble, like cattle, people crossing at night and heavy rain, which can confuse the sensors.",
+    "So treat AEB as a backup, keep a three second gap, and follow for more car safety tech."
+  ],
+  "music": "tech",
+  "idea_id": "i10",
+  "scheduled_for": "2026-11-10T19:30:00+05:30",
+  "youtube_only": true,
+  "status": "draft",
+  "id": "b5771246",
+  "voiced": true,
+  "voice": "en-IN-Chirp3-HD-Charon",
+  "music_track": "paulyudin-tech-corporate-182507.mp3",
+  "media_files": [
+    "media/b5771246/reel.mp4"
+  ]
+}
