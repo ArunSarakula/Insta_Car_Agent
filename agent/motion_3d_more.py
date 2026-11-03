@@ -86,6 +86,7 @@ def ground(d, cam, z=-0.33, size=1.4, t=0.0, speed=0.0):
 
 
 def big_word(d, text, y, col, t=1.0, start=0.0, size=96):
+    y = min(y, VY3 + 760)  # clear of the handle line under it
     p = ease_out((t - start) / 0.35)
     if p <= 0:
         return
@@ -125,7 +126,7 @@ def tyre_code3d(frame, d, t, i):
     # 3 rubber ages: tread wear bars and cracks
     turn = ease_out(t / 1.2) if i == 0 else 1.0
     yaw = -15 - 40 * turn + 3 * math.sin(t * 0.6)
-    cam = Cam(yaw, 10, 900, W / 2, VY3 + 360)
+    cam = Cam(yaw, 10, 860, W / 2, VY3 + 300)
     spin = -t * 0.25
     tread = lambda k, n: shade(RUBBER, 0.75) if k % 2 else RUBBER
     sidewall = lambda k, n: shade(RUBBER, 1.18) if k % 6 == 0 else RUBBER
@@ -218,8 +219,8 @@ def turbo3d(frame, d, t, i):
             d.ellipse([px - 12, py - 12, px + 12, py + 12], fill=_a(AMBER, 230))
         callout(d, cam, (0.0, 0.0, 0.13), 120, -150, "OIL COOLS IT", AMBER)
         secs = int(min(60, 60 * ease_out((t - 0.6) / 2.6)))
-        timer(d, X0 + XW / 2, VY3 + 760, 100, secs / 60, GREEN, f"{secs}s")
-        big_word(d, "IDLE, THEN OFF", VY3 + 920, WHITE, t, 0.8, 64)
+        timer(d, X0 + 90, VY3 + 700, 80, secs / 60, GREEN, f"{secs}s")
+        _label(d, X0 + 200, VY3 + 668, "IDLE, THEN OFF", WHITE, 56, alpha=255 * ease_out((t - 0.8) / 0.35))
     elif i == 0:
         callout(d, cam, (-0.36, 0.0, 0.3), -60, -140, "TURBINE", mix(GREY, RED, heat), WHITE)
         big_word(d, "VERY HOT", VY3 + 790, mix(WHITE, RED, heat), t, 0.9, 110)
@@ -228,12 +229,12 @@ def turbo3d(frame, d, t, i):
         for n, (txt, ok) in enumerate(rows):
             q = ease_out((t - 0.3 - n * 0.8) / 0.35)
             if q > 0:
-                y = VY3 + 700 + n * 100
+                y = VY3 + 620 + n * 85
                 tick(d, X0 + 40, y, ok, q, 36)
                 _label(d, X0 + 100, y - 30, txt, WHITE, 52, alpha=255 * q)
     else:
-        timer(d, X0 + XW / 2, VY3 + 790, 150, ease_out(t / 1.5), GREEN, "")
-        big_word(d, "30-60 s", VY3 + 790, WHITE, t, 0.0, 56)
+        timer(d, X0 + XW / 2, VY3 + 720, 120, ease_out(t / 1.5), GREEN, "")
+        d.text((X0 + XW / 2, VY3 + 720), "30-60 s", font=_font(BOLD, 52), fill=_a(WHITE), anchor="mm")
 
 
 # ---- 3 battery ----------------------------------------------------------------
@@ -301,7 +302,7 @@ def gearbox3d(frame, d, t, i):
     # 2 pick: all four side by side, highlighted one by one
     # 3 test drive in traffic: a car creeping stop-go
     if i == 3:
-        cam = Cam(-40, 20, 360, W / 2, VY3 + 380)
+        cam = Cam(-40, 20, 360, W / 2, VY3 + 320)
         creep = 0.5 * (1 + math.sin(t * 2.2))
         ground(d, cam, t=t, speed=0.6 * creep)
         sc = Scene(cam)
@@ -331,8 +332,8 @@ def gearbox3d(frame, d, t, i):
         d.line([c, e], fill=_a(TEAL), width=10)
         callout(d, cam, (0.0, -0.55, 0.38), 0, -110, "AMT", AMBER)
         callout(d, cam, (0.0, 0.55, 0.3), 40, -150, "CVT", TEAL)
-        _label(d, X0 + 40, VY3 + 800, "JERKY", AMBER, 60)
-        _label(d, X0 + XW - 40, VY3 + 800, "SMOOTH", TEAL, 60, "ra")
+        _label(d, X0 + 40, VY3 + 700, "JERKY", AMBER, 60)
+        _label(d, X0 + XW - 40, VY3 + 700, "SMOOTH", TEAL, 60, "ra")
     elif i == 1:
         # DCT: two clutch discs, the engaged one lights up in turn
         which = int(t / 0.9) % 2
@@ -350,8 +351,8 @@ def gearbox3d(frame, d, t, i):
             d.ellipse([px - 9, py - 9, px + 9, py + 9], fill=_a(WHITE, 200))
         callout(d, cam, (0.0, -0.55, 0.22), 0, -130, "DCT", BLUE, INK)
         callout(d, cam, (0.0, 0.55, 0.32), 40, -140, "TORQUE CONV.", GREEN)
-        _label(d, X0 + 40, VY3 + 800, "QUICK", BLUE, 60)
-        _label(d, X0 + XW - 40, VY3 + 800, "TOUGH", GREEN, 60, "ra")
+        _label(d, X0 + 40, VY3 + 700, "QUICK", BLUE, 60)
+        _label(d, X0 + XW - 40, VY3 + 700, "TOUGH", GREEN, 60, "ra")
     else:
         names = [("AMT", AMBER, "BUDGET"), ("CVT", TEAL, "COMFORT"), ("DCT", BLUE, "FUN"), ("TC", GREEN, "COMFORT")]
         hi = min(3, int(t / 0.9))
@@ -379,7 +380,7 @@ def cng3d(frame, d, t, i):
     # 1 trade-off: the boot opens on the cylinder, power down, cost down
     # 2 care: petrol gauge, spark plug, cylinder test date
     # 3 no damage with care
-    cam = Cam(150 + 6 * math.sin(t * 0.4), 20, 380, W / 2, VY3 + 380)
+    cam = Cam(150 + 6 * math.sin(t * 0.4), 20, 380, W / 2, VY3 + 320)
     ground(d, cam, t=t, speed=0.0)
     boot = ease_out((t - 0.4) / 0.8) if i in (1, 2) else 0.0
     if i == 3:
@@ -402,7 +403,7 @@ def cng3d(frame, d, t, i):
         rows = [("POWER", RED, 0.85), ("COST", GREEN, 0.5)]
         for n, (lab, col, lv) in enumerate(rows):
             q = ease_out((t - 1.0 - n * 0.6) / 0.6)
-            y = VY3 + 780 + n * 90
+            y = VY3 + 640 + n * 80
             _label(d, X0, y, lab, WHITE, 44)
             d.rounded_rectangle([X0 + 220, y + 6, X0 + XW, y + 46], radius=20, fill=_a((40, 46, 58)))
             w = (XW - 220) * (1 - (1 - lv) * q)
@@ -425,7 +426,7 @@ def trip3d(frame, d, t, i):
     # 2 wipers and lights: lamps glow, the wiper sweeps
     # 3 brakes: front discs glow, the car stops straight
     yaw = -35 + (40 if i == 1 else 0) * 0 + 6 * math.sin(t * 0.4)
-    cam = Cam(yaw if i != 1 else 20 + 6 * math.sin(t * 0.4), 22, 380, W / 2, VY3 + 380)
+    cam = Cam(yaw if i != 1 else 20 + 6 * math.sin(t * 0.4), 22, 380, W / 2, VY3 + 320)
     rolling = i == 3 and t < 1.4
     ground(d, cam, t=t, speed=1.2 * max(0.0, 1 - t / 1.4) if i == 3 else 0.0)
     lights = (0.5 + 0.5 * math.sin(t * 6)) if i == 2 else 0.0
