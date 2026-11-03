@@ -20,7 +20,7 @@
       "viz": {}
     },
     {
-      "heading": "Usually 10 to 20% in Indian heat",
+      "heading": "Usually 10 to 20 percent",
       "body": "",
       "badge": "THE NUMBER",
       "viz": {
@@ -50,7 +50,7 @@
         "kind": "number",
         "value": "CITY",
         "label": "AC runs, car crawls",
-        "sub": "More of your battery goes to cooling",
+        "sub": "",
         "color": "amber"
       }
     },
@@ -62,11 +62,11 @@
         "kind": "check",
         "items": [
           {
-            "text": "Pre-cool while plugged in",
+            "text": "Pre-cool plugged in",
             "ok": true
           },
           {
-            "text": "Recirculation once cool",
+            "text": "Recirculation",
             "ok": true
           },
           {
@@ -84,7 +84,7 @@
         "kind": "number",
         "value": "SMART AC",
         "label": "comfort and range",
-        "sub": "Eco mode helps too",
+        "sub": "",
         "color": "teal"
       }
     }
@@ -110,8 +110,5 @@
   "youtube_only": true,
   "voiced": true,
   "voice": "en-IN-Chirp3-HD-Charon",
-  "music_track": "tunetank-vlog-beat-349853.mp3",
-  "media_files": [
-    "media/db7050c1/reel.mp4"
-  ]
+  "music_track": "tunetank-vlog-beat-349853.mp3"
 }

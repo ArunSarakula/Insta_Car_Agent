@@ -28,16 +28,14 @@
         "left": {
           "title": "Adult",
           "lines": [
-            "Out of 32 points",
-            "Front and side crash"
+            "/ 32"
           ],
           "color": "teal"
         },
         "right": {
           "title": "Child",
           "lines": [
-            "Out of 49 points",
-            "Child seats tested"
+            "/ 49"
           ],
           "color": "amber"
         },
@@ -52,7 +50,7 @@
         "kind": "number",
         "value": "64 km/h",
         "label": "frontal offset crash",
-        "sub": "Not a highway-speed crash",
+        "sub": "",
         "color": "amber"
       }
     },
@@ -64,15 +62,15 @@
         "kind": "check",
         "items": [
           {
-            "text": "Which variant was tested",
+            "text": "Same variant?",
             "ok": true
           },
           {
-            "text": "Airbags and ESC in your variant",
+            "text": "Same airbags?",
             "ok": true
           },
           {
-            "text": "Adult AND child scores",
+            "text": "Both scores",
             "ok": true
           }
         ]
@@ -86,7 +84,7 @@
         "kind": "number",
         "value": "BELT UP",
         "label": "front and rear",
-        "sub": "Rear seat belts too",
+        "sub": "",
         "color": "green"
       }
     }
@@ -112,8 +110,5 @@
   "youtube_only": true,
   "voiced": true,
   "voice": "en-IN-Chirp3-HD-Charon",
-  "music_track": "jonasblakewood-epic-cinematic-562864.mp3",
-  "media_files": [
-    "media/ff429d97/reel.mp4"
-  ]
+  "music_track": "jonasblakewood-epic-cinematic-562864.mp3"
 }

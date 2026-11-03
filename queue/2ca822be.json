@@ -28,16 +28,14 @@
         "left": {
           "title": "December",
           "lines": [
-            "Bigger discounts",
-            "Year-end offers"
+            "Big discounts"
           ],
           "color": "green"
         },
         "right": {
           "title": "January",
           "lines": [
-            "Price hikes likely",
-            "Newer year on paper"
+            "Newer year"
           ],
           "color": "amber"
         },
@@ -52,7 +50,7 @@
         "kind": "number",
         "value": "1 YEAR",
         "label": "older on paper",
-        "sub": "A December car looks a year older within weeks",
+        "sub": "",
         "color": "amber"
       }
     },
@@ -64,15 +62,15 @@
         "kind": "check",
         "items": [
           {
-            "text": "Manufacturing month on the VIN plate",
+            "text": "VIN date",
             "ok": true
           },
           {
-            "text": "Avoid stock many months old",
+            "text": "Not old stock",
             "ok": true
           },
           {
-            "text": "Get the discount in writing",
+            "text": "Offer in writing",
             "ok": true
           }
         ]
@@ -87,14 +85,14 @@
         "left": {
           "title": "Keep 7+ years",
           "lines": [
-            "Take the December deal"
+            "December"
           ],
           "color": "green"
         },
         "right": {
           "title": "Sell in 2-3 years",
           "lines": [
-            "Think about January"
+            "January"
           ],
           "color": "amber"
         },
@@ -122,8 +120,5 @@
   ],
   "voiced": true,
   "voice": "en-IN-Chirp3-HD-Charon",
-  "music_track": "prettyjohn1-future-bass-523169.mp3",
-  "media_files": [
-    "media/2ca822be/reel.mp4"
-  ]
+  "music_track": "prettyjohn1-future-bass-523169.mp3"
 }

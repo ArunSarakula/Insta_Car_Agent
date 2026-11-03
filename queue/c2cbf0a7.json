@@ -27,7 +27,7 @@
         "kind": "number",
         "value": "8 YEARS",
         "label": "common battery warranty",
-        "sub": "Often 1.6 lakh km, check your brand",
+        "sub": "",
         "color": "teal"
       }
     },
@@ -51,15 +51,15 @@
         "kind": "check",
         "items": [
           {
-            "text": "Charging to 100% every day",
+            "text": "100% daily",
             "ok": false
           },
           {
-            "text": "Only DC fast charging",
+            "text": "Only fast charging",
             "ok": false
           },
           {
-            "text": "Parking in hot sun",
+            "text": "Hot sun",
             "ok": false
           }
         ]
@@ -73,7 +73,7 @@
         "kind": "number",
         "value": "20-80%",
         "label": "daily charge range",
-        "sub": "Full charge before long trips is fine",
+        "sub": "",
         "color": "green"
       }
     }
@@ -99,8 +99,5 @@
   "youtube_only": true,
   "voiced": true,
   "voice": "en-IN-Chirp3-HD-Charon",
-  "music_track": "atlasaudio-lofi-chill-589987.mp3",
-  "media_files": [
-    "media/c2cbf0a7/reel.mp4"
-  ]
+  "music_track": "atlasaudio-lofi-chill-589987.mp3"
 }

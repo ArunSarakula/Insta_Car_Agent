@@ -50,16 +50,16 @@
         "kind": "check",
         "items": [
           {
-            "text": "Charging at office or society",
+            "text": "Office charging",
             "ok": true
           },
           {
-            "text": "A charger near home you use weekly",
+            "text": "Society charger",
             "ok": true
           },
           {
-            "text": "Mostly long highway runs",
-            "ok": false
+            "text": "Charger nearby",
+            "ok": true
           }
         ]
       }
@@ -72,7 +72,7 @@
         "kind": "number",
         "value": "WEEKLY",
         "label": "a charging stop",
-        "sub": "Plan it like a fuel stop",
+        "sub": "",
         "color": "amber"
       }
     },
@@ -85,7 +85,7 @@
         "left": {
           "title": "Regular spot",
           "lines": [
-            "EV makes sense"
+            "EV"
           ],
           "color": "green"
         },
@@ -121,8 +121,5 @@
   "youtube_only": true,
   "voiced": true,
   "voice": "en-IN-Chirp3-HD-Charon",
-  "music_track": "alex-morgan-corporate-startup-568146.mp3",
-  "media_files": [
-    "media/a11d2519/reel.mp4"
-  ]
+  "music_track": "alex-morgan-corporate-startup-568146.mp3"
 }

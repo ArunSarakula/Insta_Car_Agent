@@ -28,16 +28,14 @@
         "left": {
           "title": "Factory kit",
           "lines": [
-            "Engine tuned for CNG",
-            "Covered by warranty"
+            "Built for CNG"
           ],
           "color": "green"
         },
         "right": {
           "title": "Cheap aftermarket kit",
           "lines": [
-            "Poor tuning",
-            "Can run hot"
+            "Risky"
           ],
           "color": "red"
         },
@@ -52,15 +50,15 @@
         "kind": "check",
         "items": [
           {
-            "text": "Some power, felt on climbs",
+            "text": "Less power",
             "ok": false
           },
           {
-            "text": "Boot space for the cylinder",
+            "text": "Less boot",
             "ok": false
           },
           {
-            "text": "Much lower running cost",
+            "text": "Lower cost",
             "ok": true
           }
         ]
@@ -73,9 +71,9 @@
       "viz": {
         "kind": "steps",
         "items": [
-          "Keep some petrol in the tank",
-          "Spark plugs checked more often",
-          "Cylinder test every 3 years"
+          "Some petrol in tank",
+          "Check spark plugs",
+          "Cylinder test: 3 yrs"
         ]
       }
     },
@@ -87,7 +85,7 @@
         "kind": "number",
         "value": "NO",
         "label": "damage with proper care",
-        "sub": "Factory or approved kit, regular service",
+        "sub": "",
         "color": "green"
       }
     }
@@ -113,8 +111,5 @@
   "youtube_only": true,
   "voiced": true,
   "voice": "en-IN-Chirp3-HD-Charon",
-  "music_track": "atlasaudio-lofi-chill-589987.mp3",
-  "media_files": [
-    "media/a941b1bd/reel.mp4"
-  ]
+  "music_track": "atlasaudio-lofi-chill-589987.mp3"
 }

@@ -20,6 +20,7 @@ VY = 990
 COLORS = {"teal": TEAL, "amber": AMBER, "red": RED, "green": GREEN, "white": WHITE, "grey": GREY,
           "blue": (90, 170, 255)}
 PANEL = (30, 38, 52)
+GAP = 0.8  # seconds between list items, so they arrive with the voice
 
 
 def _c(name, default=TEAL):
@@ -59,64 +60,59 @@ def _tick(d, cx, cy, r, ok, alpha):
 def _bars(d, t, viz):
     items = viz.get("items", [])[:5]
     top = max((float(i.get("value", 0)) for i in items), default=1) or 1
-    row = min(130, 560 // max(1, len(items)))
+    row = min(170, 560 // max(1, len(items)))
     y0 = VY - 60 + (560 - row * len(items)) // 2
-    label_w = 250
+    label_w = 300
     for n, it in enumerate(items):
         p = ease_out((t - 0.2 - n * 0.35) / 0.7)
         if p <= 0:
             continue
         y = y0 + n * row
         col = _c(it.get("color"), TEAL)
-        f = _fitted(d, it["label"], label_w - 16, 40)
-        d.text((X0, y + 22), it["label"], font=f, fill=_a(WHITE, 255 * p), anchor="lm")
+        f = _fitted(d, it["label"], label_w - 16, 52)
+        d.text((X0, y + 28), it["label"], font=f, fill=_a(WHITE, 255 * p), anchor="lm")
         bx, bw = X0 + label_w, XW - label_w - 10
-        d.rounded_rectangle([bx, y, bx + bw, y + 46], radius=23, fill=_a(PANEL, 255 * p))
+        d.rounded_rectangle([bx, y, bx + bw, y + 56], radius=28, fill=_a(PANEL, 255 * p))
         w = bw * float(it.get("value", 0)) / top * p
-        if w > 46:
-            d.rounded_rectangle([bx, y, bx + w, y + 46], radius=23, fill=_a(col, 255))
+        if w > 56:
+            d.rounded_rectangle([bx, y, bx + w, y + 56], radius=28, fill=_a(col, 255))
         label = it.get("text") or str(it.get("value"))
-        _text(d, (bx + 6, y + 58), label, 34, col, 255 * ease_out((t - 0.5 - n * 0.35) / 0.4))
+        _text(d, (bx + 6, y + 66), label, 44, col, 255 * ease_out((t - 0.5 - n * 0.35) / 0.4))
     if viz.get("unit"):
         _text(d, (X0 + XW, VY - 110), viz["unit"].upper(), 28, GREY, 255 * ease_out(t / 0.4), "ra")
 
 
 def _check(d, t, viz):
-    items = viz.get("items", [])[:5]
-    row = min(124, 580 // max(1, len(items)))
+    items = viz.get("items", [])[:3]  # a few big words: the captions above already carry the sentence
+    row = 170
     y0 = VY - 70 + (580 - row * len(items)) // 2
     for n, it in enumerate(items):
-        p = ease_out((t - 0.25 - n * 0.45) / 0.4)
+        p = ease_out((t - 0.3 - n * GAP) / 0.4)
         if p <= 0:
             continue
         y = y0 + n * row + 16 * (1 - p)
-        d.rounded_rectangle([X0, y, X0 + XW, y + row - 18], radius=26, fill=_a(PANEL, 255 * p))
-        cy = y + (row - 18) / 2
-        _tick(d, X0 + 52, cy, 30, it.get("ok", True), 255 * p)
-        f, lines, lh = _fit(d, clean(it["text"]), BOLD, XW - 130, row - 30, 40, 26, spacing=1.1)
-        ty = cy - len(lines) * lh / 2
-        for k, line in enumerate(lines):
-            d.text((X0 + 104, ty + k * lh), line, font=f, fill=_a(WHITE, 255 * p))
+        cy = y + (row - 24) / 2
+        _tick(d, X0 + 50, cy, 44, it.get("ok", True), 255 * p)
+        f = _fitted(d, clean(it["text"]), XW - 130, 64, 34)
+        d.text((X0 + 124, cy), clean(it["text"]), font=f, fill=_a(WHITE, 255 * p), anchor="lm")
 
 
 def _steps(d, t, viz):
-    items = [{"text": s} if isinstance(s, str) else s for s in viz.get("items", [])][:5]
-    row = min(124, 580 // max(1, len(items)))
+    items = [{"text": s} if isinstance(s, str) else s for s in viz.get("items", [])][:3]
+    row = 170
     y0 = VY - 70 + (580 - row * len(items)) // 2
     for n, it in enumerate(items):
-        p = ease_out((t - 0.25 - n * 0.45) / 0.4)
+        p = ease_out((t - 0.3 - n * GAP) / 0.4)
         if p <= 0:
             continue
-        y = y0 + n * row
         x = X0 + 30 * (1 - p)
-        cy = y + (row - 18) / 2
-        d.rounded_rectangle([x, y, X0 + XW, y + row - 18], radius=26, fill=_a(PANEL, 255 * p))
-        d.ellipse([x + 22, cy - 30, x + 82, cy + 30], fill=_a(AMBER, 255 * p))
-        _text(d, (x + 52, cy), str(n + 1), 36, INK, 255 * p, "mm")
-        f, lines, lh = _fit(d, clean(it["text"]), BOLD, XW - 140, row - 30, 40, 26, spacing=1.1)
-        ty = cy - len(lines) * lh / 2
-        for k, line in enumerate(lines):
-            d.text((x + 106, ty + k * lh), line, font=f, fill=_a(WHITE, 255 * p))
+        cy = y0 + n * row + (row - 24) / 2
+        if n:  # the arrow down from the step before
+            d.line([(X0 + 50, cy - row + 52), (X0 + 50, cy - 52)], fill=_a(AMBER, 160 * p), width=6)
+        d.ellipse([x + 6, cy - 44, x + 94, cy + 44], fill=_a(AMBER, 255 * p))
+        _text(d, (x + 50, cy), str(n + 1), 48, INK, 255 * p, "mm")
+        f = _fitted(d, clean(it["text"]), XW - 140, 64, 34)
+        d.text((x + 124, cy), clean(it["text"]), font=f, fill=_a(WHITE, 255 * p), anchor="lm")
 
 
 def _number(d, t, viz):
@@ -146,7 +142,7 @@ def _card(d, x, w, side, t, start, win):
     if p <= 0:
         return
     col = _c(side.get("color"), TEAL)
-    y0, y1 = VY - 70 + 30 * (1 - p), VY + 480
+    y0, y1 = VY - 70 + 30 * (1 - p), VY + 400
     if win:
         d.rounded_rectangle([x - 8, y0 - 8, x + w + 8, y1 + 8], radius=36, outline=_a(col, 255 * p), width=8)
     d.rounded_rectangle([x, y0, x + w, y1], radius=30, fill=_a(PANEL, 255 * p))
@@ -155,13 +151,11 @@ def _card(d, x, w, side, t, start, win):
     f = _fitted(d, side.get("title", "").upper(), w - 40, 46, 24)
     d.text((x + w / 2, y0 + 55), side.get("title", "").upper(), font=f, fill=_a(INK, 255 * p), anchor="mm")
     y = y0 + 140
-    for k, line in enumerate(side.get("lines", [])[:4]):
+    for k, line in enumerate(side.get("lines", [])[:2]):
         q = ease_out((t - start - 0.3 - k * 0.25) / 0.35)
-        f2, lines, lh = _fit(d, clean(line), BOLD, w - 50, 140, 38, 24, spacing=1.08)
-        for ln in lines:
-            d.text((x + 25, y), ln, font=f2, fill=_a(WHITE, 255 * q))
-            y += lh
-        y += 22
+        f2 = _fitted(d, clean(line), w - 50, 72, 32)
+        d.text((x + w / 2, y + 60), clean(line), font=f2, fill=_a(WHITE, 255 * q), anchor="mm")
+        y += 130
     if win and t > start + 1.2:
         q = ease_out((t - start - 1.2) / 0.3)
         f3 = _font(BOLD, 30)

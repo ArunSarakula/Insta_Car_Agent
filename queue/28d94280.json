@@ -50,15 +50,11 @@
         "kind": "check",
         "items": [
           {
-            "text": "E20 sticker on the fuel lid: made for it",
+            "text": "E20 sticker",
             "ok": true
           },
           {
-            "text": "Most cars from April 2023 on",
-            "ok": true
-          },
-          {
-            "text": "Older car: ask your service centre",
+            "text": "Made after Apr 2023",
             "ok": true
           }
         ]
@@ -95,7 +91,7 @@
         "kind": "number",
         "value": "E20",
         "label": "check the fuel lid",
-        "sub": "Older cars: rubber parts at service",
+        "sub": "",
         "color": "teal"
       }
     }
@@ -120,8 +116,5 @@
   ],
   "voiced": true,
   "voice": "en-IN-Chirp3-HD-Charon",
-  "music_track": "alex-morgan-corporate-startup-568146.mp3",
-  "media_files": [
-    "media/28d94280/reel.mp4"
-  ]
+  "music_track": "alex-morgan-corporate-startup-568146.mp3"
 }

@@ -62,11 +62,11 @@
         "kind": "check",
         "items": [
           {
-            "text": "Diesel, CNG and EV cost more to buy",
+            "text": "Costlier to buy",
             "ok": false
           },
           {
-            "text": "Savings need kilometres",
+            "text": "Savings need km",
             "ok": true
           }
         ]
@@ -79,9 +79,9 @@
       "viz": {
         "kind": "steps",
         "items": [
-          "Under 1,000 km a month: petrol is fine",
-          "1,000 to 2,000: CNG or hybrid",
-          "Lots of km and home charging: EV"
+          "Under 1,000 km: Petrol",
+          "1,000-2,000: CNG",
+          "Lots + home: EV"
         ]
       }
     },
@@ -93,7 +93,7 @@
         "kind": "number",
         "value": "YOUR KM",
         "label": "decides the fuel",
-        "sub": "Use your city's prices",
+        "sub": "",
         "color": "teal"
       }
     }
@@ -118,8 +118,5 @@
   ],
   "voiced": true,
   "voice": "en-IN-Chirp3-HD-Charon",
-  "music_track": "nastelbom-epic-trailer-602514.mp3",
-  "media_files": [
-    "media/e7e51f74/reel.mp4"
-  ]
+  "music_track": "nastelbom-epic-trailer-602514.mp3"
 }

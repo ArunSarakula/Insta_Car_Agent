@@ -29,17 +29,15 @@
           "title": "AMT",
           "lines": [
             "Cheapest",
-            "Jerky shifts",
-            "Good mileage"
+            "Jerky"
           ],
           "color": "amber"
         },
         "right": {
           "title": "CVT",
           "lines": [
-            "Very smooth",
-            "Great in city",
-            "Rubber-band feel"
+            "Smooth",
+            "City"
           ],
           "color": "teal"
         },
@@ -55,9 +53,8 @@
         "left": {
           "title": "DCT",
           "lines": [
-            "Fastest shifts",
-            "Efficient",
-            "Hates slow crawling"
+            "Quick",
+            "Efficient"
           ],
           "color": "blue"
         },
@@ -65,8 +62,7 @@
           "title": "Torque converter",
           "lines": [
             "Smooth",
-            "Tough",
-            "Slightly thirstier"
+            "Tough"
           ],
           "color": "green"
         },
@@ -80,9 +76,9 @@
       "viz": {
         "kind": "steps",
         "items": [
-          "Tight budget: AMT",
-          "City comfort: CVT or torque converter",
-          "Highway fun: DCT, drive it smoothly in traffic"
+          "Budget: AMT",
+          "Comfort: CVT / TC",
+          "Fun: DCT"
         ]
       }
     },
@@ -94,7 +90,7 @@
         "kind": "number",
         "value": "TRAFFIC",
         "label": "test drive it there",
-        "sub": "Not just on an empty road",
+        "sub": "",
         "color": "teal"
       }
     }
@@ -119,8 +115,5 @@
   ],
   "voiced": true,
   "voice": "en-IN-Chirp3-HD-Charon",
-  "music_track": "paulyudin-tech-corporate-182507.mp3",
-  "media_files": [
-    "media/89480774/reel.mp4"
-  ]
+  "music_track": "paulyudin-tech-corporate-182507.mp3"
 }

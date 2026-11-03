@@ -28,16 +28,14 @@
         "left": {
           "title": "Week",
           "lines": [
-            "First 2 digits",
-            "e.g. 23"
+            "23"
           ],
           "color": "teal"
         },
         "right": {
           "title": "Year",
           "lines": [
-            "Last 2 digits",
-            "e.g. 25 = 2025"
+            "25"
           ],
           "color": "amber"
         },
@@ -52,7 +50,7 @@
         "kind": "number",
         "value": "2325",
         "label": "week 23 of 2025",
-        "sub": "Find it on the sidewall",
+        "sub": "",
         "color": "teal"
       }
     },
@@ -64,11 +62,11 @@
         "kind": "check",
         "items": [
           {
-            "text": "Made within the last year",
+            "text": "Under 1 year old",
             "ok": true
           },
           {
-            "text": "Several years old in the shop",
+            "text": "Years-old stock",
             "ok": false
           }
         ]
@@ -82,11 +80,11 @@
         "kind": "check",
         "items": [
           {
-            "text": "Replace at the tread wear bars",
+            "text": "Wear bars",
             "ok": true
           },
           {
-            "text": "Old tyres with cracks: replace",
+            "text": "Cracks",
             "ok": true
           }
         ]
@@ -113,8 +111,5 @@
   ],
   "voiced": true,
   "voice": "en-IN-Chirp3-HD-Charon",
-  "music_track": "prettyjohn1-future-bass-523169.mp3",
-  "media_files": [
-    "media/17fb7964/reel.mp4"
-  ]
+  "music_track": "prettyjohn1-future-bass-523169.mp3"
 }

@@ -26,9 +26,9 @@
       "viz": {
         "kind": "steps",
         "items": [
-          "Written estimate before any work",
-          "Approve every extra by phone",
-          "Ask to see the old parts"
+          "Written estimate",
+          "Call before extras",
+          "See old parts"
         ]
       }
     },
@@ -40,19 +40,15 @@
         "kind": "check",
         "items": [
           {
-            "text": "Engine flush every service",
+            "text": "Engine flush",
             "ok": false
           },
           {
-            "text": "Throttle or injector cleaning every time",
+            "text": "Throttle cleaning",
             "ok": false
           },
           {
-            "text": "AC gas top-up without a leak check",
-            "ok": false
-          },
-          {
-            "text": "Paid nitrogen top-ups",
+            "text": "AC gas top-up",
             "ok": false
           }
         ]
@@ -66,15 +62,11 @@
         "kind": "check",
         "items": [
           {
-            "text": "Oil and filter: as per manual",
+            "text": "Oil: as per manual",
             "ok": true
           },
           {
-            "text": "Brake fluid: as per manual",
-            "ok": true
-          },
-          {
-            "text": "Parts due by km or months",
+            "text": "Not due? Say no",
             "ok": true
           }
         ]
@@ -88,7 +80,7 @@
         "kind": "number",
         "value": "ASK WHY",
         "label": "before you pay",
-        "sub": "Most add-ons are optional",
+        "sub": "",
         "color": "amber"
       }
     }
@@ -113,8 +105,5 @@
   ],
   "voiced": true,
   "voice": "en-IN-Chirp3-HD-Charon",
-  "music_track": "prettyjohn1-future-bass-523169.mp3",
-  "media_files": [
-    "media/f568c0b0/reel.mp4"
-  ]
+  "music_track": "prettyjohn1-future-bass-523169.mp3"
 }

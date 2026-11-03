@@ -27,15 +27,15 @@
         "kind": "check",
         "items": [
           {
-            "text": "Tyre pressure, cold, as per door sticker",
+            "text": "Pressure (cold)",
             "ok": true
           },
           {
-            "text": "Spare tyre pressure",
+            "text": "Spare tyre",
             "ok": true
           },
           {
-            "text": "Cuts or bulges on the sidewall",
+            "text": "No cuts or bulges",
             "ok": true
           }
         ]
@@ -49,15 +49,15 @@
         "kind": "check",
         "items": [
           {
-            "text": "Engine oil between min and max",
+            "text": "Engine oil",
             "ok": true
           },
           {
-            "text": "Coolant at the mark",
+            "text": "Coolant",
             "ok": true
           },
           {
-            "text": "Washer fluid full",
+            "text": "Washer fluid",
             "ok": true
           }
         ]
@@ -71,11 +71,11 @@
         "kind": "check",
         "items": [
           {
-            "text": "Wipers clear the glass",
+            "text": "Wipers",
             "ok": true
           },
           {
-            "text": "All lights and indicators work",
+            "text": "All lights",
             "ok": true
           }
         ]
@@ -89,11 +89,15 @@
         "kind": "check",
         "items": [
           {
-            "text": "Pedal firm, no squeal",
+            "text": "Firm pedal",
             "ok": true
           },
           {
-            "text": "No pull to one side",
+            "text": "No squeal",
+            "ok": true
+          },
+          {
+            "text": "No pull",
             "ok": true
           }
         ]
@@ -120,8 +124,5 @@
   ],
   "voiced": true,
   "voice": "en-IN-Chirp3-HD-Charon",
-  "music_track": "bombinsound-future-bass-581620.mp3",
-  "media_files": [
-    "media/13d33261/reel.mp4"
-  ]
+  "music_track": "bombinsound-future-bass-581620.mp3"
 }

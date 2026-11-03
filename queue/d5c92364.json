@@ -27,7 +27,7 @@
         "kind": "number",
         "value": "VERY HOT",
         "label": "turbo after a hard drive",
-        "sub": "Oil cools its bearings",
+        "sub": "",
         "color": "red"
       }
     },
@@ -38,9 +38,9 @@
       "viz": {
         "kind": "steps",
         "items": [
-          "Fast highway run or steep climb",
-          "Idle 30 to 60 seconds",
-          "Then switch off"
+          "Hard drive",
+          "Idle 30-60 s",
+          "Switch off"
         ]
       }
     },
@@ -52,15 +52,15 @@
         "kind": "check",
         "items": [
           {
-            "text": "Gentle city drive: switch off normally",
+            "text": "City drive: OK",
             "ok": true
           },
           {
-            "text": "Revving before switch off",
+            "text": "Revving at stop",
             "ok": false
           },
           {
-            "text": "Hard driving on a cold engine",
+            "text": "Hard when cold",
             "ok": false
           }
         ]
@@ -74,7 +74,7 @@
         "kind": "number",
         "value": "30-60 s",
         "label": "idle after a hard drive",
-        "sub": "VW and Skoda TSI owners, this one's for you",
+        "sub": "",
         "color": "teal"
       }
     }
@@ -99,8 +99,5 @@
   ],
   "voiced": true,
   "voice": "en-IN-Chirp3-HD-Charon",
-  "music_track": "paulyudin-tech-corporate-182507.mp3",
-  "media_files": [
-    "media/d5c92364/reel.mp4"
-  ]
+  "music_track": "paulyudin-tech-corporate-182507.mp3"
 }

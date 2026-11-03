@@ -39,15 +39,11 @@
         "kind": "check",
         "items": [
           {
-            "text": "Drive 20 to 30 minutes weekly",
+            "text": "Weekly 20-30 min drive",
             "ok": true
           },
           {
-            "text": "Idling for 2 minutes",
-            "ok": false
-          },
-          {
-            "text": "Lights or dashcam left on",
+            "text": "2 min idling",
             "ok": false
           }
         ]
@@ -60,9 +56,9 @@
       "viz": {
         "kind": "steps",
         "items": [
-          "Ask someone to drive it weekly",
-          "Or use a battery maintainer",
-          "Or disconnect the negative terminal"
+          "Someone drives it",
+          "Battery maintainer",
+          "Remove negative"
         ]
       }
     },
@@ -74,15 +70,15 @@
         "kind": "check",
         "items": [
           {
-            "text": "Slow, weak cranking",
+            "text": "Slow cranking",
             "ok": false
           },
           {
-            "text": "White crust on terminals",
+            "text": "White crust",
             "ok": false
           },
           {
-            "text": "Battery over 3 to 4 years old",
+            "text": "3-4 years old",
             "ok": false
           }
         ]
@@ -109,8 +105,5 @@
   ],
   "voiced": true,
   "voice": "en-IN-Chirp3-HD-Charon",
-  "music_track": "tunetank-vlog-beat-349853.mp3",
-  "media_files": [
-    "media/d30f1aa1/reel.mp4"
-  ]
+  "music_track": "tunetank-vlog-beat-349853.mp3"
 }
