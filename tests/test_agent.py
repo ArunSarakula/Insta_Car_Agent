@@ -683,3 +683,14 @@ def test_render_renders_only_posts_without_media(tmp_path, monkeypatch):
     cli.cmd_render(SimpleNamespace(handle="@x", tts_api_key="", voice="v"), None)
     assert calls == ["new1"]
     assert json.loads((tmp_path / "new1.json").read_text())["media_files"] == ["media/new1/reel.mp4"]
+
+
+def test_more_3d_visuals_draw_every_scene():
+    from PIL import Image, ImageDraw
+    from agent.motion_3d_more import VISUALS3D_MORE
+    for name, draw in VISUALS3D_MORE.items():
+        for i in range(4):
+            frame = Image.new("RGBA", (1080, 1920), (0, 0, 0, 255))
+            layer = Image.new("RGBA", frame.size, (0, 0, 0, 0))
+            draw(frame, ImageDraw.Draw(layer), 2.0, i)
+            assert layer.getbbox(), (name, i)

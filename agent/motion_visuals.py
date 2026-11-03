@@ -460,7 +460,8 @@ def visual_scenes(post, handle):
     big = None
     if post.get("layout") == "big3d":  # the 3D part fills the screen; the voice carries the words
         from .motion_3d import VISUALS3D
-        big = VISUALS3D.get(post["reel_style"])
+        from .motion_3d_more import VISUALS3D_MORE
+        big = {**VISUALS3D, **VISUALS3D_MORE}.get(post.get("visual3d") or post["reel_style"])
     slides = post["slides"]
     scenes = []
     for i, slide in enumerate(slides[1:]):
