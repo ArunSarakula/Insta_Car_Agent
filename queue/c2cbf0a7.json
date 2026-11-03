@@ -1,0 +1,100 @@
+{
+  "format": "reel",
+  "reel_style": "board",
+  "layout": "captions",
+  "status": "draft",
+  "id": "c2cbf0a7",
+  "scheduled_for": "2026-12-01T19:30:00+05:30",
+  "save_tip": "Daily 20 to 80%, full only for trips",
+  "music": "chill",
+  "hook_type": "question",
+  "title": "How long does an EV battery last in India?",
+  "hook": "How long does an EV battery really last?",
+  "youtube_title": "How long does an EV battery last in India? Warranty and replacement",
+  "thumbnail_text": "EV battery | life?",
+  "slides": [
+    {
+      "heading": "How long does an EV battery really last?",
+      "body": "",
+      "badge": "",
+      "viz": {}
+    },
+    {
+      "heading": "Most come with a long warranty",
+      "body": "",
+      "badge": "WARRANTY",
+      "viz": {
+        "kind": "number",
+        "value": "8 YEARS",
+        "label": "common battery warranty",
+        "sub": "Often 1.6 lakh km, check your brand",
+        "color": "teal"
+      }
+    },
+    {
+      "heading": "It fades slowly, it doesn't just die",
+      "body": "",
+      "badge": "HEALTH",
+      "viz": {
+        "kind": "gauge",
+        "value": 0.8,
+        "text": "~80%",
+        "label": "health after many years",
+        "color": "green"
+      }
+    },
+    {
+      "heading": "What wears it faster",
+      "body": "",
+      "badge": "AVOID",
+      "viz": {
+        "kind": "check",
+        "items": [
+          {
+            "text": "Charging to 100% every day",
+            "ok": false
+          },
+          {
+            "text": "Only DC fast charging",
+            "ok": false
+          },
+          {
+            "text": "Parking in hot sun",
+            "ok": false
+          }
+        ]
+      }
+    },
+    {
+      "heading": "Daily 20 to 80%, full only for trips",
+      "body": "",
+      "badge": "MY RULE",
+      "viz": {
+        "kind": "number",
+        "value": "20-80%",
+        "label": "daily charge range",
+        "sub": "Full charge before long trips is fine",
+        "color": "green"
+      }
+    }
+  ],
+  "voice_lines": [
+    "Most EVs in India come with a battery warranty of around eight years, often with a kilometre limit. Check your brand.",
+    "The battery fades slowly over the years. It doesn't just die one day.",
+    "What wears it faster: charging to a hundred percent every day, only using fast chargers, and parking in hot sun.",
+    "Keep daily charging between twenty and eighty percent, and charge full only before trips. Any doubts? Comment below or DM me on Instagram."
+  ],
+  "caption": "How long does an EV battery last? 🔋\n\n• Most EVs in India come with a battery warranty of around 8 years, often with a km limit (check your brand's exact terms)\n• Batteries fade slowly; they don't suddenly die\n\nWears it faster: 100% every day, only DC fast charging, parking in hot sun.\n\nMy rule: 20-80% daily, full charge only before long trips.\n\nAny doubts? Comment below or DM me on Instagram 👇",
+  "hashtags": [
+    "#EVIndia",
+    "#EVBattery",
+    "#ElectricCars",
+    "#EVTips",
+    "#CarTech"
+  ],
+  "youtube_hashtags": [
+    "#EVIndia",
+    "#EVBattery"
+  ],
+  "youtube_only": true
+}

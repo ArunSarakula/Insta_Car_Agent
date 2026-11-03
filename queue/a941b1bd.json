@@ -1,0 +1,114 @@
+{
+  "format": "reel",
+  "reel_style": "board",
+  "layout": "captions",
+  "status": "draft",
+  "id": "a941b1bd",
+  "scheduled_for": "2026-11-17T19:30:00+05:30",
+  "save_tip": "Use a factory or approved kit",
+  "music": "chill",
+  "hook_type": "myth",
+  "title": "Does CNG damage the engine?",
+  "hook": "Does CNG damage your engine?",
+  "youtube_title": "Does CNG damage the car engine? Myth vs fact",
+  "thumbnail_text": "Does CNG | damage engines?",
+  "slides": [
+    {
+      "heading": "Does CNG damage your engine?",
+      "body": "",
+      "badge": "",
+      "viz": {}
+    },
+    {
+      "heading": "Factory-fitted CNG is built for it",
+      "body": "",
+      "badge": "MYTH VS FACT",
+      "viz": {
+        "kind": "versus",
+        "left": {
+          "title": "Factory kit",
+          "lines": [
+            "Engine tuned for CNG",
+            "Covered by warranty"
+          ],
+          "color": "green"
+        },
+        "right": {
+          "title": "Cheap aftermarket kit",
+          "lines": [
+            "Poor tuning",
+            "Can run hot"
+          ],
+          "color": "red"
+        },
+        "win": "left"
+      }
+    },
+    {
+      "heading": "What you give up",
+      "body": "",
+      "badge": "THE TRADE-OFF",
+      "viz": {
+        "kind": "check",
+        "items": [
+          {
+            "text": "Some power, felt on climbs",
+            "ok": false
+          },
+          {
+            "text": "Boot space for the cylinder",
+            "ok": false
+          },
+          {
+            "text": "Much lower running cost",
+            "ok": true
+          }
+        ]
+      }
+    },
+    {
+      "heading": "Keep it healthy",
+      "body": "",
+      "badge": "CARE TIPS",
+      "viz": {
+        "kind": "steps",
+        "items": [
+          "Keep some petrol in the tank",
+          "Spark plugs checked more often",
+          "Cylinder test every 3 years"
+        ]
+      }
+    },
+    {
+      "heading": "Use a factory or approved kit",
+      "body": "",
+      "badge": "MY RULE",
+      "viz": {
+        "kind": "number",
+        "value": "NO",
+        "label": "damage with proper care",
+        "sub": "Factory or approved kit, regular service",
+        "color": "green"
+      }
+    }
+  ],
+  "voice_lines": [
+    "A factory-fitted CNG car has an engine tuned for it, and it's covered by warranty. Badly fitted cheap kits are where problems start.",
+    "What you give up is some power, which you'll feel on climbs, and boot space for the cylinder. What you gain is a much lower running cost.",
+    "Keep some petrol in the tank, get the spark plugs checked more often, and get the cylinder tested every three years.",
+    "So no, CNG doesn't damage a properly fitted, well serviced engine. Any doubts? Comment below or DM me on Instagram."
+  ],
+  "caption": "Does CNG damage the engine? Short answer: not when it's factory-fitted or an approved kit, and serviced on time ⛽\n\n✅ Factory CNG: engine tuned for it, warranty covered\n❌ Cheap, badly tuned aftermarket kits: that's where trouble starts\n\nTrade-offs: a little less power on climbs and less boot space, for a much lower running cost.\n\nCare tips: keep some petrol in the tank, check spark plugs more often, and get the cylinder tested every 3 years.\n\nAny doubts? Comment below or DM me on Instagram 👇",
+  "hashtags": [
+    "#CNG",
+    "#CNGCars",
+    "#CarMyths",
+    "#IndianCars",
+    "#CarTips"
+  ],
+  "youtube_hashtags": [
+    "#CNG",
+    "#CarMyths"
+  ],
+  "youtube_only": true
+}

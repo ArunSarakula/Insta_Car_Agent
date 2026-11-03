@@ -1,0 +1,113 @@
+{
+  "format": "reel",
+  "reel_style": "board",
+  "layout": "captions",
+  "status": "draft",
+  "id": "ff429d97",
+  "scheduled_for": "2026-11-18T19:30:00+05:30",
+  "save_tip": "Stars help. Seat belts save.",
+  "music": "epic",
+  "hook_type": "question",
+  "title": "Bharat NCAP 5 stars: what it really means",
+  "hook": "5 stars doesn't mean what you think",
+  "youtube_title": "Bharat NCAP 5 star rating explained: what it really means",
+  "thumbnail_text": "5 star safety? | Read this",
+  "slides": [
+    {
+      "heading": "5 stars doesn't mean what you think",
+      "body": "",
+      "badge": "",
+      "viz": {}
+    },
+    {
+      "heading": "There are two ratings, not one",
+      "body": "",
+      "badge": "TWO SCORES",
+      "viz": {
+        "kind": "versus",
+        "left": {
+          "title": "Adult",
+          "lines": [
+            "Out of 32 points",
+            "Front and side crash"
+          ],
+          "color": "teal"
+        },
+        "right": {
+          "title": "Child",
+          "lines": [
+            "Out of 49 points",
+            "Child seats tested"
+          ],
+          "color": "amber"
+        },
+        "win": null
+      }
+    },
+    {
+      "heading": "Tested at 64 km/h",
+      "body": "",
+      "badge": "THE TEST",
+      "viz": {
+        "kind": "number",
+        "value": "64 km/h",
+        "label": "frontal offset crash",
+        "sub": "Not a highway-speed crash",
+        "color": "amber"
+      }
+    },
+    {
+      "heading": "The rating is for the variant tested",
+      "body": "",
+      "badge": "CHECK THIS",
+      "viz": {
+        "kind": "check",
+        "items": [
+          {
+            "text": "Which variant was tested",
+            "ok": true
+          },
+          {
+            "text": "Airbags and ESC in your variant",
+            "ok": true
+          },
+          {
+            "text": "Adult AND child scores",
+            "ok": true
+          }
+        ]
+      }
+    },
+    {
+      "heading": "Stars help. Seat belts save.",
+      "body": "",
+      "badge": "MY RULE",
+      "viz": {
+        "kind": "number",
+        "value": "BELT UP",
+        "label": "front and rear",
+        "sub": "Rear seat belts too",
+        "color": "green"
+      }
+    }
+  ],
+  "voice_lines": [
+    "Bharat NCAP gives two ratings: adult protection, out of thirty two points, and child protection, out of forty nine. Check both.",
+    "The main frontal crash is at sixty four kilometres per hour. That's not a highway speed crash, so drive accordingly.",
+    "And the rating is for the variant they tested. Check that your variant has the same airbags and E S C.",
+    "Stars help, but seat belts save lives, in the rear seat too. Any doubts? Comment below or DM me on Instagram."
+  ],
+  "caption": "A 5-star Bharat NCAP rating is great, but read it properly ⭐\n\n• Two ratings: Adult Occupant (out of 32) and Child Occupant (out of 49). Check both.\n• The frontal offset test is at 64 km/h, not highway speed.\n• The rating applies to the variant tested. Make sure yours has the same airbags and ESC.\n\nStars help, seat belts save. Rear passengers too.\n\nAny doubts? Comment below or DM me on Instagram 👇",
+  "hashtags": [
+    "#BharatNCAP",
+    "#CarSafety",
+    "#5StarSafety",
+    "#IndianCars",
+    "#CarTips"
+  ],
+  "youtube_hashtags": [
+    "#BharatNCAP",
+    "#CarSafety"
+  ],
+  "youtube_only": true
+}

@@ -459,6 +459,18 @@ def cmd_recaption(cfg: Config, args) -> None:
         print(f"  captions {post['id']}: {post['title']}")
 
 
+def cmd_render(cfg: Config, args) -> None:
+    """Renders queued posts that were written by hand and have no media yet,
+    with the current voice."""
+    from .design import render_post
+    for post in store.load_posts():
+        if post["status"] not in ("draft", "approved") or post.get("media_files"):
+            continue
+        post["media_files"] = render_post(post, ROOT / "media", cfg.handle, cfg.tts_api_key, cfg.voice)
+        store.save_post(post)
+        print(f"  rendered {post['id']}: {post['title']}")
+
+
 def cmd_x_check(cfg: Config, args) -> None:
     """Checks the X keys work, without posting anything."""
     from .x import X
@@ -551,7 +563,7 @@ COMMANDS = {
     "publish-due": cmd_publish_due, "comments": cmd_comments,
     "send-replies": cmd_send_replies, "report": cmd_report, "youtube-check": cmd_youtube_check,
     "x-check": cmd_x_check, "voice-test": cmd_voice_test, "revoice": cmd_revoice, "recaption": cmd_recaption,
-    "voice-samples": cmd_voice_samples, "voice-usage": cmd_voice_usage,
+    "voice-samples": cmd_voice_samples, "voice-usage": cmd_voice_usage, "render": cmd_render,
 }
 
 

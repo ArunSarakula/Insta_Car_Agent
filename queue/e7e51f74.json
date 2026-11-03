@@ -1,0 +1,119 @@
+{
+  "format": "reel",
+  "reel_style": "board",
+  "layout": "captions",
+  "status": "draft",
+  "id": "e7e51f74",
+  "scheduled_for": "2026-11-27T18:00:00+05:30",
+  "save_tip": "Do the maths for your km",
+  "music": "epic",
+  "hook_type": "versus",
+  "title": "Petrol vs diesel vs CNG vs EV: cost per km",
+  "hook": "Petrol, diesel, CNG or EV: which costs least per km?",
+  "youtube_title": "Petrol vs diesel vs CNG vs EV: running cost per km in India",
+  "thumbnail_text": "Cheapest | per km?",
+  "slides": [
+    {
+      "heading": "Petrol, diesel, CNG or EV: which costs least per km?",
+      "body": "",
+      "badge": "",
+      "viz": {}
+    },
+    {
+      "heading": "Running cost per km",
+      "body": "",
+      "badge": "THE NUMBERS",
+      "viz": {
+        "kind": "bars",
+        "unit": "example Rs per km",
+        "items": [
+          {
+            "label": "Petrol",
+            "value": 6.4,
+            "text": "about Rs 6.4",
+            "color": "red"
+          },
+          {
+            "label": "Diesel",
+            "value": 4.5,
+            "text": "about Rs 4.5",
+            "color": "amber"
+          },
+          {
+            "label": "CNG",
+            "value": 3.3,
+            "text": "about Rs 3.3",
+            "color": "teal"
+          },
+          {
+            "label": "EV (home)",
+            "value": 1.2,
+            "text": "about Rs 1.2",
+            "color": "green"
+          }
+        ]
+      }
+    },
+    {
+      "heading": "But the car costs more upfront",
+      "body": "",
+      "badge": "THE CATCH",
+      "viz": {
+        "kind": "check",
+        "items": [
+          {
+            "text": "Diesel, CNG and EV cost more to buy",
+            "ok": false
+          },
+          {
+            "text": "Savings need kilometres",
+            "ok": true
+          }
+        ]
+      }
+    },
+    {
+      "heading": "Match it to your monthly km",
+      "body": "",
+      "badge": "PICK BY KM",
+      "viz": {
+        "kind": "steps",
+        "items": [
+          "Under 1,000 km a month: petrol is fine",
+          "1,000 to 2,000: CNG or hybrid",
+          "Lots of km and home charging: EV"
+        ]
+      }
+    },
+    {
+      "heading": "Do the maths for your km",
+      "body": "",
+      "badge": "MY RULE",
+      "viz": {
+        "kind": "number",
+        "value": "YOUR KM",
+        "label": "decides the fuel",
+        "sub": "Use your city's prices",
+        "color": "teal"
+      }
+    }
+  ],
+  "voice_lines": [
+    "With example prices, petrol costs about six rupees forty a kilometre, diesel about four fifty, CNG about three thirty, and an EV charged at home about one twenty.",
+    "But diesel, CNG and EVs cost more to buy, so the savings only come with kilometres.",
+    "Under a thousand kilometres a month, petrol is fine. One to two thousand, look at CNG or a hybrid. Lots of kilometres and home charging, an EV.",
+    "Do the maths with your own kilometres and your city's prices. Any doubts? Comment below or DM me on Instagram."
+  ],
+  "caption": "Which fuel costs least per km? ⛽⚡\n\nExample numbers (your city's prices will differ):\n• Petrol: about ₹6.4/km (₹103/l at 16 km/l)\n• Diesel: about ₹4.5/km (₹90/l at 20 km/l)\n• CNG: about ₹3.3/km (₹85/kg at 26 km/kg)\n• EV at home: about ₹1.2/km (₹8/unit at 7 km/unit)\n\nBut diesel, CNG and EVs cost more to buy, so the savings need kilometres.\n\nUnder 1,000 km/month: petrol is fine. 1,000-2,000: CNG or hybrid. Lots of km + home charging: EV.\n\nWhat's your monthly km? Tell me and I'll tell you what I'd pick 👇\n\nAny doubts? Comment below or DM me on Instagram 👇",
+  "hashtags": [
+    "#PetrolVsDiesel",
+    "#CNG",
+    "#EVIndia",
+    "#RunningCost",
+    "#IndianCars"
+  ],
+  "youtube_hashtags": [
+    "#CNG",
+    "#EVIndia"
+  ]
+}

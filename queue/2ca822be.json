@@ -1,0 +1,123 @@
+{
+  "format": "reel",
+  "reel_style": "board",
+  "layout": "captions",
+  "status": "draft",
+  "id": "2ca822be",
+  "scheduled_for": "2026-11-22T18:00:00+05:30",
+  "save_tip": "Keeping it long? December wins",
+  "music": "upbeat",
+  "hook_type": "versus",
+  "title": "Buy a car in December or January?",
+  "hook": "Buying a car? December or January?",
+  "youtube_title": "Should I buy a car in December or January? Year end discount explained",
+  "thumbnail_text": "December or | January?",
+  "slides": [
+    {
+      "heading": "Buying a car? December or January?",
+      "body": "",
+      "badge": "",
+      "viz": {}
+    },
+    {
+      "heading": "December: bigger discounts",
+      "body": "",
+      "badge": "DECEMBER",
+      "viz": {
+        "kind": "versus",
+        "left": {
+          "title": "December",
+          "lines": [
+            "Bigger discounts",
+            "Year-end offers"
+          ],
+          "color": "green"
+        },
+        "right": {
+          "title": "January",
+          "lines": [
+            "Price hikes likely",
+            "Newer year on paper"
+          ],
+          "color": "amber"
+        },
+        "win": null
+      }
+    },
+    {
+      "heading": "But the year counts at resale",
+      "body": "",
+      "badge": "THE CATCH",
+      "viz": {
+        "kind": "number",
+        "value": "1 YEAR",
+        "label": "older on paper",
+        "sub": "A December car looks a year older within weeks",
+        "color": "amber"
+      }
+    },
+    {
+      "heading": "Check the manufacturing date",
+      "body": "",
+      "badge": "CHECK THIS",
+      "viz": {
+        "kind": "check",
+        "items": [
+          {
+            "text": "Manufacturing month on the VIN plate",
+            "ok": true
+          },
+          {
+            "text": "Avoid stock many months old",
+            "ok": true
+          },
+          {
+            "text": "Get the discount in writing",
+            "ok": true
+          }
+        ]
+      }
+    },
+    {
+      "heading": "Keeping it long? December wins",
+      "body": "",
+      "badge": "MY RULE",
+      "viz": {
+        "kind": "versus",
+        "left": {
+          "title": "Keep 7+ years",
+          "lines": [
+            "Take the December deal"
+          ],
+          "color": "green"
+        },
+        "right": {
+          "title": "Sell in 2-3 years",
+          "lines": [
+            "Think about January"
+          ],
+          "color": "amber"
+        },
+        "win": null
+      }
+    }
+  ],
+  "voice_lines": [
+    "December has the biggest year end discounts. From January, prices often go up.",
+    "The catch: a car bought in December looks a year older on paper within weeks, which matters at resale.",
+    "Whenever you buy, check the manufacturing month on the VIN plate, avoid very old stock, and get the discount in writing.",
+    "Keeping it seven years or more? Take the December deal. Selling in two or three? Think about January. Any doubts? Comment below or DM me on Instagram."
+  ],
+  "caption": "December or January, when should you buy your car? 🗓️\n\nDecember: the biggest year-end discounts. January: prices often go up.\n\nThe catch: a December car is a year older on paper within weeks, which shows at resale.\n\nWhenever you buy:\n• Check the manufacturing month on the VIN plate\n• Avoid stock that's many months old\n• Get the discount in writing\n\nKeeping it 7+ years? Take the December deal. Selling in 2-3? January may suit you.\n\nAny doubts? Comment below or DM me on Instagram 👇",
+  "hashtags": [
+    "#CarBuying",
+    "#YearEndOffers",
+    "#NewCar",
+    "#IndianCars",
+    "#CarTips"
+  ],
+  "youtube_hashtags": [
+    "#CarBuying",
+    "#NewCar"
+  ]
+}

@@ -1,0 +1,111 @@
+{
+  "format": "reel",
+  "reel_style": "board",
+  "layout": "captions",
+  "status": "draft",
+  "id": "db7050c1",
+  "scheduled_for": "2026-11-25T19:30:00+05:30",
+  "save_tip": "Use the AC. Just use it smart.",
+  "music": "chill",
+  "hook_type": "number",
+  "title": "How much range does the AC eat in an EV?",
+  "hook": "How much range does AC eat in an EV?",
+  "youtube_title": "How much range does AC use in an electric car?",
+  "thumbnail_text": "EV range | AC on?",
+  "slides": [
+    {
+      "heading": "How much range does AC eat in an EV?",
+      "body": "",
+      "badge": "",
+      "viz": {}
+    },
+    {
+      "heading": "Usually 10 to 20% in Indian heat",
+      "body": "",
+      "badge": "THE NUMBER",
+      "viz": {
+        "kind": "bars",
+        "unit": "range left (example)",
+        "items": [
+          {
+            "label": "AC off",
+            "value": 100,
+            "text": "100%",
+            "color": "green"
+          },
+          {
+            "label": "AC on",
+            "value": 85,
+            "text": "about 85%",
+            "color": "amber"
+          }
+        ]
+      }
+    },
+    {
+      "heading": "City traffic feels it most",
+      "body": "",
+      "badge": "WHY",
+      "viz": {
+        "kind": "number",
+        "value": "CITY",
+        "label": "AC runs, car crawls",
+        "sub": "More of your battery goes to cooling",
+        "color": "amber"
+      }
+    },
+    {
+      "heading": "Get it back",
+      "body": "",
+      "badge": "TIPS",
+      "viz": {
+        "kind": "check",
+        "items": [
+          {
+            "text": "Pre-cool while plugged in",
+            "ok": true
+          },
+          {
+            "text": "Recirculation once cool",
+            "ok": true
+          },
+          {
+            "text": "Park in shade",
+            "ok": true
+          }
+        ]
+      }
+    },
+    {
+      "heading": "Use the AC. Just use it smart.",
+      "body": "",
+      "badge": "MY RULE",
+      "viz": {
+        "kind": "number",
+        "value": "SMART AC",
+        "label": "comfort and range",
+        "sub": "Eco mode helps too",
+        "color": "teal"
+      }
+    }
+  ],
+  "voice_lines": [
+    "In Indian heat, the AC usually takes about ten to twenty percent of an EV's range.",
+    "City traffic feels it most, because the AC keeps running while the car barely moves.",
+    "Pre-cool the cabin while it's plugged in, switch to recirculation once it's cool, and park in shade.",
+    "So use the AC, just use it smartly. Any doubts? Comment below or DM me on Instagram."
+  ],
+  "caption": "How much range does the AC take in an EV? ❄️\n\nUsually about 10-20% in Indian heat (approximate, depends on car, temperature and traffic). City crawling feels it most.\n\nGet some back:\n• Pre-cool while plugged in\n• Recirculation once the cabin is cool\n• Park in shade\n• Eco AC mode if your car has it\n\nAny doubts? Comment below or DM me on Instagram 👇",
+  "hashtags": [
+    "#EVIndia",
+    "#EVRange",
+    "#ElectricCars",
+    "#EVTips",
+    "#CarTech"
+  ],
+  "youtube_hashtags": [
+    "#EVIndia",
+    "#EVRange"
+  ],
+  "youtube_only": true
+}

@@ -644,3 +644,42 @@ def test_wheel3d_draws_every_scene():
         layer = Image.new("RGBA", frame.size, (0, 0, 0, 0))
         wheel3d(frame, ImageDraw.Draw(layer), 2.0, i)
         assert layer.getbbox()
+
+
+def test_board_draws_every_kind():
+    from PIL import Image, ImageDraw
+    from agent.motion_board import KINDS, board, check_viz
+    vizzes = [
+        {"kind": "bars", "unit": "Rs/km", "items": [{"label": "Petrol", "value": 6.4, "text": "Rs 6.4"},
+                                                    {"label": "CNG", "value": 3.3}]},
+        {"kind": "check", "items": [{"text": "Factory kit", "ok": True}, {"text": "Cheap kit", "ok": False}]},
+        {"kind": "number", "value": "8 YEARS", "label": "warranty", "sub": "check your brand"},
+        {"kind": "versus", "left": {"title": "A", "lines": ["x"]}, "right": {"title": "B", "lines": ["y"]},
+         "win": "left"},
+        {"kind": "gauge", "value": 0.8, "text": "80%", "label": "health"},
+        {"kind": "steps", "items": ["One", "Two"]},
+    ]
+    assert {v["kind"] for v in vizzes} == set(KINDS)
+    post = {"slides": [{"heading": "hook"}] + [{"heading": v["kind"], "viz": v} for v in vizzes]}
+    assert check_viz(post) == []
+    for i in range(len(vizzes)):
+        layer = Image.new("RGBA", (1080, 1920), (0, 0, 0, 0))
+        board(post, layer, ImageDraw.Draw(layer), 3.0, i)
+        assert layer.getbbox()
+    assert check_viz({"slides": [{}, {"viz": {"kind": "nope"}}, {}]}) == ["slide 2: unknown kind nope",
+                                                                          "slide 3: no viz"]
+
+
+def test_render_renders_only_posts_without_media(tmp_path, monkeypatch):
+    from agent import design
+    monkeypatch.setattr(store, "QUEUE_DIR", tmp_path)
+    monkeypatch.setattr(store.save_post, "__defaults__", (tmp_path,))
+    monkeypatch.setattr(store.load_posts, "__defaults__", (tmp_path,))
+    store.save_post({"id": "new1", "status": "draft", "format": "reel", "title": "New"})
+    store.save_post({"id": "old1", "status": "draft", "format": "reel", "title": "Old", "media_files": ["x.mp4"]})
+    store.save_post({"id": "pub1", "status": "published", "format": "reel", "title": "Done"})
+    calls = []
+    monkeypatch.setattr(design, "render_post", lambda post, *a, **k: calls.append(post["id"]) or ["media/new1/reel.mp4"])
+    cli.cmd_render(SimpleNamespace(handle="@x", tts_api_key="", voice="v"), None)
+    assert calls == ["new1"]
+    assert json.loads((tmp_path / "new1.json").read_text())["media_files"] == ["media/new1/reel.mp4"]

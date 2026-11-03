@@ -1,0 +1,121 @@
+{
+  "format": "reel",
+  "reel_style": "board",
+  "layout": "captions",
+  "status": "draft",
+  "id": "28d94280",
+  "scheduled_for": "2026-11-20T18:00:00+05:30",
+  "save_tip": "Older car? Check rubber parts at service",
+  "music": "tech",
+  "hook_type": "question",
+  "title": "E20 petrol: what it does to your car",
+  "hook": "E20 petrol in your tank: what changes?",
+  "youtube_title": "Is E20 petrol bad for my car? Mileage and engine explained",
+  "thumbnail_text": "E20 petrol | bad for cars?",
+  "slides": [
+    {
+      "heading": "E20 petrol in your tank: what changes?",
+      "body": "",
+      "badge": "",
+      "viz": {}
+    },
+    {
+      "heading": "20% ethanol, 80% petrol",
+      "body": "",
+      "badge": "WHAT IT IS",
+      "viz": {
+        "kind": "bars",
+        "unit": "share of the fuel",
+        "items": [
+          {
+            "label": "Petrol",
+            "value": 80,
+            "text": "80%",
+            "color": "amber"
+          },
+          {
+            "label": "Ethanol",
+            "value": 20,
+            "text": "20%",
+            "color": "green"
+          }
+        ]
+      }
+    },
+    {
+      "heading": "Check your fuel lid",
+      "body": "",
+      "badge": "IS YOUR CAR READY?",
+      "viz": {
+        "kind": "check",
+        "items": [
+          {
+            "text": "E20 sticker on the fuel lid: made for it",
+            "ok": true
+          },
+          {
+            "text": "Most cars from April 2023 on",
+            "ok": true
+          },
+          {
+            "text": "Older car: ask your service centre",
+            "ok": true
+          }
+        ]
+      }
+    },
+    {
+      "heading": "Mileage drops a little",
+      "body": "",
+      "badge": "MILEAGE",
+      "viz": {
+        "kind": "bars",
+        "unit": "approx. mileage drop",
+        "items": [
+          {
+            "label": "E20-ready car",
+            "value": 2,
+            "text": "about 1-2%",
+            "color": "green"
+          },
+          {
+            "label": "Older car",
+            "value": 6,
+            "text": "a few %",
+            "color": "amber"
+          }
+        ]
+      }
+    },
+    {
+      "heading": "Older car? Check rubber parts at service",
+      "body": "",
+      "badge": "MY RULE",
+      "viz": {
+        "kind": "number",
+        "value": "E20",
+        "label": "check the fuel lid",
+        "sub": "Older cars: rubber parts at service",
+        "color": "teal"
+      }
+    }
+  ],
+  "voice_lines": [
+    "E20 is twenty percent ethanol and eighty percent petrol. It's what most pumps in India sell now.",
+    "Check your fuel lid. An E20 sticker means your car is made for it. Most cars made from April 2023 are.",
+    "Mileage drops a little: about one to two percent in E20 ready cars, and a few percent in older ones.",
+    "Older car? Ask your service centre to check rubber parts like fuel hoses at the next service. Any doubts? Comment below or DM me on Instagram."
+  ],
+  "caption": "E20 petrol: what it means for your car ⛽\n\n• E20 = 20% ethanol + 80% petrol\n• Look for the E20 sticker on your fuel lid. Most cars made from April 2023 are E20-ready.\n• Mileage: roughly 1-2% lower in E20-ready cars, a few % in older cars (approximate, varies by car)\n• Older car? Ask the service centre to check rubber parts like fuel hoses and seals at the next service.\n\nNoticed a mileage change since E20? Tell me 👇\n\nAny doubts? Comment below or DM me on Instagram 👇",
+  "hashtags": [
+    "#E20Petrol",
+    "#Ethanol",
+    "#Mileage",
+    "#IndianCars",
+    "#CarTips"
+  ],
+  "youtube_hashtags": [
+    "#E20",
+    "#Mileage"
+  ]
+}

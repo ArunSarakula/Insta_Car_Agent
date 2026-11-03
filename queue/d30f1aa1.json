@@ -1,0 +1,110 @@
+{
+  "format": "reel",
+  "reel_style": "board",
+  "layout": "captions",
+  "status": "draft",
+  "id": "d30f1aa1",
+  "scheduled_for": "2026-11-21T18:00:00+05:30",
+  "save_tip": "Slow start is the first warning",
+  "music": "chill",
+  "hook_type": "warning",
+  "title": "Car battery dies when parked for days",
+  "hook": "Parking your car for a week? Do this first",
+  "youtube_title": "Why does my car battery die when parked? How to prevent it",
+  "thumbnail_text": "Dead battery | after parking?",
+  "slides": [
+    {
+      "heading": "Parking your car for a week? Do this first",
+      "body": "",
+      "badge": "",
+      "viz": {}
+    },
+    {
+      "heading": "A parked car still uses power",
+      "body": "",
+      "badge": "WHY",
+      "viz": {
+        "kind": "gauge",
+        "value": 0.35,
+        "text": "LOW",
+        "label": "battery after weeks parked",
+        "color": "red"
+      }
+    },
+    {
+      "heading": "Drive it once a week",
+      "body": "",
+      "badge": "THE FIX",
+      "viz": {
+        "kind": "check",
+        "items": [
+          {
+            "text": "Drive 20 to 30 minutes weekly",
+            "ok": true
+          },
+          {
+            "text": "Idling for 2 minutes",
+            "ok": false
+          },
+          {
+            "text": "Lights or dashcam left on",
+            "ok": false
+          }
+        ]
+      }
+    },
+    {
+      "heading": "Away for weeks?",
+      "body": "",
+      "badge": "LONG BREAK",
+      "viz": {
+        "kind": "steps",
+        "items": [
+          "Ask someone to drive it weekly",
+          "Or use a battery maintainer",
+          "Or disconnect the negative terminal"
+        ]
+      }
+    },
+    {
+      "heading": "Slow start is the first warning",
+      "body": "",
+      "badge": "WARNING SIGNS",
+      "viz": {
+        "kind": "check",
+        "items": [
+          {
+            "text": "Slow, weak cranking",
+            "ok": false
+          },
+          {
+            "text": "White crust on terminals",
+            "ok": false
+          },
+          {
+            "text": "Battery over 3 to 4 years old",
+            "ok": false
+          }
+        ]
+      }
+    }
+  ],
+  "voice_lines": [
+    "Even when parked, your car's computers and alarm draw a little power, so a battery can go flat in a few weeks.",
+    "Drive it for twenty to thirty minutes once a week. Just idling for two minutes doesn't recharge it.",
+    "Away for longer? Ask someone to drive it, use a battery maintainer, or disconnect the negative terminal.",
+    "Warning signs: slow cranking, white crust on the terminals, and a battery over three or four years old. Any doubts? Comment below or DM me on Instagram."
+  ],
+  "caption": "Car parked for a week or more? Your battery is still working 🔋\n\nThe alarm and computers draw a little power all the time, so a battery can go flat in a few weeks.\n\n✅ Drive 20-30 minutes once a week\n❌ Idling for 2 minutes doesn't recharge it\n\nAway longer: someone drives it weekly, a battery maintainer, or disconnect the negative terminal (some settings may reset).\n\nWarning signs: slow cranking, white crust on terminals, battery older than 3-4 years in Indian heat.\n\nAny doubts? Comment below or DM me on Instagram 👇",
+  "hashtags": [
+    "#CarBattery",
+    "#CarMaintenance",
+    "#CarTips",
+    "#IndianCars",
+    "#CarCare"
+  ],
+  "youtube_hashtags": [
+    "#CarBattery",
+    "#CarTips"
+  ]
+}

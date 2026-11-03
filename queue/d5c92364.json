@@ -1,0 +1,100 @@
+{
+  "format": "reel",
+  "reel_style": "board",
+  "layout": "captions",
+  "status": "draft",
+  "id": "d5c92364",
+  "scheduled_for": "2026-11-14T18:00:00+05:30",
+  "save_tip": "Gentle first, gentle last",
+  "music": "tech",
+  "hook_type": "mistake",
+  "title": "Turbo petrol: don't switch off right after a hard drive",
+  "hook": "Turbo petrol owners, don't switch off like this",
+  "youtube_title": "Should you idle a turbo petrol before switching off?",
+  "thumbnail_text": "Turbo car? | Don't do this",
+  "slides": [
+    {
+      "heading": "Turbo petrol owners, don't switch off like this",
+      "body": "",
+      "badge": "",
+      "viz": {}
+    },
+    {
+      "heading": "The turbo spins very fast and gets very hot",
+      "body": "",
+      "badge": "WHY",
+      "viz": {
+        "kind": "number",
+        "value": "VERY HOT",
+        "label": "turbo after a hard drive",
+        "sub": "Oil cools its bearings",
+        "color": "red"
+      }
+    },
+    {
+      "heading": "After a fast highway run, idle first",
+      "body": "",
+      "badge": "THE FIX",
+      "viz": {
+        "kind": "steps",
+        "items": [
+          "Fast highway run or steep climb",
+          "Idle 30 to 60 seconds",
+          "Then switch off"
+        ]
+      }
+    },
+    {
+      "heading": "Normal city driving? No need",
+      "body": "",
+      "badge": "GOOD NEWS",
+      "viz": {
+        "kind": "check",
+        "items": [
+          {
+            "text": "Gentle city drive: switch off normally",
+            "ok": true
+          },
+          {
+            "text": "Revving before switch off",
+            "ok": false
+          },
+          {
+            "text": "Hard driving on a cold engine",
+            "ok": false
+          }
+        ]
+      }
+    },
+    {
+      "heading": "Gentle first, gentle last",
+      "body": "",
+      "badge": "MY RULE",
+      "viz": {
+        "kind": "number",
+        "value": "30-60 s",
+        "label": "idle after a hard drive",
+        "sub": "VW and Skoda TSI owners, this one's for you",
+        "color": "teal"
+      }
+    }
+  ],
+  "voice_lines": [
+    "Your turbo spins very fast and gets very hot. Engine oil cools its bearings, but only while the engine runs.",
+    "So after a fast highway run or a steep climb, let it idle for thirty to sixty seconds, then switch off.",
+    "In normal city driving there's no need. And never rev the engine just before switching off, or drive hard while it's cold.",
+    "Gentle for the first few kilometres, gentle for the last. Any doubts? Comment below or DM me on Instagram."
+  ],
+  "caption": "If you drive a turbo petrol (VW and Skoda TSI owners, this is you), this small habit protects the turbo 🔥\n\nAfter a fast highway run or a steep ghat climb, let the engine idle for 30 to 60 seconds before switching off. The oil keeps cooling the turbo's bearings while the engine runs.\n\nNormal city driving? Just switch off as usual. Modern turbos are water-cooled too, so this is only about hard drives.\n\nAvoid: revving before switching off, and driving hard while the engine is still cold.\n\nAny doubts? Comment below or DM me on Instagram 👇",
+  "hashtags": [
+    "#TurboPetrol",
+    "#VolkswagenIndia",
+    "#SkodaIndia",
+    "#TSI",
+    "#CarTips"
+  ],
+  "youtube_hashtags": [
+    "#Volkswagen",
+    "#Skoda"
+  ]
+}

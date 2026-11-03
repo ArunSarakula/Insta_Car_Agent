@@ -1,0 +1,114 @@
+{
+  "format": "reel",
+  "reel_style": "board",
+  "layout": "captions",
+  "status": "draft",
+  "id": "17fb7964",
+  "scheduled_for": "2026-11-29T18:00:00+05:30",
+  "save_tip": "Rubber ages even unused",
+  "music": "upbeat",
+  "hook_type": "warning",
+  "title": "Read the tyre DOT date before buying",
+  "hook": "Read this 4-digit code before you buy tyres",
+  "youtube_title": "How to check tyre manufacturing date (DOT code) before buying",
+  "thumbnail_text": "Check this | tyre code",
+  "slides": [
+    {
+      "heading": "Read this 4-digit code before you buy tyres",
+      "body": "",
+      "badge": "",
+      "viz": {}
+    },
+    {
+      "heading": "Week, then year",
+      "body": "",
+      "badge": "HOW TO READ IT",
+      "viz": {
+        "kind": "versus",
+        "left": {
+          "title": "Week",
+          "lines": [
+            "First 2 digits",
+            "e.g. 23"
+          ],
+          "color": "teal"
+        },
+        "right": {
+          "title": "Year",
+          "lines": [
+            "Last 2 digits",
+            "e.g. 25 = 2025"
+          ],
+          "color": "amber"
+        },
+        "win": null
+      }
+    },
+    {
+      "heading": "2325 = 23rd week of 2025",
+      "body": "",
+      "badge": "EXAMPLE",
+      "viz": {
+        "kind": "number",
+        "value": "2325",
+        "label": "week 23 of 2025",
+        "sub": "Find it on the sidewall",
+        "color": "teal"
+      }
+    },
+    {
+      "heading": "Buying new tyres?",
+      "body": "",
+      "badge": "WHEN BUYING",
+      "viz": {
+        "kind": "check",
+        "items": [
+          {
+            "text": "Made within the last year",
+            "ok": true
+          },
+          {
+            "text": "Several years old in the shop",
+            "ok": false
+          }
+        ]
+      }
+    },
+    {
+      "heading": "Rubber ages even unused",
+      "body": "",
+      "badge": "MY RULE",
+      "viz": {
+        "kind": "check",
+        "items": [
+          {
+            "text": "Replace at the tread wear bars",
+            "ok": true
+          },
+          {
+            "text": "Old tyres with cracks: replace",
+            "ok": true
+          }
+        ]
+      }
+    }
+  ],
+  "voice_lines": [
+    "Look for a four digit code on the tyre's sidewall. The first two digits are the week, the last two are the year.",
+    "So two three two five means the twenty third week of twenty twenty five.",
+    "When buying new tyres, ask for ones made within the last year, not stock that's been sitting for years.",
+    "Rubber ages even when unused. Replace at the tread wear bars, or sooner if you see cracks. Any doubts? Comment below or DM me on Instagram."
+  ],
+  "caption": "Before you buy tyres, read this 4-digit code on the sidewall 🛞\n\nFirst 2 digits = week, last 2 = year. Example: 2325 = 23rd week of 2025.\n\n✅ Buy tyres made within the last year\n❌ Avoid stock that's been sitting for years\n\nRubber ages even unused. Replace at the tread wear bars, or sooner if you see cracks.\n\nAny doubts? Comment below or DM me on Instagram 👇",
+  "hashtags": [
+    "#Tyres",
+    "#TyreCare",
+    "#CarTips",
+    "#IndianCars",
+    "#CarMaintenance"
+  ],
+  "youtube_hashtags": [
+    "#Tyres",
+    "#CarTips"
+  ]
+}

@@ -1,0 +1,122 @@
+{
+  "format": "reel",
+  "reel_style": "board",
+  "layout": "captions",
+  "status": "draft",
+  "id": "a11d2519",
+  "scheduled_for": "2026-11-24T19:30:00+05:30",
+  "save_tip": "No regular charging spot? Pick hybrid or CNG",
+  "music": "tech",
+  "hook_type": "question",
+  "title": "Can you own an EV without home charging?",
+  "hook": "No home charger? Watch this before buying an EV",
+  "youtube_title": "Can I own an electric car without home charging in India?",
+  "thumbnail_text": "EV without | home charger?",
+  "slides": [
+    {
+      "heading": "No home charger? Watch this before buying an EV",
+      "body": "",
+      "badge": "",
+      "viz": {}
+    },
+    {
+      "heading": "Public fast charging costs much more",
+      "body": "",
+      "badge": "THE COST",
+      "viz": {
+        "kind": "bars",
+        "unit": "approx. per unit",
+        "items": [
+          {
+            "label": "Home",
+            "value": 8,
+            "text": "about Rs 8",
+            "color": "green"
+          },
+          {
+            "label": "Public DC",
+            "value": 22,
+            "text": "Rs 20+",
+            "color": "red"
+          }
+        ]
+      }
+    },
+    {
+      "heading": "It can still work if...",
+      "body": "",
+      "badge": "WHEN IT WORKS",
+      "viz": {
+        "kind": "check",
+        "items": [
+          {
+            "text": "Charging at office or society",
+            "ok": true
+          },
+          {
+            "text": "A charger near home you use weekly",
+            "ok": true
+          },
+          {
+            "text": "Mostly long highway runs",
+            "ok": false
+          }
+        ]
+      }
+    },
+    {
+      "heading": "Count the time too",
+      "body": "",
+      "badge": "TIME",
+      "viz": {
+        "kind": "number",
+        "value": "WEEKLY",
+        "label": "a charging stop",
+        "sub": "Plan it like a fuel stop",
+        "color": "amber"
+      }
+    },
+    {
+      "heading": "No regular charging spot? Pick hybrid or CNG",
+      "body": "",
+      "badge": "MY RULE",
+      "viz": {
+        "kind": "versus",
+        "left": {
+          "title": "Regular spot",
+          "lines": [
+            "EV makes sense"
+          ],
+          "color": "green"
+        },
+        "right": {
+          "title": "No spot",
+          "lines": [
+            "Hybrid or CNG"
+          ],
+          "color": "amber"
+        },
+        "win": null
+      }
+    }
+  ],
+  "voice_lines": [
+    "At home, a unit costs about eight rupees. Public fast chargers often charge over twenty, so your cost per kilometre can nearly triple.",
+    "It can still work if you can charge at your office or society, or there's a charger near home you'll actually use every week.",
+    "Count the time too. A weekly charging stop is like a fuel stop, just longer.",
+    "No regular charging spot? A hybrid or CNG car will be easier. Any doubts? Comment below or DM me on Instagram."
+  ],
+  "caption": "Thinking EV but no charger at home? ⚡\n\nHome charging: roughly ₹8 a unit. Public DC fast charging: often ₹20+ a unit. Your cost per km can nearly triple (approximate, varies by city and charger).\n\nIt can still work if:\n✅ You can charge at your office or society\n✅ There's a charger near home you'll use weekly\n\nNo regular charging spot? A hybrid or CNG car is the easier life.\n\nAny doubts? Comment below or DM me on Instagram 👇",
+  "hashtags": [
+    "#EVIndia",
+    "#ElectricCars",
+    "#EVCharging",
+    "#EVTips",
+    "#CarTech"
+  ],
+  "youtube_hashtags": [
+    "#EVIndia",
+    "#EVCharging"
+  ],
+  "youtube_only": true
+}

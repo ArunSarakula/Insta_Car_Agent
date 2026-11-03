@@ -12,6 +12,7 @@ from PIL import Image, ImageDraw
 from .design import AMBER, BOLD, GREY, INK, MEDIUM, NAVY, TEAL, WHITE, _fit, clean
 from .motion import (BOT, GREEN, H, RED, TOP, W, X0, XW, Words, _ev_car, _fade_text, _font, _glow, _pill,
                      ease_out)
+from .motion_board import board
 from .motion_fog import _chips
 
 VY = 990            # top of the visual
@@ -440,11 +441,22 @@ VISUALS = {
                  [[("drain", 2.0)], [("pop", 2.1)], [("drain", 1.6)], [("ding", 2.4)]], 1),
     "adas": (adas, ["SHINES", "STRUGGLES", "THE REAL HERO", "SMART SETUP"],
              [[("pop", 0.6)], [("whoosh", 0.6)], [("hit", 1.0)], [("ding", 0.6)]], 2),
+    # drawn from each slide's own `viz` data (agent/motion_board.py); badges from slide["badge"]
+    "board": (board, ["THE QUESTION", "THE ANSWER", "WATCH OUT", "MY RULE"],
+              [[("pop", 0.3)], [("pop", 0.3)], [("pop", 0.3)], [("ding", 0.6)]], 0),
 }
 
 
+def _visual_for(post):
+    visual = VISUALS[post["reel_style"]][0]
+    if getattr(visual, "wants_post", False):
+        return lambda frame, d, t, i: visual(post, frame, d, t, i)
+    return visual
+
+
 def visual_scenes(post, handle):
-    visual, badges, cues, _ = VISUALS[post["reel_style"]]
+    _, badges, cues, _ = VISUALS[post["reel_style"]]
+    visual = _visual_for(post)
     big = None
     if post.get("layout") == "big3d":  # the 3D part fills the screen; the voice carries the words
         from .motion_3d import VISUALS3D
@@ -453,7 +465,7 @@ def visual_scenes(post, handle):
     scenes = []
     for i, slide in enumerate(slides[1:]):
         heading = Words(slide["heading"], TOP + 150, size=86)
-        badge = badges[min(i, len(badges) - 1)]
+        badge = (slide.get("badge") or badges[min(i, len(badges) - 1)]).upper()
 
         def draw(frame, d, t, heading=heading, slide=slide, badge=badge, i=i):
             _pill(d, X0, TOP + 40, badge, TEAL, INK, alpha=int(255 * ease_out(t / 0.2)), size=34)
@@ -480,7 +492,9 @@ def visual_scenes(post, handle):
 
 
 def visual_thumbnail(post, path, handle="@decodethedrive"):
-    visual, _, _, step = VISUALS[post["reel_style"]]
+    _, _, _, step = VISUALS[post["reel_style"]]
+    visual = _visual_for(post)
+    step = post.get("thumbnail_step", step)
     text = post.get("thumbnail_text") or post["slides"][0]["heading"]
     top, _, accent = text.partition("|")
     im = Image.new("RGBA", (W, H), (*NAVY, 255))

@@ -1,0 +1,121 @@
+{
+  "format": "reel",
+  "reel_style": "board",
+  "layout": "captions",
+  "status": "draft",
+  "id": "13d33261",
+  "scheduled_for": "2026-11-15T18:00:00+05:30",
+  "save_tip": "Brakes feel right",
+  "music": "upbeat",
+  "hook_type": "number",
+  "title": "5 checks before a long road trip",
+  "hook": "Do these 5 checks before your next road trip",
+  "youtube_title": "What to check before a long road trip in India",
+  "thumbnail_text": "Road trip? | 5 checks",
+  "slides": [
+    {
+      "heading": "Do these 5 checks before your next road trip",
+      "body": "",
+      "badge": "",
+      "viz": {}
+    },
+    {
+      "heading": "Tyres first, spare included",
+      "body": "",
+      "badge": "CHECK 1-2",
+      "viz": {
+        "kind": "check",
+        "items": [
+          {
+            "text": "Tyre pressure, cold, as per door sticker",
+            "ok": true
+          },
+          {
+            "text": "Spare tyre pressure",
+            "ok": true
+          },
+          {
+            "text": "Cuts or bulges on the sidewall",
+            "ok": true
+          }
+        ]
+      }
+    },
+    {
+      "heading": "Fluids, with the engine cold",
+      "body": "",
+      "badge": "CHECK 3",
+      "viz": {
+        "kind": "check",
+        "items": [
+          {
+            "text": "Engine oil between min and max",
+            "ok": true
+          },
+          {
+            "text": "Coolant at the mark",
+            "ok": true
+          },
+          {
+            "text": "Washer fluid full",
+            "ok": true
+          }
+        ]
+      }
+    },
+    {
+      "heading": "See and be seen",
+      "body": "",
+      "badge": "CHECK 4",
+      "viz": {
+        "kind": "check",
+        "items": [
+          {
+            "text": "Wipers clear the glass",
+            "ok": true
+          },
+          {
+            "text": "All lights and indicators work",
+            "ok": true
+          }
+        ]
+      }
+    },
+    {
+      "heading": "Brakes feel right",
+      "body": "",
+      "badge": "CHECK 5",
+      "viz": {
+        "kind": "check",
+        "items": [
+          {
+            "text": "Pedal firm, no squeal",
+            "ok": true
+          },
+          {
+            "text": "No pull to one side",
+            "ok": true
+          }
+        ]
+      }
+    }
+  ],
+  "voice_lines": [
+    "First, tyres. Check the pressure cold, as per the door sticker, the spare too, and look for cuts or bulges.",
+    "Next, fluids with the engine cold: engine oil between min and max, coolant at the mark, and washer fluid full.",
+    "Then make sure the wipers clear the glass, and every light and indicator works.",
+    "Last, the brakes should feel firm, with no squeal and no pull. Safe trip! Any doubts? Comment below or DM me on Instagram."
+  ],
+  "caption": "Wedding season road trips are here 🚗 Five quick checks before you leave, all doable in your parking:\n\n1. Tyre pressure (cold), as per the door sticker\n2. Spare tyre pressure, and no cuts or bulges\n3. Engine oil, coolant and washer fluid, with the engine cold\n4. Wipers and all lights\n5. Brakes: firm pedal, no squeal, no pull\n\nSave this and run through it before your next trip.\n\nAny doubts? Comment below or DM me on Instagram 👇",
+  "hashtags": [
+    "#RoadTrip",
+    "#CarMaintenance",
+    "#CarTips",
+    "#IndianRoads",
+    "#CarCare"
+  ],
+  "youtube_hashtags": [
+    "#RoadTrip",
+    "#CarTips"
+  ]
+}

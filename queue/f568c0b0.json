@@ -1,0 +1,114 @@
+{
+  "format": "reel",
+  "reel_style": "board",
+  "layout": "captions",
+  "status": "draft",
+  "id": "f568c0b0",
+  "scheduled_for": "2026-11-13T18:00:00+05:30",
+  "save_tip": "Ask why. Then decide.",
+  "music": "upbeat",
+  "hook_type": "warning",
+  "title": "Service centre overcharging: what to question",
+  "hook": "Don't say yes to these at your car service",
+  "youtube_title": "Is the service centre overcharging you? 5 things to question",
+  "thumbnail_text": "Service bill | too high?",
+  "slides": [
+    {
+      "heading": "Don't say yes to these at your car service",
+      "body": "",
+      "badge": "",
+      "viz": {}
+    },
+    {
+      "heading": "Ask for a written estimate first",
+      "body": "",
+      "badge": "RULE 1",
+      "viz": {
+        "kind": "steps",
+        "items": [
+          "Written estimate before any work",
+          "Approve every extra by phone",
+          "Ask to see the old parts"
+        ]
+      }
+    },
+    {
+      "heading": "Common add-ons to question",
+      "body": "",
+      "badge": "QUESTION THESE",
+      "viz": {
+        "kind": "check",
+        "items": [
+          {
+            "text": "Engine flush every service",
+            "ok": false
+          },
+          {
+            "text": "Throttle or injector cleaning every time",
+            "ok": false
+          },
+          {
+            "text": "AC gas top-up without a leak check",
+            "ok": false
+          },
+          {
+            "text": "Paid nitrogen top-ups",
+            "ok": false
+          }
+        ]
+      }
+    },
+    {
+      "heading": "Check your owner's manual",
+      "body": "",
+      "badge": "THE PROOF",
+      "viz": {
+        "kind": "check",
+        "items": [
+          {
+            "text": "Oil and filter: as per manual",
+            "ok": true
+          },
+          {
+            "text": "Brake fluid: as per manual",
+            "ok": true
+          },
+          {
+            "text": "Parts due by km or months",
+            "ok": true
+          }
+        ]
+      }
+    },
+    {
+      "heading": "Ask why. Then decide.",
+      "body": "",
+      "badge": "MY RULE",
+      "viz": {
+        "kind": "number",
+        "value": "ASK WHY",
+        "label": "before you pay",
+        "sub": "Most add-ons are optional",
+        "color": "amber"
+      }
+    }
+  ],
+  "voice_lines": [
+    "Before any work starts, ask for a written estimate, and tell them to call you before adding anything extra. Ask to see the old parts too.",
+    "Question these add-ons: an engine flush every service, throttle cleaning every time, an AC gas top-up without a leak check, and paid nitrogen.",
+    "Your owner's manual says what's actually due, by kilometres or months. If it's not due, you can say no.",
+    "Ask why, then decide. Most add-ons are optional. Any doubts? Comment below or DM me on Instagram."
+  ],
+  "caption": "My simple rule at every car service: ask why before you pay 🔧\n\n1. Get a written estimate before any work starts.\n2. Tell them to call you before adding anything extra.\n3. Ask to see the old parts.\n\nAdd-ons worth questioning: engine flush every service, throttle or injector cleaning every time, AC gas top-up without a leak check, paid nitrogen top-ups.\n\nYour owner's manual lists what's actually due by km or months. Not every add-on is a scam, but you should know why you're paying for it. Save this for your next service.\n\nAny doubts? Comment below or DM me on Instagram 👇",
+  "hashtags": [
+    "#CarService",
+    "#CarMaintenance",
+    "#CarTips",
+    "#IndianCars",
+    "#CarOwners"
+  ],
+  "youtube_hashtags": [
+    "#CarService",
+    "#CarTips"
+  ]
+}
