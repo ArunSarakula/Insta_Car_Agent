@@ -21,9 +21,11 @@
   "music": "phonk",
   "idea_id": "",
   "scheduled_for": "2026-11-03T13:00:00+05:30",
-  "status": "approved",
+  "status": "published",
   "id": "718e1f27",
   "media_files": [
     "media/718e1f27/post.jpg"
-  ]
+  ],
+  "media_id": "17960050296014048",
+  "published_at": "2026-11-03T15:30:26.612584+05:30"
 }
