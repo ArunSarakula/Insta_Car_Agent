@@ -117,5 +117,11 @@
   "youtube_hashtags": [
     "#E20",
     "#Mileage"
+  ],
+  "voiced": true,
+  "voice": "en-IN-Chirp3-HD-Charon",
+  "music_track": "alex-morgan-corporate-startup-568146.mp3",
+  "media_files": [
+    "media/28d94280/reel.mp4"
   ]
 }

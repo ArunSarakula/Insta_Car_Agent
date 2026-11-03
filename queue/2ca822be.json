@@ -119,5 +119,11 @@
   "youtube_hashtags": [
     "#CarBuying",
     "#NewCar"
+  ],
+  "voiced": true,
+  "voice": "en-IN-Chirp3-HD-Charon",
+  "music_track": "prettyjohn1-future-bass-523169.mp3",
+  "media_files": [
+    "media/2ca822be/reel.mp4"
   ]
 }

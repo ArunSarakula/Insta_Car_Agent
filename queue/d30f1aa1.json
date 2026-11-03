@@ -106,5 +106,11 @@
   "youtube_hashtags": [
     "#CarBattery",
     "#CarTips"
+  ],
+  "voiced": true,
+  "voice": "en-IN-Chirp3-HD-Charon",
+  "music_track": "tunetank-vlog-beat-349853.mp3",
+  "media_files": [
+    "media/d30f1aa1/reel.mp4"
   ]
 }

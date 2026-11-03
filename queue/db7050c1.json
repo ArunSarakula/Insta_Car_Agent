@@ -107,5 +107,11 @@
     "#EVIndia",
     "#EVRange"
   ],
-  "youtube_only": true
+  "youtube_only": true,
+  "voiced": true,
+  "voice": "en-IN-Chirp3-HD-Charon",
+  "music_track": "tunetank-vlog-beat-349853.mp3",
+  "media_files": [
+    "media/db7050c1/reel.mp4"
+  ]
 }
