@@ -106,5 +106,8 @@
   "voiced": true,
   "voice": "en-IN-Chirp3-HD-Charon",
   "music_track": "tunetank-vlog-beat-349853.mp3",
-  "visual3d": "battery"
+  "visual3d": "battery",
+  "media_files": [
+    "media/d30f1aa1/reel.mp4"
+  ]
 }
