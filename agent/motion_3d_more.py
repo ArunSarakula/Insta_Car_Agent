@@ -280,11 +280,11 @@ def battery3d(frame, d, t, i):
     elif i == 1:
         big_word(d, "WEEKLY DRIVE", VY3 + 800, GREEN, t, 0.3, 90)
     elif i == 2:
-        callout(d, cam, (-0.27, -0.01, 0.38 + 0.12 * neg), 150, -40, "NEGATIVE OFF", AMBER)
+        callout(d, cam, (-0.27, -0.01, 0.38 + 0.12 * neg), -150, 100, "NEGATIVE OFF", AMBER, size=40)
         big_word(d, "LONG TRIP AWAY", VY3 + 800, WHITE, t, 0.3, 80)
     else:
         if crust > 0.3:
-            callout(d, cam, (0.27, -0.01, 0.38), 90, -130, "WHITE CRUST", (235, 235, 225))
+            callout(d, cam, (0.27, -0.01, 0.38), 150, 100, "WHITE CRUST", (235, 235, 225), size=40)
         big_word(d, "SLOW START?", VY3 + 800, RED, t, 1.2, 96)
 
 

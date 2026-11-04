@@ -1,7 +1,7 @@
 {
   "format": "reel",
   "reel_style": "board",
-  "layout": "captions",
+  "layout": "big3d",
   "status": "draft",
   "id": "d30f1aa1",
   "scheduled_for": "2026-11-21T18:00:00+05:30",
@@ -106,8 +106,5 @@
   "voiced": true,
   "voice": "en-IN-Chirp3-HD-Charon",
   "music_track": "tunetank-vlog-beat-349853.mp3",
-  "media_files": [
-    "media/d30f1aa1/reel.mp4"
-  ],
   "visual3d": "battery"
 }
