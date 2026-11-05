@@ -502,11 +502,16 @@ def visual_thumbnail(post, path, handle="@decodethedrive"):
     step = post.get("thumbnail_step", step)
     if post.get("layout") == "duel":  # the two cars and the scoreboard, mid-fight
         from .motion_duel import duel
-        visual, step = (lambda frame, d, t, i: duel(post, frame, d, t, i)), post.get("thumbnail_step", 0)
+        # drawn on a spare frame so the duel's own background doesn't cover the title
+        visual, step = (lambda frame, d, t, i: duel(post, Image.new("RGBA", (W, H)), d, t, i)), \
+            post.get("thumbnail_step", 0)
     text = post.get("thumbnail_text") or post["slides"][0]["heading"]
     top, _, accent = text.partition("|")
     im = Image.new("RGBA", (W, H), (*NAVY, 255))
     im.alpha_composite(_glow(900, TEAL, 55), (-300, 900))
+    if post.get("layout") == "duel":
+        from .motion_duel import _theme
+        _theme(post, im, 0)
     d = ImageDraw.Draw(im)
     parts = [(clean(p).upper(), c) for p, c in ((top, WHITE), (accent, AMBER)) if clean(p)]
     for size in range(180, 70, -8):  # short titles get huge type
