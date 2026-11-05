@@ -21,91 +21,42 @@
       "viz": {}
     },
     {
-      "heading": "Same engine, same running cost",
+      "heading": "Round 1: engine",
       "body": "",
-      "badge": "SAME ENGINE",
-      "viz": {
-        "kind": "check",
-        "items": [
-          {
-            "text": "1.0 TSI in both",
-            "ok": true
-          },
-          {
-            "text": "Same fuel cost",
-            "ok": true
-          },
-          {
-            "text": "Same service cost",
-            "ok": true
-          }
-        ]
-      }
+      "badge": "",
+      "viz": {}
     },
     {
-      "heading": "The difference is the price",
+      "heading": "Round 2: on-road price",
       "body": "",
-      "badge": "ON-ROAD",
-      "viz": {
-        "kind": "versus",
-        "left": {
-          "title": "Virtus",
-          "lines": [
-            "Rs 13.2 L"
-          ],
-          "color": "blue"
-        },
-        "right": {
-          "title": "Slavia",
-          "lines": [
-            "Rs 11.9 L"
-          ],
-          "color": "green"
-        },
-        "win": "right"
-      }
+      "badge": "",
+      "viz": {}
     },
     {
-      "heading": "Total cost over 5 years",
+      "heading": "Round 3: resale",
       "body": "",
-      "badge": "5 YEARS",
-      "viz": {
-        "kind": "bars",
-        "unit": "after resale",
-        "items": [
-          {
-            "label": "Virtus",
-            "value": 17.4,
-            "text": "Rs 17.4 L",
-            "color": "red"
-          },
-          {
-            "label": "Slavia",
-            "value": 16.1,
-            "text": "Rs 16.1 L",
-            "color": "green"
-          }
-        ]
-      }
+      "badge": "",
+      "viz": {}
     },
     {
-      "heading": "Slavia saves about Rs 2,200 a month",
+      "heading": "Round 4: total 5-year cost",
       "body": "",
-      "badge": "VERDICT",
-      "viz": {
-        "kind": "number",
-        "value": "Rs 2,200",
-        "label": "less every month",
-        "sub": "Estimate, base variants",
-        "color": "green"
-      }
+      "badge": "",
+      "viz": {}
+    },
+    {
+      "heading": "Slavia wins",
+      "body": "",
+      "badge": "",
+      "viz": {}
     }
   ],
   "voice_lines": [
-    "Both have the same one litre TSI engine, so fuel and service cost the same. About eighty four thousand rupees of petrol a year, at thirty kilometres a day.",
-    "The difference is the price. A base Virtus is about thirteen point two lakh on-road in Hyderabad. A base Slavia, about eleven point nine lakh.",
-    "Add loan interest, insurance, fuel, service and tyres, then take away the resale value. Over five years, the Virtus costs about seventeen point four lakh. The Slavia, about sixteen point one lakh.",
-    "So the Slavia costs about two thousand two hundred rupees a month less. These are estimates for base manual variants. Which one would you pick? Comment below."
+    "Round one, the engine. Both have the same one litre TSI, so fuel and service cost the same. It's a tie.",
+    "Round two, the price. A base Virtus is about thirteen point two lakh on-road in Hyderabad. The Slavia, eleven point nine. Slavia takes it.",
+    "Round three, resale. After five years the Virtus sells for about thirty two thousand more. Point to Virtus.",
+    "Round four, the total. Loan interest, insurance, fuel, service and tyres, minus resale. Virtus, seventeen point four lakh. Slavia, sixteen point one.",
+    "Slavia wins, two to one. About two thousand two hundred rupees a month less. Which one would you pick? Comment below."
   ],
   "hashtags": [
     "#Virtus",
@@ -144,24 +95,29 @@
         "right": 11.9,
         "fmt": "Rs {:.1f} L",
         "win": "right",
-        "note": "Base manual, Hyderabad"
+        "note": "Slavia Rs 1.3 L cheaper"
       },
       {
-        "title": "5-YEAR COST",
+        "title": "RESALE AFTER 5 YEARS",
+        "left": 4.8,
+        "right": 4.5,
+        "fmt": "Rs {:.1f} L",
+        "win": "left",
+        "note": "Virtus gets Rs 32,000 more back"
+      },
+      {
+        "title": "TOTAL 5-YEAR COST",
         "left": 17.4,
         "right": 16.1,
         "fmt": "Rs {:.1f} L",
         "win": "right",
-        "note": "After resale value"
+        "note": "Slavia saves Rs 1.3 L"
       }
     ],
     "verdict": {
       "big": "Rs 2,200",
       "sub": "less every month",
-      "note": "Estimate, base variants"
+      "note": "Estimate: base manual, Hyderabad"
     }
-  },
-  "media_files": [
-    "media/3789e20a/reel.mp4"
-  ]
+  }
 }
