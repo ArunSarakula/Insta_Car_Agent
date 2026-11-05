@@ -1,0 +1,124 @@
+{
+  "format": "reel",
+  "reel_style": "board",
+  "layout": "captions",
+  "status": "draft",
+  "id": "3789e20a",
+  "scheduled_for": "2026-12-04T18:00:00+05:30",
+  "save_tip": "Same engine, different price",
+  "music": "tech",
+  "hook_type": "comparison",
+  "title": "Virtus vs Slavia: real cost over 5 years",
+  "hook": "Virtus or Slavia: which costs less in 5 years?",
+  "youtube_title": "Virtus vs Slavia: which is cheaper to own over 5 years?",
+  "thumbnail_text": "Virtus vs Slavia | Real cost?",
+  "caption": "Virtus or Slavia: which one really costs less over 5 years? 🚗\n\nSame 1.0 TSI engine, same mileage, same service cost. The only real difference is the price you pay on day one.\n\nBase Virtus (Comfortline 1.0 TSI MT): about Rs 13.2 lakh on-road, Rs 17.4 lakh over 5 years.\nBase Slavia (Classic 1.0 TSI MT): about Rs 11.9 lakh on-road, Rs 16.1 lakh over 5 years.\n\nThat's about Rs 2,200 a month less for the Slavia.\n\nEstimate for Hyderabad: 30 km a day, 20% down payment, 5-year loan at 9%, after resale value. Your city and variant will change the numbers.\n\nWhich one would you pick? Comment below or DM me on Instagram 👇",
+  "slides": [
+    {
+      "heading": "Virtus or Slavia: which costs less in 5 years?",
+      "body": "",
+      "badge": "",
+      "viz": {}
+    },
+    {
+      "heading": "Same engine, same running cost",
+      "body": "",
+      "badge": "SAME ENGINE",
+      "viz": {
+        "kind": "check",
+        "items": [
+          {
+            "text": "1.0 TSI in both",
+            "ok": true
+          },
+          {
+            "text": "Same fuel cost",
+            "ok": true
+          },
+          {
+            "text": "Same service cost",
+            "ok": true
+          }
+        ]
+      }
+    },
+    {
+      "heading": "The difference is the price",
+      "body": "",
+      "badge": "ON-ROAD",
+      "viz": {
+        "kind": "versus",
+        "left": {
+          "title": "Virtus",
+          "lines": [
+            "Rs 13.2 L"
+          ],
+          "color": "blue"
+        },
+        "right": {
+          "title": "Slavia",
+          "lines": [
+            "Rs 11.9 L"
+          ],
+          "color": "green"
+        },
+        "win": "right"
+      }
+    },
+    {
+      "heading": "Total cost over 5 years",
+      "body": "",
+      "badge": "5 YEARS",
+      "viz": {
+        "kind": "bars",
+        "unit": "after resale",
+        "items": [
+          {
+            "label": "Virtus",
+            "value": 17.4,
+            "text": "Rs 17.4 L",
+            "color": "red"
+          },
+          {
+            "label": "Slavia",
+            "value": 16.1,
+            "text": "Rs 16.1 L",
+            "color": "green"
+          }
+        ]
+      }
+    },
+    {
+      "heading": "Slavia saves about Rs 2,200 a month",
+      "body": "",
+      "badge": "VERDICT",
+      "viz": {
+        "kind": "number",
+        "value": "Rs 2,200",
+        "label": "less every month",
+        "sub": "Estimate, base variants",
+        "color": "green"
+      }
+    }
+  ],
+  "voice_lines": [
+    "Both have the same one litre TSI engine, so fuel and service cost the same. About eighty four thousand rupees of petrol a year, at thirty kilometres a day.",
+    "The difference is the price. A base Virtus is about thirteen point two lakh on-road in Hyderabad. A base Slavia, about eleven point nine lakh.",
+    "Add loan interest, insurance, fuel, service and tyres, then take away the resale value. Over five years, the Virtus costs about seventeen point four lakh. The Slavia, about sixteen point one lakh.",
+    "So the Slavia costs about two thousand two hundred rupees a month less. These are estimates for base manual variants. Which one would you pick? Comment below."
+  ],
+  "hashtags": [
+    "#Virtus",
+    "#Slavia",
+    "#CarComparison",
+    "#IndianCars",
+    "#CarCost"
+  ],
+  "youtube_hashtags": [
+    "#Virtus",
+    "#Slavia"
+  ],
+  "voiced": true,
+  "voice": "en-IN-Chirp3-HD-Charon",
+  "music_track": "paulyudin-tech-corporate-182507.mp3"
+}
