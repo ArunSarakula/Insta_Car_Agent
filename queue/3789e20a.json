@@ -21,6 +21,12 @@
       "viz": {}
     },
     {
+      "heading": "Virtus vs Slavia",
+      "body": "",
+      "badge": "",
+      "viz": {}
+    },
+    {
       "heading": "Round 1: engine",
       "body": "",
       "badge": "",
@@ -52,6 +58,7 @@
     }
   ],
   "voice_lines": [
+    "Virtus versus Slavia. Which one really costs less?",
     "Round one, the engine. Both have the same one litre TSI, so fuel and service cost the same. It's a tie.",
     "Round two, the price. A base Virtus is about thirteen point two lakh on-road in Hyderabad. The Slavia, eleven point nine. Slavia takes it.",
     "Round three, resale. After five years the Virtus sells for about thirty two thousand more. Point to Virtus.",
@@ -118,9 +125,7 @@
       "big": "Rs 2,200",
       "sub": "less every month",
       "note": "Estimate: base manual, Hyderabad"
-    }
-  },
-  "media_files": [
-    "media/3789e20a/reel.mp4"
-  ]
+    },
+    "question": "Which costs less?"
+  }
 }

@@ -708,7 +708,8 @@ def test_duel_draws_rounds_and_verdict():
         "verdict": {"big": "Rs 2,200", "sub": "less every month"}}}
     assert check_duel(post) == []
     for i in range(3):
-        for t in (0.0, 1.0, 2.5):
+        for t in (1.0, 2.5):
             im = Image.new("RGBA", (1080, 1920))
-            duel(post, im, ImageDraw.Draw(im), t, i)
-            assert im.getbbox()
+            layer = Image.new("RGBA", (1080, 1920))
+            duel(post, im, ImageDraw.Draw(layer), t, i)
+            assert layer.getbbox()

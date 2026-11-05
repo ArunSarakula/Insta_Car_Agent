@@ -18,7 +18,7 @@ Scene i draws round i; the scene after the last round is the verdict.
 import math
 import random
 
-from PIL import Image
+from PIL import Image, ImageDraw
 
 from .design import AMBER, BOLD, GREY, INK, MEDIUM, TEAL, WHITE
 from .motion import GREEN, RED, W, X0, XW, _font, ease_out
@@ -26,8 +26,8 @@ from .motion_board import _a, _c, _fitted
 
 SCORE_Y = 660    # names and scoreboard, under the caption line
 PHOTO_BAND = (730, 970)  # the two car photos, when the post has them
-PANEL = (24, 34, 50)
-DIM = (60, 70, 86)
+PANEL = (28, 28, 36)
+DIM = (72, 72, 84)
 _photos = {}
 
 
@@ -219,10 +219,82 @@ def _verdict(post, d, t, frame):
         _confetti(d, t)
 
 
+BG = (9, 9, 13)
+
+
+def _theme(post, frame, t):
+    """Fight-night look: near black, each half tinted with its car's colour,
+    a bright diagonal seam between them and faint speed lines."""
+    duel_ = post["duel"]
+    lc, rc = _c(duel_["left"].get("color"), (90, 170, 255)), _c(duel_["right"].get("color"), GREEN)
+    bg = Image.new("RGBA", (W, frame.height), (*BG, 255))
+    tint = Image.new("RGBA", bg.size, (0, 0, 0, 0))
+    g = ImageDraw.Draw(tint)
+    h = frame.height
+    g.polygon([(0, 0), (W * 0.62, 0), (W * 0.38, h), (0, h)], fill=(*lc, 34))
+    g.polygon([(W * 0.62, 0), (W, 0), (W, h), (W * 0.38, h)], fill=(*rc, 34))
+    for k in range(9):  # speed lines drifting across
+        y = (k * 233 + t * 260) % h
+        g.line([(0, y), (W, y - 140)], fill=(255, 255, 255, 10), width=3)
+    bg.alpha_composite(tint)
+    frame.paste(bg, (0, 0))
+
+
+def _intro(post, frame, d, t):
+    """The first 2 seconds: two colour panels crash together, the names slam
+    in, a VS hits the middle with a flash and a shake, then the question."""
+    duel_ = post["duel"]
+    L, R = duel_["left"], duel_["right"]
+    lc, rc = _c(L.get("color"), (90, 170, 255)), _c(R.get("color"), GREEN)
+    h = frame.height
+    top, bot = 600, 1320
+    mid = (top + bot) / 2
+    p = ease_out((t - 0.75) / 0.25)            # panels crash in
+    hit = max(0.0, 1 - abs(t - 1.05) / 0.12)   # the VS impact
+    shake = 14 * hit * math.sin(t * 90)
+    lx = -W * (1 - p) + shake
+    rx = W * (1 - p) + shake
+    d.polygon([(lx, top), (lx + W * 0.66, top), (lx + W * 0.34, bot), (lx, bot)], fill=_a(lc, 235))
+    d.polygon([(rx + W * 0.66, top), (rx + W, top), (rx + W, bot), (rx + W * 0.34, bot)], fill=_a(rc, 235))
+    d.line([(W * 0.66 + shake, top - 20), (W * 0.34 + shake, bot + 20)], fill=_a(WHITE, 255 * p), width=10)
+    if L.get("photo") and R.get("photo"):
+        _put_photo(frame, L["photo"], X0 + 200 + lx, mid - 190, 460, 240, alpha=p)
+        _put_photo(frame, R["photo"], X0 + XW - 200 + rx, mid + 190, 460, 240, alpha=p)
+    q = _ease_back((t - 0.8) / 0.3)
+    if q > 0:
+        for name, x, y, anchor in ((L["name"], X0 + lx * 0.3, top + 120, "la"),
+                                   (R["name"], X0 + XW + rx * 0.3, bot - 120, "ra")):
+            f = _fitted(d, name.upper(), XW * 0.62, int(150 * max(0.6, min(1.15, q))), 60)
+            d.text((x, y), name.upper(), font=f, fill=_a(WHITE, 255), anchor=anchor[0] + "m",
+                   stroke_width=6, stroke_fill=_a(INK, 255))
+    v = _ease_back((t - 0.95) / 0.22)
+    if v > 0:
+        size = int(260 * (1 + 0.6 * max(0.0, 1 - v)))
+        d.text((W / 2 + shake, mid), "VS", font=_font(BOLD, size), fill=_a(AMBER, 255), anchor="mm",
+               stroke_width=10, stroke_fill=_a(INK, 255))
+    if hit > 0:  # white flash on impact
+        d.rectangle([0, 0, W, h], fill=(255, 255, 255, int(150 * hit)))
+    s = ease_out((t - 1.3) / 0.3)
+    if s > 0 and duel_.get("question"):
+        text = duel_["question"].upper()
+        f = _fitted(d, text, XW - 60, 58, 30)
+        tw = d.textlength(text, font=f)
+        y = bot + 65 - 30 * (1 - s)
+        d.rounded_rectangle([W / 2 - tw / 2 - 30, y - 44, W / 2 + tw / 2 + 30, y + 44], radius=44,
+                            fill=_a(WHITE, 255 * s))
+        d.text((W / 2, y), text, font=f, fill=_a(INK, 255 * s), anchor="mm")
+
+
 def duel(post, frame, d, t, i):
+    _theme(post, frame, t)
     rounds = post["duel"]["rounds"]
+    if post["duel"].get("question"):  # the first scene is the 2-second opener
+        if i == 0:
+            _intro(post, frame, d, t)
+            return
+        i -= 1
     if i < len(rounds):
-        _header(post, frame, d, t, i, intro=(i == 0))
+        _header(post, frame, d, t, i, intro=False)
         _round(post, d, t, i)
     else:
         _verdict(post, d, t, frame)
@@ -240,6 +312,7 @@ def check_duel(post) -> list[str]:
     for n, r in enumerate(rounds, 1):
         if r.get("win") not in ("left", "right", "tie"):
             errors.append(f"round {n}: win must be left, right or tie")
-    if len(post.get("slides", [])) - 1 != len(rounds) + 1:
-        errors.append("duel: need one slide per round plus one for the verdict, after the hook")
+    want = len(rounds) + 1 + (1 if duel_.get("question") else 0)
+    if len(post.get("slides", [])) - 1 != want:
+        errors.append("duel: after the hook, need a slide for the opener (if any), each round and the verdict")
     return errors
