@@ -49,7 +49,7 @@
   "music": "epic",
   "idea_id": "i05",
   "scheduled_for": "2026-11-05T20:00:00+05:30",
-  "status": "approved",
+  "status": "published",
   "id": "3cd9f131",
   "media_files": [
     "media/3cd9f131/slide-1.jpg",
@@ -60,5 +60,7 @@
     "media/3cd9f131/slide-6.jpg",
     "media/3cd9f131/slide-7.jpg",
     "media/3cd9f131/slide-8.jpg"
-  ]
+  ],
+  "media_id": "17954107131298376",
+  "published_at": "2026-11-05T21:17:50.808298+05:30"
 }
