@@ -462,6 +462,9 @@ def visual_scenes(post, handle):
         from .motion_3d import VISUALS3D
         from .motion_3d_more import VISUALS3D_MORE
         big = {**VISUALS3D, **VISUALS3D_MORE}.get(post.get("visual3d") or post["reel_style"])
+    elif post.get("layout") == "duel":  # head-to-head car comparison, full screen
+        from .motion_duel import duel
+        big = lambda frame, d, t, i: duel(post, frame, d, t, i)  # noqa: E731
     slides = post["slides"]
     scenes = []
     for i, slide in enumerate(slides[1:]):
@@ -469,7 +472,8 @@ def visual_scenes(post, handle):
         badge = (slide.get("badge") or badges[min(i, len(badges) - 1)]).upper()
 
         def draw(frame, d, t, heading=heading, slide=slide, badge=badge, i=i):
-            _pill(d, X0, TOP + 40, badge, TEAL, INK, alpha=int(255 * ease_out(t / 0.2)), size=34)
+            if post.get("layout") != "duel":  # the duel has its own round labels
+                _pill(d, X0, TOP + 40, badge, TEAL, INK, alpha=int(255 * ease_out(t / 0.2)), size=34)
             if big:
                 big(frame, d, t, i)
                 return
@@ -496,6 +500,9 @@ def visual_thumbnail(post, path, handle="@decodethedrive"):
     _, _, _, step = VISUALS[post["reel_style"]]
     visual = _visual_for(post)
     step = post.get("thumbnail_step", step)
+    if post.get("layout") == "duel":  # the two cars and the scoreboard, mid-fight
+        from .motion_duel import duel
+        visual, step = (lambda frame, d, t, i: duel(post, frame, d, t, i)), post.get("thumbnail_step", 0)
     text = post.get("thumbnail_text") or post["slides"][0]["heading"]
     top, _, accent = text.partition("|")
     im = Image.new("RGBA", (W, H), (*NAVY, 255))

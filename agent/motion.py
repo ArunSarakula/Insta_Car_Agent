@@ -352,7 +352,7 @@ def render_motion(post, path: Path, handle="@decodethedrive", music: Path | None
         total += dur
     cues = [(k, s + at) for s, (_, _, c) in zip(starts, scenes) for k, at in c]
     captions = []
-    if post.get("layout") in ("big3d", "captions") and lines:  # short captions follow the voice
+    if post.get("layout") in ("big3d", "captions", "duel") and lines:  # short captions follow the voice
         from .design import spoken_lines
         for text, samples, s in zip(spoken_lines(post, visual_count), lines, starts):
             captions += caption_chunks(text, s + VOICE_AT, len(samples) / RATE, samples=samples)
@@ -389,8 +389,7 @@ def render_motion(post, path: Path, handle="@decodethedrive", music: Path | None
         layer = Image.new("RGBA", (W, H), (0, 0, 0, 0))
         d = ImageDraw.Draw(layer)
         draw(frame, d, local)
-        d.rounded_rectangle([X0, TOP - 6, X0 + XW, TOP + 2], radius=4, fill=(255, 255, 255, 40))
-        d.rounded_rectangle([X0, TOP - 6, X0 + XW * t / total, TOP + 2], radius=4, fill=(*TEAL, 255))
+        # no progress bar at the top: the owner asked for it gone (Nov 2026)
         d.text((X0, BOT - 40), handle, font=handle_font, fill=(*TEAL, 255))
         for a, b, text in captions:
             if a <= t < b:  # pops in, slightly enlarged, then settles

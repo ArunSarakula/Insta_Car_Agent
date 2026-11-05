@@ -694,3 +694,21 @@ def test_more_3d_visuals_draw_every_scene():
             layer = Image.new("RGBA", frame.size, (0, 0, 0, 0))
             draw(frame, ImageDraw.Draw(layer), 2.0, i)
             assert layer.getbbox(), (name, i)
+
+
+def test_duel_draws_rounds_and_verdict():
+    from PIL import Image, ImageDraw
+
+    from agent.motion_duel import check_duel, duel
+
+    post = {"slides": [{}] * 4, "duel": {
+        "left": {"name": "Virtus", "color": "blue"}, "right": {"name": "Slavia", "color": "green"},
+        "rounds": [{"title": "ENGINE", "left": "1.0 TSI", "right": "1.0 TSI", "win": "tie"},
+                   {"title": "PRICE", "left": 13.2, "right": 11.9, "fmt": "Rs {:.1f} L", "win": "right"}],
+        "verdict": {"big": "Rs 2,200", "sub": "less every month"}}}
+    assert check_duel(post) == []
+    for i in range(3):
+        for t in (0.0, 1.0, 2.5):
+            im = Image.new("RGBA", (1080, 1920))
+            duel(post, im, ImageDraw.Draw(im), t, i)
+            assert im.getbbox()

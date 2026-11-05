@@ -1,7 +1,7 @@
 {
   "format": "reel",
   "reel_style": "board",
-  "layout": "captions",
+  "layout": "duel",
   "status": "draft",
   "id": "3789e20a",
   "scheduled_for": "2026-12-04T18:00:00+05:30",
@@ -121,7 +121,44 @@
   "voiced": true,
   "voice": "en-IN-Chirp3-HD-Charon",
   "music_track": "soulprodmusic-corporate-upbeat-tech-208855.mp3",
-  "media_files": [
-    "media/3789e20a/reel.mp4"
-  ]
+  "duel": {
+    "left": {
+      "name": "Virtus",
+      "color": "blue"
+    },
+    "right": {
+      "name": "Slavia",
+      "color": "green"
+    },
+    "rounds": [
+      {
+        "title": "ENGINE",
+        "left": "1.0 TSI",
+        "right": "1.0 TSI",
+        "win": "tie",
+        "note": "Same fuel and service cost"
+      },
+      {
+        "title": "ON-ROAD PRICE",
+        "left": 13.2,
+        "right": 11.9,
+        "fmt": "Rs {:.1f} L",
+        "win": "right",
+        "note": "Base manual, Hyderabad"
+      },
+      {
+        "title": "5-YEAR COST",
+        "left": 17.4,
+        "right": 16.1,
+        "fmt": "Rs {:.1f} L",
+        "win": "right",
+        "note": "After resale value"
+      }
+    ],
+    "verdict": {
+      "big": "Rs 2,200",
+      "sub": "less every month",
+      "note": "Estimate, base variants"
+    }
+  }
 }
