@@ -4,7 +4,7 @@
   "layout": "captions",
   "status": "draft",
   "id": "ff429d97",
-  "scheduled_for": "2026-11-18T19:30:00+05:30",
+  "scheduled_for": "2026-11-20T18:00:00+05:30",
   "save_tip": "Stars help. Seat belts save.",
   "music": "epic",
   "hook_type": "question",
@@ -107,11 +107,11 @@
     "#BharatNCAP",
     "#CarSafety"
   ],
-  "youtube_only": true,
   "voiced": true,
   "voice": "en-IN-Chirp3-HD-Charon",
   "music_track": "jonasblakewood-epic-cinematic-562864.mp3",
   "media_files": [
     "media/ff429d97/reel.mp4"
-  ]
+  ],
+  "youtube_at": "2026-11-20T21:00:00+05:30"
 }

@@ -4,7 +4,7 @@
   "layout": "captions",
   "status": "draft",
   "id": "2ca822be",
-  "scheduled_for": "2026-11-22T18:00:00+05:30",
+  "scheduled_for": "2026-11-15T18:00:00+05:30",
   "save_tip": "Keeping it long? December wins",
   "music": "upbeat",
   "hook_type": "versus",
@@ -123,5 +123,6 @@
   "music_track": "prettyjohn1-future-bass-523169.mp3",
   "media_files": [
     "media/2ca822be/reel.mp4"
-  ]
+  ],
+  "youtube_at": "2026-11-15T21:00:00+05:30"
 }

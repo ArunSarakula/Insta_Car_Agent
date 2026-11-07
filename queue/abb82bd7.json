@@ -64,7 +64,7 @@
   ],
   "music": "phonk",
   "idea_id": "",
-  "scheduled_for": "2026-11-08T18:00:00+05:30",
+  "scheduled_for": "2026-11-30T21:00:00+05:30",
   "status": "draft",
   "id": "abb82bd7",
   "voiced": true,
@@ -72,5 +72,6 @@
   "music_track": "vaitsez-dark-beat-620108.mp3",
   "media_files": [
     "media/abb82bd7/reel.mp4"
-  ]
+  ],
+  "youtube_only": true
 }

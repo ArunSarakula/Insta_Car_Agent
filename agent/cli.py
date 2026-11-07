@@ -29,7 +29,7 @@ from zoneinfo import ZoneInfo
 
 from . import store
 from .config import ROOT, Config
-from .slots import youtube_only
+from .slots import YOUTUBE_REEL_TIME, youtube_only
 
 DAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
 
@@ -104,6 +104,8 @@ def cmd_plan(cfg: Config, args) -> None:
         post["scheduled_for"] = next_occurrence(day, post.pop("time"), start, tz).isoformat()
         if youtube_only(post["format"], day):
             post["youtube_only"] = True
+        elif post["format"] == "reel":
+            post["youtube_at"] = next_occurrence(day, YOUTUBE_REEL_TIME, start, tz).isoformat()
         used.add(post.get("idea_id", ""))
         post = store.save_post({**post, "status": status})
         post["media_files"] = render_post(post, ROOT / "media", cfg.handle, cfg.tts_api_key, cfg.voice)
@@ -309,6 +311,15 @@ def youtube_description(post: dict) -> str:
             f"\n\n{' '.join(youtube_hashtags(post))}").strip()[:4900]
 
 
+def youtube_publish_at(post: dict) -> str | None:
+    """When the Short should go public, if later than now: Fri-Sun reels go
+    on Instagram first and on YouTube at the YouTube time."""
+    at = post.get("youtube_at")
+    if not at or datetime.fromisoformat(at) <= datetime.now(datetime.fromisoformat(at).tzinfo):
+        return None
+    return datetime.fromisoformat(at).astimezone(ZoneInfo("UTC")).strftime("%Y-%m-%dT%H:%M:%SZ")
+
+
 def upload_to_youtube(cfg: Config, post: dict) -> None:
     """Same reel as a YouTube Short. A failure here never undoes the
     Instagram post; it is recorded on the post instead."""
@@ -317,7 +328,8 @@ def upload_to_youtube(cfg: Config, post: dict) -> None:
         yt = YouTube(cfg.yt_client_id, cfg.yt_client_secret, cfg.yt_refresh_token)
         video_id = yt.upload_short(str(ROOT / post["media_files"][0]), youtube_title(post),
                                    youtube_description(post),
-                                   [t.lstrip("#") for t in post.get("hashtags", [])])
+                                   [t.lstrip("#") for t in post.get("hashtags", [])],
+                                   publish_at=youtube_publish_at(post))
         store.set_status(post["id"], "published", youtube_id=video_id)
         print(f"  Also on YouTube: https://youtube.com/shorts/{video_id}")
         folder = (ROOT / post["media_files"][0]).parent

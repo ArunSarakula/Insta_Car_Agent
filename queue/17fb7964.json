@@ -4,7 +4,7 @@
   "layout": "captions",
   "status": "draft",
   "id": "17fb7964",
-  "scheduled_for": "2026-11-29T18:00:00+05:30",
+  "scheduled_for": "2026-11-28T18:00:00+05:30",
   "save_tip": "Rubber ages even unused",
   "music": "upbeat",
   "hook_type": "warning",
@@ -115,5 +115,6 @@
   "visual3d": "tyre_code",
   "media_files": [
     "media/17fb7964/reel.mp4"
-  ]
+  ],
+  "youtube_at": "2026-11-28T21:00:00+05:30"
 }

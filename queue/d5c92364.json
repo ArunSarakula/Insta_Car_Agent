@@ -4,7 +4,7 @@
   "layout": "captions",
   "status": "draft",
   "id": "d5c92364",
-  "scheduled_for": "2026-11-14T18:00:00+05:30",
+  "scheduled_for": "2026-11-26T21:00:00+05:30",
   "save_tip": "Gentle first, gentle last",
   "music": "tech",
   "hook_type": "mistake",
@@ -103,5 +103,6 @@
   "visual3d": "turbo",
   "media_files": [
     "media/d5c92364/reel.mp4"
-  ]
+  ],
+  "youtube_only": true
 }

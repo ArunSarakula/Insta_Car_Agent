@@ -4,7 +4,7 @@
   "layout": "captions",
   "status": "draft",
   "id": "db7050c1",
-  "scheduled_for": "2026-11-25T19:30:00+05:30",
+  "scheduled_for": "2026-11-23T21:00:00+05:30",
   "save_tip": "Use the AC. Just use it smart.",
   "music": "chill",
   "hook_type": "number",
@@ -107,11 +107,11 @@
     "#EVIndia",
     "#EVRange"
   ],
-  "youtube_only": true,
   "voiced": true,
   "voice": "en-IN-Chirp3-HD-Charon",
   "music_track": "tunetank-vlog-beat-349853.mp3",
   "media_files": [
     "media/db7050c1/reel.mp4"
-  ]
+  ],
+  "youtube_only": true
 }

@@ -4,7 +4,7 @@
   "layout": "captions",
   "status": "draft",
   "id": "89480774",
-  "scheduled_for": "2026-11-28T18:00:00+05:30",
+  "scheduled_for": "2026-11-21T18:00:00+05:30",
   "save_tip": "Test drive it in traffic",
   "music": "tech",
   "hook_type": "versus",
@@ -119,5 +119,6 @@
   "visual3d": "gearbox",
   "media_files": [
     "media/89480774/reel.mp4"
-  ]
+  ],
+  "youtube_at": "2026-11-21T21:00:00+05:30"
 }

@@ -68,8 +68,7 @@
   ],
   "music": "tech",
   "idea_id": "i10",
-  "scheduled_for": "2026-11-10T19:30:00+05:30",
-  "youtube_only": true,
+  "scheduled_for": "2026-12-04T18:00:00+05:30",
   "status": "draft",
   "id": "b5771246",
   "voiced": true,
@@ -77,5 +76,6 @@
   "music_track": "paulyudin-tech-corporate-182507.mp3",
   "media_files": [
     "media/b5771246/reel.mp4"
-  ]
+  ],
+  "youtube_at": "2026-12-04T21:00:00+05:30"
 }

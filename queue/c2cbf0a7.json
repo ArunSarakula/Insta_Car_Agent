@@ -2,9 +2,9 @@
   "format": "reel",
   "reel_style": "board",
   "layout": "captions",
-  "status": "draft",
+  "status": "approved",
   "id": "c2cbf0a7",
-  "scheduled_for": "2026-12-01T19:30:00+05:30",
+  "scheduled_for": "2026-11-08T18:00:00+05:30",
   "save_tip": "Daily 20 to 80%, full only for trips",
   "music": "chill",
   "hook_type": "question",
@@ -96,11 +96,11 @@
     "#EVIndia",
     "#EVBattery"
   ],
-  "youtube_only": true,
   "voiced": true,
   "voice": "en-IN-Chirp3-HD-Charon",
   "music_track": "atlasaudio-lofi-chill-589987.mp3",
   "media_files": [
     "media/c2cbf0a7/reel.mp4"
-  ]
+  ],
+  "youtube_at": "2026-11-08T21:00:00+05:30"
 }

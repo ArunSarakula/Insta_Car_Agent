@@ -34,13 +34,17 @@ class YouTube:
         return resp.json()["access_token"]
 
     def upload_short(self, video_path: str, title: str, description: str,
-                     tags: list[str], privacy: str = "public") -> str:
+                     tags: list[str], privacy: str = "public", publish_at: str | None = None) -> str:
+        """publish_at (ISO 8601): upload as private and let YouTube make it
+        public at that time."""
         with open(video_path, "rb") as f:
             data = f.read()
         token = self._token()
         meta = {"snippet": {"title": title[:100], "description": description[:5000],
                             "tags": tags[:15], "categoryId": AUTOS_AND_VEHICLES},
                 "status": {"privacyStatus": privacy, "selfDeclaredMadeForKids": False}}
+        if publish_at:
+            meta["status"].update(privacyStatus="private", publishAt=publish_at)
         start = self.http.post(
             f"{UPLOAD_URL}?uploadType=resumable&part=snippet,status", data=json.dumps(meta),
             timeout=60, headers={"Authorization": f"Bearer {token}",

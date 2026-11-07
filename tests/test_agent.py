@@ -474,7 +474,8 @@ def test_instagram_cover_is_full_screen(tmp_path):
 
 def test_weekday_reels_are_youtube_only():
     from agent.slots import POST_SLOTS, youtube_only
-    assert youtube_only("reel", "Tue") and not youtube_only("reel", "Fri")
+    assert youtube_only("reel", "Mon") and youtube_only("reel", "Thu") and not youtube_only("reel", "Fri")
+    assert {d for d, _, f in POST_SLOTS if f == "reel"} == {"Mon", "Thu", "Fri", "Sat", "Sun"}
     assert not youtube_only("carousel", "Mon")
     assert {d for d, _, f in POST_SLOTS if f in ("meme", "carousel")}.isdisjoint({"Sat", "Sun"})
 
@@ -713,3 +714,10 @@ def test_duel_draws_rounds_and_verdict():
             layer = Image.new("RGBA", (1080, 1920))
             duel(post, im, ImageDraw.Draw(layer), t, i)
             assert layer.getbbox()
+
+
+def test_youtube_publish_at_only_when_later():
+    from agent.cli import youtube_publish_at
+    assert youtube_publish_at({"youtube_at": "2099-01-02T21:00:00+05:30"}) == "2099-01-02T15:30:00Z"
+    assert youtube_publish_at({"youtube_at": "2001-01-02T21:00:00+05:30"}) is None
+    assert youtube_publish_at({}) is None

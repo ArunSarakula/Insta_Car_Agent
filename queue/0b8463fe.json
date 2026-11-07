@@ -64,8 +64,7 @@
   ],
   "music": "upbeat",
   "idea_id": "i08",
-  "scheduled_for": "2026-11-11T19:30:00+05:30",
-  "youtube_only": true,
+  "scheduled_for": "2026-12-03T21:00:00+05:30",
   "status": "draft",
   "id": "0b8463fe",
   "voiced": true,
@@ -73,5 +72,6 @@
   "music_track": "alex-morgan-future-bass-545515.mp3",
   "media_files": [
     "media/0b8463fe/reel.mp4"
-  ]
+  ],
+  "youtube_only": true
 }

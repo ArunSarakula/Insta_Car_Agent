@@ -4,7 +4,7 @@
   "layout": "duel",
   "status": "draft",
   "id": "3789e20a",
-  "scheduled_for": "2026-12-04T18:00:00+05:30",
+  "scheduled_for": "2026-11-22T18:00:00+05:30",
   "save_tip": "Same engine, different price",
   "music": "tech",
   "hook_type": "comparison",
@@ -130,5 +130,6 @@
   },
   "media_files": [
     "media/3789e20a/reel.mp4"
-  ]
+  ],
+  "youtube_at": "2026-11-22T21:00:00+05:30"
 }

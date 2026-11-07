@@ -69,7 +69,7 @@
   ],
   "music": "chill",
   "idea_id": "",
-  "scheduled_for": "2026-11-06T18:00:00+05:30",
+  "scheduled_for": "2026-11-16T21:00:00+05:30",
   "status": "draft",
   "id": "431f0d66",
   "voiced": true,
@@ -77,5 +77,6 @@
   "music_track": "tunetank-vlog-beat-349853.mp3",
   "media_files": [
     "media/431f0d66/reel.mp4"
-  ]
+  ],
+  "youtube_only": true
 }
