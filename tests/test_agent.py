@@ -721,3 +721,15 @@ def test_youtube_publish_at_only_when_later():
     assert youtube_publish_at({"youtube_at": "2099-01-02T21:00:00+05:30"}) == "2099-01-02T15:30:00Z"
     assert youtube_publish_at({"youtube_at": "2001-01-02T21:00:00+05:30"}) is None
     assert youtube_publish_at({}) is None
+
+
+def test_youtube_early_posts(tmp_path):
+    from datetime import datetime
+    from agent import store
+    store.save_post({"id": "sun1", "format": "reel", "status": "approved",
+                     "scheduled_for": "2026-11-08T18:00:00+05:30",
+                     "youtube_at": "2026-11-08T10:30:00+05:30", "title": "t"}, tmp_path)
+    at = lambda h: datetime.fromisoformat(f"2026-11-08T{h}:00+05:30")  # noqa: E731
+    assert store.youtube_early_posts(at("10:00"), tmp_path) == []
+    assert [p["id"] for p in store.youtube_early_posts(at("10:45"), tmp_path)] == ["sun1"]
+    assert store.youtube_early_posts(at("18:05"), tmp_path) == []  # Instagram's turn: normal path

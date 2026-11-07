@@ -67,6 +67,18 @@ def due_posts(now: datetime, queue_dir: Path = QUEUE_DIR) -> list[dict]:
     return due
 
 
+def youtube_early_posts(now: datetime, queue_dir: Path = QUEUE_DIR) -> list[dict]:
+    """Approved reels whose YouTube time comes before their Instagram time
+    and has passed, and that are not on YouTube yet."""
+    early = []
+    for post in load_posts(queue_dir):
+        if post.get("status") != "approved" or post.get("youtube_id") or not post.get("youtube_at"):
+            continue
+        if datetime.fromisoformat(post["youtube_at"]) <= now < datetime.fromisoformat(post["scheduled_for"]):
+            early.append(post)
+    return early
+
+
 # ---- comment replies -------------------------------------------------------
 
 def load_replies(path: Path = REPLIES_FILE) -> list[dict]:

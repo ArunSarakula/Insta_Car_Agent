@@ -29,7 +29,7 @@ from zoneinfo import ZoneInfo
 
 from . import store
 from .config import ROOT, Config
-from .slots import youtube_only
+from .slots import YOUTUBE_TIMES, youtube_only
 
 DAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
 
@@ -104,6 +104,8 @@ def cmd_plan(cfg: Config, args) -> None:
         post["scheduled_for"] = next_occurrence(day, post.pop("time"), start, tz).isoformat()
         if youtube_only(post["format"], day):
             post["youtube_only"] = True
+        elif post["format"] == "reel" and day in YOUTUBE_TIMES:
+            post["youtube_at"] = next_occurrence(day, YOUTUBE_TIMES[day], start, tz).isoformat()
         used.add(post.get("idea_id", ""))
         post = store.save_post({**post, "status": status})
         post["media_files"] = render_post(post, ROOT / "media", cfg.handle, cfg.tts_api_key, cfg.voice)
@@ -217,6 +219,14 @@ def cmd_publish_due(cfg: Config, args) -> None:
     # comes on time.
     retry_thumbnails(cfg)
     lookahead = int(os.environ.get("PUBLISH_LOOKAHEAD_MIN") or 0)
+    if cfg.yt_refresh_token:  # Sunday-style: YouTube's time is before Instagram's
+        for post in store.youtube_early_posts(datetime.now(tz) + timedelta(minutes=lookahead)):
+            wait = (datetime.fromisoformat(post["youtube_at"]) - datetime.now(tz)).total_seconds()
+            if wait > 0:
+                print(f"Waiting {wait / 60:.0f} min to post {post['id']} to YouTube at {post['youtube_at'][11:16]}")
+                time.sleep(wait)
+            print(f"YouTube first (Instagram later at {post['scheduled_for'][11:16]}): {post['title']}")
+            upload_to_youtube(cfg, post, status="approved")
     due = store.due_posts(datetime.now(tz) + timedelta(minutes=lookahead))
     if not due:
         print("Nothing due.")
@@ -255,7 +265,8 @@ def cmd_publish_due(cfg: Config, args) -> None:
         store.set_status(post["id"], "published", media_id=media_id,
                          published_at=now.isoformat())
         print(f"Published {post['id']}: {post['title']}")
-        if post["format"] == "reel" and cfg.yt_refresh_token and not post.get("instagram_only"):
+        if post["format"] == "reel" and cfg.yt_refresh_token and not post.get("instagram_only") \
+                and not store.get_post(post["id"]).get("youtube_id"):  # not already up (Sunday morning)
             upload_to_youtube(cfg, post)  # instagram_only: a reel already on YouTube, shared to Instagram later
         post_to_x(cfg, post)
 
@@ -318,7 +329,7 @@ def youtube_publish_at(post: dict) -> str | None:
     return datetime.fromisoformat(at).astimezone(ZoneInfo("UTC")).strftime("%Y-%m-%dT%H:%M:%SZ")
 
 
-def upload_to_youtube(cfg: Config, post: dict) -> None:
+def upload_to_youtube(cfg: Config, post: dict, status: str = "published") -> None:
     """Same reel as a YouTube Short. A failure here never undoes the
     Instagram post; it is recorded on the post instead."""
     from .youtube import YouTube
@@ -328,7 +339,7 @@ def upload_to_youtube(cfg: Config, post: dict) -> None:
                                    youtube_description(post),
                                    [t.lstrip("#") for t in post.get("hashtags", [])],
                                    publish_at=youtube_publish_at(post))
-        store.set_status(post["id"], "published", youtube_id=video_id)
+        store.set_status(post["id"], status, youtube_id=video_id)
         print(f"  Also on YouTube: https://youtube.com/shorts/{video_id}")
         folder = (ROOT / post["media_files"][0]).parent
         cover = folder / "thumbnail.jpg" if (folder / "thumbnail.jpg").exists() else folder / "cover.jpg"
@@ -336,10 +347,10 @@ def upload_to_youtube(cfg: Config, post: dict) -> None:
             try:
                 yt.set_thumbnail(video_id, str(cover))
             except Exception as e:  # the Short is up either way
-                store.set_status(post["id"], "published", thumbnail_error=str(e))
+                store.set_status(post["id"], status, thumbnail_error=str(e))
                 print(f"  Thumbnail not set: {e}")
     except Exception as e:
-        store.set_status(post["id"], "published", youtube_error=str(e))
+        store.set_status(post["id"], status, youtube_error=str(e))
         print(f"  YouTube upload failed: {e}")
 
 

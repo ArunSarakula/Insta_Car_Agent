@@ -19,3 +19,10 @@ INSTAGRAM_REEL_DAYS = ("Fri", "Sat", "Sun")
 def youtube_only(post_format: str, day: str) -> bool:
     """Mon-Thu reels skip Instagram; the owner keeps Instagram reels for Fri-Sun."""
     return post_format == "reel" and day not in INSTAGRAM_REEL_DAYS
+
+
+# When each day's reel goes public on YouTube: the schedule YouTube started on
+# (22 Oct 2026), which the owner keeps fixed. Instagram keeps its own times
+# above; on Fri-Sun the Short is uploaded with the Instagram post and goes
+# public at this time, or, when this is earlier (Sunday), is posted on its own.
+YOUTUBE_TIMES = {"Tue": "19:30", "Wed": "19:30", "Fri": "19:30", "Sat": "19:30", "Sun": "10:30"}
