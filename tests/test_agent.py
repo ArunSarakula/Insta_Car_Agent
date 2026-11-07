@@ -474,8 +474,8 @@ def test_instagram_cover_is_full_screen(tmp_path):
 
 def test_weekday_reels_are_youtube_only():
     from agent.slots import POST_SLOTS, youtube_only
-    assert youtube_only("reel", "Mon") and youtube_only("reel", "Thu") and not youtube_only("reel", "Fri")
-    assert {d for d, _, f in POST_SLOTS if f == "reel"} == {"Mon", "Thu", "Fri", "Sat", "Sun"}
+    assert youtube_only("reel", "Tue") and not youtube_only("reel", "Fri")
+    assert {d for d, _, f in POST_SLOTS if f == "reel"} == {"Tue", "Wed", "Fri", "Sat", "Sun"}
     assert not youtube_only("carousel", "Mon")
     assert {d for d, _, f in POST_SLOTS if f in ("meme", "carousel")}.isdisjoint({"Sat", "Sun"})
 

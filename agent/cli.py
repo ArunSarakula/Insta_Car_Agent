@@ -29,7 +29,7 @@ from zoneinfo import ZoneInfo
 
 from . import store
 from .config import ROOT, Config
-from .slots import YOUTUBE_REEL_TIME, youtube_only
+from .slots import youtube_only
 
 DAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
 
@@ -104,8 +104,6 @@ def cmd_plan(cfg: Config, args) -> None:
         post["scheduled_for"] = next_occurrence(day, post.pop("time"), start, tz).isoformat()
         if youtube_only(post["format"], day):
             post["youtube_only"] = True
-        elif post["format"] == "reel":
-            post["youtube_at"] = next_occurrence(day, YOUTUBE_REEL_TIME, start, tz).isoformat()
         used.add(post.get("idea_id", ""))
         post = store.save_post({**post, "status": status})
         post["media_files"] = render_post(post, ROOT / "media", cfg.handle, cfg.tts_api_key, cfg.voice)
