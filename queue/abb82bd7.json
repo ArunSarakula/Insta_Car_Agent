@@ -69,8 +69,5 @@
   "id": "abb82bd7",
   "voiced": true,
   "voice": "en-IN-Chirp3-HD-Charon",
-  "music_track": "vaitsez-dark-beat-620108.mp3",
-  "media_files": [
-    "media/abb82bd7/reel.mp4"
-  ]
+  "music_track": "vaitsez-dark-beat-620108.mp3"
 }

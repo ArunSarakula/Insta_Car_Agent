@@ -74,8 +74,5 @@
   "id": "431f0d66",
   "voiced": true,
   "voice": "en-IN-Chirp3-HD-Charon",
-  "music_track": "tunetank-vlog-beat-349853.mp3",
-  "media_files": [
-    "media/431f0d66/reel.mp4"
-  ]
+  "music_track": "tunetank-vlog-beat-349853.mp3"
 }

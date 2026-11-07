@@ -70,8 +70,5 @@
   "id": "0b8463fe",
   "voiced": true,
   "voice": "en-IN-Chirp3-HD-Charon",
-  "music_track": "alex-morgan-future-bass-545515.mp3",
-  "media_files": [
-    "media/0b8463fe/reel.mp4"
-  ]
+  "music_track": "alex-morgan-future-bass-545515.mp3"
 }
