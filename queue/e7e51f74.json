@@ -2,7 +2,7 @@
   "format": "reel",
   "reel_style": "board",
   "layout": "captions",
-  "status": "approved",
+  "status": "published",
   "id": "e7e51f74",
   "scheduled_for": "2026-11-07T18:00:00+05:30",
   "save_tip": "Do the maths for your km",
@@ -122,5 +122,8 @@
   "media_files": [
     "media/e7e51f74/reel.mp4"
   ],
-  "youtube_at": "2026-11-07T19:30:00+05:30"
+  "youtube_at": "2026-11-07T19:30:00+05:30",
+  "media_id": "18036848117910308",
+  "published_at": "2026-11-07T18:00:00.000149+05:30",
+  "youtube_id": "pdirnXNBdYE"
 }
