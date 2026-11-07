@@ -4,7 +4,7 @@
   "layout": "big3d",
   "status": "draft",
   "id": "d30f1aa1",
-  "scheduled_for": "2026-11-14T18:00:00+05:30",
+  "scheduled_for": "2026-11-11T18:00:00+05:30",
   "save_tip": "Slow start is the first warning",
   "music": "chill",
   "hook_type": "warning",
@@ -110,5 +110,5 @@
   "media_files": [
     "media/d30f1aa1/reel.mp4"
   ],
-  "youtube_at": "2026-11-14T19:30:00+05:30"
+  "youtube_at": "2026-11-11T19:30:00+05:30"
 }

@@ -4,7 +4,7 @@
   "layout": "captions",
   "status": "draft",
   "id": "a11d2519",
-  "scheduled_for": "2026-11-18T19:30:00+05:30",
+  "scheduled_for": "2026-11-24T18:00:00+05:30",
   "save_tip": "No regular charging spot? Pick hybrid or CNG",
   "music": "tech",
   "hook_type": "question",
@@ -124,5 +124,5 @@
   "media_files": [
     "media/a11d2519/reel.mp4"
   ],
-  "youtube_only": true
+  "youtube_at": "2026-11-24T19:30:00+05:30"
 }

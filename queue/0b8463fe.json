@@ -64,7 +64,7 @@
   ],
   "music": "upbeat",
   "idea_id": "i08",
-  "scheduled_for": "2026-12-02T19:30:00+05:30",
+  "scheduled_for": "2026-12-02T18:00:00+05:30",
   "status": "draft",
   "id": "0b8463fe",
   "voiced": true,
@@ -73,5 +73,5 @@
   "media_files": [
     "media/0b8463fe/reel.mp4"
   ],
-  "youtube_only": true
+  "youtube_at": "2026-12-02T19:30:00+05:30"
 }

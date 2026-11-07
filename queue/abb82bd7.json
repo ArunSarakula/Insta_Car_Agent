@@ -64,7 +64,7 @@
   ],
   "music": "phonk",
   "idea_id": "",
-  "scheduled_for": "2026-12-01T19:30:00+05:30",
+  "scheduled_for": "2026-11-25T18:00:00+05:30",
   "status": "draft",
   "id": "abb82bd7",
   "voiced": true,
@@ -73,5 +73,5 @@
   "media_files": [
     "media/abb82bd7/reel.mp4"
   ],
-  "youtube_only": true
+  "youtube_at": "2026-11-25T19:30:00+05:30"
 }
