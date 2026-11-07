@@ -36,22 +36,72 @@
     },
     {
       "heading": "Only when you slow down",
-      "body": "Regen turns braking into charge. Steady highway cruising means little braking, so little gain."
+      "body": "Regen turns braking into charge. Steady highway cruising means little braking, so little gain.",
+      "badge": "THE MYTH",
+      "viz": {
+        "kind": "versus",
+        "left": {
+          "title": "Highway",
+          "lines": [
+            "Tiny gain"
+          ],
+          "color": "red"
+        },
+        "right": {
+          "title": "Slowing down",
+          "lines": [
+            "Charges"
+          ],
+          "color": "green"
+        },
+        "win": "right"
+      }
     },
     {
       "heading": "City traffic is where it shines",
-      "body": "Stop-go traffic means constant slowing. One-pedal mode recovers energy brakes would waste as heat."
+      "body": "Stop-go traffic means constant slowing. One-pedal mode recovers energy brakes would waste as heat.",
+      "badge": "WHERE IT SHINES",
+      "viz": {
+        "kind": "number",
+        "value": "CITY",
+        "label": "stop-go traffic",
+        "sub": "One-pedal mode",
+        "color": "green"
+      }
     },
     {
       "heading": "Hybrids do it too",
-      "body": "Strong hybrids store braking energy in their battery to drive on electric at low speeds."
+      "body": "Strong hybrids store braking energy in their battery to drive on electric at low speeds.",
+      "badge": "HYBRIDS TOO",
+      "viz": {
+        "kind": "check",
+        "items": [
+          {
+            "text": "Store braking energy",
+            "ok": true
+          },
+          {
+            "text": "Drive on electric",
+            "ok": true
+          }
+        ]
+      }
     },
     {
       "heading": "Lift off early, brake less",
-      "body": "Red signal ahead? Lift off early and let regen slow you. Saves energy and brake pads."
+      "body": "Red signal ahead? Lift off early and let regen slow you. Saves energy and brake pads.",
+      "badge": "MY TIP",
+      "viz": {
+        "kind": "steps",
+        "items": [
+          "Red light ahead",
+          "Lift off early",
+          "Let regen slow you"
+        ]
+      }
     }
   ],
-  "reel_style": "myth_fact",
+  "reel_style": "board",
   "versus_left": "",
   "versus_right": "",
   "quiz_options": [],
@@ -70,9 +120,8 @@
   "voiced": true,
   "voice": "en-IN-Chirp3-HD-Charon",
   "music_track": "alex-morgan-future-bass-545515.mp3",
-  "media_files": [
-    "media/0b8463fe/reel.mp4"
-  ],
   "youtube_at": "2026-12-02T19:30:00+05:30",
-  "thumbnail_text": "Regen on highway? | Myth!"
+  "thumbnail_text": "Regen on highway? | Myth!",
+  "old_reel_style": "myth_fact",
+  "layout": "captions"
 }

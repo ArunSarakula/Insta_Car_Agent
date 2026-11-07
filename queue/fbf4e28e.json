@@ -36,26 +36,115 @@
     },
     {
       "heading": "Running cost",
-      "body": "Low | Lowest with home charging"
+      "body": "Low | Lowest with home charging",
+      "badge": "RUNNING COST",
+      "viz": {
+        "kind": "versus",
+        "left": {
+          "title": "Hybrid",
+          "lines": [
+            "Low"
+          ],
+          "color": "teal"
+        },
+        "right": {
+          "title": "EV",
+          "lines": [
+            "Lowest"
+          ],
+          "color": "green"
+        },
+        "win": "right"
+      }
     },
     {
       "heading": "Charging needed",
-      "body": "None | Home charger ideal"
+      "body": "None | Home charger ideal",
+      "badge": "CHARGING",
+      "viz": {
+        "kind": "versus",
+        "left": {
+          "title": "Hybrid",
+          "lines": [
+            "None"
+          ],
+          "color": "teal"
+        },
+        "right": {
+          "title": "EV",
+          "lines": [
+            "Home charger"
+          ],
+          "color": "green"
+        },
+        "win": "left"
+      }
     },
     {
       "heading": "Long highway trips",
-      "body": "Fill up anywhere | Plan charging stops"
+      "body": "Fill up anywhere | Plan charging stops",
+      "badge": "HIGHWAY",
+      "viz": {
+        "kind": "versus",
+        "left": {
+          "title": "Hybrid",
+          "lines": [
+            "Fill anywhere"
+          ],
+          "color": "teal"
+        },
+        "right": {
+          "title": "EV",
+          "lines": [
+            "Plan stops"
+          ],
+          "color": "green"
+        },
+        "win": "left"
+      }
     },
     {
       "heading": "City traffic",
-      "body": "Very efficient | Very efficient"
+      "body": "Very efficient | Very efficient",
+      "badge": "CITY",
+      "viz": {
+        "kind": "check",
+        "items": [
+          {
+            "text": "Both on electric",
+            "ok": true
+          },
+          {
+            "text": "Both very efficient",
+            "ok": true
+          }
+        ]
+      }
     },
     {
       "heading": "Best for",
-      "body": "No home charger | Home parking and charger"
+      "body": "No home charger | Home parking and charger",
+      "badge": "PICK",
+      "viz": {
+        "kind": "versus",
+        "left": {
+          "title": "No charger",
+          "lines": [
+            "Hybrid"
+          ],
+          "color": "teal"
+        },
+        "right": {
+          "title": "Home charger",
+          "lines": [
+            "EV"
+          ],
+          "color": "green"
+        }
+      }
     }
   ],
-  "reel_style": "versus",
+  "reel_style": "board",
   "versus_left": "Hybrid",
   "versus_right": "EV",
   "quiz_options": [],
@@ -75,9 +164,8 @@
   "voiced": true,
   "voice": "en-IN-Chirp3-HD-Charon",
   "music_track": "the_mountain-trailer-cinematic-593077.mp3",
-  "media_files": [
-    "media/fbf4e28e/reel.mp4"
-  ],
   "youtube_at": "2026-11-29T10:30:00+05:30",
-  "thumbnail_text": "Hybrid or EV? | Pick right"
+  "thumbnail_text": "Hybrid or EV? | Pick right",
+  "old_reel_style": "versus",
+  "layout": "captions"
 }

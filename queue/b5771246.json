@@ -36,22 +36,67 @@
     },
     {
       "heading": "A sudden bike cut-in",
-      "body": "The sensors need a moment to confirm a hazard. A bike cutting in close leaves almost no time."
+      "body": "The sensors need a moment to confirm a hazard. A bike cutting in close leaves almost no time.",
+      "badge": "THE ANSWER",
+      "viz": {
+        "kind": "check",
+        "items": [
+          {
+            "text": "Bike cutting in",
+            "ok": false
+          }
+        ]
+      }
     },
     {
       "heading": "How AEB works",
-      "body": "Radar or camera spots a hazard, warns you first, then brakes if you don't react."
+      "body": "Radar or camera spots a hazard, warns you first, then brakes if you don't react.",
+      "badge": "HOW IT WORKS",
+      "viz": {
+        "kind": "steps",
+        "items": [
+          "Spots hazard",
+          "Warns you",
+          "Brakes"
+        ]
+      }
     },
     {
       "heading": "Also tricky: cattle, night, rain",
-      "body": "Odd shapes, pedestrians in low light and heavy rain can confuse the sensors."
+      "body": "Odd shapes, pedestrians in low light and heavy rain can confuse the sensors.",
+      "badge": "ALSO TRICKY",
+      "viz": {
+        "kind": "check",
+        "items": [
+          {
+            "text": "Cattle",
+            "ok": false
+          },
+          {
+            "text": "Night walkers",
+            "ok": false
+          },
+          {
+            "text": "Heavy rain",
+            "ok": false
+          }
+        ]
+      }
     },
     {
       "heading": "AEB is a backup",
-      "body": "Keep a 3-second gap and cover the brake near bikes. Never rely on it to stop for you."
+      "body": "Keep a 3-second gap and cover the brake near bikes. Never rely on it to stop for you.",
+      "badge": "MY RULE",
+      "viz": {
+        "kind": "number",
+        "value": "3 SEC",
+        "label": "gap, AEB is a backup",
+        "sub": "",
+        "color": "teal"
+      }
     }
   ],
-  "reel_style": "quiz",
+  "reel_style": "board",
   "versus_left": "",
   "versus_right": "",
   "quiz_options": [
@@ -74,9 +119,8 @@
   "voiced": true,
   "voice": "en-IN-Chirp3-HD-Charon",
   "music_track": "paulyudin-tech-corporate-182507.mp3",
-  "media_files": [
-    "media/b5771246/reel.mp4"
-  ],
   "youtube_at": "2026-12-04T19:30:00+05:30",
-  "thumbnail_text": "Can your AEB | miss this?"
+  "thumbnail_text": "Can your AEB | miss this?",
+  "old_reel_style": "quiz",
+  "layout": "captions"
 }

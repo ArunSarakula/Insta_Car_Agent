@@ -36,26 +36,94 @@
     },
     {
       "heading": "Your tyres: full life",
-      "body": "The pressure on your door sticker gives even wear and the best mileage."
+      "body": "The pressure on your door sticker gives even wear and the best mileage.",
+      "badge": "THE RIGHT NUMBER",
+      "viz": {
+        "kind": "number",
+        "value": "DOOR",
+        "label": "sticker pressure",
+        "sub": "Not the sidewall",
+        "color": "teal"
+      }
     },
     {
       "heading": "Checking right after a drive",
-      "body": "Hot tyres read higher, so you let air out and end up underinflated."
+      "body": "Hot tyres read higher, so you let air out and end up underinflated.",
+      "badge": "THE MISTAKE",
+      "viz": {
+        "kind": "check",
+        "items": [
+          {
+            "text": "Check after a drive",
+            "ok": false
+          },
+          {
+            "text": "Let air out hot",
+            "ok": false
+          }
+        ]
+      }
     },
     {
       "heading": "Running underinflated",
-      "body": "Edges wear fast, mileage drops and tyres run hotter on summer highways."
+      "body": "Edges wear fast, mileage drops and tyres run hotter on summer highways.",
+      "badge": "RUNNING LOW",
+      "viz": {
+        "kind": "check",
+        "items": [
+          {
+            "text": "Edges wear fast",
+            "ok": false
+          },
+          {
+            "text": "Mileage drops",
+            "ok": false
+          },
+          {
+            "text": "Tyre runs hotter",
+            "ok": false
+          }
+        ]
+      }
     },
     {
       "heading": "Filling to the sidewall max",
-      "body": "That number is the tyre's limit, not your car's recommended pressure."
+      "body": "That number is the tyre's limit, not your car's recommended pressure.",
+      "badge": "SIDEWALL MAX",
+      "viz": {
+        "kind": "versus",
+        "left": {
+          "title": "Sidewall",
+          "lines": [
+            "Tyre limit"
+          ],
+          "color": "red"
+        },
+        "right": {
+          "title": "Door sticker",
+          "lines": [
+            "Your car"
+          ],
+          "color": "green"
+        },
+        "win": "right"
+      }
     },
     {
       "heading": "The fix: check cold",
-      "body": "Before driving or after 3 hours parked. Use the door sticker number, every 2 weeks."
+      "body": "Before driving or after 3 hours parked. Use the door sticker number, every 2 weeks.",
+      "badge": "THE FIX",
+      "viz": {
+        "kind": "steps",
+        "items": [
+          "Check cold",
+          "Door sticker number",
+          "Every 2 weeks"
+        ]
+      }
     }
   ],
-  "reel_style": "meter",
+  "reel_style": "board",
   "versus_left": "",
   "versus_right": "",
   "quiz_options": [],
@@ -75,8 +143,7 @@
   "voiced": true,
   "voice": "en-IN-Chirp3-HD-Charon",
   "music_track": "tunetank-vlog-beat-349853.mp3",
-  "media_files": [
-    "media/431f0d66/reel.mp4"
-  ],
-  "youtube_at": "2026-11-17T19:30:00+05:30"
+  "youtube_at": "2026-11-17T19:30:00+05:30",
+  "old_reel_style": "meter",
+  "layout": "captions"
 }

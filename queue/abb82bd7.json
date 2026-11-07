@@ -36,22 +36,72 @@
     },
     {
       "heading": "Don't hold slopes with throttle",
-      "body": "Balancing on an incline with the accelerator slips the clutches and heats them. Use the brake or auto hold."
+      "body": "Balancing on an incline with the accelerator slips the clutches and heats them. Use the brake or auto hold.",
+      "badge": "MISTAKE 1",
+      "viz": {
+        "kind": "check",
+        "items": [
+          {
+            "text": "Throttle on slopes",
+            "ok": false
+          },
+          {
+            "text": "Use brake or auto hold",
+            "ok": true
+          }
+        ]
+      }
     },
     {
       "heading": "Don't creep inch by inch",
-      "body": "Constant crawling keeps clutches half-engaged. Wait for a gap, then move in one go."
+      "body": "Constant crawling keeps clutches half-engaged. Wait for a gap, then move in one go.",
+      "badge": "MISTAKE 2",
+      "viz": {
+        "kind": "check",
+        "items": [
+          {
+            "text": "Creeping inch by inch",
+            "ok": false
+          },
+          {
+            "text": "Wait, then go once",
+            "ok": true
+          }
+        ]
+      }
     },
     {
       "heading": "Brake firmly at signals",
-      "body": "Foot firmly on the brake when stopped, or use auto hold if your car has it."
+      "body": "Foot firmly on the brake when stopped, or use auto hold if your car has it.",
+      "badge": "AT SIGNALS",
+      "viz": {
+        "kind": "check",
+        "items": [
+          {
+            "text": "Brake firmly",
+            "ok": true
+          },
+          {
+            "text": "Auto hold on",
+            "ok": true
+          }
+        ]
+      }
     },
     {
       "heading": "So, is a DCT safe in traffic?",
-      "body": "Yes, with these habits. Heat warning on the dash? Pull over safely and let it cool."
+      "body": "Yes, with these habits. Heat warning on the dash? Pull over safely and let it cool.",
+      "badge": "VERDICT",
+      "viz": {
+        "kind": "number",
+        "value": "SAFE",
+        "label": "with these habits",
+        "sub": "Heat warning? Pull over",
+        "color": "green"
+      }
     }
   ],
-  "reel_style": "explainer",
+  "reel_style": "board",
   "versus_left": "",
   "versus_right": "",
   "quiz_options": [],
@@ -70,9 +120,8 @@
   "voiced": true,
   "voice": "en-IN-Chirp3-HD-Charon",
   "music_track": "vaitsez-dark-beat-620108.mp3",
-  "media_files": [
-    "media/abb82bd7/reel.mp4"
-  ],
   "youtube_at": "2026-11-25T19:30:00+05:30",
-  "thumbnail_text": "DCT in traffic? | Stop doing this"
+  "thumbnail_text": "DCT in traffic? | Stop doing this",
+  "old_reel_style": "explainer",
+  "layout": "captions"
 }
