@@ -123,5 +123,8 @@
   "youtube_at": "2026-12-02T19:30:00+05:30",
   "thumbnail_text": "Regen on highway? | Myth!",
   "old_reel_style": "myth_fact",
-  "layout": "captions"
+  "layout": "captions",
+  "media_files": [
+    "media/0b8463fe/reel.mp4"
+  ]
 }

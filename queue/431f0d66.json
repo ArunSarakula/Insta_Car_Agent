@@ -145,5 +145,8 @@
   "music_track": "tunetank-vlog-beat-349853.mp3",
   "youtube_at": "2026-11-17T19:30:00+05:30",
   "old_reel_style": "meter",
-  "layout": "captions"
+  "layout": "captions",
+  "media_files": [
+    "media/431f0d66/reel.mp4"
+  ]
 }

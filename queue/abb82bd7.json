@@ -123,5 +123,8 @@
   "youtube_at": "2026-11-25T19:30:00+05:30",
   "thumbnail_text": "DCT in traffic? | Stop doing this",
   "old_reel_style": "explainer",
-  "layout": "captions"
+  "layout": "captions",
+  "media_files": [
+    "media/abb82bd7/reel.mp4"
+  ]
 }
