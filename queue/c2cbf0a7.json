@@ -2,7 +2,7 @@
   "format": "reel",
   "reel_style": "board",
   "layout": "captions",
-  "status": "approved",
+  "status": "published",
   "id": "c2cbf0a7",
   "scheduled_for": "2026-11-08T18:00:00+05:30",
   "save_tip": "Daily 20 to 80%, full only for trips",
@@ -103,5 +103,7 @@
     "media/c2cbf0a7/reel.mp4"
   ],
   "youtube_at": "2026-11-08T10:30:00+05:30",
-  "youtube_id": "-UgpHHaaW-o"
+  "youtube_id": "-UgpHHaaW-o",
+  "media_id": "18399670108163490",
+  "published_at": "2026-11-08T18:45:17.988969+05:30"
 }
