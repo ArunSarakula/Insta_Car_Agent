@@ -2,15 +2,15 @@
   "format": "reel",
   "reel_style": "board",
   "layout": "big3d",
-  "status": "draft",
+  "status": "approved",
   "id": "d30f1aa1",
-  "scheduled_for": "2026-11-11T18:00:00+05:30",
+  "scheduled_for": "2026-12-09T19:30:00+05:30",
   "save_tip": "Slow start is the first warning",
   "music": "chill",
   "hook_type": "warning",
   "title": "Car battery dies when parked for days",
-  "hook": "Parking your car for a week? Do this first",
-  "youtube_title": "Why does my car battery die when parked? How to prevent it",
+  "hook": "Battery dead after a week?",
+  "youtube_title": "Car battery dead after parking? Why it happens and how to start it",
   "thumbnail_text": "Dead battery | after parking?",
   "slides": [
     {
@@ -91,17 +91,17 @@
     "Away for longer? Ask someone to drive it, use a battery maintainer, or disconnect the negative terminal.",
     "Warning signs: slow cranking, white crust on the terminals, and a battery over three or four years old. Any doubts? Comment below or DM me on Instagram."
   ],
-  "caption": "Car parked for a week or more? Your battery is still working 🔋\n\nThe alarm and computers draw a little power all the time, so a battery can go flat in a few weeks.\n\n✅ Drive 20-30 minutes once a week\n❌ Idling for 2 minutes doesn't recharge it\n\nAway longer: someone drives it weekly, a battery maintainer, or disconnect the negative terminal (some settings may reset).\n\nWarning signs: slow cranking, white crust on terminals, battery older than 3-4 years in Indian heat.\n\nAny doubts? Comment below or DM me on Instagram 👇",
+  "caption": "Battery dead after a week?\n\n• The alarm and computers draw a little power all the time, so a battery can go flat in a few weeks.\n• ✅ Drive 20-30 minutes once a week\n• ❌ Idling for 2 minutes doesn't recharge it\n\nHas your battery ever died after parking? 👇",
   "hashtags": [
     "#CarBattery",
-    "#CarMaintenance",
+    "#DeadBattery",
+    "#JumpStart",
     "#CarTips",
-    "#IndianCars",
-    "#CarCare"
+    "#DecodeTheDrive"
   ],
   "youtube_hashtags": [
     "#CarBattery",
-    "#CarTips"
+    "#DeadBattery"
   ],
   "voiced": true,
   "voice": "en-IN-Chirp3-HD-Charon",
@@ -110,5 +110,34 @@
   "media_files": [
     "media/d30f1aa1/reel.mp4"
   ],
-  "youtube_at": "2026-11-11T19:30:00+05:30"
+  "youtube_at": "2026-11-29T10:30:00+05:30",
+  "pre_vidiq": {
+    "caption": "Car parked for a week or more? Your battery is still working 🔋\n\nThe alarm and computers draw a little power all the time, so a battery can go flat in a few weeks.\n\n✅ Drive 20-30 minutes once a week\n❌ Idling for 2 minutes doesn't recharge it\n\nAway longer: someone drives it weekly, a battery maintainer, or disconnect the negative terminal (some settings may reset).\n\nWarning signs: slow cranking, white crust on terminals, battery older than 3-4 years in Indian heat.\n\nAny doubts? Comment below or DM me on Instagram 👇",
+    "hook": "Parking your car for a week? Do this first",
+    "youtube_title": "Why does my car battery die when parked? How to prevent it",
+    "hashtags": [
+      "#CarBattery",
+      "#CarMaintenance",
+      "#CarTips",
+      "#IndianCars",
+      "#CarCare"
+    ],
+    "youtube_hashtags": [
+      "#CarBattery",
+      "#CarTips"
+    ],
+    "scheduled_for": "2026-11-11T18:00:00+05:30",
+    "youtube_at": "2026-11-11T19:30:00+05:30",
+    "status": "draft"
+  },
+  "instagram_hook": "Battery dead | after a week?",
+  "youtube_description": "Car battery dead after parking? Why it happens and how to start it\n\n• The alarm and computers draw a little power all the time, so a battery can go flat in a few weeks.\n• ✅ Drive 20-30 minutes once a week\n• ❌ Idling for 2 minutes doesn't recharge it\n\nHas your battery ever died after parking? 👇",
+  "youtube_tags": [
+    "car battery",
+    "how to start a car with a dead battery",
+    "how to jumpstart a car",
+    "dead battery",
+    "car battery drain",
+    "car battery tips"
+  ]
 }

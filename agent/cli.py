@@ -313,6 +313,8 @@ def youtube_hashtags(post: dict) -> list[str]:
 def youtube_description(post: dict) -> str:
     """Search is our biggest YouTube source, so the description opens with the
     searched question and the slide points, which carry the key terms."""
+    if post.get("youtube_description"):  # short, vidIQ-style (Nov 2026)
+        return f"{post['youtube_description']}\n\n{' '.join(youtube_hashtags(post))}".strip()[:4900]
     points = "\n".join(f"- {s['heading']}" for s in post.get("slides", [])[1:]
                        if "@decodethedrive" not in s["heading"])
     head = youtube_title(post) + (f"\n\nIn this Short:\n{points}" if points else "")
@@ -337,7 +339,7 @@ def upload_to_youtube(cfg: Config, post: dict, status: str = "published") -> Non
         yt = YouTube(cfg.yt_client_id, cfg.yt_client_secret, cfg.yt_refresh_token)
         video_id = yt.upload_short(str(ROOT / post["media_files"][0]), youtube_title(post),
                                    youtube_description(post),
-                                   [t.lstrip("#") for t in post.get("hashtags", [])],
+                                   post.get("youtube_tags") or [t.lstrip("#") for t in post.get("hashtags", [])],
                                    publish_at=youtube_publish_at(post))
         store.set_status(post["id"], status, youtube_id=video_id)
         print(f"  Also on YouTube: https://youtube.com/shorts/{video_id}")

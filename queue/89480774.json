@@ -4,13 +4,13 @@
   "layout": "captions",
   "status": "approved",
   "id": "89480774",
-  "scheduled_for": "2026-11-21T18:00:00+05:30",
+  "scheduled_for": "2026-11-17T19:30:00+05:30",
   "save_tip": "Test drive it in traffic",
   "music": "tech",
   "hook_type": "versus",
   "title": "AMT vs CVT vs DCT vs torque converter",
-  "hook": "AMT, CVT, DCT or torque converter: which automatic?",
-  "youtube_title": "AMT vs CVT vs DCT vs torque converter: which automatic is best in India?",
+  "hook": "Not all automatics are the same",
+  "youtube_title": "AMT vs CVT vs DCT vs torque converter: which automatic to buy in India?",
   "thumbnail_text": "Which automatic | is best?",
   "slides": [
     {
@@ -101,17 +101,17 @@
     "Tight budget, AMT. City comfort, CVT or torque converter. Highway fun, DCT, driven smoothly in traffic.",
     "Whichever you pick, test drive it in real traffic. Any doubts? Comment below or DM me on Instagram."
   ],
-  "caption": "Which automatic should you buy? 🚗\n\n• AMT: cheapest, good mileage, shifts can feel jerky\n• CVT: very smooth in the city, rubber-band feel when pushed\n• DCT: fastest shifts, efficient, doesn't like slow crawling (be smooth in traffic)\n• Torque converter: smooth and tough, slightly thirstier\n\nTight budget: AMT. City comfort: CVT or torque converter. Highway fun: DCT.\n\nWhichever you pick, test drive it in real traffic. Which one do you drive? 👇\n\nAny doubts? Comment below or DM me on Instagram 👇",
+  "caption": "Not all automatics are the same\n\n• AMT: cheapest, good mileage, shifts can feel jerky\n• CVT: very smooth in the city, rubber-band feel when pushed\n• DCT: fastest shifts, efficient, doesn't like slow crawling (be smooth in traffic)\n\nWhich automatic do you drive? 👇",
   "hashtags": [
-    "#AutomaticCars",
-    "#DCT",
+    "#AMT",
     "#CVT",
-    "#IndianCars",
-    "#CarTech"
+    "#DCT",
+    "#AutomaticCar",
+    "#DecodeTheDrive"
   ],
   "youtube_hashtags": [
-    "#AutomaticCars",
-    "#DCT"
+    "#AMT",
+    "#CVT"
   ],
   "voiced": true,
   "voice": "en-IN-Chirp3-HD-Charon",
@@ -120,5 +120,35 @@
   "media_files": [
     "media/89480774/reel.mp4"
   ],
-  "youtube_at": "2026-11-21T19:30:00+05:30"
+  "youtube_at": "2026-12-06T10:30:00+05:30",
+  "pre_vidiq": {
+    "caption": "Which automatic should you buy? 🚗\n\n• AMT: cheapest, good mileage, shifts can feel jerky\n• CVT: very smooth in the city, rubber-band feel when pushed\n• DCT: fastest shifts, efficient, doesn't like slow crawling (be smooth in traffic)\n• Torque converter: smooth and tough, slightly thirstier\n\nTight budget: AMT. City comfort: CVT or torque converter. Highway fun: DCT.\n\nWhichever you pick, test drive it in real traffic. Which one do you drive? 👇\n\nAny doubts? Comment below or DM me on Instagram 👇",
+    "hook": "AMT, CVT, DCT or torque converter: which automatic?",
+    "youtube_title": "AMT vs CVT vs DCT vs torque converter: which automatic is best in India?",
+    "hashtags": [
+      "#AutomaticCars",
+      "#DCT",
+      "#CVT",
+      "#IndianCars",
+      "#CarTech"
+    ],
+    "youtube_hashtags": [
+      "#AutomaticCars",
+      "#DCT"
+    ],
+    "scheduled_for": "2026-11-21T18:00:00+05:30",
+    "youtube_at": "2026-11-21T19:30:00+05:30",
+    "status": "approved"
+  },
+  "instagram_hook": "Not all automatics | are the same",
+  "youtube_description": "AMT vs CVT vs DCT vs torque converter: which automatic to buy in India?\n\n• AMT: cheapest, good mileage, shifts can feel jerky\n• CVT: very smooth in the city, rubber-band feel when pushed\n• DCT: fastest shifts, efficient, doesn't like slow crawling (be smooth in traffic)\n\nWhich automatic do you drive? 👇",
+  "youtube_tags": [
+    "amt vs cvt vs dct",
+    "dct vs cvt",
+    "cvt vs amt",
+    "dct vs amt",
+    "dct vs cvt vs torque converter",
+    "automatic transmission",
+    "which automatic car to buy"
+  ]
 }

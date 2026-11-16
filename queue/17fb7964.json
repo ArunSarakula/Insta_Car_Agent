@@ -2,15 +2,15 @@
   "format": "reel",
   "reel_style": "board",
   "layout": "captions",
-  "status": "draft",
+  "status": "approved",
   "id": "17fb7964",
-  "scheduled_for": "2026-11-28T18:00:00+05:30",
+  "scheduled_for": "2026-12-08T19:30:00+05:30",
   "save_tip": "Rubber ages even unused",
   "music": "upbeat",
   "hook_type": "warning",
   "title": "Read the tyre DOT date before buying",
-  "hook": "Read this 4-digit code before you buy tyres",
-  "youtube_title": "How to check tyre manufacturing date (DOT code) before buying",
+  "hook": "Are you buying old tyres?",
+  "youtube_title": "Tyre manufacturing date: how to check the DOT code before buying",
   "thumbnail_text": "Check this | tyre code",
   "slides": [
     {
@@ -97,17 +97,17 @@
     "When buying new tyres, ask for ones made within the last year, not stock that's been sitting for years.",
     "Rubber ages even when unused. Replace at the tread wear bars, or sooner if you see cracks. Any doubts? Comment below or DM me on Instagram."
   ],
-  "caption": "Before you buy tyres, read this 4-digit code on the sidewall 🛞\n\nFirst 2 digits = week, last 2 = year. Example: 2325 = 23rd week of 2025.\n\n✅ Buy tyres made within the last year\n❌ Avoid stock that's been sitting for years\n\nRubber ages even unused. Replace at the tread wear bars, or sooner if you see cracks.\n\nAny doubts? Comment below or DM me on Instagram 👇",
+  "caption": "Are you buying old tyres?\n\n• First 2 digits = week, last 2 = year. Example: 2325 = 23rd week of 2025.\n• ✅ Buy tyres made within the last year\n• ❌ Avoid stock that's been sitting for years\n\nHave you ever checked your tyre's date? 👇",
   "hashtags": [
-    "#Tyres",
-    "#TyreCare",
+    "#TyreTips",
+    "#TyreDate",
     "#CarTips",
-    "#IndianCars",
-    "#CarMaintenance"
+    "#CarMaintenance",
+    "#DecodeTheDrive"
   ],
   "youtube_hashtags": [
-    "#Tyres",
-    "#CarTips"
+    "#TyreTips",
+    "#TyreDate"
   ],
   "voiced": true,
   "voice": "en-IN-Chirp3-HD-Charon",
@@ -116,5 +116,34 @@
   "media_files": [
     "media/17fb7964/reel.mp4"
   ],
-  "youtube_at": "2026-11-28T19:30:00+05:30"
+  "youtube_at": "2026-11-27T19:30:00+05:30",
+  "pre_vidiq": {
+    "caption": "Before you buy tyres, read this 4-digit code on the sidewall 🛞\n\nFirst 2 digits = week, last 2 = year. Example: 2325 = 23rd week of 2025.\n\n✅ Buy tyres made within the last year\n❌ Avoid stock that's been sitting for years\n\nRubber ages even unused. Replace at the tread wear bars, or sooner if you see cracks.\n\nAny doubts? Comment below or DM me on Instagram 👇",
+    "hook": "Read this 4-digit code before you buy tyres",
+    "youtube_title": "How to check tyre manufacturing date (DOT code) before buying",
+    "hashtags": [
+      "#Tyres",
+      "#TyreCare",
+      "#CarTips",
+      "#IndianCars",
+      "#CarMaintenance"
+    ],
+    "youtube_hashtags": [
+      "#Tyres",
+      "#CarTips"
+    ],
+    "scheduled_for": "2026-11-28T18:00:00+05:30",
+    "youtube_at": "2026-11-28T19:30:00+05:30",
+    "status": "draft"
+  },
+  "instagram_hook": "Are you buying | old tyres?",
+  "youtube_description": "Tyre manufacturing date: how to check the DOT code before buying\n\n• First 2 digits = week, last 2 = year. Example: 2325 = 23rd week of 2025.\n• ✅ Buy tyres made within the last year\n• ❌ Avoid stock that's been sitting for years\n\nHave you ever checked your tyre's date? 👇",
+  "youtube_tags": [
+    "tyre manufacturing date",
+    "how to check tyre manufacturing date",
+    "tyre manufacturing date check",
+    "tyre date code",
+    "tyre ki date kaise dekhe",
+    "tyre buying tips"
+  ]
 }

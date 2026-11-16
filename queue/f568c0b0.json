@@ -2,15 +2,15 @@
   "format": "reel",
   "reel_style": "board",
   "layout": "captions",
-  "status": "draft",
+  "status": "approved",
   "id": "f568c0b0",
-  "scheduled_for": "2026-11-10T18:00:00+05:30",
+  "scheduled_for": "2026-11-22T19:30:00+05:30",
   "save_tip": "Ask why. Then decide.",
   "music": "upbeat",
   "hook_type": "warning",
   "title": "Service centre overcharging: what to question",
-  "hook": "Don't say yes to these at your car service",
-  "youtube_title": "Is the service centre overcharging you? 5 things to question",
+  "hook": "Service bill shock? Ask these 5",
+  "youtube_title": "Car service cost too high? 5 things to question at the service centre",
   "thumbnail_text": "Service bill | too high?",
   "slides": [
     {
@@ -91,17 +91,17 @@
     "Your owner's manual says what's actually due, by kilometres or months. If it's not due, you can say no.",
     "Ask why, then decide. Most add-ons are optional. Any doubts? Comment below or DM me on Instagram."
   ],
-  "caption": "My simple rule at every car service: ask why before you pay 🔧\n\n1. Get a written estimate before any work starts.\n2. Tell them to call you before adding anything extra.\n3. Ask to see the old parts.\n\nAdd-ons worth questioning: engine flush every service, throttle or injector cleaning every time, AC gas top-up without a leak check, paid nitrogen top-ups.\n\nYour owner's manual lists what's actually due by km or months. Not every add-on is a scam, but you should know why you're paying for it. Save this for your next service.\n\nAny doubts? Comment below or DM me on Instagram 👇",
+  "caption": "Service bill shock? Ask these 5\n\n• 1. Get a written estimate before any work starts.\n• 2. Tell them to call you before adding anything extra.\n• 3. Ask to see the old parts.\n\nEver been overcharged at a service centre? 👇",
   "hashtags": [
     "#CarService",
+    "#ServiceBill",
     "#CarMaintenance",
     "#CarTips",
-    "#IndianCars",
-    "#CarOwners"
+    "#DecodeTheDrive"
   ],
   "youtube_hashtags": [
     "#CarService",
-    "#CarTips"
+    "#ServiceBill"
   ],
   "voiced": true,
   "voice": "en-IN-Chirp3-HD-Charon",
@@ -109,5 +109,35 @@
   "media_files": [
     "media/f568c0b0/reel.mp4"
   ],
-  "youtube_at": "2026-11-10T19:30:00+05:30"
+  "youtube_at": "2026-11-20T19:30:00+05:30",
+  "pre_vidiq": {
+    "caption": "My simple rule at every car service: ask why before you pay 🔧\n\n1. Get a written estimate before any work starts.\n2. Tell them to call you before adding anything extra.\n3. Ask to see the old parts.\n\nAdd-ons worth questioning: engine flush every service, throttle or injector cleaning every time, AC gas top-up without a leak check, paid nitrogen top-ups.\n\nYour owner's manual lists what's actually due by km or months. Not every add-on is a scam, but you should know why you're paying for it. Save this for your next service.\n\nAny doubts? Comment below or DM me on Instagram 👇",
+    "hook": "Don't say yes to these at your car service",
+    "youtube_title": "Is the service centre overcharging you? 5 things to question",
+    "hashtags": [
+      "#CarService",
+      "#CarMaintenance",
+      "#CarTips",
+      "#IndianCars",
+      "#CarOwners"
+    ],
+    "youtube_hashtags": [
+      "#CarService",
+      "#CarTips"
+    ],
+    "scheduled_for": "2026-11-10T18:00:00+05:30",
+    "youtube_at": "2026-11-10T19:30:00+05:30",
+    "status": "draft"
+  },
+  "instagram_hook": "Service bill shock? | Ask these 5",
+  "youtube_description": "Car service cost too high? 5 things to question at the service centre\n\n• 1. Get a written estimate before any work starts.\n• 2. Tell them to call you before adding anything extra.\n• 3. Ask to see the old parts.\n\nEver been overcharged at a service centre? 👇",
+  "youtube_tags": [
+    "car service",
+    "car service cost",
+    "car maintenance",
+    "car service bill",
+    "service centre",
+    "car mechanic",
+    "car tips"
+  ]
 }

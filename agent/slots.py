@@ -5,13 +5,13 @@ memes on weekdays."""
 POST_SLOTS = [
     ("Mon", "20:00", "carousel"),
     ("Tue", "13:00", "meme"),
-    ("Tue", "18:00", "reel"),
-    ("Wed", "18:00", "reel"),
+    ("Tue", "19:30", "reel"),
+    ("Wed", "19:30", "reel"),
     ("Thu", "13:00", "meme"),
     ("Thu", "20:00", "carousel"),
-    ("Fri", "18:00", "reel"),  # Instagram insights: followers peak 6-9 PM Fri-Sun
-    ("Sat", "18:00", "reel"),
-    ("Sun", "18:00", "reel"),
+    ("Fri", "19:30", "reel"),  # Instagram insights: followers peak 6-9 PM Fri-Sun
+    ("Sat", "19:30", "reel"),
+    ("Sun", "19:30", "reel"),
 ]
 INSTAGRAM_REEL_DAYS = ("Tue", "Wed", "Fri", "Sat", "Sun")  # Tue/Wed added 7 Nov: busiest Instagram days
 

@@ -2,15 +2,15 @@
   "format": "reel",
   "reel_style": "board",
   "layout": "captions",
-  "status": "draft",
+  "status": "approved",
   "id": "13d33261",
-  "scheduled_for": "2026-11-27T18:00:00+05:30",
+  "scheduled_for": "2026-12-05T19:30:00+05:30",
   "save_tip": "Brakes feel right",
   "music": "upbeat",
   "hook_type": "number",
   "title": "5 checks before a long road trip",
-  "hook": "Do these 5 checks before your next road trip",
-  "youtube_title": "What to check before a long road trip in India",
+  "hook": "Long drive? Check these 5 first",
+  "youtube_title": "5 car checks before a long drive in India",
   "thumbnail_text": "Road trip? | 5 checks",
   "slides": [
     {
@@ -110,17 +110,17 @@
     "Then make sure the wipers clear the glass, and every light and indicator works.",
     "Last, the brakes should feel firm, with no squeal and no pull. Safe trip! Any doubts? Comment below or DM me on Instagram."
   ],
-  "caption": "Wedding season road trips are here 🚗 Five quick checks before you leave, all doable in your parking:\n\n1. Tyre pressure (cold), as per the door sticker\n2. Spare tyre pressure, and no cuts or bulges\n3. Engine oil, coolant and washer fluid, with the engine cold\n4. Wipers and all lights\n5. Brakes: firm pedal, no squeal, no pull\n\nSave this and run through it before your next trip.\n\nAny doubts? Comment below or DM me on Instagram 👇",
+  "caption": "Long drive? Check these 5 first\n\n• 1. Tyre pressure (cold), as per the door sticker\n• 2. Spare tyre pressure, and no cuts or bulges\n• 3. Engine oil, coolant and washer fluid, with the engine cold\n\nWhich check do you always forget? 👇",
   "hashtags": [
+    "#LongDrive",
     "#RoadTrip",
-    "#CarMaintenance",
     "#CarTips",
-    "#IndianRoads",
-    "#CarCare"
+    "#RoadTripIndia",
+    "#DecodeTheDrive"
   ],
   "youtube_hashtags": [
-    "#RoadTrip",
-    "#CarTips"
+    "#LongDrive",
+    "#RoadTrip"
   ],
   "voiced": true,
   "voice": "en-IN-Chirp3-HD-Charon",
@@ -129,5 +129,34 @@
   "media_files": [
     "media/13d33261/reel.mp4"
   ],
-  "youtube_at": "2026-11-27T19:30:00+05:30"
+  "youtube_at": "2026-12-05T19:30:00+05:30",
+  "pre_vidiq": {
+    "caption": "Wedding season road trips are here 🚗 Five quick checks before you leave, all doable in your parking:\n\n1. Tyre pressure (cold), as per the door sticker\n2. Spare tyre pressure, and no cuts or bulges\n3. Engine oil, coolant and washer fluid, with the engine cold\n4. Wipers and all lights\n5. Brakes: firm pedal, no squeal, no pull\n\nSave this and run through it before your next trip.\n\nAny doubts? Comment below or DM me on Instagram 👇",
+    "hook": "Do these 5 checks before your next road trip",
+    "youtube_title": "What to check before a long road trip in India",
+    "hashtags": [
+      "#RoadTrip",
+      "#CarMaintenance",
+      "#CarTips",
+      "#IndianRoads",
+      "#CarCare"
+    ],
+    "youtube_hashtags": [
+      "#RoadTrip",
+      "#CarTips"
+    ],
+    "scheduled_for": "2026-11-27T18:00:00+05:30",
+    "youtube_at": "2026-11-27T19:30:00+05:30",
+    "status": "draft"
+  },
+  "instagram_hook": "Long drive? | Check these 5 first",
+  "youtube_description": "5 car checks before a long drive in India\n\n• 1. Tyre pressure (cold), as per the door sticker\n• 2. Spare tyre pressure, and no cuts or bulges\n• 3. Engine oil, coolant and washer fluid, with the engine cold\n\nWhich check do you always forget? 👇",
+  "youtube_tags": [
+    "long drive",
+    "car tips",
+    "long drive car tips",
+    "road trip tips",
+    "car tips and tricks",
+    "car checks before long drive"
+  ]
 }

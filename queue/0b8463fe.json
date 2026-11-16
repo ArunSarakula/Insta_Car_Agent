@@ -13,21 +13,21 @@
     "Traffic jams actually help your EV",
     "How braking turns into battery charge"
   ],
-  "hook": "Regen adds big range on highways",
+  "hook": "Regen on the highway? Myth!",
   "hook_type": "myth",
   "save_tip": "See a red signal ahead? Lift off early and let regen do the slowing instead of the brake pedal.",
-  "youtube_title": "How does regenerative braking work in EVs?",
-  "caption": "Regenerative braking turns your motor into a generator when you slow down, sending energy back to the battery. That's why EVs and strong hybrids love stop-go city traffic, and why it doesn't add much on a steady highway run.\n\nOne safety note: one-pedal or strong regen modes are great, but keep your foot ready for the brake pedal. Regen alone won't do an emergency stop.\n\nDo you drive in one-pedal mode? Tell me below 👇",
+  "youtube_title": "How regenerative braking works in EVs (and the highway myth)",
+  "caption": "Regen on the highway? Myth!\n\n• On the highway, regen adds very little range\n• In city stop-go traffic, it charges every time you slow down\n• Lift off early at red lights and let regen slow you\n\nDo you drive in one-pedal mode? 👇",
   "hashtags": [
     "#RegenerativeBraking",
     "#EVIndia",
-    "#ElectricVehicles",
+    "#ElectricCars",
     "#EVTips",
-    "#CarTech"
+    "#DecodeTheDrive"
   ],
   "youtube_hashtags": [
     "#RegenerativeBraking",
-    "#EV"
+    "#EVIndia"
   ],
   "slides": [
     {
@@ -114,17 +114,46 @@
   ],
   "music": "upbeat",
   "idea_id": "i08",
-  "scheduled_for": "2026-12-02T18:00:00+05:30",
-  "status": "draft",
+  "scheduled_for": "2026-12-01T19:30:00+05:30",
+  "status": "approved",
   "id": "0b8463fe",
   "voiced": true,
   "voice": "en-IN-Chirp3-HD-Charon",
   "music_track": "alex-morgan-future-bass-545515.mp3",
-  "youtube_at": "2026-12-02T19:30:00+05:30",
+  "youtube_at": "2026-11-21T19:30:00+05:30",
   "thumbnail_text": "Regen on highway? | Myth!",
   "old_reel_style": "myth_fact",
   "layout": "captions",
   "media_files": [
     "media/0b8463fe/reel.mp4"
+  ],
+  "pre_vidiq": {
+    "caption": "Regenerative braking turns your motor into a generator when you slow down, sending energy back to the battery. That's why EVs and strong hybrids love stop-go city traffic, and why it doesn't add much on a steady highway run.\n\nOne safety note: one-pedal or strong regen modes are great, but keep your foot ready for the brake pedal. Regen alone won't do an emergency stop.\n\nDo you drive in one-pedal mode? Tell me below 👇",
+    "hook": "Regen adds big range on highways",
+    "youtube_title": "How does regenerative braking work in EVs?",
+    "hashtags": [
+      "#RegenerativeBraking",
+      "#EVIndia",
+      "#ElectricVehicles",
+      "#EVTips",
+      "#CarTech"
+    ],
+    "youtube_hashtags": [
+      "#RegenerativeBraking",
+      "#EV"
+    ],
+    "scheduled_for": "2026-12-02T18:00:00+05:30",
+    "youtube_at": "2026-12-02T19:30:00+05:30",
+    "status": "draft"
+  },
+  "instagram_hook": "Regen on the highway? | Myth!",
+  "youtube_description": "How regenerative braking works in EVs (and the highway myth)\n\n• On the highway, regen adds very little range\n• In city stop-go traffic, it charges every time you slow down\n• Lift off early at red lights and let regen slow you\n\nDo you drive in one-pedal mode? 👇",
+  "youtube_tags": [
+    "regenerative braking",
+    "how regenerative braking works",
+    "regenerative braking in electric vehicle",
+    "regenerative braking explained",
+    "ev regen",
+    "ev india"
   ]
 }

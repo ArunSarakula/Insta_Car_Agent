@@ -2,15 +2,15 @@
   "format": "reel",
   "reel_style": "board",
   "layout": "captions",
-  "status": "draft",
+  "status": "approved",
   "id": "a941b1bd",
-  "scheduled_for": "2026-11-13T18:00:00+05:30",
+  "scheduled_for": "2026-11-21T19:30:00+05:30",
   "save_tip": "Use a factory or approved kit",
   "music": "chill",
   "hook_type": "myth",
   "title": "Does CNG damage the engine?",
-  "hook": "Does CNG damage your engine?",
-  "youtube_title": "Does CNG damage the car engine? Myth vs fact",
+  "hook": "CNG ruins your engine?",
+  "youtube_title": "Does CNG damage the engine? CNG car myth vs fact",
   "thumbnail_text": "Does CNG | damage engines?",
   "slides": [
     {
@@ -96,17 +96,17 @@
     "Keep some petrol in the tank, get the spark plugs checked more often, and get the cylinder tested every three years.",
     "So no, CNG doesn't damage a properly fitted, well serviced engine. Any doubts? Comment below or DM me on Instagram."
   ],
-  "caption": "Does CNG damage the engine? Short answer: not when it's factory-fitted or an approved kit, and serviced on time ⛽\n\n✅ Factory CNG: engine tuned for it, warranty covered\n❌ Cheap, badly tuned aftermarket kits: that's where trouble starts\n\nTrade-offs: a little less power on climbs and less boot space, for a much lower running cost.\n\nCare tips: keep some petrol in the tank, check spark plugs more often, and get the cylinder tested every 3 years.\n\nAny doubts? Comment below or DM me on Instagram 👇",
+  "caption": "CNG ruins your engine?\n\n• ✅ Factory CNG: engine tuned for it, warranty covered\n• ❌ Cheap, badly tuned aftermarket kits: that's where trouble starts\n• Trade-offs: a little less power on climbs and less boot space, for a much lower running cost.\n\nWould you buy a factory CNG car? 👇",
   "hashtags": [
+    "#CNGCar",
     "#CNG",
-    "#CNGCars",
-    "#CarMyths",
+    "#CarMileage",
     "#IndianCars",
-    "#CarTips"
+    "#DecodeTheDrive"
   ],
   "youtube_hashtags": [
-    "#CNG",
-    "#CarMyths"
+    "#CNGCar",
+    "#CNG"
   ],
   "voiced": true,
   "voice": "en-IN-Chirp3-HD-Charon",
@@ -115,5 +115,35 @@
   "media_files": [
     "media/a941b1bd/reel.mp4"
   ],
-  "youtube_at": "2026-11-13T19:30:00+05:30"
+  "youtube_at": "2026-11-24T19:30:00+05:30",
+  "pre_vidiq": {
+    "caption": "Does CNG damage the engine? Short answer: not when it's factory-fitted or an approved kit, and serviced on time ⛽\n\n✅ Factory CNG: engine tuned for it, warranty covered\n❌ Cheap, badly tuned aftermarket kits: that's where trouble starts\n\nTrade-offs: a little less power on climbs and less boot space, for a much lower running cost.\n\nCare tips: keep some petrol in the tank, check spark plugs more often, and get the cylinder tested every 3 years.\n\nAny doubts? Comment below or DM me on Instagram 👇",
+    "hook": "Does CNG damage your engine?",
+    "youtube_title": "Does CNG damage the car engine? Myth vs fact",
+    "hashtags": [
+      "#CNG",
+      "#CNGCars",
+      "#CarMyths",
+      "#IndianCars",
+      "#CarTips"
+    ],
+    "youtube_hashtags": [
+      "#CNG",
+      "#CarMyths"
+    ],
+    "scheduled_for": "2026-11-13T18:00:00+05:30",
+    "youtube_at": "2026-11-13T19:30:00+05:30",
+    "status": "draft"
+  },
+  "instagram_hook": "CNG ruins | your engine?",
+  "youtube_description": "Does CNG damage the engine? CNG car myth vs fact\n\n• ✅ Factory CNG: engine tuned for it, warranty covered\n• ❌ Cheap, badly tuned aftermarket kits: that's where trouble starts\n• Trade-offs: a little less power on climbs and less boot space, for a much lower running cost.\n\nWould you buy a factory CNG car? 👇",
+  "youtube_tags": [
+    "cng car",
+    "best cng car",
+    "cng engine damage",
+    "cng car problems",
+    "cng car mileage",
+    "cng myth vs fact",
+    "cng vs petrol"
+  ]
 }

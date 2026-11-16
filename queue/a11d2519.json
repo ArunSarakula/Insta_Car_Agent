@@ -2,15 +2,15 @@
   "format": "reel",
   "reel_style": "board",
   "layout": "captions",
-  "status": "draft",
+  "status": "approved",
   "id": "a11d2519",
-  "scheduled_for": "2026-11-24T18:00:00+05:30",
+  "scheduled_for": "2026-11-27T19:30:00+05:30",
   "save_tip": "No regular charging spot? Pick hybrid or CNG",
   "music": "tech",
   "hook_type": "question",
   "title": "Can you own an EV without home charging?",
-  "hook": "No home charger? Watch this before buying an EV",
-  "youtube_title": "Can I own an electric car without home charging in India?",
+  "hook": "No home charger? Can you still own an EV?",
+  "youtube_title": "How to charge an EV car at home, and without a home charger",
   "thumbnail_text": "EV without | home charger?",
   "slides": [
     {
@@ -106,17 +106,17 @@
     "Count the time too. A weekly charging stop is like a fuel stop, just longer.",
     "No regular charging spot? A hybrid or CNG car will be easier. Any doubts? Comment below or DM me on Instagram."
   ],
-  "caption": "Thinking EV but no charger at home? ⚡\n\nHome charging: roughly ₹8 a unit. Public DC fast charging: often ₹20+ a unit. Your cost per km can nearly triple (approximate, varies by city and charger).\n\nIt can still work if:\n✅ You can charge at your office or society\n✅ There's a charger near home you'll use weekly\n\nNo regular charging spot? A hybrid or CNG car is the easier life.\n\nAny doubts? Comment below or DM me on Instagram 👇",
+  "caption": "No home charger? Can you still own an EV?\n\n• Home charging: about ₹8 a unit\n• Public fast charging: often ₹20+ a unit\n• Works if you can charge at your office or society\n\nWould you buy an EV without a home charger? 👇",
   "hashtags": [
+    "#EVCharging",
     "#EVIndia",
     "#ElectricCars",
-    "#EVCharging",
-    "#EVTips",
-    "#CarTech"
+    "#EVOwner",
+    "#DecodeTheDrive"
   ],
   "youtube_hashtags": [
-    "#EVIndia",
-    "#EVCharging"
+    "#EVCharging",
+    "#EVIndia"
   ],
   "voiced": true,
   "voice": "en-IN-Chirp3-HD-Charon",
@@ -124,5 +124,33 @@
   "media_files": [
     "media/a11d2519/reel.mp4"
   ],
-  "youtube_at": "2026-11-24T19:30:00+05:30"
+  "youtube_at": "2026-12-01T19:30:00+05:30",
+  "pre_vidiq": {
+    "caption": "Thinking EV but no charger at home? ⚡\n\nHome charging: roughly ₹8 a unit. Public DC fast charging: often ₹20+ a unit. Your cost per km can nearly triple (approximate, varies by city and charger).\n\nIt can still work if:\n✅ You can charge at your office or society\n✅ There's a charger near home you'll use weekly\n\nNo regular charging spot? A hybrid or CNG car is the easier life.\n\nAny doubts? Comment below or DM me on Instagram 👇",
+    "hook": "No home charger? Watch this before buying an EV",
+    "youtube_title": "Can I own an electric car without home charging in India?",
+    "hashtags": [
+      "#EVIndia",
+      "#ElectricCars",
+      "#EVCharging",
+      "#EVTips",
+      "#CarTech"
+    ],
+    "youtube_hashtags": [
+      "#EVIndia",
+      "#EVCharging"
+    ],
+    "scheduled_for": "2026-11-24T18:00:00+05:30",
+    "youtube_at": "2026-11-24T19:30:00+05:30",
+    "status": "draft"
+  },
+  "instagram_hook": "No home charger? | Can you still own an EV?",
+  "youtube_description": "How to charge an EV car at home, and without a home charger\n\n• Home charging: about ₹8 a unit\n• Public fast charging: often ₹20+ a unit\n• Works if you can charge at your office or society\n\nWould you buy an EV without a home charger? 👇",
+  "youtube_tags": [
+    "how to charge ev car at home",
+    "ev home charging",
+    "electric car home charging",
+    "ev charging india",
+    "ev without home charger"
+  ]
 }

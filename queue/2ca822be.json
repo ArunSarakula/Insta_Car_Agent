@@ -2,15 +2,15 @@
   "format": "reel",
   "reel_style": "board",
   "layout": "captions",
-  "status": "draft",
+  "status": "approved",
   "id": "2ca822be",
-  "scheduled_for": "2026-11-15T18:00:00+05:30",
+  "scheduled_for": "2026-12-04T19:30:00+05:30",
   "save_tip": "Keeping it long? December wins",
   "music": "upbeat",
   "hook_type": "versus",
   "title": "Buy a car in December or January?",
-  "hook": "Buying a car? December or January?",
-  "youtube_title": "Should I buy a car in December or January? Year end discount explained",
+  "hook": "December discount or January car?",
+  "youtube_title": "How to buy a car at year end: December or January?",
   "thumbnail_text": "December or | January?",
   "slides": [
     {
@@ -106,17 +106,17 @@
     "Whenever you buy, check the manufacturing month on the VIN plate, avoid very old stock, and get the discount in writing.",
     "Keeping it seven years or more? Take the December deal. Selling in two or three? Think about January. Any doubts? Comment below or DM me on Instagram."
   ],
-  "caption": "December or January, when should you buy your car? 🗓️\n\nDecember: the biggest year-end discounts. January: prices often go up.\n\nThe catch: a December car is a year older on paper within weeks, which shows at resale.\n\nWhenever you buy:\n• Check the manufacturing month on the VIN plate\n• Avoid stock that's many months old\n• Get the discount in writing\n\nKeeping it 7+ years? Take the December deal. Selling in 2-3? January may suit you.\n\nAny doubts? Comment below or DM me on Instagram 👇",
+  "caption": "December discount or January car?\n\n• Check the manufacturing month on the VIN plate\n• Avoid stock that's many months old\n• Get the discount in writing\n\nAre you buying in December or waiting for January? 👇",
   "hashtags": [
-    "#CarBuying",
+    "#CarBuyingTips",
     "#YearEndOffers",
+    "#CarDiscount",
     "#NewCar",
-    "#IndianCars",
-    "#CarTips"
+    "#DecodeTheDrive"
   ],
   "youtube_hashtags": [
-    "#CarBuying",
-    "#NewCar"
+    "#CarBuyingTips",
+    "#YearEndOffers"
   ],
   "voiced": true,
   "voice": "en-IN-Chirp3-HD-Charon",
@@ -124,5 +124,34 @@
   "media_files": [
     "media/2ca822be/reel.mp4"
   ],
-  "youtube_at": "2026-11-15T10:30:00+05:30"
+  "youtube_at": "2026-12-04T19:30:00+05:30",
+  "pre_vidiq": {
+    "caption": "December or January, when should you buy your car? 🗓️\n\nDecember: the biggest year-end discounts. January: prices often go up.\n\nThe catch: a December car is a year older on paper within weeks, which shows at resale.\n\nWhenever you buy:\n• Check the manufacturing month on the VIN plate\n• Avoid stock that's many months old\n• Get the discount in writing\n\nKeeping it 7+ years? Take the December deal. Selling in 2-3? January may suit you.\n\nAny doubts? Comment below or DM me on Instagram 👇",
+    "hook": "Buying a car? December or January?",
+    "youtube_title": "Should I buy a car in December or January? Year end discount explained",
+    "hashtags": [
+      "#CarBuying",
+      "#YearEndOffers",
+      "#NewCar",
+      "#IndianCars",
+      "#CarTips"
+    ],
+    "youtube_hashtags": [
+      "#CarBuying",
+      "#NewCar"
+    ],
+    "scheduled_for": "2026-11-15T18:00:00+05:30",
+    "youtube_at": "2026-11-15T10:30:00+05:30",
+    "status": "draft"
+  },
+  "instagram_hook": "December discount | or January car?",
+  "youtube_description": "How to buy a car at year end: December or January?\n\n• Check the manufacturing month on the VIN plate\n• Avoid stock that's many months old\n• Get the discount in writing\n\nAre you buying in December or waiting for January? 👇",
+  "youtube_tags": [
+    "how to buy a car",
+    "car buying tips",
+    "car discount",
+    "best time to buy car india",
+    "year end car discount",
+    "december car offers"
+  ]
 }

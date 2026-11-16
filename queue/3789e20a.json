@@ -4,15 +4,15 @@
   "layout": "duel",
   "status": "approved",
   "id": "3789e20a",
-  "scheduled_for": "2026-11-22T18:00:00+05:30",
+  "scheduled_for": "2026-11-24T19:30:00+05:30",
   "save_tip": "Same engine, different price",
   "music": "tech",
   "hook_type": "comparison",
   "title": "Virtus vs Slavia: real cost over 5 years",
-  "hook": "Virtus or Slavia: which costs less in 5 years?",
-  "youtube_title": "Virtus vs Slavia: which is cheaper to own over 5 years?",
+  "hook": "Virtus or Slavia? Real 5-year kharcha",
+  "youtube_title": "Skoda Slavia vs VW Virtus: real 5 year cost of ownership",
   "thumbnail_text": "Real cost | in 5 years?",
-  "caption": "Virtus or Slavia: which one really costs less over 5 years? 🚗\n\nSame 1.0 TSI engine, same mileage, same service cost. The only real difference is the price you pay on day one.\n\nBase Virtus (Comfortline 1.0 TSI MT): about Rs 13.2 lakh on-road, Rs 17.4 lakh over 5 years.\nBase Slavia (Classic 1.0 TSI MT): about Rs 11.9 lakh on-road, Rs 16.1 lakh over 5 years.\n\nThat's about Rs 2,200 a month less for the Slavia.\n\nEstimate for Hyderabad: 30 km a day, 20% down payment, 5-year loan at 9%, after resale value. Your city and variant will change the numbers.\n\nWhich one would you pick? Comment below or DM me on Instagram 👇",
+  "caption": "Virtus or Slavia? Real 5-year kharcha\n\n• Same 1.0 TSI engine, same mileage, same service cost. The only real difference is the price you pay on day one.\n• Base Virtus (Comfortline 1.0 TSI MT): about Rs 13.2 lakh on-road, Rs 17.4 lakh over 5 years.\n• Base Slavia (Classic 1.0 TSI MT): about Rs 11.9 lakh on-road, Rs 16.1 lakh over 5 years.\n\nVirtus or Slavia: which would you pick? 👇",
   "slides": [
     {
       "heading": "Virtus or Slavia: which costs less in 5 years?",
@@ -66,15 +66,15 @@
     "Slavia wins, two to one. About two thousand two hundred rupees a month less. Which one would you pick? Comment below."
   ],
   "hashtags": [
+    "#VirtusVsSlavia",
     "#Virtus",
     "#Slavia",
-    "#CarComparison",
-    "#IndianCars",
-    "#CarCost"
+    "#Skoda",
+    "#DecodeTheDrive"
   ],
   "youtube_hashtags": [
-    "#Virtus",
-    "#Slavia"
+    "#VirtusVsSlavia",
+    "#Virtus"
   ],
   "voiced": true,
   "voice": "en-IN-Chirp3-HD-Charon",
@@ -131,5 +131,34 @@
   "media_files": [
     "media/3789e20a/reel.mp4"
   ],
-  "youtube_at": "2026-11-22T10:30:00+05:30"
+  "youtube_at": "2026-11-22T10:30:00+05:30",
+  "pre_vidiq": {
+    "caption": "Virtus or Slavia: which one really costs less over 5 years? 🚗\n\nSame 1.0 TSI engine, same mileage, same service cost. The only real difference is the price you pay on day one.\n\nBase Virtus (Comfortline 1.0 TSI MT): about Rs 13.2 lakh on-road, Rs 17.4 lakh over 5 years.\nBase Slavia (Classic 1.0 TSI MT): about Rs 11.9 lakh on-road, Rs 16.1 lakh over 5 years.\n\nThat's about Rs 2,200 a month less for the Slavia.\n\nEstimate for Hyderabad: 30 km a day, 20% down payment, 5-year loan at 9%, after resale value. Your city and variant will change the numbers.\n\nWhich one would you pick? Comment below or DM me on Instagram 👇",
+    "hook": "Virtus or Slavia: which costs less in 5 years?",
+    "youtube_title": "Virtus vs Slavia: which is cheaper to own over 5 years?",
+    "hashtags": [
+      "#Virtus",
+      "#Slavia",
+      "#CarComparison",
+      "#IndianCars",
+      "#CarCost"
+    ],
+    "youtube_hashtags": [
+      "#Virtus",
+      "#Slavia"
+    ],
+    "scheduled_for": "2026-11-22T18:00:00+05:30",
+    "youtube_at": "2026-11-22T10:30:00+05:30",
+    "status": "approved"
+  },
+  "instagram_hook": "Virtus or Slavia? | Real 5-year kharcha",
+  "youtube_description": "Skoda Slavia vs VW Virtus: real 5 year cost of ownership\n\n• Same 1.0 TSI engine, same mileage, same service cost. The only real difference is the price you pay on day one.\n• Base Virtus (Comfortline 1.0 TSI MT): about Rs 13.2 lakh on-road, Rs 17.4 lakh over 5 years.\n• Base Slavia (Classic 1.0 TSI MT): about Rs 11.9 lakh on-road, Rs 16.1 lakh over 5 years.\n\nVirtus or Slavia: which would you pick? 👇",
+  "youtube_tags": [
+    "virtus vs slavia",
+    "slavia vs virtus",
+    "skoda slavia vs vw virtus",
+    "vw virtus vs skoda slavia",
+    "virtus cost of ownership",
+    "slavia ownership cost"
+  ]
 }

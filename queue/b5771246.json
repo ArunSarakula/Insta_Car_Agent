@@ -13,21 +13,21 @@
     "Don't trust AEB in Indian traffic blindly",
     "How does your car know to brake?"
   ],
-  "hook": "What can your AEB easily miss?",
+  "hook": "Your AEB can miss THIS",
   "hook_type": "question",
   "save_tip": "AEB is a backup, not your brake: keep a 3-second gap and cover the brake near bikes.",
-  "youtube_title": "How does Autonomous Emergency Braking work? AEB explained",
-  "caption": "Guess before the reveal 👀 Which one can AEB miss most easily?\n\nA) Stopped car ahead\nB) Bike cutting in\nC) Slow truck ahead\n\nAutonomous Emergency Braking uses radar and/or a camera to spot a hazard, warn you, and then brake if you don't react. It's genuinely useful, but Indian roads throw a lot at it.\n\nComment your answer before you watch the end.",
+  "youtube_title": "AEB explained: what autonomous emergency braking can miss in India",
+  "caption": "Your AEB can miss THIS\n\n• A) Stopped car ahead\n• B) Bike cutting in\n• C) Slow truck ahead\n\nWhich one can AEB miss most easily: A, B or C? 👇",
   "hashtags": [
     "#AEB",
-    "#IndianCars",
     "#ADAS",
+    "#ADASIndia",
     "#CarSafety",
-    "#CarTech"
+    "#DecodeTheDrive"
   ],
   "youtube_hashtags": [
     "#AEB",
-    "#CarTech"
+    "#ADAS"
   ],
   "slides": [
     {
@@ -113,17 +113,47 @@
   ],
   "music": "tech",
   "idea_id": "i10",
-  "scheduled_for": "2026-12-04T18:00:00+05:30",
-  "status": "draft",
+  "scheduled_for": "2026-11-28T19:30:00+05:30",
+  "status": "approved",
   "id": "b5771246",
   "voiced": true,
   "voice": "en-IN-Chirp3-HD-Charon",
   "music_track": "paulyudin-tech-corporate-182507.mp3",
-  "youtube_at": "2026-12-04T19:30:00+05:30",
+  "youtube_at": "2026-11-18T19:30:00+05:30",
   "thumbnail_text": "Can your AEB | miss this?",
   "old_reel_style": "quiz",
   "layout": "captions",
   "media_files": [
     "media/b5771246/reel.mp4"
+  ],
+  "pre_vidiq": {
+    "caption": "Guess before the reveal 👀 Which one can AEB miss most easily?\n\nA) Stopped car ahead\nB) Bike cutting in\nC) Slow truck ahead\n\nAutonomous Emergency Braking uses radar and/or a camera to spot a hazard, warn you, and then brake if you don't react. It's genuinely useful, but Indian roads throw a lot at it.\n\nComment your answer before you watch the end.",
+    "hook": "What can your AEB easily miss?",
+    "youtube_title": "How does Autonomous Emergency Braking work? AEB explained",
+    "hashtags": [
+      "#AEB",
+      "#IndianCars",
+      "#ADAS",
+      "#CarSafety",
+      "#CarTech"
+    ],
+    "youtube_hashtags": [
+      "#AEB",
+      "#CarTech"
+    ],
+    "scheduled_for": "2026-12-04T18:00:00+05:30",
+    "youtube_at": "2026-12-04T19:30:00+05:30",
+    "status": "draft"
+  },
+  "instagram_hook": "Your AEB | can miss THIS",
+  "youtube_description": "AEB explained: what autonomous emergency braking can miss in India\n\n• A) Stopped car ahead\n• B) Bike cutting in\n• C) Slow truck ahead\n\nWhich one can AEB miss most easily: A, B or C? 👇",
+  "youtube_tags": [
+    "aeb",
+    "autonomous emergency braking",
+    "automatic emergency braking",
+    "adas",
+    "adas india",
+    "aeb test",
+    "car safety"
   ]
 }

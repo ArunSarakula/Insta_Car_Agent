@@ -2,15 +2,15 @@
   "format": "reel",
   "reel_style": "board",
   "layout": "captions",
-  "status": "draft",
+  "status": "approved",
   "id": "28d94280",
-  "scheduled_for": "2026-11-14T18:00:00+05:30",
+  "scheduled_for": "2026-11-20T19:30:00+05:30",
   "save_tip": "Older car? Check rubber parts at service",
   "music": "tech",
   "hook_type": "question",
   "title": "E20 petrol: what it does to your car",
-  "hook": "E20 petrol in your tank: what changes?",
-  "youtube_title": "Is E20 petrol bad for my car? Mileage and engine explained",
+  "hook": "Is E20 petrol killing your mileage?",
+  "youtube_title": "E20 petrol: good or bad for your car? Mileage and engine explained",
   "thumbnail_text": "E20 petrol | bad for cars?",
   "slides": [
     {
@@ -102,17 +102,17 @@
     "Mileage drops a little: about one to two percent in E20 ready cars, and a few percent in older ones.",
     "Older car? Ask your service centre to check rubber parts like fuel hoses at the next service. Any doubts? Comment below or DM me on Instagram."
   ],
-  "caption": "E20 petrol: what it means for your car ⛽\n\n• E20 = 20% ethanol + 80% petrol\n• Look for the E20 sticker on your fuel lid. Most cars made from April 2023 are E20-ready.\n• Mileage: roughly 1-2% lower in E20-ready cars, a few % in older cars (approximate, varies by car)\n• Older car? Ask the service centre to check rubber parts like fuel hoses and seals at the next service.\n\nNoticed a mileage change since E20? Tell me 👇\n\nAny doubts? Comment below or DM me on Instagram 👇",
+  "caption": "Is E20 petrol killing your mileage?\n\n• E20 = 20% ethanol + 80% petrol\n• Look for the E20 sticker on your fuel lid. Most cars made from April 2023 are E20-ready.\n• Mileage: roughly 1-2% lower in E20-ready cars, a few % in older cars (approximate, varies by car)\n\nNoticed a mileage drop since E20? 👇",
   "hashtags": [
     "#E20Petrol",
     "#Ethanol",
-    "#Mileage",
-    "#IndianCars",
-    "#CarTips"
+    "#PetrolPrice",
+    "#CarMileage",
+    "#DecodeTheDrive"
   ],
   "youtube_hashtags": [
-    "#E20",
-    "#Mileage"
+    "#E20Petrol",
+    "#Ethanol"
   ],
   "voiced": true,
   "voice": "en-IN-Chirp3-HD-Charon",
@@ -120,5 +120,35 @@
   "media_files": [
     "media/28d94280/reel.mp4"
   ],
-  "youtube_at": "2026-11-14T19:30:00+05:30"
+  "youtube_at": "2026-11-17T19:30:00+05:30",
+  "pre_vidiq": {
+    "caption": "E20 petrol: what it means for your car ⛽\n\n• E20 = 20% ethanol + 80% petrol\n• Look for the E20 sticker on your fuel lid. Most cars made from April 2023 are E20-ready.\n• Mileage: roughly 1-2% lower in E20-ready cars, a few % in older cars (approximate, varies by car)\n• Older car? Ask the service centre to check rubber parts like fuel hoses and seals at the next service.\n\nNoticed a mileage change since E20? Tell me 👇\n\nAny doubts? Comment below or DM me on Instagram 👇",
+    "hook": "E20 petrol in your tank: what changes?",
+    "youtube_title": "Is E20 petrol bad for my car? Mileage and engine explained",
+    "hashtags": [
+      "#E20Petrol",
+      "#Ethanol",
+      "#Mileage",
+      "#IndianCars",
+      "#CarTips"
+    ],
+    "youtube_hashtags": [
+      "#E20",
+      "#Mileage"
+    ],
+    "scheduled_for": "2026-11-14T18:00:00+05:30",
+    "youtube_at": "2026-11-14T19:30:00+05:30",
+    "status": "draft"
+  },
+  "instagram_hook": "Is E20 petrol | killing your mileage?",
+  "youtube_description": "E20 petrol: good or bad for your car? Mileage and engine explained\n\n• E20 = 20% ethanol + 80% petrol\n• Look for the E20 sticker on your fuel lid. Most cars made from April 2023 are E20-ready.\n• Mileage: roughly 1-2% lower in E20-ready cars, a few % in older cars (approximate, varies by car)\n\nNoticed a mileage drop since E20? 👇",
+  "youtube_tags": [
+    "e20 petrol",
+    "e20 petrol good or bad",
+    "e20 vs normal petrol",
+    "e20 petrol effects",
+    "e20 petrol mileage",
+    "ethanol petrol india",
+    "what is e20 petrol"
+  ]
 }

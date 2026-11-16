@@ -16,18 +16,18 @@
   "hook": "You're checking tyre pressure wrong",
   "hook_type": "mistake",
   "save_tip": "Check pressure cold (before driving or after 3 hours parked) and use the driver door sticker number, not the sidewall.",
-  "youtube_title": "Correct tyre pressure in summer: check it cold or hot?",
-  "caption": "Most of us check air at the petrol pump right after a drive. Problem: hot tyres read higher, so we let air out and end up underinflated 🔥\n\nThe right number is on the sticker inside your driver's door (or in the owner's manual), not the max pressure printed on the tyre.\n\nSave this for your next petrol pump stop. When did you last check yours?",
+  "youtube_title": "Tyre pressure: check it cold or hot? Correct PSI explained",
+  "caption": "You're checking tyre pressure wrong\n\n• Use the number on the driver's door sticker\n• Not the max pressure on the tyre sidewall\n• Check it cold, every 2 weeks\n\nCold or hot: when do you check yours? 👇",
   "hashtags": [
     "#TyrePressure",
-    "#IndianCars",
-    "#CarCare",
+    "#TyreTips",
     "#CarTips",
-    "#CarTech"
+    "#CarMaintenance",
+    "#DecodeTheDrive"
   ],
   "youtube_hashtags": [
     "#TyrePressure",
-    "#CarTips"
+    "#TyreTips"
   ],
   "slides": [
     {
@@ -137,16 +137,45 @@
   ],
   "music": "chill",
   "idea_id": "",
-  "scheduled_for": "2026-11-17T18:00:00+05:30",
+  "scheduled_for": "2026-12-11T19:30:00+05:30",
   "status": "approved",
   "id": "431f0d66",
   "voiced": true,
   "voice": "en-IN-Chirp3-HD-Charon",
   "music_track": "tunetank-vlog-beat-349853.mp3",
-  "youtube_at": "2026-11-17T19:30:00+05:30",
+  "youtube_at": "2026-12-11T19:30:00+05:30",
   "old_reel_style": "meter",
   "layout": "captions",
   "media_files": [
     "media/431f0d66/reel.mp4"
+  ],
+  "pre_vidiq": {
+    "caption": "Most of us check air at the petrol pump right after a drive. Problem: hot tyres read higher, so we let air out and end up underinflated 🔥\n\nThe right number is on the sticker inside your driver's door (or in the owner's manual), not the max pressure printed on the tyre.\n\nSave this for your next petrol pump stop. When did you last check yours?",
+    "hook": "You're checking tyre pressure wrong",
+    "youtube_title": "Correct tyre pressure in summer: check it cold or hot?",
+    "hashtags": [
+      "#TyrePressure",
+      "#IndianCars",
+      "#CarCare",
+      "#CarTips",
+      "#CarTech"
+    ],
+    "youtube_hashtags": [
+      "#TyrePressure",
+      "#CarTips"
+    ],
+    "scheduled_for": "2026-11-17T18:00:00+05:30",
+    "youtube_at": "2026-11-17T19:30:00+05:30",
+    "status": "approved"
+  },
+  "instagram_hook": "You're checking | tyre pressure wrong",
+  "youtube_description": "Tyre pressure: check it cold or hot? Correct PSI explained\n\n• Use the number on the driver's door sticker\n• Not the max pressure on the tyre sidewall\n• Check it cold, every 2 weeks\n\nCold or hot: when do you check yours? 👇",
+  "youtube_tags": [
+    "tyre pressure",
+    "cold tyre pressure",
+    "how to check tyre pressure",
+    "car tyre pressure",
+    "tyre pressure psi",
+    "low tyre pressure"
   ]
 }

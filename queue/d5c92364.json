@@ -4,13 +4,13 @@
   "layout": "captions",
   "status": "approved",
   "id": "d5c92364",
-  "scheduled_for": "2026-11-18T18:00:00+05:30",
+  "scheduled_for": "2026-12-02T19:30:00+05:30",
   "save_tip": "Gentle first, gentle last",
   "music": "tech",
   "hook_type": "mistake",
   "title": "Turbo petrol: don't switch off right after a hard drive",
-  "hook": "Turbo petrol owners, don't switch off like this",
-  "youtube_title": "Should you idle a turbo petrol before switching off?",
+  "hook": "Turbo car? Don't switch off yet",
+  "youtube_title": "Turbo vs normal engine: should you idle a turbo petrol before switch off?",
   "thumbnail_text": "Turbo car? | Don't do this",
   "slides": [
     {
@@ -85,17 +85,17 @@
     "In normal city driving there's no need. And never rev the engine just before switching off, or drive hard while it's cold.",
     "Gentle for the first few kilometres, gentle for the last. Any doubts? Comment below or DM me on Instagram."
   ],
-  "caption": "If you drive a turbo petrol (VW and Skoda TSI owners, this is you), this small habit protects the turbo 🔥\n\nAfter a fast highway run or a steep ghat climb, let the engine idle for 30 to 60 seconds before switching off. The oil keeps cooling the turbo's bearings while the engine runs.\n\nNormal city driving? Just switch off as usual. Modern turbos are water-cooled too, so this is only about hard drives.\n\nAvoid: revving before switching off, and driving hard while the engine is still cold.\n\nAny doubts? Comment below or DM me on Instagram 👇",
+  "caption": "Turbo car? Don't switch off yet\n\n• After a fast highway run or a steep ghat climb, let the engine idle for 30 to 60 seconds before switching off. The oil keeps cooling the turbo's bearings while the engine runs.\n• Avoid: revving before switching off, and driving hard while the engine is still cold.\n\nDo you let your turbo cool down? 👇",
   "hashtags": [
     "#TurboPetrol",
-    "#VolkswagenIndia",
-    "#SkodaIndia",
-    "#TSI",
-    "#CarTips"
+    "#Turbo",
+    "#EngineCare",
+    "#CarTips",
+    "#DecodeTheDrive"
   ],
   "youtube_hashtags": [
-    "#Volkswagen",
-    "#Skoda"
+    "#TurboPetrol",
+    "#Turbo"
   ],
   "voiced": true,
   "voice": "en-IN-Chirp3-HD-Charon",
@@ -104,5 +104,34 @@
   "media_files": [
     "media/d5c92364/reel.mp4"
   ],
-  "youtube_at": "2026-11-18T19:30:00+05:30"
+  "youtube_at": "2026-11-28T19:30:00+05:30",
+  "pre_vidiq": {
+    "caption": "If you drive a turbo petrol (VW and Skoda TSI owners, this is you), this small habit protects the turbo 🔥\n\nAfter a fast highway run or a steep ghat climb, let the engine idle for 30 to 60 seconds before switching off. The oil keeps cooling the turbo's bearings while the engine runs.\n\nNormal city driving? Just switch off as usual. Modern turbos are water-cooled too, so this is only about hard drives.\n\nAvoid: revving before switching off, and driving hard while the engine is still cold.\n\nAny doubts? Comment below or DM me on Instagram 👇",
+    "hook": "Turbo petrol owners, don't switch off like this",
+    "youtube_title": "Should you idle a turbo petrol before switching off?",
+    "hashtags": [
+      "#TurboPetrol",
+      "#VolkswagenIndia",
+      "#SkodaIndia",
+      "#TSI",
+      "#CarTips"
+    ],
+    "youtube_hashtags": [
+      "#Volkswagen",
+      "#Skoda"
+    ],
+    "scheduled_for": "2026-11-18T18:00:00+05:30",
+    "youtube_at": "2026-11-18T19:30:00+05:30",
+    "status": "approved"
+  },
+  "instagram_hook": "Turbo car? | Don't switch off yet",
+  "youtube_description": "Turbo vs normal engine: should you idle a turbo petrol before switch off?\n\n• After a fast highway run or a steep ghat climb, let the engine idle for 30 to 60 seconds before switching off. The oil keeps cooling the turbo's bearings while the engine runs.\n• Avoid: revving before switching off, and driving hard while the engine is still cold.\n\nDo you let your turbo cool down? 👇",
+  "youtube_tags": [
+    "turbo vs naturally aspirated engine",
+    "turbo engine vs normal engine",
+    "turbo petrol",
+    "turbo engine pros and cons",
+    "turbo cool down",
+    "turbo petrol tips"
+  ]
 }

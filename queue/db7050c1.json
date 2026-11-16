@@ -2,15 +2,15 @@
   "format": "reel",
   "reel_style": "board",
   "layout": "captions",
-  "status": "draft",
+  "status": "approved",
   "id": "db7050c1",
-  "scheduled_for": "2026-12-01T18:00:00+05:30",
+  "scheduled_for": "2026-11-25T19:30:00+05:30",
   "save_tip": "Use the AC. Just use it smart.",
   "music": "chill",
   "hook_type": "number",
   "title": "How much range does the AC eat in an EV?",
-  "hook": "How much range does AC eat in an EV?",
-  "youtube_title": "How much range does AC use in an electric car?",
+  "hook": "AC on in an EV = range gone?",
+  "youtube_title": "How much EV range does the AC use? Real test",
   "thumbnail_text": "EV range | AC on?",
   "slides": [
     {
@@ -95,17 +95,17 @@
     "Pre-cool the cabin while it's plugged in, switch to recirculation once it's cool, and park in shade.",
     "So use the AC, just use it smartly. Any doubts? Comment below or DM me on Instagram."
   ],
-  "caption": "How much range does the AC take in an EV? ❄️\n\nUsually about 10-20% in Indian heat (approximate, depends on car, temperature and traffic). City crawling feels it most.\n\nGet some back:\n• Pre-cool while plugged in\n• Recirculation once the cabin is cool\n• Park in shade\n• Eco AC mode if your car has it\n\nAny doubts? Comment below or DM me on Instagram 👇",
+  "caption": "AC on in an EV = range gone?\n\n• Pre-cool while plugged in\n• Recirculation once the cabin is cool\n• Park in shade\n\nHow much range do you lose with the AC on? 👇",
   "hashtags": [
-    "#EVIndia",
     "#EVRange",
+    "#EVIndia",
     "#ElectricCars",
     "#EVTips",
-    "#CarTech"
+    "#DecodeTheDrive"
   ],
   "youtube_hashtags": [
-    "#EVIndia",
-    "#EVRange"
+    "#EVRange",
+    "#EVIndia"
   ],
   "voiced": true,
   "voice": "en-IN-Chirp3-HD-Charon",
@@ -113,5 +113,33 @@
   "media_files": [
     "media/db7050c1/reel.mp4"
   ],
-  "youtube_at": "2026-12-01T19:30:00+05:30"
+  "youtube_at": "2026-12-08T19:30:00+05:30",
+  "pre_vidiq": {
+    "caption": "How much range does the AC take in an EV? ❄️\n\nUsually about 10-20% in Indian heat (approximate, depends on car, temperature and traffic). City crawling feels it most.\n\nGet some back:\n• Pre-cool while plugged in\n• Recirculation once the cabin is cool\n• Park in shade\n• Eco AC mode if your car has it\n\nAny doubts? Comment below or DM me on Instagram 👇",
+    "hook": "How much range does AC eat in an EV?",
+    "youtube_title": "How much range does AC use in an electric car?",
+    "hashtags": [
+      "#EVIndia",
+      "#EVRange",
+      "#ElectricCars",
+      "#EVTips",
+      "#CarTech"
+    ],
+    "youtube_hashtags": [
+      "#EVIndia",
+      "#EVRange"
+    ],
+    "scheduled_for": "2026-12-01T18:00:00+05:30",
+    "youtube_at": "2026-12-01T19:30:00+05:30",
+    "status": "draft"
+  },
+  "instagram_hook": "AC on in an EV | = range gone?",
+  "youtube_description": "How much EV range does the AC use? Real test\n\n• Pre-cool while plugged in\n• Recirculation once the cabin is cool\n• Park in shade\n\nHow much range do you lose with the AC on? 👇",
+  "youtube_tags": [
+    "ev range",
+    "real world ev range",
+    "ev ac range",
+    "electric car range",
+    "ev tips india"
+  ]
 }

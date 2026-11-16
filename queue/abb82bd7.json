@@ -13,21 +13,21 @@
     "Using the accelerator as a handbrake? Stop",
     "The one DCT habit that saves your clutch"
   ],
-  "hook": "You're driving your DCT wrong in traffic",
+  "hook": "Automatic in traffic? Stop this",
   "hook_type": "mistake",
   "save_tip": "Never hold your DCT on a slope with the accelerator: use the brake or auto hold.",
-  "youtube_title": "Is DCT safe in city traffic? How to drive a DCT in India",
-  "caption": "A DCT (Volkswagen and Skoda call theirs DSG) is basically two automated clutches. It's quick and efficient, but it doesn't like being half-engaged for long, which is exactly what bad stop-go habits do.\n\nFix three habits and a DCT is perfectly happy in Indian traffic. And if you ever see a gearbox heat warning on the dash, pull over safely and let it cool.\n\nDCT owners, which habit were you guilty of? 👇",
+  "youtube_title": "DCT in city traffic: how to drive a dual clutch (DCT/DSG) in India",
+  "caption": "Automatic in traffic? Stop this\n\n• Don't hold the car on a slope with throttle\n• Don't creep inch by inch: wait, then go once\n• Use the brake firmly or auto hold when stopped\n\nDCT owners, which habit were you guilty of? 👇",
   "hashtags": [
     "#DCT",
-    "#IndianCars",
     "#DSG",
-    "#AutomaticCars",
-    "#CarTech"
+    "#AutomaticCar",
+    "#DrivingTips",
+    "#DecodeTheDrive"
   ],
   "youtube_hashtags": [
     "#DCT",
-    "#CarTips"
+    "#DSG"
   ],
   "slides": [
     {
@@ -114,8 +114,8 @@
   ],
   "music": "phonk",
   "idea_id": "",
-  "scheduled_for": "2026-11-25T18:00:00+05:30",
-  "status": "draft",
+  "scheduled_for": "2026-11-18T19:30:00+05:30",
+  "status": "approved",
   "id": "abb82bd7",
   "voiced": true,
   "voice": "en-IN-Chirp3-HD-Charon",
@@ -126,5 +126,35 @@
   "layout": "captions",
   "media_files": [
     "media/abb82bd7/reel.mp4"
+  ],
+  "pre_vidiq": {
+    "caption": "A DCT (Volkswagen and Skoda call theirs DSG) is basically two automated clutches. It's quick and efficient, but it doesn't like being half-engaged for long, which is exactly what bad stop-go habits do.\n\nFix three habits and a DCT is perfectly happy in Indian traffic. And if you ever see a gearbox heat warning on the dash, pull over safely and let it cool.\n\nDCT owners, which habit were you guilty of? 👇",
+    "hook": "You're driving your DCT wrong in traffic",
+    "youtube_title": "Is DCT safe in city traffic? How to drive a DCT in India",
+    "hashtags": [
+      "#DCT",
+      "#IndianCars",
+      "#DSG",
+      "#AutomaticCars",
+      "#CarTech"
+    ],
+    "youtube_hashtags": [
+      "#DCT",
+      "#CarTips"
+    ],
+    "scheduled_for": "2026-11-25T18:00:00+05:30",
+    "youtube_at": "2026-11-25T19:30:00+05:30",
+    "status": "draft"
+  },
+  "instagram_hook": "Automatic in traffic? | Stop this",
+  "youtube_description": "DCT in city traffic: how to drive a dual clutch (DCT/DSG) in India\n\n• Don't hold the car on a slope with throttle\n• Don't creep inch by inch: wait, then go once\n• Use the brake firmly or auto hold when stopped\n\nDCT owners, which habit were you guilty of? 👇",
+  "youtube_tags": [
+    "dct",
+    "dual clutch transmission",
+    "dsg",
+    "dct gearbox",
+    "dct in traffic",
+    "how to drive automatic car",
+    "automatic car tips"
   ]
 }

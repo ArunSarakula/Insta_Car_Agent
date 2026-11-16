@@ -13,21 +13,21 @@
     "Road trips every month? Read this first",
     "The real question before buying an EV"
   ],
-  "hook": "Hybrid or EV: which suits your driving?",
+  "hook": "Hybrid or EV? Pick right",
   "hook_type": "versus",
   "save_tip": "No home charger? A strong hybrid usually makes more sense than an EV.",
-  "youtube_title": "Hybrid vs electric car: which is better in India?",
-  "caption": "Follow-up to my strong vs mild hybrid reel ⚡⛽\n\nBoth are brilliant in city traffic. The real decider for most Indian buyers is simple: can you charge at home? If yes, an EV's running cost is hard to beat. If not, or you do lots of long highway trips, a strong hybrid is the easier life.\n\nWhich side are you on? Hybrid or EV, comment below 👇",
+  "youtube_title": "Hybrid vs EV: which is better for Indian buyers?",
+  "caption": "Hybrid or EV? Pick right\n\n• Running cost: EV is lowest, hybrid is low\n• Charging: hybrid needs none, EV needs a home charger\n• Highway: hybrid fills anywhere, EV needs planned stops\n\nHybrid or EV: which would you buy? 👇",
   "hashtags": [
     "#HybridVsEV",
-    "#EVIndia",
     "#HybridCars",
+    "#EVIndia",
     "#ElectricCars",
-    "#CarTech"
+    "#DecodeTheDrive"
   ],
   "youtube_hashtags": [
     "#HybridVsEV",
-    "#CarTech"
+    "#HybridCars"
   ],
   "slides": [
     {
@@ -158,17 +158,45 @@
   ],
   "music": "epic",
   "idea_id": "i09",
-  "scheduled_for": "2026-11-29T18:00:00+05:30",
-  "status": "draft",
+  "scheduled_for": "2026-12-06T19:30:00+05:30",
+  "status": "approved",
   "id": "fbf4e28e",
   "voiced": true,
   "voice": "en-IN-Chirp3-HD-Charon",
   "music_track": "the_mountain-trailer-cinematic-593077.mp3",
-  "youtube_at": "2026-11-29T10:30:00+05:30",
+  "youtube_at": "2026-12-09T19:30:00+05:30",
   "thumbnail_text": "Hybrid or EV? | Pick right",
   "old_reel_style": "versus",
   "layout": "captions",
   "media_files": [
     "media/fbf4e28e/reel.mp4"
+  ],
+  "pre_vidiq": {
+    "caption": "Follow-up to my strong vs mild hybrid reel ⚡⛽\n\nBoth are brilliant in city traffic. The real decider for most Indian buyers is simple: can you charge at home? If yes, an EV's running cost is hard to beat. If not, or you do lots of long highway trips, a strong hybrid is the easier life.\n\nWhich side are you on? Hybrid or EV, comment below 👇",
+    "hook": "Hybrid or EV: which suits your driving?",
+    "youtube_title": "Hybrid vs electric car: which is better in India?",
+    "hashtags": [
+      "#HybridVsEV",
+      "#EVIndia",
+      "#HybridCars",
+      "#ElectricCars",
+      "#CarTech"
+    ],
+    "youtube_hashtags": [
+      "#HybridVsEV",
+      "#CarTech"
+    ],
+    "scheduled_for": "2026-11-29T18:00:00+05:30",
+    "youtube_at": "2026-11-29T10:30:00+05:30",
+    "status": "draft"
+  },
+  "instagram_hook": "Hybrid or EV? | Pick right",
+  "youtube_description": "Hybrid vs EV: which is better for Indian buyers?\n\n• Running cost: EV is lowest, hybrid is low\n• Charging: hybrid needs none, EV needs a home charger\n• Highway: hybrid fills anywhere, EV needs planned stops\n\nHybrid or EV: which would you buy? 👇",
+  "youtube_tags": [
+    "hybrid vs ev",
+    "hybrid vs electric car",
+    "hybrid vs ev cars",
+    "hybrid vs ev explained",
+    "hybrid or ev india"
   ]
 }
