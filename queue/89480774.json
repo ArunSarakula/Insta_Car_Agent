@@ -2,7 +2,7 @@
   "format": "reel",
   "reel_style": "board",
   "layout": "captions",
-  "status": "approved",
+  "status": "published",
   "id": "89480774",
   "scheduled_for": "2026-11-17T19:30:00+05:30",
   "save_tip": "Test drive it in traffic",
@@ -151,5 +151,7 @@
     "automatic transmission",
     "which automatic car to buy"
   ],
-  "hologram": true
+  "media_id": "18122613685961205",
+  "published_at": "2026-11-17T19:30:09.146959+05:30",
+  "youtube_id": "kp2Pi30T5eg"
 }
