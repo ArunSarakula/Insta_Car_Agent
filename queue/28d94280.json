@@ -2,7 +2,7 @@
   "format": "reel",
   "reel_style": "board",
   "layout": "captions",
-  "status": "approved",
+  "status": "published",
   "id": "28d94280",
   "scheduled_for": "2026-11-20T19:30:00+05:30",
   "save_tip": "Older car? Check rubber parts at service",
@@ -151,5 +151,7 @@
     "ethanol petrol india",
     "what is e20 petrol"
   ],
-  "youtube_id": "C8EThHdjHzE"
+  "youtube_id": "C8EThHdjHzE",
+  "media_id": "18421225972081610",
+  "published_at": "2026-11-20T23:29:28.951021+05:30"
 }
