@@ -2,7 +2,7 @@
   "format": "reel",
   "reel_style": "board",
   "layout": "captions",
-  "status": "approved",
+  "status": "published",
   "id": "a941b1bd",
   "scheduled_for": "2026-11-21T19:30:00+05:30",
   "save_tip": "Use a factory or approved kit",
@@ -145,5 +145,8 @@
     "cng car mileage",
     "cng myth vs fact",
     "cng vs petrol"
-  ]
+  ],
+  "media_id": "18202372159378367",
+  "published_at": "2026-11-21T20:47:18.749879+05:30",
+  "youtube_id": "eHWxZCoZdOM"
 }
