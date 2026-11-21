@@ -59,6 +59,17 @@ class YouTube:
             raise YouTubeError(f"Upload failed: {done.text}")
         return done.json()["id"]
 
+    def unschedule(self, video_id: str) -> None:
+        """Keeps a scheduled Short private for good (drops its publishAt), so a
+        replacement can go out at that time instead. Nothing is deleted."""
+        resp = self.http.put("https://www.googleapis.com/youtube/v3/videos?part=status", timeout=60,
+                             data=json.dumps({"id": video_id, "status": {
+                                 "privacyStatus": "private", "selfDeclaredMadeForKids": False}}),
+                             headers={"Authorization": f"Bearer {self._token()}",
+                                      "Content-Type": "application/json; charset=UTF-8"})
+        if resp.status_code >= 400:
+            raise YouTubeError(f"Unschedule failed: {resp.text}")
+
     def set_thumbnail(self, video_id: str, image_path: str) -> None:
         """The amber hook cover, shown in search (our biggest source). Needs
         a phone-verified channel; YouTube refuses it otherwise."""

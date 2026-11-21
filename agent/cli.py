@@ -212,6 +212,31 @@ def publish_reel(ig, post: dict, urls: list[str], github_repository: str) -> str
     raise error
 
 
+def reupload_youtube(cfg: Config, tz) -> None:
+    """A remade video for a Short that is already uploaded but not public yet:
+    the old upload stays private (nothing deleted) and the new file goes up
+    for the same YouTube time."""
+    from .youtube import YouTube
+    for post in store.load_posts():
+        if not post.get("youtube_reupload"):
+            continue
+        at = post.get("youtube_at")
+        if not at or datetime.fromisoformat(at) <= datetime.now(tz):
+            print(f"  {post['id']}: YouTube time has passed, the Short is already public; not replaced")
+            store.set_status(post["id"], post["status"], youtube_reupload=False)
+            continue
+        old = post.get("youtube_id")
+        try:
+            if old:
+                YouTube(cfg.yt_client_id, cfg.yt_client_secret, cfg.yt_refresh_token).unschedule(old)
+            store.set_status(post["id"], post["status"], youtube_id=None, youtube_old_id=old, youtube_reupload=False)
+            upload_to_youtube(cfg, store.get_post(post["id"]), status=post["status"])
+            print(f"  {post['id']}: replaced Short {old} with the remade video")
+        except Exception as e:
+            store.set_status(post["id"], post["status"], youtube_reupload=True)  # retried next run
+            print(f"  {post['id']}: YouTube replace failed: {e}")
+
+
 def cmd_publish_due(cfg: Config, args) -> None:
     tz = ZoneInfo(cfg.timezone)
     # GitHub's scheduled runs can be hours late, so a run also picks up posts
@@ -227,6 +252,8 @@ def cmd_publish_due(cfg: Config, args) -> None:
                 time.sleep(wait)
             print(f"YouTube first (Instagram later at {post['scheduled_for'][11:16]}): {post['title']}")
             upload_to_youtube(cfg, post, status="approved")
+    if cfg.yt_refresh_token:
+        reupload_youtube(cfg, tz)
     due = store.due_posts(datetime.now(tz) + timedelta(minutes=lookahead))
     if not due:
         print("Nothing due.")

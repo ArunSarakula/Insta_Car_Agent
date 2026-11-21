@@ -733,3 +733,26 @@ def test_youtube_early_posts(tmp_path):
     assert store.youtube_early_posts(at("10:00"), tmp_path) == []
     assert [p["id"] for p in store.youtube_early_posts(at("10:45"), tmp_path)] == ["sun1"]
     assert store.youtube_early_posts(at("18:05"), tmp_path) == []  # Instagram's turn: normal path
+
+
+def test_reupload_youtube_keeps_old_private_and_uploads_new(tmp_path, monkeypatch):
+    from agent import youtube
+    monkeypatch.setattr(store, "QUEUE_DIR", tmp_path)
+    for f in (store.load_posts, store.get_post, store.save_post, store.set_status):
+        monkeypatch.setattr(f, "__defaults__", (tmp_path,))
+    later = (datetime.now(ZoneInfo("Asia/Kolkata")) + timedelta(days=2)).isoformat()
+    store.save_post({"id": "cng", "format": "reel", "status": "published", "title": "t",
+                     "youtube_at": later, "youtube_id": "OLD", "youtube_reupload": True})
+    store.save_post({"id": "past", "format": "reel", "status": "published", "title": "t",
+                     "youtube_at": "2026-01-01T19:30:00+05:30", "youtube_id": "P", "youtube_reupload": True})
+    calls = []
+    monkeypatch.setattr(youtube.YouTube, "__init__", lambda self, *a: None)
+    monkeypatch.setattr(youtube.YouTube, "unschedule", lambda self, vid: calls.append(("unschedule", vid)))
+    monkeypatch.setattr(cli, "upload_to_youtube",
+                        lambda cfg, post, status: calls.append(("upload", post["id"], post.get("youtube_id"))))
+    cli.reupload_youtube(SimpleNamespace(yt_client_id="a", yt_client_secret="b", yt_refresh_token="c"),
+                         ZoneInfo("Asia/Kolkata"))
+    assert calls == [("unschedule", "OLD"), ("upload", "cng", None)]
+    assert store.get_post("cng")["youtube_old_id"] == "OLD"
+    assert not store.get_post("cng")["youtube_reupload"]
+    assert store.get_post("past")["youtube_id"] == "P"  # already public: left alone
