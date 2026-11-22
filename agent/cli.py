@@ -16,6 +16,7 @@
     python -m agent recaption       queued voiced reels get short captions timed to the voice
     python -m agent voice-samples   save a short sample of every Indian English voice
     python -m agent voice-usage     this month's AI voice characters and cost
+    python -m agent voice-lines     speak media/voice-lines/voice_lines.json to MP3s
 """
 
 import argparse
@@ -470,6 +471,34 @@ def cmd_voice_samples(cfg: Config, args) -> None:
     (folder / "voices.json").write_text(json.dumps(made, indent=2) + "\n")
 
 
+def cmd_voice_lines(cfg: Config, args) -> None:
+    """Speak every line in media/voice-lines/voice_lines.json ({"voice", "reels":
+    {reel: [line, ...]}}) to media/voice-lines/out/<reel>-NN.mp3, plus
+    <reel>-full.mp3 with the lines joined. Audio only, nothing is queued."""
+    import shutil
+    import subprocess
+    from .voice import synthesize
+    if not cfg.tts_api_key:
+        raise KeyError("TTS_API_KEY is not set, so there is no voice to use.")
+    folder = ROOT / "media" / "voice-lines"
+    spec = json.loads((folder / "voice_lines.json").read_text())
+    voice = spec.get("voice") or cfg.voice
+    out = folder / "out"
+    for reel, lines in spec["reels"].items():
+        parts = [synthesize(line, out / f"{reel}-{i:02d}.mp3", cfg.tts_api_key, voice=voice)
+                 for i, line in enumerate(lines, 1)]
+        full = out / f"{reel}-full.mp3"
+        if shutil.which("ffmpeg"):
+            listing = out / f"{reel}-list.txt"
+            listing.write_text("".join(f"file '{p.name}'\n" for p in parts))
+            subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-f", "concat", "-safe", "0",
+                            "-i", str(listing), "-c", "copy", str(full)], check=True)
+            listing.unlink()
+        else:
+            full.write_bytes(b"".join(p.read_bytes() for p in parts))
+        print(f"  {reel}: {len(parts)} lines with {voice}")
+
+
 def cmd_voice_usage(cfg: Config, args) -> None:
     from .voice import USAGE_FILE, usage_summary
     print(usage_summary(USAGE_FILE))
@@ -613,7 +642,7 @@ COMMANDS = {
     "publish-due": cmd_publish_due, "comments": cmd_comments,
     "send-replies": cmd_send_replies, "report": cmd_report, "youtube-check": cmd_youtube_check,
     "x-check": cmd_x_check, "voice-test": cmd_voice_test, "revoice": cmd_revoice, "recaption": cmd_recaption,
-    "voice-samples": cmd_voice_samples, "voice-usage": cmd_voice_usage, "render": cmd_render,
+    "voice-samples": cmd_voice_samples, "voice-usage": cmd_voice_usage, "voice-lines": cmd_voice_lines, "render": cmd_render,
 }
 
 
