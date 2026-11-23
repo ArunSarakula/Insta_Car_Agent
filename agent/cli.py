@@ -230,7 +230,7 @@ def reupload_youtube(cfg: Config, tz) -> None:
         try:
             if old:
                 YouTube(cfg.yt_client_id, cfg.yt_client_secret, cfg.yt_refresh_token).unschedule(old)
-            store.set_status(post["id"], post["status"], youtube_id=None, youtube_old_id=old, youtube_reupload=False)
+            store.set_status(post["id"], post["status"], youtube_id=None, youtube_old_id=old or post.get("youtube_old_id"), youtube_reupload=False)
             upload_to_youtube(cfg, store.get_post(post["id"]), status=post["status"])
             print(f"  {post['id']}: replaced Short {old} with the remade video")
         except Exception as e:
