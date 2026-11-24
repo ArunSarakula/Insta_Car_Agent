@@ -2,7 +2,7 @@
   "format": "reel",
   "reel_style": "board",
   "layout": "duel",
-  "status": "approved",
+  "status": "published",
   "id": "3789e20a",
   "scheduled_for": "2026-11-24T19:30:00+05:30",
   "save_tip": "Same engine, different price",
@@ -161,5 +161,7 @@
     "virtus cost of ownership",
     "slavia ownership cost"
   ],
-  "youtube_id": "y2VEpZseJLk"
+  "youtube_id": "y2VEpZseJLk",
+  "media_id": "18101738246438436",
+  "published_at": "2026-11-24T19:30:00.000176+05:30"
 }
