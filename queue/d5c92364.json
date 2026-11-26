@@ -2,7 +2,7 @@
   "format": "reel",
   "reel_style": "board",
   "layout": "captions",
-  "status": "approved",
+  "status": "published",
   "id": "d5c92364",
   "scheduled_for": "2026-11-26T19:30:00+05:30",
   "save_tip": "Gentle first, gentle last",
@@ -133,5 +133,8 @@
     "turbo engine pros and cons",
     "turbo cool down",
     "turbo petrol tips"
-  ]
+  ],
+  "media_id": "18154169224525038",
+  "published_at": "2026-11-26T19:38:08.976475+05:30",
+  "youtube_id": "b2Kl-jlBitU"
 }
