@@ -2,7 +2,7 @@
   "format": "reel",
   "reel_style": "board",
   "layout": "captions",
-  "status": "approved",
+  "status": "published",
   "id": "a11d2519",
   "scheduled_for": "2026-11-27T19:30:00+05:30",
   "save_tip": "No regular charging spot? Pick hybrid or CNG",
@@ -152,5 +152,8 @@
     "electric car home charging",
     "ev charging india",
     "ev without home charger"
-  ]
+  ],
+  "media_id": "18476261200139190",
+  "published_at": "2026-11-27T19:38:20.056418+05:30",
+  "youtube_id": "BbdkYu-w2oU"
 }
