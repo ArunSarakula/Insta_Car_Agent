@@ -1,52 +1,61 @@
 {
   "voice": "en-IN-Chirp3-HD-Charon",
   "reels": {
-    "21-half-clutch": [
-      "Is your left foot quietly eating your clutch?",
-      "Resting your foot on the pedal, or holding the car on a slope with half clutch, keeps the clutch plate slipping.",
-      "Slipping means friction and heat. The plate and the release bearing wear out much faster.",
-      "And a clutch job costs a lot more than you think.",
-      "The fix: foot off the pedal while driving, handbrake on slopes, and press the clutch fully when you shift.",
-      "Do you rest your foot on the clutch? Be honest, comment below."
+    "27-insurance-4-layers": [
+      "Your car insurance changes from December fifteenth. Here's what to tick.",
+      "Every policy now comes in four sections, and you get an option form to choose them.",
+      "Third party is mandatory. So is personal accident cover for you, the owner driver.",
+      "Own damage, cover for passengers, and accident cover for other occupants are optional.",
+      "For a newer car, don't skip own damage. And check the premium for each section in the schedule.",
+      "Renewing soon? Tell me your doubts in the comments."
     ],
-    "22-engine-oil": [
-      "Your car barely moved this year. Does it still need an oil change?",
-      "Yes. Oil ages by kilometres and by time. Even parked, it oxidises and picks up moisture.",
-      "Follow your owner's manual: change it at the set kilometres or every twelve months, whichever comes first.",
-      "City stop-go traffic is severe use, so change it on the earlier side.",
-      "And check the dipstick once a month.",
-      "When did you last change yours? Comment below."
+    "28-fastag-local-pass": [
+      "Live near a toll plaza? There's a new FASTag pass for you.",
+      "If you live within twenty kilometres of a highway toll plaza, you can buy a local annual pass for that one plaza.",
+      "It's fifteen hundred rupees a year if the plaza is outside city limits, and three thousand if it's inside.",
+      "That beats paying three hundred and sixty rupees every month, if you cross that plaza through the year.",
+      "It works only at that one plaza. For long trips, the national annual pass is a different product.",
+      "Do you cross a toll every day? Comment below."
     ],
-    "23-alignment-vs-balancing": [
-      "Steering vibrates at eighty? It's probably not alignment.",
-      "Balancing fixes uneven weight on the wheel. The sign is vibration in the steering or seat at speed.",
-      "Alignment fixes the wheel angles. The signs are the car pulling to one side, an off-centre steering wheel, or a tyre worn on one edge.",
-      "Get both checked after a big pothole hit, with new tyres, or every five to ten thousand kilometres.",
-      "Save this for your next service."
+    "29-december-or-january": [
+      "Buying a car? December or January?",
+      "December has the biggest year-end discounts, and dealers want to clear old stock.",
+      "But a December build is a year older on paper, and that can lower your resale value later.",
+      "Check the manufacturing date before you pay. It's on the VIN plate and in the documents.",
+      "Keeping the car for many years? Take the December discount. Selling in two or three years? A January build is safer.",
+      "Which month would you buy in? Comment below."
     ],
-    "24-brake-pads": [
-      "Your brakes warn you before they fail. Are you listening?",
-      "A high-pitched squeal when you brake is the wear indicator touching the disc.",
-      "Grinding means the pad is finished and metal is hitting metal. Now the disc gets damaged too.",
-      "Longer stopping distance, or a soft pedal, is another warning.",
-      "So is a brake warning light, or the car pulling to one side when you brake.",
-      "Any of these? Get it checked this week."
+    "30-fog-driving": [
+      "Driving in fog? Most people use the wrong lights.",
+      "High beam makes it worse. The light bounces back off the fog and blinds you.",
+      "Use low beam, and fog lamps if your car has them.",
+      "Don't drive with hazard lights on. Others can't tell if you're moving or stopped. Use them only when you've stopped.",
+      "Slow down, keep a big gap, and follow the left edge line, not the tail lights in front.",
+      "Save this for your next foggy morning."
     ],
-    "25-level2-adas": [
-      "Your car has ADAS. So can it drive itself? No.",
-      "Level two means the car helps with steering and speed together: adaptive cruise plus lane keep assist.",
-      "But your hands stay on the wheel and your eyes stay on the road, always.",
-      "Faded lane lines, bikes cutting in and busy Indian traffic can confuse it.",
-      "Use it as a helper on highways, not as a driver.",
-      "Does your car have level two? Comment below."
+    "31-cold-mornings": [
+      "Winter mornings are hard on your car. Here's why.",
+      "Cold slows the chemistry inside your battery, so it has less power just when the engine needs more to start.",
+      "Tyre pressure drops in the cold too, so check it in the morning before you drive.",
+      "And engine oil is thicker when cold. Start the car, then drive gently for the first few minutes.",
+      "No need for long idling. Gentle driving warms it up faster.",
+      "Does your car struggle on winter mornings? Comment below."
     ],
-    "26-sunroof": [
-      "Everyone wants a sunroof. Should you pay for one?",
-      "The good part: the cabin feels airy and the car looks premium.",
-      "The catch: Indian summers can heat up the cabin, it adds cost and weight, and the drain channels need cleaning to avoid leaks.",
-      "And never stand out of the sunroof while driving. It's dangerous, and you can be fined.",
-      "Worth it only if you'll really use it on cool evenings and highway drives.",
-      "Sunroof, yes or no? Comment below."
+    "32-unpaid-challan": [
+      "Ignoring that traffic challan? It can come back to bite you.",
+      "Under Delhi's new traffic rules, you get forty-five days to pay or contest a challan.",
+      "Ignore it, and the offence is treated as accepted.",
+      "Pending challans can then block services like licence renewal and RC transfer.",
+      "Check your challans online with your vehicle number, and pay or contest them in time.",
+      "Got a challan you think is wrong? Comment below."
+    ],
+    "33-heater-vs-ac": [
+      "In winter, does the heater cost you mileage?",
+      "Almost not. The heater uses hot coolant from the engine, so it's heat your engine already makes.",
+      "The fan uses a little power, but there's no compressor running.",
+      "The AC button is different. It runs the compressor, and that uses fuel.",
+      "So for warmth, use the heater with the AC off. Turn the AC on only to clear a foggy windscreen.",
+      "Heater or AC, which do you use? Comment below."
     ]
   }
 }
